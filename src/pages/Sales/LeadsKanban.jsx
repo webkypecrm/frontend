@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Select from "react-select";
-// import "bootstrap-daterangepicker/daterangepicker.css";
+import "bootstrap-daterangepicker/daterangepicker.css";
 import {
     countryoptions1,
     languageOptions,

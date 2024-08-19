@@ -67,6 +67,42 @@ const Sidebar = ({ setExpandMenu }) => {
                                     }
 
                                 </li>
+                                <li className="submenu">
+                                    <Link to="#"
+                                        className={openMenus['application'] ? "subdrop active" : "subdrop"}
+                                        onClick={() => {
+                                            handleMenu('application')
+                                        }}
+                                    >
+                                        <i className="ti ti-layout-2"></i><span>Application</span><span className="menu-arrow"></span>
+                                    </Link>
+                                    {openMenus["application"] &&
+                                        <ul>
+                                            <li><Link to={route.chat}>Chat</Link></li>
+                                            <li className="submenu submenu-two subdrop">
+                                                <Link to="#"
+                                                    className={openMenus['applicationCalls'] ? "subdrop active" : "subdrop"}
+                                                    onClick={() => {
+                                                        handleMenu('applicationCalls')
+                                                    }} >
+                                                    Call
+                                                    <span className="menu-arrow inside-submenu"></span></Link>
+                                                {openMenus['applicationCalls'] &&
+                                                    <ul>
+                                                        <li><Link to={route.videoCall}>Video Call</Link></li>
+                                                        <li><Link to={route.audioCall}>Audio Call</Link></li>
+                                                        <li><Link to={route.callHistory}>Call History</Link></li>
+                                                    </ul>
+                                                }
+                                            </li>
+                                            <li><Link to={route.calendar} >Calender</Link></li>
+                                            <li><Link to={route.email}>Email</Link></li>
+                                            <li><Link to={route.todo} >To Do</Link></li>
+                                            <li><Link to={route.notes}>Notes</Link></li>
+                                            <li><Link to={route.fileManager} >File Manager</Link></li>
+                                        </ul>
+                                    }
+                                </li>
 
                                 <li className="submenu">
                                     <Link to="#"
@@ -241,9 +277,9 @@ const Sidebar = ({ setExpandMenu }) => {
                                         </i><span>MARKETING</span>
                                         <span className="menu-arrow"></span></Link>
                                     <ul>
-                                        <li><Link to="campaigns">Campaigns</Link></li>
-                                        <li><Link to="emails">Emails</Link></li>
-                                        <li><Link to="deals">Deals</Link></li>
+                                        <li><Link to={route.campaign}>Campaigns</Link></li>
+                                        <li><Link to={route.email}>Emails</Link></li>
+                                        <li><Link to={route.deals}>Deals</Link></li>
                                     </ul>
                                 </li>
                                 <li className="submenu">

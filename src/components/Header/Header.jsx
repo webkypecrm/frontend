@@ -405,15 +405,15 @@ const Header = ({ setMiniSidebar, setExpandMenu }) => {
                     </a>
                     <div className="dropdown-menu menu-drop-user">
                         <div className="profilename">
-                            <a className="dropdown-item" href="index.html">
+                            <Link className="dropdown-item" to={route.salesDashboard}>
                                 <i className="ti ti-layout-2"></i> Dashboard
-                            </a>
-                            <a className="dropdown-item" href="profile.html">
+                            </Link>
+                            <Link className="dropdown-item" to={route.profile}>
                                 <i className="ti ti-user-pin"></i> My Profile
-                            </a>
-                            <a className="dropdown-item" href="login.html">
+                            </Link>
+                            <Link className="dropdown-item" to={route.login}>
                                 <i className="ti ti-lock"></i> Logout
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </li>

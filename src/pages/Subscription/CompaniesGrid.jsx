@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { all_routes } from "../Router/all_routes";
 import ImageWithBasePath from "../../components/ImageWithBasePath";
-// import DateRangePicker from "react-bootstrap-daterangepicker";
+import DateRangePicker from "react-bootstrap-daterangepicker";
 import {
     duration,
     initialSettings,
@@ -235,12 +235,12 @@ const CompaniesGrid = () => {
                                                         <span className="form-icon">
                                                             <i className="ti ti-calendar" />
                                                         </span>
-                                                        {/* <DateRangePicker initialSettings={initialSettings}>
-                              <input
-                                className="form-control bookingrange"
-                                type="text"
-                              />
-                            </DateRangePicker> */}
+                                                        <DateRangePicker initialSettings={initialSettings}>
+                                                            <input
+                                                                className="form-control bookingrange"
+                                                                type="text"
+                                                            />
+                                                        </DateRangePicker>
                                                     </div>
                                                 </li>
                                             </ul>

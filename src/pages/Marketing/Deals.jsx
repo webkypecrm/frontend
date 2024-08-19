@@ -1,292 +1,62 @@
 import React, { useState } from "react";
-
-import { Link } from "react-router-dom";
-import ImageWithBasePath from "../../components/ImageWithBasePath";
 import DateRangePicker from "react-bootstrap-daterangepicker";
+import { Link } from "react-router-dom";
 import { all_routes } from "../Router/all_routes";
+// import FilterModal from "../../../core/modals/filter_modal";
+import { dealsData } from "../../data/dealsData";
+// import Table from "../../../core/common/dataTable/index";
+// import { DealsInterface } from "../../../core/data/interface";
+// import DealsModal from "../../../core/modals/deals_modal";
 // import { useDispatch, useSelector } from "react-redux";
 // import {
-//     setActivityTogglePopup,
-//     setActivityTogglePopupTwo,
-//     setAddTogglePopupTwo,
+//   setActivityTogglePopup,
+//   setActivityTogglePopupTwo,
+//   setAddTogglePopupTwo,
 // } from "../../../core/data/redux/commonSlice";
 import Select from "react-select";
-import {
-    duration,
-    optionssymbol,
-    priorityList,
-    project,
-    salestypelist,
-    socialMedia,
-    status,
-    tagInputValues,
-} from "../../selectOption/selectOption";
 import DatePicker from "react-datepicker";
-import DefaultEditor from "react-simple-wysiwyg";
+import ImageWithBasePath from "../../components/ImageWithBasePath";
+import { TagsInput } from "react-tag-input-component";
+import {
+    project,
+    socialMedia,
+} from "../../selectOption/selectOption";
 // import CollapseHeader from "../../../core/common/collapse-header";
-import DataTable from "../../components/Table/DataTable";
 // import { SelectWithImage2 } from "../../../core/common/selectWithImage2";
-import { companiesData } from "../../data/companiesData";
+import DataTable from "../../components/Table/DataTable"
 
-const Companies = () => {
-const [activityToggle , setActivityToggle] = useState(false)
-const [activityToggleTwo , setActivityToggleTwo ] = useState(false)
-const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
-    // const addTogglePopupTwo = useSelector(
-    //     (state) => state?.addTogglePopupTwo
-    // );
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-    };
-    const [selectedDate1, setSelectedDate1] = useState(new Date());
-    const handleDateChange1 = (date) => {
-        setSelectedDate1(date);
-    };
 
-    const dealsopen = [
-        { value: "choose", label: "Choose" },
-        { value: "collins", label: "Collins" },
-        { value: "konopelski", label: "Konopelski" },
-        { value: "adams", label: "Adams" },
-        { value: "schumm", label: "Schumm" },
-        { value: "wisozk", label: "Wisozk" },
+const Deals = () => {
+    const [owner, setOwner] = useState(["Collab"]);
+    const [activityToggle, setActivityToggle] = useState(false);
+    const [activityToggleTwo, setActivityToggleTwo] = useState(false);
+    const [addTogglePopupTwo, setAddTogglePopupTwo] = useState(false);
+
+    const sourcelist = [
+        { value: "select", label: "Select" },
+        { value: "google", label: "Google" },
+        { value: "social-media", label: "Social Media" },
     ];
-    const activities = [
-        { value: "choose", label: "Choose" },
-        { value: "phoneCalls", label: "Phone Calls" },
-        { value: "socialMedia", label: "Social Media" },
-        { value: "referralSites", label: "Referral Sites" },
-        { value: "webAnalytics", label: "Web Analytics" },
-        { value: "previousPurchases", label: "Previous Purchases" },
-    ];
-    const industries = [
-        { value: "choose", label: "Choose" },
-        { value: "Retail Industry", label: "Retail Industry" },
-        { value: "Banking", label: "Banking" },
-        { value: "Hotels", label: "Hotels" },
-        { value: "Financial Services", label: "Financial Services" },
-        { value: "Insurance", label: "Insurance" },
-    ];
-    const languages = [
-        { value: "Choose", label: "Choose" },
-        { value: "English", label: "English" },
-        { value: "Arabic", label: "Arabic" },
-        { value: "Chinese", label: "Chinese" },
-        { value: "Hindi", label: "Hindi" },
-    ];
-    const countries = [
-        { value: "Choose", label: "Choose" },
-        { value: "India", label: "India" },
-        { value: "USA", label: "USA" },
-        { value: "France", label: "France" },
-        { value: "UAE", label: "UAE" },
+    const priority = [
+        { value: "select", label: "Select" },
+        { value: "Highy", label: "Highy" },
+        { value: "Low", label: "Low" },
+        { value: "Medium", label: "Medium" },
     ];
 
     // const dispatch = useDispatch();
-
     // const activityToggle = useSelector(
     //     (state) => state?.activityTogglePopup
+    // );
+    // const addTogglePopupTwo = useSelector(
+    //     (state) => state?.addTogglePopupTwo
     // );
     // const activityToggleTwo = useSelector(
     //     (state) => state?.activityTogglePopupTwo
     // );
 
-    const data = companiesData;
+    const data = dealsData;
     const route = all_routes;
-    const [stars, setStars] = useState({});
-
-
-    const initializeStarsState = () => {
-        const starsState = {};
-        companiesData.forEach((item, index) => {
-            starsState[index] = false;
-        });
-        setStars(starsState);
-    };
-
-    // Call initializeStarsState once when the component mounts
-    React.useEffect(() => {
-        initializeStarsState();
-    }, []);
-
-    const handleStarToggle = (index) => {
-        setStars((prevStars) => ({
-            ...prevStars,
-            [index]: !prevStars[index],
-        }));
-    };
-    const columns = [
-        {
-            title: "",
-            dataIndex: "",
-            render: (text, record, index) => (
-                <div
-                    className={`set-star rating-select ${stars[index] ? "filled" : ""}`}
-                    onClick={() => handleStarToggle(index)}
-                >
-                    <i className="fa fa-star"></i>
-                </div>
-            ),
-        },
-
-        {
-            title: "Name",
-            dataIndex: "name",
-            render: (text, record) => (
-                <div className="table-avatar d-flex align-items-center table-padding">
-                    <Link to={route.companyDetails} className="company-img">
-                        <ImageWithBasePath src={record.image} alt="UserImage" />
-                    </Link>
-                    <Link to={route.companyDetails} className="profile-split">
-                        {record.name}
-                    </Link>
-                </div>
-            ),
-            sorter: (a, b) => a.name.length - b.name.length,
-        },
-        {
-            title: "Phone",
-            dataIndex: "phone",
-            sorter: (a, b) => a.phone.length - b.phone.length,
-        },
-
-        {
-            title: "Email",
-            dataIndex: "email",
-            sorter: (a, b) => a.email.length - b.email.length,
-        },
-
-        {
-            title: "Tags",
-            dataIndex: "tags",
-            render: (text, record) => (
-                <span
-                    className={
-                        text === "Promotion"
-                            ? "badge badge-tag badge-purple-light"
-                            : "badge badge-tag badge-warning-light"
-                    }
-                >
-                    {text}
-                </span>
-            ),
-
-            sorter: (a, b) => a.tags.length - b.tags.length,
-        },
-        {
-            title: "Location",
-            dataIndex: "location",
-            sorter: (a, b) => a.location.length - b.location.length,
-        },
-        {
-            title: "Rating",
-            dataIndex: "rating",
-            render: (text, record) => (
-                <div className="set-star">
-                    <i className="fa fa-star filled me-2" />
-                    {text}
-                </div>
-            ),
-            sorter: (a, b) => a.rating.length - b.rating.length,
-        },
-        {
-            title: "Owner",
-            dataIndex: "owner",
-            sorter: (a, b) => a.owner.length - b.owner.length,
-        },
-
-        {
-            title: "Contact",
-            dataIndex: "Contact",
-            render: () => (
-                <ul className="social-links d-flex align-items-center">
-                    <li>
-                        <Link to="#">
-                            <i className="ti ti-mail" />
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="#">
-                            <i className="ti ti-phone-check" />
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="#">
-                            <i className="ti ti-message-circle-share" />
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="#">
-                            <i className="ti ti-brand-skype" />
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="#">
-                            <i className="ti ti-brand-facebook " />
-                        </Link>
-                    </li>
-                </ul>
-            ),
-
-            sorter: (a, b) => a.owner.length - b.owner.length,
-        },
-        {
-            title: "Status",
-            dataIndex: "status",
-            render: (text, record) => (
-                <div>
-                    {text === "Active" && (
-                        <span className="badge badge-pill badge-status bg-success">
-                            {text}
-                        </span>
-                    )}
-                    {text === "Inactive" && (
-                        <span className="badge badge-pill badge-status bg-danger">
-                            {text}
-                        </span>
-                    )}
-                </div>
-            ),
-            sorter: (a, b) => a.status.length - b.owner.length,
-        },
-
-        {
-            title: "Action",
-            render: () => (
-                <div className="dropdown table-action">
-                    <Link
-                        to="#"
-                        className="action-icon "
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                    >
-                        <i className="fa fa-ellipsis-v" />
-                    </Link>
-                    <div className="dropdown-menu dropdown-menu-right">
-                        <Link
-                            className="dropdown-item"
-                            to="#"
-                            // onClick={() =>
-                            //     dispatch(setActivityTogglePopupTwo(!activityToggleTwo))
-                            // }
-                        >
-                            <i className="ti ti-edit text-blue" /> Edit
-                        </Link>
-                        <Link
-                            className="dropdown-item"
-                            to="#"
-                            data-bs-toggle="modal"
-                            data-bs-target="#delete_contact"
-                        >
-                            <i className="ti ti-trash text-danger" /> Delete
-                        </Link>
-                    </div>
-                </div>
-            ),
-        },
-    ];
-
     const initialSettings = {
         endDate: new Date("2020-08-11T12:30:00.000Z"),
         ranges: {
@@ -318,9 +88,223 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
         startDate: new Date("2020-08-04T04:57:17.076Z"), // Set "Last 7 Days" as default
         timePicker: false,
     };
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+    };
+    const [selectedDate1, setSelectedDate1] = useState(new Date());
+    const handleDateChange1 = (date) => {
+        setSelectedDate1(date);
+    };
+    const [selectedDate2, setSelectedDate2] = useState(new Date());
+    const handleDateChange2 = (date) => {
+        setSelectedDate2(date);
+    };
+
+    const [stars, setStars] = useState({});
+
+    const initializeStarsState = () => {
+        const starsState = {};
+        dealsData.forEach((item, index) => {
+            starsState[index] = false;
+        });
+        setStars(starsState);
+    };
+
+    // Call initializeStarsState once when the component mounts
+    React.useEffect(() => {
+        initializeStarsState();
+    }, []);
+    const handleStarToggle = (index) => {
+        setStars((prevStars) => ({
+            ...prevStars,
+            [index]: !prevStars[index],
+        }));
+    };
+    const columns = [
+        {
+            title: "",
+            dataIndex: "",
+            render: (text, record, index) => (
+                <div
+                    className={`set-star rating-select ${stars[index] ? "filled" : ""}`}
+                    onClick={() => handleStarToggle(index)}
+                >
+                    <i className="fa fa-star"></i>
+                </div>
+            ),
+        },
+        {
+            title: "Deal Name",
+            dataIndex: "dealName",
+            render: (text) => (
+                <div>
+                    <div><Link to={route.dealsDetails} className="title-name">{text}</Link></div>
+                </div>
+            ),
+            // sorter: (a: DealsInterface, b: DealsInterface) =>
+            //     a.dealName.length - b.dealName.length,
+        },
+        {
+            title: "Stage",
+            dataIndex: "stage",
+            // sorter: (a: DealsInterface, b: DealsInterface) =>
+            //     a.stage.length - b.stage.length,
+        },
+        {
+            title: "Deal Value",
+            dataIndex: "dealValue",
+            // sorter: (a: DealsInterface, b: DealsInterface) =>
+            //     a.dealValue.length - b.dealValue.length,
+        },
+        {
+            title: "Tags",
+            dataIndex: "tag1",
+            render: (text) => (
+                <div>
+                    {text === "Collab" && (
+                        <span className="badge badge-tag badge-success-light">{text}</span>
+                    )}
+                    {text === "Rated" && (
+                        <span className="badge badge-tag badge-warning-light">{text}</span>
+                    )}
+                    {text === "Rejected" && (
+                        <span className="badge badge-tag badge-danger-light">{text}</span>
+                    )}
+                    {text === "Promotion" && (
+                        <span className="badge badge-tag badge-purple-light">{text}</span>
+                    )}
+                </div>
+            ),
+            // sorter: (a: DealsInterface, b: DealsInterface) =>
+            //     a.tag1.length - b.tag1.length,
+        },
+        {
+            title: " Expected Close Date",
+            dataIndex: "closeDate",
+            // sorter: (a: DealsInterface, b: DealsInterface) =>
+            //     a.closeDate.length - b.closeDate.length,
+        },
+        {
+            title: "Owner",
+            dataIndex: "owner",
+            // sorter: (a: DealsInterface, b: DealsInterface) =>
+            //     a.owner.length - b.owner.length,
+        },
+        {
+            title: "Probability",
+            dataIndex: "probability",
+            // sorter: (a: DealsInterface, b: DealsInterface) =>
+            //     a.probability.length - b.probability.length,
+        },
+        {
+            title: "Status",
+            dataIndex: "status",
+            render: (text) => (
+                <div>
+                    {text === "Won" && (
+                        <span className="badge badge-pill badge-status bg-success">
+                            {text}
+                        </span>
+                    )}
+                    {text === "Lost" && (
+                        <span className="badge badge-pill badge-status bg-danger">
+                            {text}
+                        </span>
+                    )}
+                    {text === "Open" && (
+                        <span className="badge badge-pill badge-status bg-purple">
+                            {text}
+                        </span>
+                    )}
+                    {text === "Promotion" && (
+                        <span className="badge badge-tag badge-purple-light">{text}</span>
+                    )}
+                </div>
+            ),
+            // sorter: (a: DealsInterface, b: DealsInterface) =>
+            //     a.status.length - b.status.length,
+        },
+        {
+            title: "Actions",
+            dataIndex: "actions",
+            render: () => (
+                <div className="dropdown table-action">
+                    <Link
+                        to="#"
+                        className="action-icon"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="true"
+                    >
+                        <i className="fa fa-ellipsis-v"></i>
+                    </Link>
+                    <div
+                        className="dropdown-menu dropdown-menu-right"
+                        style={{
+                            position: "absolute",
+                            inset: "0px auto auto 0px",
+                            margin: "0px",
+                            transform: "translate3d(-99.3333px, 35.3333px, 0px)",
+                        }}
+                        data-popper-placement="bottom-start"
+                    >
+                        <Link className="dropdown-item" to="#">
+                            <i className="ti ti-bounce-right text-info"></i>Add Activity
+                        </Link>
+                        <Link
+                            className="dropdown-item edit-popup"
+                            to="#"
+                            onClick={() =>
+                                setActivityToggle(!activityToggleTwo)
+                            }
+                        >
+                            <i className="ti ti-edit text-blue"></i> Edit
+                        </Link>
+                        <Link
+                            className="dropdown-item"
+                            to="#"
+                            data-bs-toggle="modal"
+                            data-bs-target="#delete_deal"
+                        >
+                            <i className="ti ti-trash text-danger"></i> Delete
+                        </Link>
+                        <Link className="dropdown-item" to={route.dealsDashboard}>
+                            <i className="ti ti-eye text-blue-light"></i> Preview
+                        </Link>
+                    </div>
+                </div>
+            ),
+        },
+    ];
+    const pipelineOption = [
+        { value: "choose", label: "Choose" },
+        { value: "sales", label: "Sales" },
+        { value: "marketing", label: "Marketing" },
+        { value: "calls", label: "Calls" },
+    ];
+    const status = [
+        { value: "choose", label: "Choose" },
+        { value: "Open", label: "Open" },
+        { value: "Lost", label: "Lost" },
+        { value: "Won", label: "Won" },
+    ];
+    const currency = [
+        { value: "Select", label: "Select" },
+        { value: "$", label: "$" },
+        { value: "€", label: "€" },
+    ];
+
+    const duration = [
+        { value: "Choose", label: "Choose" },
+        { value: "Days", label: "Days" },
+        { value: "Month", label: "Month" },
+    ];
+
+
 
     return (
         <>
+            {/* Page Wrapper */}
             <div className="page-wrapper">
                 <div className="content">
                     <div className="row">
@@ -330,7 +314,7 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                 <div className="row align-items-center">
                                     <div className="col-8">
                                         <h4 className="page-title">
-                                            Companies<span className="count-title">123</span>
+                                            Deals<span className="count-title">123</span>
                                         </h4>
                                     </div>
                                     <div className="col-4 text-end">
@@ -354,7 +338,7 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                                     <input
                                                         type="text"
                                                         className="form-control"
-                                                        placeholder="Search Companies"
+                                                        placeholder="Search Deals"
                                                     />
                                                 </div>
                                             </div>
@@ -382,7 +366,7 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                                                         <li>
                                                                             <Link to="#">
                                                                                 <i className="ti ti-file-type-xls text-green" />
-                                                                                Export as Excel
+                                                                                Export as Excel{" "}
                                                                             </Link>
                                                                         </li>
                                                                     </ul>
@@ -394,13 +378,13 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                                                 to="#"
                                                                 className="btn btn-primary add-popup"
                                                                 onClick={() =>
-                                                                    
-                                                                        setActivityToggle(!activityToggle)
-                                                                    
+
+                                                                    setActivityToggle(!activityToggle)
+
                                                                 }
                                                             >
                                                                 <i className="ti ti-square-rounded-plus" />
-                                                                Add Company
+                                                                Add Deals
                                                             </Link>
                                                         </li>
                                                     </ul>
@@ -421,7 +405,7 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                                             data-bs-toggle="dropdown"
                                                         >
                                                             <i className="ti ti-sort-ascending-2" />
-                                                            Sort
+                                                            Sort{" "}
                                                         </Link>
                                                         <div className="dropdown-menu  dropdown-menu-start">
                                                             <ul>
@@ -460,7 +444,7 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                                         </span>
                                                         <DateRangePicker initialSettings={initialSettings}>
                                                             <input
-                                                                className="form-control bookingrange"
+                                                                className="form-control  date-range bookingrange"
                                                                 type="text"
                                                             />
                                                         </DateRangePicker>
@@ -491,7 +475,7 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                                                 <li>
                                                                     <p>
                                                                         <i className="ti ti-grip-vertical" />
-                                                                        Name
+                                                                        Deal Name
                                                                     </p>
                                                                     <div className="status-toggle">
                                                                         <input
@@ -508,7 +492,7 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                                                 <li>
                                                                     <p>
                                                                         <i className="ti ti-grip-vertical" />
-                                                                        Phone
+                                                                        Stage
                                                                     </p>
                                                                     <div className="status-toggle">
                                                                         <input
@@ -525,7 +509,7 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                                                 <li>
                                                                     <p>
                                                                         <i className="ti ti-grip-vertical" />
-                                                                        Email
+                                                                        Deal Value
                                                                     </p>
                                                                     <div className="status-toggle">
                                                                         <input
@@ -559,7 +543,7 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                                                 <li>
                                                                     <p>
                                                                         <i className="ti ti-grip-vertical" />
-                                                                        Location
+                                                                        Expected Closed Date
                                                                     </p>
                                                                     <div className="status-toggle">
                                                                         <input
@@ -610,14 +594,14 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                                                 <li>
                                                                     <p>
                                                                         <i className="ti ti-grip-vertical" />
-                                                                        Contact
+                                                                        Probability
                                                                     </p>
                                                                     <div className="status-toggle">
                                                                         <input
                                                                             type="checkbox"
                                                                             id="col-contact"
                                                                             className="check"
-                                                                            defaultChecked
+                                                                            defaultChecked={true}
                                                                         />
                                                                         <label
                                                                             htmlFor="col-contact"
@@ -680,6 +664,7 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                                                         <i className="ti ti-filter-share" />
                                                                         Filter
                                                                     </h4>
+
                                                                 </div>
 
                                                                 <div
@@ -1164,10 +1149,10 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                                 </li>
                                                 <li>
                                                     <div className="view-icons">
-                                                        <Link to={route.companies} className="active">
+                                                        <Link to={route.deals} className="active">
                                                             <i className="ti ti-list-tree" />
                                                         </Link>
-                                                        <Link to={route.companiesGrid}>
+                                                        <Link to={route.dealsKanban}>
                                                             <i className="ti ti-grid-dots" />
                                                         </Link>
                                                     </div>
@@ -1178,7 +1163,7 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                     {/* /Filter */}
                                     {/* Contact List */}
                                     <div className="table-responsive custom-table">
-                                        <DataTable columns={columns} dataSource={data} />
+                                        <DataTable dataSource={data} columns={columns} />
                                     </div>
                                     <div className="row align-items-center">
                                         <div className="col-md-6">
@@ -1194,50 +1179,10 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                         </div>
                     </div>
                 </div>
+                {/* <FilterModal /> */}
             </div>
-            <div
-                className="modal custom-modal fade"
-                id="delete_contact"
-                role="dialog"
-            >
-                <div className="modal-dialog modal-dialog-centered">
-                    <div className="modal-content">
-                        <div className="modal-header border-0 m-0 justify-content-end">
-                            <button
-                                className="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                            >
-                                <i className="ti ti-x" />
-                            </button>
-                        </div>
-                        <div className="modal-body">
-                            <div className="success-message text-center">
-                                <div className="success-popup-icon">
-                                    <i className="ti ti-trash-x" />
-                                </div>
-                                <h3>Remove Companies?</h3>
-                                <p className="del-info">
-                                    Company ”NovaWaveLLC” from your Account.
-                                </p>
-                                <div className="col-lg-12 text-center modal-btn">
-                                    <Link
-                                        to="#"
-                                        className="btn btn-light"
-                                        data-bs-dismiss="modal"
-                                    >
-                                        Cancel
-                                    </Link>
-                                    <Link to={route.companies} className="btn btn-danger">
-                                        Yes, Delete it
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {/* Add Company */}
+            {/* /Page Wrapper */}
+            {/* Add New Deals */}
             <div
                 className={
                     activityToggle ? "toggle-popup sidebar-popup" : "toggle-popup"
@@ -1245,1108 +1190,12 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
             >
                 <div className="sidebar-layout">
                     <div className="sidebar-header">
-                        <h4>Add New Company</h4>
+                        <h4>Add New Deals</h4>
+
                         <Link
                             to="#"
                             className="sidebar-close toggle-btn"
                             onClick={() => setActivityToggle(!activityToggle)}
-                        >
-                            <i className="ti ti-x" />
-                        </Link>
-                    </div>
-                    <div className="toggle-body">
-                        <form action="#" className="toggle-height">
-                            <div className="pro-create">
-                                <div className="accordion-lists" id="list-accord">
-                                    {/* Basic Info */}
-                                    <div className="user-accordion-item">
-                                        <Link
-                                            to="#"
-                                            className="accordion-wrap"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#basic"
-                                        >
-                                            <span>
-                                                <i className="ti ti-user-plus" />
-                                            </span>
-                                            Basic Info
-                                        </Link>
-                                        <div
-                                            className="accordion-collapse collapse show"
-                                            id="basic"
-                                            data-bs-parent="#list-accord"
-                                        >
-                                            <div className="content-collapse">
-                                                <div className="row">
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap">
-                                                            <div className="profile-upload">
-                                                                <div className="profile-upload-img">
-                                                                    <span>
-                                                                        <i className="ti ti-photo" />
-                                                                    </span>
-                                                                    <ImageWithBasePath
-                                                                        src="assets/img/icons/company-icon-03.svg"
-                                                                        className="preview1"
-                                                                        alt="img"
-                                                                    />
-                                                                    <button
-                                                                        type="button"
-                                                                        className="profile-remove"
-                                                                    >
-                                                                        <i className="ti ti-x" />
-                                                                    </button>
-                                                                </div>
-                                                                <div className="profile-upload-content">
-                                                                    <label className="profile-upload-btn">
-                                                                        <i className="ti ti-file-broken" /> Upload
-                                                                        File
-                                                                        <input type="file" className="input-img" />
-                                                                    </label>
-                                                                    <p>JPG, GIF or PNG. Max size of 800K</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Company Name
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap">
-                                                            <div className="d-flex justify-content-between align-items-center">
-                                                                <label className="col-form-label">
-                                                                    Email <span className="text-danger">*</span>
-                                                                </label>
-                                                                <div className="status-toggle small-toggle-btn d-flex align-items-center">
-                                                                    <span className="me-2 label-text">
-                                                                        Email Opt Out
-                                                                    </span>
-                                                                    <input
-                                                                        type="checkbox"
-                                                                        id="user"
-                                                                        className="check"
-                                                                        defaultChecked={true}
-                                                                    />
-                                                                    <label
-                                                                        htmlFor="user"
-                                                                        className="checktoggle"
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Phone 1 <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Phone 2</label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Fax <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Website <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Ratings</label>
-                                                            <div className="icon-form-end">
-                                                                <span className="form-icon">
-                                                                    <i className="ti ti-star" />
-                                                                </span>
-                                                                <input
-                                                                    type="text"
-                                                                    className="form-control"
-                                                                    placeholder="4.2"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Owner</label>
-                                                            {/* <SelectWithImage2 /> */}
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Tags </label>
-                                                            <input
-                                                                className="input-tags form-control"
-                                                                type="text"
-                                                                data-role="tagsinput"
-                                                                name="Label"
-                                                                defaultValue="Collab"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <div className="d-flex align-items-center justify-content-between">
-                                                                <label className="col-form-label">Deals</label>
-                                                                <Link
-                                                                    to="#"
-                                                                    className="label-add add-popups"
-                                                                    onClick={() =>
-                                                                        dispatch(
-                                                                            setAddTogglePopupTwo(!addTogglePopupTwo)
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    <i className="ti ti-square-rounded-plus" />
-                                                                    Add New
-                                                                </Link>
-                                                            </div>
-                                                            <Select
-                                                                className="select2"
-                                                                options={dealsopen}
-                                                                placeholder="Choose"
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Source <span className="text-danger">*</span>
-                                                            </label>
-
-                                                            <Select
-                                                                className="select2"
-                                                                options={activities}
-                                                                placeholder="Choose"
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Industry <span className="text-danger">*</span>
-                                                            </label>
-                                                            <Select
-                                                                className="select"
-                                                                options={industries}
-                                                                placeholder="Choose"
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Contact <span className="text-danger">*</span>
-                                                            </label>
-                                                            {/* <SelectWithImage2 /> */}
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Currency <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Language <span className="text-danger">*</span>
-                                                            </label>
-                                                            <Select
-                                                                className="select"
-                                                                options={languages}
-                                                                placeholder="Choose"
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap mb-0">
-                                                            <label className="col-form-label">
-                                                                Description{" "}
-                                                                <span className="text-danger">*</span>
-                                                            </label>
-                                                            <textarea
-                                                                className="form-control"
-                                                                rows={5}
-                                                                defaultValue={""}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* /Basic Info */}
-                                    {/* Address Info */}
-                                    <div className="user-accordion-item">
-                                        <Link
-                                            to="#"
-                                            className="accordion-wrap collapsed"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#address"
-                                        >
-                                            <span>
-                                                <i className="ti ti-map-pin-cog" />
-                                            </span>
-                                            Address Info
-                                        </Link>
-                                        <div
-                                            className="accordion-collapse collapse"
-                                            id="address"
-                                            data-bs-parent="#list-accord"
-                                        >
-                                            <div className="content-collapse">
-                                                <div className="row">
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Street Address
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">City </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                State / Province
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap mb-wrap">
-                                                            <label className="col-form-label">Country</label>
-                                                            <Select
-                                                                className="select"
-                                                                options={countries}
-                                                                placeholder="USA"
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap mb-wrap">
-                                                            <label className="col-form-label">Zipcode </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* /Address Info */}
-                                    {/* Social Profile */}
-                                    <div className="user-accordion-item">
-                                        <Link
-                                            to="#"
-                                            className="accordion-wrap collapsed"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#social"
-                                        >
-                                            <span>
-                                                <i className="ti ti-social" />
-                                            </span>
-                                            Social Profile
-                                        </Link>
-                                        <div
-                                            className="accordion-collapse collapse"
-                                            id="social"
-                                            data-bs-parent="#list-accord"
-                                        >
-                                            <div className="content-collapse">
-                                                <div className="row">
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Facebook</label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Skype </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Linkedin{" "}
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Twitter</label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap mb-wrap">
-                                                            <label className="col-form-label">Whatsapp</label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap mb-wrap">
-                                                            <label className="col-form-label">
-                                                                Instagram
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* /Social Profile */}
-                                    {/* Access */}
-                                    <div className="user-accordion-item">
-                                        <Link
-                                            to="#"
-                                            className="accordion-wrap collapsed"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#access"
-                                        >
-                                            <span>
-                                                <i className="ti ti-accessible" />
-                                            </span>
-                                            Access
-                                        </Link>
-                                        <div
-                                            className="accordion-collapse collapse"
-                                            id="access"
-                                            data-bs-parent="#list-accord"
-                                        >
-                                            <div className="content-collapse">
-                                                <div className="row">
-                                                    <div className="col-md-12">
-                                                        <div className="radio-wrap form-wrap">
-                                                            <label className="col-form-label">
-                                                                Visibility
-                                                            </label>
-                                                            <div className="d-flex flex-wrap">
-                                                                <div className="radio-btn">
-                                                                    <input
-                                                                        type="radio"
-                                                                        className="status-radio"
-                                                                        id="public"
-                                                                        name="visible"
-                                                                    />
-                                                                    <label htmlFor="public">Public</label>
-                                                                </div>
-                                                                <div className="radio-btn">
-                                                                    <input
-                                                                        type="radio"
-                                                                        className="status-radio"
-                                                                        id="private"
-                                                                        name="visible"
-                                                                    />
-                                                                    <label htmlFor="private">Private</label>
-                                                                </div>
-                                                                <div
-                                                                    className="radio-btn"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#access_view"
-                                                                >
-                                                                    <input
-                                                                        type="radio"
-                                                                        className="status-radio"
-                                                                        id="people"
-                                                                        name="visible"
-                                                                    />
-                                                                    <label htmlFor="people">Select People</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="radio-wrap">
-                                                            <label className="col-form-label">Status</label>
-                                                            <div className="d-flex flex-wrap">
-                                                                <div className="radio-btn">
-                                                                    <input
-                                                                        type="radio"
-                                                                        className="status-radio"
-                                                                        id="active"
-                                                                        name="status"
-                                                                        defaultChecked={true}
-                                                                    />
-                                                                    <label htmlFor="active">Active</label>
-                                                                </div>
-                                                                <div className="radio-btn">
-                                                                    <input
-                                                                        type="radio"
-                                                                        className="status-radio"
-                                                                        id="inactive"
-                                                                        name="status"
-                                                                    />
-                                                                    <label htmlFor="inactive">Inactive</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* /Access */}
-                                </div>
-                            </div>
-                            <div className="submit-button text-end">
-                                <Link to="#" className="btn btn-light sidebar-close">
-                                    Cancel
-                                </Link>
-                                <Link to="#" className="btn btn-primary">
-                                    Create
-                                </Link>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            {/* /Add Company */}
-            {/* Edit Company */}
-            <div
-                className={
-                    activityToggleTwo ? "toggle-popup1 sidebar-popup" : "toggle-popup1"
-                }
-            >
-                <div className="sidebar-layout">
-                    <div className="sidebar-header">
-                        <h4>Edit Company</h4>
-                        <Link
-                            to="#"
-                            className="sidebar-close1 toggle-btn"
-                            // onClick={() =>
-                            //     dispatch(setActivityTogglePopupTwo(!activityToggleTwo))
-                            // }
-                        >
-                            <i className="ti ti-x" />
-                        </Link>
-                    </div>
-                    <div className="toggle-body">
-                        <form action="#" className="toggle-height">
-                            <div className="pro-create">
-                                <div className="accordion-lists" id="list-accords">
-                                    {/* Basic Info */}
-                                    <div className="user-accordion-item">
-                                        <Link
-                                            to="#"
-                                            className="accordion-wrap"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#edit-basic"
-                                        >
-                                            <span>
-                                                <i className="ti ti-user-plus" />
-                                            </span>
-                                            Basic Info
-                                        </Link>
-                                        <div
-                                            className="accordion-collapse collapse show"
-                                            id="edit-basic"
-                                            data-bs-parent="#list-accords"
-                                        >
-                                            <div className="content-collapse">
-                                                <div className="row">
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap">
-                                                            <div className="profile-upload">
-                                                                <div className="profile-upload-img">
-                                                                    <span>
-                                                                        <i className="ti ti-photo" />
-                                                                    </span>
-                                                                    <ImageWithBasePath
-                                                                        src="assets/img/icons/company-icon-03.svg"
-                                                                        className="preview1"
-                                                                        alt="img"
-                                                                    />
-                                                                    <button
-                                                                        type="button"
-                                                                        className="profile-remove"
-                                                                    >
-                                                                        <i className="ti ti-x" />
-                                                                    </button>
-                                                                </div>
-                                                                <div className="profile-upload-content">
-                                                                    <label className="profile-upload-btn">
-                                                                        <i className="ti ti-file-broken" /> Upload
-                                                                        File
-                                                                        <input type="file" className="input-img" />
-                                                                    </label>
-                                                                    <p>JPG, GIF or PNG. Max size of 800K</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Company Name
-                                                            </label>
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                defaultValue="NovaWave LLC"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap">
-                                                            <div className="d-flex justify-content-between align-items-center">
-                                                                <label className="col-form-label">
-                                                                    Email <span className="text-danger">*</span>
-                                                                </label>
-                                                                <div className="status-toggle small-toggle-btn d-flex align-items-center">
-                                                                    <span className="me-2 label-text">
-                                                                        Email Opt Out
-                                                                    </span>
-                                                                    <input
-                                                                        type="checkbox"
-                                                                        id="user2"
-                                                                        className="check"
-                                                                        defaultChecked={true}
-                                                                    />
-                                                                    <label
-                                                                        htmlFor="user2"
-                                                                        className="checktoggle"
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                defaultValue="robertson@example.com"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Phone 1 <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                defaultValue={1234567890}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Phone 2</label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Fax <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Website <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Ratings </label>
-                                                            <div className="icon-form-end">
-                                                                <span className="form-icon">
-                                                                    <i className="ti ti-star" />
-                                                                </span>
-                                                                <input
-                                                                    type="text"
-                                                                    className="form-control"
-                                                                    placeholder="4.2"
-                                                                    defaultValue="4.2"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Owner</label>
-                                                            {/* <SelectWithImage2 /> */}
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Tags </label>
-                                                            <input
-                                                                className="input-tags form-control"
-                                                                type="text"
-                                                                data-role="tagsinput"
-                                                                name="Label"
-                                                                defaultValue="Collab"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <div className="d-flex align-items-center justify-content-between">
-                                                                <label className="col-form-label">Deals</label>
-                                                                <Link
-                                                                    to="#"
-                                                                    className="label-add add-popups"
-                                                                    onClick={() =>
-                                                                        dispatch(
-                                                                            setAddTogglePopupTwo(!addTogglePopupTwo)
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    <i className="ti ti-square-rounded-plus" />
-                                                                    Add New
-                                                                </Link>
-                                                            </div>
-                                                            <Select
-                                                                className="select2"
-                                                                options={dealsopen}
-                                                                placeholder="Choose"
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                            {/* <select className="select2">
-                            <option>Choose</option>
-                            <option >Collins</option>
-                            <option>Konopelski</option>
-                            <option>Adams</option>
-                            <option>Schumm</option>
-                            <option>Wisozk</option>
-                          </select> */}
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Source <span className="text-danger">*</span>
-                                                            </label>
-
-                                                            <Select
-                                                                className="select2"
-                                                                options={activities}
-                                                                placeholder="Choose"
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Industry <span className="text-danger">*</span>
-                                                            </label>
-                                                            {/* <select className="select">
-                            <option>Choose</option>
-                            <option>Retail Industry</option>
-                            <option >Banking</option>
-                            <option>Hotels</option>
-                            <option>Financial Services</option>
-                            <option>Insurance</option>
-                          </select> */}
-                                                            <Select
-                                                                className="select"
-                                                                options={industries}
-                                                                placeholder="Banking"
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Contact <span className="text-danger">*</span>
-                                                            </label>
-                                                            {/* <SelectWithImage2 /> */}
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Currency <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Language <span className="text-danger">*</span>
-                                                            </label>
-                                                            <Select
-                                                                className="select"
-                                                                options={languages}
-                                                                placeholder="English"
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap mb-0">
-                                                            <label className="col-form-label">
-                                                                Description{" "}
-                                                                <span className="text-danger">*</span>
-                                                            </label>
-                                                            <textarea
-                                                                className="form-control"
-                                                                rows={5}
-                                                                defaultValue={""}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* /Basic Info */}
-                                    {/* Address Info */}
-                                    <div className="user-accordion-item">
-                                        <Link
-                                            to="#"
-                                            className="accordion-wrap collapsed"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#edit-address"
-                                        >
-                                            <span>
-                                                <i className="ti ti-map-pin-cog" />
-                                            </span>
-                                            Address Info
-                                        </Link>
-                                        <div
-                                            className="accordion-collapse collapse"
-                                            id="edit-address"
-                                            data-bs-parent="#list-accords"
-                                        >
-                                            <div className="content-collapse">
-                                                <div className="row">
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Street Address
-                                                            </label>
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                defaultValue="22, Ave Street"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">City </label>
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                defaultValue="Denver"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                State / Province
-                                                            </label>
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                defaultValue="Colorado"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap mb-wrap">
-                                                            <label className="col-form-label">Country</label>
-                                                            <Select
-                                                                className="select"
-                                                                options={countries}
-                                                                placeholder="USA"
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap mb-0">
-                                                            <label className="col-form-label">Zipcode </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* /Address Info */}
-                                    {/* Social Profile */}
-                                    <div className="user-accordion-item">
-                                        <Link
-                                            to="#"
-                                            className="accordion-wrap collapsed"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#edit-social"
-                                        >
-                                            <span>
-                                                <i className="ti ti-social" />
-                                            </span>
-                                            Social Profile
-                                        </Link>
-                                        <div
-                                            className="accordion-collapse collapse"
-                                            id="edit-social"
-                                            data-bs-parent="#list-accords"
-                                        >
-                                            <div className="content-collapse">
-                                                <div className="row">
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Facebook</label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Skype </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Linkedin{" "}
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Twitter</label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap mb-wrap">
-                                                            <label className="col-form-label">Whatsapp</label>
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                defaultValue={1234567890}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap mb-0">
-                                                            <label className="col-form-label">
-                                                                Instagram
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* /Social Profile */}
-                                    {/* Access */}
-                                    <div className="user-accordion-item">
-                                        <Link
-                                            to="#"
-                                            className="accordion-wrap collapsed"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#edit-access"
-                                        >
-                                            <span>
-                                                <i className="ti ti-accessible" />
-                                            </span>
-                                            Access
-                                        </Link>
-                                        <div
-                                            className="accordion-collapse collapse"
-                                            id="edit-access"
-                                            data-bs-parent="#list-accords"
-                                        >
-                                            <div className="content-collapse">
-                                                <div className="row">
-                                                    <div className="col-md-12">
-                                                        <div className="radio-wrap form-wrap">
-                                                            <label className="col-form-label">
-                                                                Visibility
-                                                            </label>
-                                                            <div className="d-flex flex-wrap">
-                                                                <div className="radio-btn">
-                                                                    <input
-                                                                        type="radio"
-                                                                        className="status-radio"
-                                                                        id="edit-public"
-                                                                        name="visible"
-                                                                    />
-                                                                    <label htmlFor="edit-public">Public</label>
-                                                                </div>
-                                                                <div className="radio-btn">
-                                                                    <input
-                                                                        type="radio"
-                                                                        className="status-radio"
-                                                                        id="edit-private"
-                                                                        name="visible"
-                                                                    />
-                                                                    <label htmlFor="edit-private">Private</label>
-                                                                </div>
-                                                                <div
-                                                                    className="radio-btn"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#access_view"
-                                                                >
-                                                                    <input
-                                                                        type="radio"
-                                                                        className="status-radio"
-                                                                        id="edit-people"
-                                                                        name="visible"
-                                                                    />
-                                                                    <label htmlFor="edit-people">
-                                                                        Select People
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="radio-wrap">
-                                                            <label className="col-form-label">Status</label>
-                                                            <div className="d-flex flex-wrap">
-                                                                <div className="radio-btn">
-                                                                    <input
-                                                                        type="radio"
-                                                                        className="status-radio"
-                                                                        id="edit-active"
-                                                                        name="status"
-                                                                        defaultChecked={true}
-                                                                    />
-                                                                    <label htmlFor="edit-active">Active</label>
-                                                                </div>
-                                                                <div className="radio-btn">
-                                                                    <input
-                                                                        type="radio"
-                                                                        className="status-radio"
-                                                                        id="edit-inactive"
-                                                                        name="status"
-                                                                    />
-                                                                    <label htmlFor="edit-inactive">
-                                                                        Inactive
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* /Access */}
-                                </div>
-                            </div>
-                            <div className="submit-button text-end">
-                                <Link to="#" className="btn btn-light sidebar-close1">
-                                    Cancel
-                                </Link>
-                                <Link to="#" className="btn btn-primary">
-                                    Create
-                                </Link>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            {/* /Edit Company */}
-            {/* Delete Company */}
-            <div
-                className="modal custom-modal fade"
-                id="delete_contact"
-                role="dialog"
-            >
-                <div className="modal-dialog modal-dialog-centered">
-                    <div className="modal-content">
-                        <div className="modal-header border-0 m-0 justify-content-end">
-                            <button
-                                className="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                            >
-                                <i className="ti ti-x" />
-                            </button>
-                        </div>
-                        <div className="modal-body">
-                            <div className="success-message text-center">
-                                <div className="success-popup-icon">
-                                    <i className="ti ti-trash-x" />
-                                </div>
-                                <h3>Remove Companies?</h3>
-                                <p className="del-info">
-                                    Company ”NovaWaveLLC” from your Account.
-                                </p>
-                                <div className="col-lg-12 text-center modal-btn">
-                                    <Link
-                                        to="#"
-                                        className="btn btn-light"
-                                        data-bs-dismiss="modal"
-                                    >
-                                        Cancel
-                                    </Link>
-                                    <Link
-                                        to={route.companies}
-                                        className="btn btn-danger"
-                                        data-bs-dismiss="modal"
-                                    >
-                                        Yes, Delete it
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {/* /Delete Company */}
-            {/* Add New Deals */}
-            <div
-                className={
-                    addTogglePopupTwo ? "toggle-popup2 sidebar-popup" : "toggle-popup2"
-                }
-            >
-                <div className="sidebar-layout">
-                    <div className="sidebar-header">
-                        <h4>Add New Deals</h4>
-                        <Link
-                            to="#"
-                            className="sidebar-close2 toggle-btn"
-                            onClick={() => dispatch(setAddTogglePopupTwo(!addTogglePopupTwo))}
                         >
                             <i className="ti ti-x" />
                         </Link>
@@ -2369,11 +1218,21 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                                 <label className="col-form-label">
                                                     Pipeine <span className="text-danger">*</span>
                                                 </label>
+                                                <Link
+                                                    to="#"
+                                                    className="label-add add-popups"
+                                                    onClick={() =>
+                                                        dispatch(setAddTogglePopupTwo(!addTogglePopupTwo))
+                                                    }
+                                                >
+                                                    <i className="ti ti-square-rounded-plus" />
+                                                    Add New
+                                                </Link>
                                             </div>
+
                                             <Select
+                                                options={pipelineOption}
                                                 className="select2"
-                                                options={salestypelist}
-                                                placeholder="Choose"
                                                 classNamePrefix="react-select"
                                             />
                                         </div>
@@ -2383,10 +1242,10 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                             <label className="col-form-label">
                                                 Status <span className="text-danger">*</span>
                                             </label>
+
                                             <Select
-                                                className="select2"
                                                 options={status}
-                                                placeholder="Choose"
+                                                className="select2"
                                                 classNamePrefix="react-select"
                                             />
                                         </div>
@@ -2404,10 +1263,10 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                             <label className="col-form-label">
                                                 Currency <span className="text-danger">*</span>
                                             </label>
+
                                             <Select
-                                                className="select2"
-                                                options={optionssymbol}
-                                                placeholder="Choose"
+                                                options={currency}
+                                                className="select"
                                                 classNamePrefix="react-select"
                                             />
                                         </div>
@@ -2417,12 +1276,7 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                             <label className="col-form-label">
                                                 Period <span className="text-danger">*</span>
                                             </label>
-                                            <Select
-                                                className="select2"
-                                                options={duration}
-                                                placeholder="Choose"
-                                                classNamePrefix="react-select"
-                                            />
+                                            <input className="form-control" type="text" />
                                         </div>
                                     </div>
                                     <div className="col-lg-3 col-md-6">
@@ -2430,7 +1284,12 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                             <label className="col-form-label">
                                                 Period Value <span className="text-danger">*</span>
                                             </label>
-                                            <input className="form-control" type="text" />
+
+                                            <Select
+                                                options={duration}
+                                                className="select"
+                                                classNamePrefix="react-select"
+                                            />
                                         </div>
                                     </div>
                                     <div className="col-md-12">
@@ -2438,19 +1297,40 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                             <label className="col-form-label">
                                                 Contact <span className="text-danger">*</span>
                                             </label>
+
                                             {/* <SelectWithImage2 /> */}
+
+                                            {/* <select className="multiple-img" multiple="multiple">
+                    <option
+                      data-image="assets/img/profiles/avatar-19.jpg"
+                      
+                    >
+                      Darlee Robertson
+                    </option>
+                    <option data-image="assets/img/profiles/avatar-20.jpg">
+                      Sharon Roy
+                    </option>
+                    <option data-image="assets/img/profiles/avatar-21.jpg">
+                      Vaughan
+                    </option>
+                    <option data-image="assets/img/profiles/avatar-23.jpg">
+                      Jessica
+                    </option>
+                    <option data-image="assets/img/profiles/avatar-16.jpg">
+                      Carol Thomas
+                    </option>
+                  </select> */}
                                         </div>
                                         <div className="form-wrap">
                                             <label className="col-form-label">
                                                 Project <span className="text-danger">*</span>
                                             </label>
-                                            <Select
-                                                className="select2"
-                                                options={project}
-                                                defaultValue={tagInputValues}
-                                                isMulti
-                                                classNamePrefix="react-select"
-                                            />
+                                            {/* <select className="select" multiple="multiple">
+                    <option >Devops Design</option>
+                    <option >MargrateDesign</option>
+                    <option >UI for Chat</option>
+                    <option>Web Chat</option>
+                  </select> */}
                                         </div>
                                     </div>
                                     <div className="col-md-6">
@@ -2462,6 +1342,7 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                                 <span className="form-icon">
                                                     <i className="ti ti-calendar-check" />
                                                 </span>
+
                                                 <DatePicker
                                                     className="form-control datetimepicker deals-details"
                                                     selected={selectedDate}
@@ -2481,7 +1362,6 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                                 <span className="form-icon">
                                                     <i className="ti ti-calendar-check" />
                                                 </span>
-
                                                 <DatePicker
                                                     className="form-control datetimepicker deals-details"
                                                     selected={selectedDate1}
@@ -2496,7 +1376,649 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                             <label className="col-form-label">
                                                 Assignee <span className="text-danger">*</span>
                                             </label>
-                                            {/* <SelectWithImage2 /> */}
+                                            {/* <select className="multiple-img" multiple="multiple">
+                    <option data-image="assets/img/profiles/avatar-19.jpg">
+                      Darlee Robertson
+                    </option>
+                    <option
+                      data-image="assets/img/profiles/avatar-20.jpg"
+                    //   
+                    >
+                      Sharon Roy
+                    </option>
+                    <option data-image="assets/img/profiles/avatar-21.jpg">
+                      Vaughan
+                    </option>
+                    <option data-image="assets/img/profiles/avatar-23.jpg">
+                      Jessica
+                    </option>
+                    <option data-image="assets/img/profiles/avatar-16.jpg">
+                      Carol Thomas
+                    </option>
+                  </select> */}
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Follow Up Date <span className="text-danger">*</span>
+                                            </label>
+                                            <div className="icon-form">
+                                                <span className="form-icon">
+                                                    <i className="ti ti-calendar-check" />
+                                                </span>
+
+                                                <DatePicker
+                                                    className="form-control datetimepicker deals-details"
+                                                    selected={selectedDate2}
+                                                    onChange={handleDateChange2}
+                                                    dateFormat="dd-MM-yyyy"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Source <span className="text-danger">*</span>
+                                            </label>
+
+                                            <Select
+                                                options={sourcelist}
+                                                className="select"
+                                                placeholder="Select"
+                                                classNamePrefix="react-select"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Tags <span className="text-danger">*</span>
+                                            </label>
+
+                                            <TagsInput
+                                                // className="input-tags form-control"
+                                                value={owner}
+                                                onChange={setOwner}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Priority <span className="text-danger">*</span>
+                                            </label>
+
+                                            <Select
+                                                options={priority}
+                                                className="select"
+                                                classNamePrefix="react-select"
+                                                placeholder="Select"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-lg-12">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Description <span className="text-danger">*</span>
+                                            </label>
+                                            <div className="summernote" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="submit-button text-end">
+                                    <Link to="#" className="btn btn-light sidebar-close">
+                                        Cancel
+                                    </Link>
+                                    <Link
+                                        to="#"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#create_contact"
+                                        className="btn btn-primary"
+                                    >
+                                        Create
+                                    </Link>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {/* <DealsModal /> */}
+            </div>
+            {/* /Add New Deals */}
+            {/* Add New Pipeline */}
+            <div
+                className={
+                    addTogglePopupTwo ? "toggle-popup2 sidebar-popup" : "toggle-popup2"
+                }
+            >
+                <div className="sidebar-layout">
+                    <div className="sidebar-header">
+                        <h4>Add New Pipeline</h4>
+                        <Link
+                            to="#"
+                            className="sidebar-close2 toggle-btn"
+                            onClick={() => dispatch(setAddTogglePopupTwo(!addTogglePopupTwo))}
+                        >
+                            <i className="ti ti-x" />
+                        </Link>
+                    </div>
+                    <div className="toggle-body">
+                        <form className="toggle-height">
+                            <div className="pro-create">
+                                <div className="form-wrap">
+                                    <label className="col-form-label">
+                                        Pipeline Name <span className="text-danger">*</span>
+                                    </label>
+                                    <input className="form-control" type="text" />
+                                </div>
+                                <div className="form-wrap">
+                                    <div className="pipe-title d-flex align-items-center justify-content-between">
+                                        <h5 className="form-title">Pipeline Stages</h5>
+                                        <Link
+                                            to="#"
+                                            className="add-stage"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#add_stage"
+                                            onClick={() =>
+                                                dispatch(setAddTogglePopupTwo(!addTogglePopupTwo))
+                                            }
+                                        >
+                                            <i className="ti ti-square-rounded-plus" />
+                                            Add New
+                                        </Link>
+                                    </div>
+                                    <div className="pipeline-listing">
+                                        <div className="pipeline-item">
+                                            <p>
+                                                <i className="ti ti-grip-vertical" /> Inpipeline
+                                            </p>
+                                            <div className="action-pipeline">
+                                                <Link
+                                                    to="#"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#edit_stage"
+                                                >
+                                                    <i className="ti ti-edit text-blue" />
+                                                    Edit
+                                                </Link>
+                                                <Link
+                                                    to="#"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#delete_stage"
+                                                >
+                                                    <i className="ti ti-trash text-danger" />
+                                                    Delete
+                                                </Link>
+                                            </div>
+                                        </div>
+                                        <div className="pipeline-item">
+                                            <p>
+                                                <i className="ti ti-grip-vertical" /> Follow Up
+                                            </p>
+                                            <div className="action-pipeline">
+                                                <Link
+                                                    to="#"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#edit_stage"
+                                                >
+                                                    <i className="ti ti-edit text-blue" />
+                                                    Edit
+                                                </Link>
+                                                <Link
+                                                    to="#"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#delete_stage"
+                                                >
+                                                    <i className="ti ti-trash text-danger" />
+                                                    Delete
+                                                </Link>
+                                            </div>
+                                        </div>
+                                        <div className="pipeline-item">
+                                            <p>
+                                                <i className="ti ti-grip-vertical" /> Schedule Service
+                                            </p>
+                                            <div className="action-pipeline">
+                                                <Link
+                                                    to="#"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#edit_stage"
+                                                >
+                                                    <i className="ti ti-edit text-blue" />
+                                                    Edit
+                                                </Link>
+                                                <Link
+                                                    to="#"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#delete_stage"
+                                                >
+                                                    <i className="ti ti-trash text-danger" />
+                                                    Delete
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="form-wrap">
+                                    <h5 className="form-title">Access</h5>
+                                    <div className="d-flex flex-wrap access-item nav">
+                                        <div
+                                            className="radio-btn"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#all"
+                                        >
+                                            <input
+                                                type="radio"
+                                                className="status-radio"
+                                                id="all"
+                                                name="status"
+                                                defaultChecked={true}
+                                            />
+                                            <label htmlFor="all">All</label>
+                                        </div>
+                                        <div
+                                            className="radio-btn"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#select-person"
+                                        >
+                                            <input
+                                                type="radio"
+                                                className="status-radio"
+                                                id="select"
+                                                name="status"
+                                            />
+                                            <label htmlFor="select">Select Person</label>
+                                        </div>
+                                    </div>
+                                    <div className="tab-content">
+                                        <div className="tab-pane fade" id="select-person">
+                                            <div className="access-wrapper">
+                                                <div className="access-view">
+                                                    <div className="access-img">
+                                                        <ImageWithBasePath
+                                                            src="assets/img/profiles/avatar-21.jpg"
+                                                            alt="Image"
+                                                        />
+                                                        Vaughan
+                                                    </div>
+                                                    <Link to="#">Remove</Link>
+                                                </div>
+                                                <div className="access-view">
+                                                    <div className="access-img">
+                                                        <ImageWithBasePath
+                                                            src="assets/img/profiles/avatar-01.jpg"
+                                                            alt="Image"
+                                                        />
+                                                        Jessica
+                                                    </div>
+                                                    <Link to="#">Remove</Link>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="submit-button text-end">
+                                <Link to="#" className="btn btn-light sidebar-close2">
+                                    Cancel
+                                </Link>
+                                <button type="submit" className="btn btn-primary">
+                                    Create
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {/* /Add New Pipeline */}
+            {/* Delete Stage */}
+            <div className="modal custom-modal fade" id="delete_stage" role="dialog">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header border-0 m-0 justify-content-end">
+                            <button
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <i className="ti ti-x" />
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            <div className="success-message text-center">
+                                <div className="success-popup-icon">
+                                    <i className="ti ti-trash-x" />
+                                </div>
+                                <h3>Remove Stage?</h3>
+                                <p className="del-info">Are you sure you want to remove it.</p>
+                                <div className="col-lg-12 text-center modal-btn">
+                                    <Link
+                                        to="#"
+                                        className="btn btn-light"
+                                        data-bs-dismiss="modal"
+                                    >
+                                        Cancel
+                                    </Link>
+                                    <Link
+                                        to="#"
+                                        className="btn btn-danger"
+                                        data-bs-dismiss="modal"
+                                    >
+                                        Yes, Delete it
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/* /Delete Stage */}
+            {/* Add New Stage */}
+            <div className="modal custom-modal fade" id="add_stage" role="dialog">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">Add New Stage</h5>
+                            <button
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <i className="ti ti-x" />
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            <form>
+                                <div className="form-wrap">
+                                    <label className="col-form-label">Stage Name *</label>
+                                    <input type="text" className="form-control" />
+                                </div>
+                                <div className="modal-btn text-end">
+                                    <Link
+                                        to="#"
+                                        className="btn btn-light"
+                                        data-bs-dismiss="modal"
+                                    >
+                                        Cancel
+                                    </Link>
+                                    <Link
+                                        to="#"
+                                        className="btn btn-danger"
+                                        data-bs-dismiss="modal"
+                                    >
+                                        Save Changes
+                                    </Link>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/* /Add New Stage */}
+            {/* Edit Stage */}
+            <div className="modal custom-modal fade" id="edit_stage" role="dialog">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">Edit Stage</h5>
+                            <button
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <i className="ti ti-x" />
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            <form>
+                                <div className="form-wrap">
+                                    <label className="col-form-label">Stage Name *</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        defaultValue="Inpipeline"
+                                    />
+                                </div>
+                                <div className="modal-btn text-end">
+                                    <Link
+                                        to="#"
+                                        className="btn btn-light"
+                                        data-bs-dismiss="modal"
+                                    >
+                                        Cancel
+                                    </Link>
+                                    <Link
+                                        to="#"
+                                        className="btn btn-danger"
+                                        data-bs-dismiss="modal"
+                                    >
+                                        Save Changes
+                                    </Link>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/* /Edit Stage */}
+            {/* Edit Deals */}
+            <div
+                className={
+                    activityToggleTwo ? "toggle-popup1 sidebar-popup" : "toggle-popup1"
+                }
+            >
+                <div className="sidebar-layout">
+                    <div className="sidebar-header">
+                        <h4>Edit Deals</h4>
+                        <Link
+                            to="#"
+                            className="sidebar-close1 toggle-btn"
+                            onClick={() =>
+                                setActivityToggle(!activityToggle)
+                            }
+                        >
+                            <i className="ti ti-x" />
+                        </Link>
+                    </div>
+                    <div className="toggle-body">
+                        <div className="pro-create">
+                            <form>
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Deal Name <span className="text-danger">*</span>
+                                            </label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                defaultValue="Collins"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-wrap">
+                                            <div className="d-flex align-items-center justify-content-between">
+                                                <label className="col-form-label">
+                                                    Pipeine <span className="text-danger">*</span>
+                                                </label>
+                                                <Link
+                                                    to="#"
+                                                    className="label-add add-popups"
+                                                    onClick={() =>
+                                                        dispatch(setAddTogglePopupTwo(!addTogglePopupTwo))
+                                                    }
+                                                >
+                                                    <i className="ti ti-square-rounded-plus" />
+                                                    Add New
+                                                </Link>
+                                            </div>
+
+                                            <Select
+                                                options={pipelineOption}
+                                                className="select"
+                                                placeholder="Sales"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Status <span className="text-danger">*</span>
+                                            </label>
+
+                                            <Select
+                                                options={status}
+                                                className="select"
+                                                placeholder="Open"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-lg-3 col-md-6">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Deal Value<span className="text-danger"> *</span>
+                                            </label>
+                                            <input
+                                                className="form-control"
+                                                type="text"
+                                                defaultValue="$04,51,000"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-lg-3 col-md-6">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Currency <span className="text-danger">*</span>
+                                            </label>
+                                            <Select
+                                                options={currency}
+                                                className="select"
+                                                placeholder="$"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-lg-3 col-md-6">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Period <span className="text-danger">*</span>
+                                            </label>
+
+                                            <Select
+                                                options={duration}
+                                                className="select"
+                                                placeholder="Select"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-lg-3 col-md-6">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Period Value <span className="text-danger">*</span>
+                                            </label>
+                                            <input className="form-control" type="text" />
+                                        </div>
+                                    </div>
+                                    <div className="col-md-12">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Contact <span className="text-danger">*</span>
+                                            </label>
+                                            {/* <select className="multiple-img" multiple="multiple">
+                    <option
+                      data-image="assets/img/profiles/avatar-19.jpg"
+                      
+                    >
+                      Darlee Robertson
+                    </option>
+                    <option data-image="assets/img/profiles/avatar-20.jpg">
+                      Sharon Roy
+                    </option>
+                    <option data-image="assets/img/profiles/avatar-21.jpg">
+                      Vaughan
+                    </option>
+                    <option data-image="assets/img/profiles/avatar-23.jpg">
+                      Jessica
+                    </option>
+                    <option data-image="assets/img/profiles/avatar-16.jpg">
+                      Carol Thomas
+                    </option>
+                  </select> */}
+                                        </div>
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Project <span className="text-danger">*</span>
+                                            </label>
+
+                                            <Select
+                                                options={project}
+                                                className="select"
+                                                placeholder="Devops Design"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Due Date <span className="text-danger">*</span>
+                                            </label>
+                                            <div className="icon-form">
+                                                <span className="form-icon">
+                                                    <i className="ti ti-calendar-check" />
+                                                </span>
+                                                <input
+                                                    type="text"
+                                                    className="form-control datetimepicker"
+                                                    defaultValue="26-09-2024"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Expected Closing Date{" "}
+                                                <span className="text-danger">*</span>
+                                            </label>
+                                            <div className="icon-form">
+                                                <span className="form-icon">
+                                                    <i className="ti ti-calendar-check" />
+                                                </span>
+                                                <input
+                                                    type="text"
+                                                    className="form-control datetimepicker"
+                                                    defaultValue="25-09-2024"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-12">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Assignee <span className="text-danger">*</span>
+                                            </label>
+                                            {/* <select className="multiple-img" multiple="multiple">
+                    <option data-image="assets/img/profiles/avatar-19.jpg">
+                      Darlee Robertson
+                    </option>
+                    <option
+                      data-image="assets/img/profiles/avatar-20.jpg"
+                      
+                    >
+                      Sharon Roy
+                    </option>
+                    <option data-image="assets/img/profiles/avatar-21.jpg">
+                      Vaughan
+                    </option>
+                    <option data-image="assets/img/profiles/avatar-23.jpg">
+                      Jessica
+                    </option>
+                    <option data-image="assets/img/profiles/avatar-16.jpg">
+                      Carol Thomas
+                    </option>
+                  </select> */}
                                         </div>
                                     </div>
                                     <div className="col-md-6">
@@ -2511,6 +2033,7 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                                 <input
                                                     type="text"
                                                     className="form-control datetimepicker"
+                                                    placeholder=""
                                                 />
                                             </div>
                                         </div>
@@ -2522,10 +2045,9 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                             </label>
 
                                             <Select
-                                                className="select2"
                                                 options={socialMedia}
-                                                placeholder="Choose"
-                                                classNamePrefix="react-select"
+                                                className="select"
+                                                placeholder="Select"
                                             />
                                         </div>
                                     </div>
@@ -2549,10 +2071,9 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                                 Priority <span className="text-danger">*</span>
                                             </label>
                                             <Select
-                                                className="select2"
-                                                options={priorityList}
-                                                placeholder="Choose"
-                                                classNamePrefix="react-select"
+                                                options={priority}
+                                                className="select"
+                                                placeholder="Select"
                                             />
                                         </div>
                                     </div>
@@ -2561,26 +2082,70 @@ const [addTogglePopupTwo  , setAddTogglePopupTwo  ] = useState(false)
                                             <label className="col-form-label">
                                                 Description <span className="text-danger">*</span>
                                             </label>
-                                            <DefaultEditor className="summernote" />
+                                            <div className="summernote" />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="submit-button text-end">
-                                    <Link to="#" className="btn btn-light sidebar-close2">
+                                    <Link to="#" className="btn btn-light sidebar-close1">
                                         Cancel
                                     </Link>
-                                    <Link to="#" className="btn btn-primary">
+                                    <Link
+                                        to="#"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#create_contact"
+                                        className="btn btn-primary"
+                                    >
                                         Create
                                     </Link>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-            {/* /Add New Deals */}
+            {/* /Edit Deals */}
+            <>
+                {/* Delete Deal */}
+                <div className="modal custom-modal fade" id="delete_deal" role="dialog">
+                    <div className="modal-dialog modal-dialog-centered">
+                        <div className="modal-content">
+                            <div className="modal-header border-0 m-0 justify-content-end">
+                                <button
+                                    className="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                >
+                                    <i className="ti ti-x" />
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <div className="success-message text-center">
+                                    <div className="success-popup-icon">
+                                        <i className="ti ti-trash-x" />
+                                    </div>
+                                    <h3>Remove Deal?</h3>
+                                    <p className="del-info">
+                                        Are you sure you want to remove deal you selected.
+                                    </p>
+                                    <div className="col-lg-12 text-center modal-btn">
+                                        <Link to="#" className="btn btn-light" data-bs-dismiss="modal">
+                                            Cancel
+                                        </Link>
+                                        <Link to="deals.html" className="btn btn-danger">
+                                            Yes, Delete it
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {/* /Delete Deal */}
+            </>
+
         </>
     );
 };
 
-export default Companies;
+export default Deals;

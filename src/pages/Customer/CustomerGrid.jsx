@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { all_routes } from "../Router/all_routes";
 import ImageWithBasePath from "../../components/ImageWithBasePath";
-// import DateRangePicker from "react-bootstrap-daterangepicker";
+import DateRangePicker from "react-bootstrap-daterangepicker";
 import {
     countryoptions1,
     initialSettings,
@@ -126,9 +126,9 @@ const CustomerGrid = () => {
                                                                 to="#"
                                                                 className="btn btn-primary add-popup"
                                                                 onClick={() =>
-                                                                   
-                                                                        setActivityToggle(!activityToggle)
-                                                                    
+
+                                                                    setActivityToggle(!activityToggle)
+
                                                                 }
                                                             >
                                                                 <i className="ti ti-square-rounded-plus" />
@@ -191,12 +191,12 @@ const CustomerGrid = () => {
                                                             <i className="ti ti-calendar" />
                                                         </span>
 
-                                                        {/* <DateRangePicker initialSettings={initialSettings}>
-                              <input
-                                className="form-control bookingrange"
-                                type="text"
-                              />
-                            </DateRangePicker> */}
+                                                        <DateRangePicker initialSettings={initialSettings}>
+                                                            <input
+                                                                className="form-control bookingrange"
+                                                                type="text"
+                                                            />
+                                                        </DateRangePicker>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -751,13 +751,13 @@ const CustomerGrid = () => {
                                                             <Link
                                                                 className="dropdown-item edit-popup"
                                                                 to="#"
-                                                                // onClick={() =>
-                                                                //     dispatch(
-                                                                //         setActivityTogglePopupTwo(
-                                                                //             !activityToggleTwo
-                                                                //         )
-                                                                //     )
-                                                                // }
+                                                            // onClick={() =>
+                                                            //     dispatch(
+                                                            //         setActivityTogglePopupTwo(
+                                                            //             !activityToggleTwo
+                                                            //         )
+                                                            //     )
+                                                            // }
                                                             >
                                                                 <i className="ti ti-edit text-blue" /> Edit
                                                             </Link>
@@ -884,13 +884,13 @@ const CustomerGrid = () => {
                                                             <Link
                                                                 className="dropdown-item edit-popup"
                                                                 to="#"
-                                                                // onClick={() =>
-                                                                //     dispatch(
-                                                                //         setActivityTogglePopupTwo(
-                                                                //             !activityToggleTwo
-                                                                //         )
-                                                                //     )
-                                                                // }
+                                                            // onClick={() =>
+                                                            //     dispatch(
+                                                            //         setActivityTogglePopupTwo(
+                                                            //             !activityToggleTwo
+                                                            //         )
+                                                            //     )
+                                                            // }
                                                             >
                                                                 <i className="ti ti-edit text-blue" /> Edit
                                                             </Link>
@@ -1015,13 +1015,13 @@ const CustomerGrid = () => {
                                                             <Link
                                                                 className="dropdown-item edit-popup"
                                                                 to="#"
-                                                                // onClick={() =>
-                                                                //     dispatch(
-                                                                //         setActivityTogglePopupTwo(
-                                                                //             !activityToggleTwo
-                                                                //         )
-                                                                //     )
-                                                                // }
+                                                            // onClick={() =>
+                                                            //     dispatch(
+                                                            //         setActivityTogglePopupTwo(
+                                                            //             !activityToggleTwo
+                                                            //         )
+                                                            //     )
+                                                            // }
                                                             >
                                                                 <i className="ti ti-edit text-blue" /> Edit
                                                             </Link>
@@ -1146,13 +1146,13 @@ const CustomerGrid = () => {
                                                             <Link
                                                                 className="dropdown-item edit-popup"
                                                                 to="#"
-                                                                // onClick={() =>
-                                                                //     dispatch(
-                                                                //         setActivityTogglePopupTwo(
-                                                                //             !activityToggleTwo
-                                                                //         )
-                                                                //     )
-                                                                // }
+                                                            // onClick={() =>
+                                                            //     dispatch(
+                                                            //         setActivityTogglePopupTwo(
+                                                            //             !activityToggleTwo
+                                                            //         )
+                                                            //     )
+                                                            // }
                                                             >
                                                                 <i className="ti ti-edit text-blue" /> Edit
                                                             </Link>
@@ -1279,13 +1279,13 @@ const CustomerGrid = () => {
                                                             <Link
                                                                 className="dropdown-item edit-popup"
                                                                 to="#"
-                                                                // onClick={() =>
-                                                                //     dispatch(
-                                                                //         setActivityTogglePopupTwo(
-                                                                //             !activityToggleTwo
-                                                                //         )
-                                                                //     )
-                                                                // }
+                                                            // onClick={() =>
+                                                            //     dispatch(
+                                                            //         setActivityTogglePopupTwo(
+                                                            //             !activityToggleTwo
+                                                            //         )
+                                                            //     )
+                                                            // }
                                                             >
                                                                 <i className="ti ti-edit text-blue" /> Edit
                                                             </Link>
@@ -1412,13 +1412,13 @@ const CustomerGrid = () => {
                                                             <Link
                                                                 className="dropdown-item edit-popup"
                                                                 to="#"
-                                                                // onClick={() =>
-                                                                //     dispatch(
-                                                                //         setActivityTogglePopupTwo(
-                                                                //             !activityToggleTwo
-                                                                //         )
-                                                                //     )
-                                                                // }
+                                                            // onClick={() =>
+                                                            //     dispatch(
+                                                            //         setActivityTogglePopupTwo(
+                                                            //             !activityToggleTwo
+                                                            //         )
+                                                            //     )
+                                                            // }
                                                             >
                                                                 <i className="ti ti-edit text-blue" /> Edit
                                                             </Link>
@@ -1545,13 +1545,13 @@ const CustomerGrid = () => {
                                                             <Link
                                                                 className="dropdown-item edit-popup"
                                                                 to="#"
-                                                                // onClick={() =>
-                                                                //     dispatch(
-                                                                //         setActivityTogglePopupTwo(
-                                                                //             !activityToggleTwo
-                                                                //         )
-                                                                //     )
-                                                                // }
+                                                            // onClick={() =>
+                                                            //     dispatch(
+                                                            //         setActivityTogglePopupTwo(
+                                                            //             !activityToggleTwo
+                                                            //         )
+                                                            //     )
+                                                            // }
                                                             >
                                                                 <i className="ti ti-edit text-blue" /> Edit
                                                             </Link>
@@ -1678,13 +1678,13 @@ const CustomerGrid = () => {
                                                             <Link
                                                                 className="dropdown-item edit-popup"
                                                                 to="#"
-                                                                // onClick={() =>
-                                                                //     dispatch(
-                                                                //         setActivityTogglePopupTwo(
-                                                                //             !activityToggleTwo
-                                                                //         )
-                                                                //     )
-                                                                // }
+                                                            // onClick={() =>
+                                                            //     dispatch(
+                                                            //         setActivityTogglePopupTwo(
+                                                            //             !activityToggleTwo
+                                                            //         )
+                                                            //     )
+                                                            // }
                                                             >
                                                                 <i className="ti ti-edit text-blue" /> Edit
                                                             </Link>
@@ -1809,13 +1809,13 @@ const CustomerGrid = () => {
                                                             <Link
                                                                 className="dropdown-item edit-popup"
                                                                 to="#"
-                                                                // onClick={() =>
-                                                                //     dispatch(
-                                                                //         setActivityTogglePopupTwo(
-                                                                //             !activityToggleTwo
-                                                                //         )
-                                                                //     )
-                                                                // }
+                                                            // onClick={() =>
+                                                            //     dispatch(
+                                                            //         setActivityTogglePopupTwo(
+                                                            //             !activityToggleTwo
+                                                            //         )
+                                                            //     )
+                                                            // }
                                                             >
                                                                 <i className="ti ti-edit text-blue" /> Edit
                                                             </Link>
@@ -1940,13 +1940,13 @@ const CustomerGrid = () => {
                                                             <Link
                                                                 className="dropdown-item edit-popup"
                                                                 to="#"
-                                                                // onClick={() =>
-                                                                //     dispatch(
-                                                                //         setActivityTogglePopupTwo(
-                                                                //             !activityToggleTwo
-                                                                //         )
-                                                                //     )
-                                                                // }
+                                                            // onClick={() =>
+                                                            //     dispatch(
+                                                            //         setActivityTogglePopupTwo(
+                                                            //             !activityToggleTwo
+                                                            //         )
+                                                            //     )
+                                                            // }
                                                             >
                                                                 <i className="ti ti-edit text-blue" /> Edit
                                                             </Link>
@@ -2073,13 +2073,13 @@ const CustomerGrid = () => {
                                                             <Link
                                                                 className="dropdown-item edit-popup"
                                                                 to="#"
-                                                                // onClick={() =>
-                                                                //     dispatch(
-                                                                //         setActivityTogglePopupTwo(
-                                                                //             !activityToggleTwo
-                                                                //         )
-                                                                //     )
-                                                                // }
+                                                            // onClick={() =>
+                                                            //     dispatch(
+                                                            //         setActivityTogglePopupTwo(
+                                                            //             !activityToggleTwo
+                                                            //         )
+                                                            //     )
+                                                            // }
                                                             >
                                                                 <i className="ti ti-edit text-blue" /> Edit
                                                             </Link>
@@ -2206,13 +2206,13 @@ const CustomerGrid = () => {
                                                             <Link
                                                                 className="dropdown-item edit-popup"
                                                                 to="#"
-                                                                // onClick={() =>
-                                                                //     dispatch(
-                                                                //         setActivityTogglePopupTwo(
-                                                                //             !activityToggleTwo
-                                                                //         )
-                                                                //     )
-                                                                // }
+                                                            // onClick={() =>
+                                                            //     dispatch(
+                                                            //         setActivityTogglePopupTwo(
+                                                            //             !activityToggleTwo
+                                                            //         )
+                                                            //     )
+                                                            // }
                                                             >
                                                                 <i className="ti ti-edit text-blue" /> Edit
                                                             </Link>
@@ -2336,7 +2336,7 @@ const CustomerGrid = () => {
                         <Link
                             to="#"
                             className="sidebar-close toggle-btn"
-                            // onClick={() => dispatch(setActivityTogglePopup(!activityToggle))}
+                        // onClick={() => dispatch(setActivityTogglePopup(!activityToggle))}
                         >
                             <i className="ti ti-x" />
                         </Link>
@@ -2591,9 +2591,9 @@ const CustomerGrid = () => {
                         <Link
                             to="#"
                             className="sidebar-close1 toggle-btn"
-                            // onClick={() =>
-                            //     dispatch(setActivityTogglePopupTwo(!activityToggleTwo))
-                            // }
+                        // onClick={() =>
+                        //     dispatch(setActivityTogglePopupTwo(!activityToggleTwo))
+                        // }
                         >
                             <i className="ti ti-x" />
                         </Link>

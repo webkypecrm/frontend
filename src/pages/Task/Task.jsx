@@ -17,7 +17,7 @@ import DatePicker from "react-datepicker";
 // import CollapseHeader from "../../../core/common/collapse-header";
 // import { SelectWithImage2 } from "../../../core/common/selectWithImage2";
 import { all_routes } from "../Router/all_routes";
-// import DateRangePicker from "react-bootstrap-daterangepicker";
+import DateRangePicker from "react-bootstrap-daterangepicker";
 
 const Task = () => {
     const [activityToggle, setActivityToggle] = useState(false)
@@ -208,14 +208,14 @@ const Task = () => {
                                                                 <span className="form-icon">
                                                                     <i className="ti ti-calendar" />
                                                                 </span>
-                                                                {/* <DateRangePicker
+                                                                <DateRangePicker
                                                                     initialSettings={initialSettings}
                                                                 >
                                                                     <input
                                                                         className="form-control  date-range bookingrange"
                                                                         type="text"
                                                                     />
-                                                                </DateRangePicker> */}
+                                                                </DateRangePicker>
                                                             </div>
                                                         </li>
                                                         <li>

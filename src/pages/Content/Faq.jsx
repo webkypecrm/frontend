@@ -1,229 +1,116 @@
-import React, { useState } from "react";
-import { ticketsData } from "../../data/ticketsData";
-import ImageWithBasePath from "../../components/ImageWithBasePath";
-import { Link } from "react-router-dom";
-import { all_routes } from "../Router/all_routes";
-import {
-    initialSettings,
-    priority,
-    statusOption,
-} from "../../selectOption/selectOption";
-import DateRangePicker from "react-bootstrap-daterangepicker";
-import DatePicker from "react-datepicker";
-import Select from "react-select";
-// import CollapseHeader from "../../core/common/collapse-header";
-import DataTable from "../../components/Table/DataTable";
-
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+// import Table from '../../../core/common/dataTable/index';
+import { initialSettings } from '../../selectOption/selectOption';
+import DateRangePicker from 'react-bootstrap-daterangepicker';
+import { faqData } from '../../data/faqData';
+// import { TableData } from '../../../core/data/interface';
+import { all_routes } from '../Router/all_routes';
+import DataTable from '../../components/Table/DataTable';
+// import CollapseHeader from '../../../core/common/collapse-header';
 const route = all_routes;
 
-const Tickets = () => {
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    const [selectedDate2, setSelectedDate2] = useState(new Date());
-
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-    };
-    const handleDateChange2 = (date) => {
-        setSelectedDate2(date);
-    };
-
-    const [sidebarPopup1, setSidebarPopup1] = useState(false);
-    const [sidebarPopup2, setSidebarPopup2] = useState(false);
-
-    const openSidebarPopup1 = () => {
-        setSidebarPopup1(!sidebarPopup1);
-    };
-
-    const openSidebarPopup2 = () => {
-        setSidebarPopup2(!sidebarPopup2);
-    };
-
-    const dataSource = ticketsData;
+const Faq = () => {
+    const data = faqData;
+    const [title, setTitle] = useState("Add FAQ")
     const [stars, setStars] = useState({});
+    const togglePopup = (isEditing) => {
+        setTitle(isEditing ? "Edit FAQ" : "Add FAQ");
+
+    };
 
     const initializeStarsState = () => {
         const starsState = {};
-        ticketsData.forEach((item, index) => {
+        faqData.forEach((item, index) => {
             starsState[index] = false;
         });
         setStars(starsState);
     };
 
+    // Call initializeStarsState once when the component mounts
     React.useEffect(() => {
         initializeStarsState();
     }, []);
 
     const handleStarToggle = (index) => {
-        setStars((prevStars) => ({
+        setStars(prevStars => ({
             ...prevStars,
-            [index]: !prevStars[index],
+            [index]: !prevStars[index]
         }));
     };
     const columns = [
         {
-            title: "",
-            dataIndex: "",
+            title: '',
+            dataIndex: '',
             render: (text, record, index) => (
-                <div
-                    className={`set-star rating-select ${stars[index] ? "filled" : ""}`}
-                    onClick={() => handleStarToggle(index)}
-                >
+                <div className={`set-star rating-select ${stars[index] ? "filled" : ""}`} onClick={() => handleStarToggle(index)}>
                     <i className="fa fa-star"></i>
                 </div>
             ),
         },
-        {
-            title: "Ticket ID",
-            dataIndex: "ticketId",
-            key: "ticketId",
-        },
-        {
-            title: "Subject",
-            dataIndex: "subject",
-            key: "subject",
-        },
-        {
-            title: "Assigned",
-            dataIndex: "assigned",
-            key: "assigned",
-            render: (text, record) => (
-                <h2 className="table-avatar d-flex align-items-center">
-                    <Link to="#" className="avatar">
-                        <ImageWithBasePath
-                            className="avatar-img"
-                            src={record.assignedAvatar}
-                            alt="User Image"
-                        />
-                    </Link>
-                    <Link to="#" className="profile-split d-flex flex-column">
-                        {record.assignedName}
-                    </Link>
-                </h2>
-            ),
-        },
-        {
-            title: "Created On",
-            dataIndex: "createdOn",
-            key: "createdOn",
-        },
-        {
-            title: "Due Date",
-            dataIndex: "dueDate",
-            key: "dueDate",
-        },
-        {
-            title: "Assignee",
-            dataIndex: "assignee",
-            key: "assignee",
-            render: (text, record) => (
-                <h2 className="table-avatar d-flex align-items-center">
-                    <Link to="#" className="avatar">
-                        <ImageWithBasePath
-                            className="avatar-img"
-                            src={record.assigneeAvatar}
-                            alt="User Image"
-                        />
-                    </Link>
-                    <Link to="#" className="profile-split d-flex flex-column">
-                        {record.assigneeName} <span>{record.role} </span>
-                    </Link>
-                </h2>
-            ),
-        },
-        {
-            title: "Last Reply",
-            dataIndex: "lastReply",
-            key: "lastReply",
-        },
-        {
-            title: "Priority",
-            dataIndex: "priority",
-            render: (text) => (
-                <div>
-                    {text === "Medium" && (
-                        <span className="badge badge-tag badge-warning-light">
-                            {text}
-                        </span>
-                    )}
-                    {text === "Low" && (
-                        <span className="badge badge-tag badge-purple-light">
-                            {text}
-                        </span>
-                    )}
-                    {text === "High" && (
-                        <span className="badge badge-tag badge-danger-light">
-                            {text}
-                        </span>
-                    )}
 
-                </div>
-            ),
+        {
+            title: "Questions",
+            dataIndex: "questions",
+            // sorter: (a: TableData, b: TableData) => a.questions.length - b.questions.length,
+        },
+        {
+            title: "Category",
+            dataIndex: "category",
+            // sorter: (a: TableData, b: TableData) =>
+            //     a.category.length - b.category.length,
+        },
+        {
+            title: "Answers",
+            dataIndex: "answers",
+            // sorter: (a: TableData, b: TableData) =>
+            //     a.answers.length - b.answers.length,
+        },
+        {
+            title: "Created at",
+            dataIndex: "created_at",
+            // sorter: (a: TableData, b: TableData) =>
+            //     a.created_at.length - b.created_at.length,
         },
         {
             title: "Status",
             dataIndex: "status",
             render: (text) => (
                 <div>
-                    {text === "Resolved" && (
-                        <span className="badge badge-pill badge-status bg-success">
-                            {text}
-                        </span>
+                    {text === "Active" && (
+                        <span className="badge badge-pill badge-status bg-success">{text}</span>
                     )}
-                    {text === "Closed" && (
-                        <span className="badge badge-pill badge-status bg-info">
-                            {text}
-                        </span>
-                    )}
-                    {text === "Pending" && (
-                        <span className="badge badge-pill badge-status bg-warning">
-                            {text}
-                        </span>
-                    )}
-                    {text === "Open" && (
-                        <span className="badge badge-pill badge-status bg-danger">
-                            {text}
-                        </span>
-                    )}
-
                 </div>
             ),
+            sorter: true,
         },
         {
-            title: "Action",
-            key: "action",
+            title: 'Actions',
+            dataIndex: 'actions',
             render: () => (
                 <div className="dropdown table-action">
-                    <Link
-                        to="#"
-                        className="action-icon"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                    >
+                    <Link to="#" className="action-icon" data-bs-toggle="dropdown" aria-expanded="true">
                         <i className="fa fa-ellipsis-v"></i>
                     </Link>
-                    <div className="dropdown-menu dropdown-menu-right">
-                        <Link
-                            className="dropdown-item edit-popup"
-                            to="#"
-                            onClick={openSidebarPopup2}
+                    <div className="dropdown-menu dropdown-menu-right" style={{ position: 'absolute', inset: '0px auto auto 0px', margin: '0px', transform: 'translate3d(-99.3333px, 35.3333px, 0px)' }} data-popper-placement="bottom-start">
+                        <Link className="dropdown-item edit-popup" to="#"
+                            data-bs-toggle="modal" data-bs-target="#add_faq"
+                            onClick={() => togglePopup(true)}
+
                         >
                             <i className="ti ti-edit text-blue"></i> Edit
                         </Link>
-                        <Link
-                            className="dropdown-item"
-                            to="#"
-                            data-bs-toggle="modal"
-                            data-bs-target="#delete_contact"
-                        >
+                        <Link className="dropdown-item" to="#" data-bs-toggle="modal" data-bs-target="#delete_page">
                             <i className="ti ti-trash text-danger"></i> Delete
                         </Link>
                     </div>
                 </div>
             ),
         },
+
     ];
     return (
-        <div>
+        <>
             {/* Page Wrapper */}
             <div className="page-wrapper">
                 <div className="content">
@@ -234,7 +121,7 @@ const Tickets = () => {
                                 <div className="row align-items-center">
                                     <div className="col-8">
                                         <h4 className="page-title">
-                                            Tickets<span className="count-title">123</span>
+                                            FAQ<span className="count-title">123</span>
                                         </h4>
                                     </div>
                                     <div className="col-4 text-end">
@@ -258,7 +145,7 @@ const Tickets = () => {
                                                     <input
                                                         type="text"
                                                         className="form-control"
-                                                        placeholder="Search User"
+                                                        placeholder="Search FAQ"
                                                     />
                                                 </div>
                                             </div>
@@ -294,14 +181,8 @@ const Tickets = () => {
                                                             </div>
                                                         </li>
                                                         <li>
-                                                            <Link
-                                                                to="#"
-                                                                className="btn btn-primary add-popup"
-                                                                onClick={openSidebarPopup1}
-                                                            >
-                                                                <i className="ti ti-square-rounded-plus" />
-                                                                Add Tickets
-                                                            </Link>
+                                                            <Link to="#" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_faq"><i className="ti ti-square-rounded-plus" onClick={() => togglePopup(false)}></i>Add FAQ</Link>
+
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -358,9 +239,11 @@ const Tickets = () => {
                                                         <span className="form-icon">
                                                             <i className="ti ti-calendar" />
                                                         </span>
-                                                        <DateRangePicker initialSettings={initialSettings}>
+                                                        <DateRangePicker
+                                                            initialSettings={initialSettings}
+                                                        >
                                                             <input
-                                                                className="form-control  date-range bookingrange"
+                                                                className="form-control bookingrange"
                                                                 type="text"
                                                             />
                                                         </DateRangePicker>
@@ -381,113 +264,49 @@ const Tickets = () => {
                                                             <i className="ti ti-columns-3" />
                                                             Manage Columns
                                                         </Link>
-                                                        <div className="dropdown-menu  dropdown-menu-md-end">
+                                                        <div className="dropdown-menu  dropdown-menu-xl-end">
                                                             <h4>Want to manage datatables?</h4>
                                                             <p>
-                                                                Please drag and drop your column to reorder your
-                                                                table and enable see option as you want.
+                                                                Please drag and drop your column to reorder your table and
+                                                                enable see option as you want.
                                                             </p>
                                                             <ul>
                                                                 <li>
                                                                     <p>
                                                                         <i className="ti ti-grip-vertical" />
-                                                                        Ticket ID
+                                                                        Questions
                                                                     </p>
                                                                     <div className="status-toggle">
                                                                         <input
                                                                             type="checkbox"
-                                                                            id="col-name"
+                                                                            id="col-questions"
                                                                             className="check"
                                                                         />
-                                                                        <label
-                                                                            htmlFor="col-name"
-                                                                            className="checktoggle"
-                                                                        />
+                                                                        <label htmlFor="col-questions" className="checktoggle" />
                                                                     </div>
                                                                 </li>
                                                                 <li>
                                                                     <p>
                                                                         <i className="ti ti-grip-vertical" />
-                                                                        Subject
+                                                                        Category
                                                                     </p>
                                                                     <div className="status-toggle">
                                                                         <input
                                                                             type="checkbox"
-                                                                            id="col-phone"
+                                                                            id="col-category"
                                                                             className="check"
                                                                         />
-                                                                        <label
-                                                                            htmlFor="col-phone"
-                                                                            className="checktoggle"
-                                                                        />
+                                                                        <label htmlFor="col-category" className="checktoggle" />
                                                                     </div>
                                                                 </li>
                                                                 <li>
                                                                     <p>
                                                                         <i className="ti ti-grip-vertical" />
-                                                                        Assigned
+                                                                        Answers
                                                                     </p>
                                                                     <div className="status-toggle">
-                                                                        <input
-                                                                            type="checkbox"
-                                                                            id="col-email"
-                                                                            className="check"
-                                                                        />
-                                                                        <label
-                                                                            htmlFor="col-email"
-                                                                            className="checktoggle"
-                                                                        />
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <p>
-                                                                        <i className="ti ti-grip-vertical" />
-                                                                        Assigned Date
-                                                                    </p>
-                                                                    <div className="status-toggle">
-                                                                        <input
-                                                                            type="checkbox"
-                                                                            id="col-tag"
-                                                                            className="check"
-                                                                        />
-                                                                        <label
-                                                                            htmlFor="col-tag"
-                                                                            className="checktoggle"
-                                                                        />
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <p>
-                                                                        <i className="ti ti-grip-vertical" />
-                                                                        Created Date
-                                                                    </p>
-                                                                    <div className="status-toggle">
-                                                                        <input
-                                                                            type="checkbox"
-                                                                            id="col-loc"
-                                                                            className="check"
-                                                                        />
-                                                                        <label
-                                                                            htmlFor="col-loc"
-                                                                            className="checktoggle"
-                                                                        />
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <p>
-                                                                        <i className="ti ti-grip-vertical" />
-                                                                        Assignee
-                                                                    </p>
-                                                                    <div className="status-toggle">
-                                                                        <input
-                                                                            type="checkbox"
-                                                                            id="col-rate"
-                                                                            className="check"
-                                                                        />
-                                                                        <label
-                                                                            htmlFor="col-rate"
-                                                                            className="checktoggle"
-                                                                        />
+                                                                        <input type="checkbox" id="col-answers" className="check" />
+                                                                        <label htmlFor="col-answers" className="checktoggle" />
                                                                     </div>
                                                                 </li>
                                                                 <li>
@@ -496,15 +315,8 @@ const Tickets = () => {
                                                                         Status
                                                                     </p>
                                                                     <div className="status-toggle">
-                                                                        <input
-                                                                            type="checkbox"
-                                                                            id="col-owner"
-                                                                            className="check"
-                                                                        />
-                                                                        <label
-                                                                            htmlFor="col-owner"
-                                                                            className="checktoggle"
-                                                                        />
+                                                                        <input type="checkbox" id="col-status" className="check" />
+                                                                        <label htmlFor="col-status" className="checktoggle" />
                                                                     </div>
                                                                 </li>
                                                                 <li>
@@ -513,16 +325,8 @@ const Tickets = () => {
                                                                         Action
                                                                     </p>
                                                                     <div className="status-toggle">
-                                                                        <input
-                                                                            type="checkbox"
-                                                                            id="col-contact"
-                                                                            className="check"
-                                                                            defaultChecked
-                                                                        />
-                                                                        <label
-                                                                            htmlFor="col-contact"
-                                                                            className="checktoggle"
-                                                                        />
+                                                                        <input type="checkbox" id="col-action" className="check" />
+                                                                        <label htmlFor="col-action" className="checktoggle" />
                                                                     </div>
                                                                 </li>
                                                             </ul>
@@ -539,7 +343,7 @@ const Tickets = () => {
                                                             <i className="ti ti-filter-share" />
                                                             Filter
                                                         </Link>
-                                                        <div className="filter-dropdown-menu dropdown-menu  dropdown-menu-md-end">
+                                                        <div className="filter-dropdown-menu dropdown-menu  dropdown-menu-xl-end">
                                                             <div className="filter-set-view">
                                                                 <div className="filter-set-head">
                                                                     <h4>
@@ -1033,19 +837,22 @@ const Tickets = () => {
                                         </div>
                                     </div>
                                     {/* /Filter */}
-                                    {/* Tickets List */}
+                                    {/* Page List */}
                                     <div className="table-responsive custom-table">
-                                        <DataTable columns={columns} dataSource={dataSource} />
+                                        <DataTable
+                                            dataSource={data}
+                                            columns={columns}
+                                        />
                                     </div>
                                     <div className="row align-items-center">
                                         <div className="col-md-6">
-                                            <div className="datatable-length" />
+                                            ``                <div className="datatable-length" />
                                         </div>
                                         <div className="col-md-6">
                                             <div className="datatable-paginate" />
                                         </div>
                                     </div>
-                                    {/* /Tickets List */}
+                                    {/* /Page List */}
                                 </div>
                             </div>
                         </div>
@@ -1053,270 +860,9 @@ const Tickets = () => {
                 </div>
             </div>
             {/* /Page Wrapper */}
-            {/* Add User */}
-            <div className={`toggle-popup ${sidebarPopup1 ? "sidebar-popup" : ""}`}>
-                <div className="sidebar-layout">
-                    <div className="sidebar-header">
-                        <h4>Add New Ticket</h4>
-                        <Link
-                            to="#"
-                            className="sidebar-close toggle-btn"
-                            onClick={openSidebarPopup1}
-                        >
-                            <i className="ti ti-x" />
-                        </Link>
-                    </div>
-                    <div className="toggle-body">
-                        <form className="toggle-height">
-                            <div className="pro-create">
-                                <div className="accordion-lists" id="list-accord">
-                                    {/* Basic Info */}
-                                    <div className="manage-user-modal">
-                                        <div className="manage-user-modals">
-                                            <div className="row">
-                                                <div className="col-md-6">
-                                                    <div className="form-wrap">
-                                                        <label className="col-form-label">
-                                                            {" "}
-                                                            Subject <span className="text-danger">*</span>
-                                                        </label>
-                                                        <input type="text" className="form-control" />
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <div className="form-wrap">
-                                                        <label className="col-form-label">
-                                                            Assigned Name{" "}
-                                                            <span className="text-danger">*</span>
-                                                        </label>
-                                                        <input type="text" className="form-control" />
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <div className="form-wrap">
-                                                        <label className="col-form-label">
-                                                            Created Date{" "}
-                                                            <span className="text-danger">*</span>
-                                                        </label>
-                                                        <div className="cal-icon cal-icon-info">
-                                                            <input
-                                                                type="text"
-                                                                className="datetimepicker form-control"
-                                                                placeholder="Select Date"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <div className="form-wrap">
-                                                        <label className="col-form-label">
-                                                            Due Date <span className="text-danger">*</span>
-                                                        </label>
-                                                        <div className="cal-icon cal-icon-info">
-                                                            <input
-                                                                type="text"
-                                                                className="datetimepicker form-control"
-                                                                placeholder="Select Date"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <div className="form-wrap">
-                                                        <label className="col-form-label">
-                                                            Assignee Name{" "}
-                                                            <span className="text-danger">*</span>
-                                                        </label>
-                                                        <input type="text" className="form-control" />
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <div className="form-wrap">
-                                                        <label className="col-form-label">
-                                                            Priority <span className="text-danger">*</span>
-                                                        </label>
-                                                        <Select
-                                                            className="select"
-                                                            options={priority}
-                                                            placeholder="Choose"
-                                                            classNamePrefix="react-select"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <div className="form-wrap">
-                                                        <label className="col-form-label">
-                                                            Status<span className="text-danger">*</span>
-                                                        </label>
-                                                        <Select
-                                                            className="select"
-                                                            options={statusOption}
-                                                            placeholder="Closed"
-                                                            classNamePrefix="react-select"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* /Basic Info */}
-                                </div>
-                            </div>
-                            <div className="submit-button text-end">
-                                <Link to="#" className="btn btn-light sidebar-close">
-                                    Cancel
-                                </Link>
-                                <button type="submit" className="btn btn-primary">
-                                    Create
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            {/* /Add User */}
-            {/* Edit User */}
-            <div className={`toggle-popup1 ${sidebarPopup2 ? "sidebar-popup" : ""}`}>
-                <div className="sidebar-layout">
-                    <div className="sidebar-header">
-                        <h4>Edit Tickets</h4>
-                        <Link
-                            to="#"
-                            className="sidebar-close1 toggle-btn"
-                            onClick={openSidebarPopup2}
-                        >
-                            <i className="ti ti-x" />
-                        </Link>
-                    </div>
-                    <div className="toggle-body">
-                        <form className="toggle-height">
-                            <div className="pro-create">
-                                <div className="accordion-lists" id="list-accords">
-                                    {/* Basic Info */}
-                                    <div className="manage-user-modal">
-                                        <div className="manage-user-modals">
-                                            <div className="row">
-                                                <div className="col-md-6">
-                                                    <div className="form-wrap">
-                                                        <label className="col-form-label">
-                                                            {" "}
-                                                            Subject <span className="text-danger">*</span>
-                                                        </label>
-                                                        <input
-                                                            type="text"
-                                                            className="form-control"
-                                                            defaultValue="Support for theme"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <div className="form-wrap">
-                                                        <label className="col-form-label">
-                                                            Assigned Name{" "}
-                                                            <span className="text-danger">*</span>
-                                                        </label>
-                                                        <input
-                                                            type="text"
-                                                            className="form-control"
-                                                            defaultValue="Richard"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <div className="form-wrap">
-                                                        <label className="col-form-label">
-                                                            Created Date{" "}
-                                                            <span className="text-danger">*</span>
-                                                        </label>
-                                                        <div className="cal-icon cal-icon-info">
-                                                            <DatePicker
-                                                                className="form-control datetimepicker deals-details"
-                                                                selected={selectedDate}
-                                                                onChange={handleDateChange}
-                                                                dateFormat="dd-MM-yyyy"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <div className="form-wrap">
-                                                        <label className="col-form-label">
-                                                            Due Date <span className="text-danger">*</span>
-                                                        </label>
-                                                        <div className="cal-icon cal-icon-info">
-                                                            <DatePicker
-                                                                className="form-control datetimepicker deals-details"
-                                                                selected={selectedDate2}
-                                                                onChange={handleDateChange2}
-                                                                dateFormat="dd-MM-yyyy"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <div className="form-wrap">
-                                                        <label className="col-form-label">
-                                                            Assignee Name{" "}
-                                                            <span className="text-danger">*</span>
-                                                        </label>
-                                                        <input
-                                                            type="text"
-                                                            className="form-control"
-                                                            defaultValue="Darlee Robertson"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <div className="form-wrap">
-                                                        <label className="col-form-label">
-                                                            Priority <span className="text-danger">*</span>
-                                                        </label>
-                                                        <Select
-                                                            className="select"
-                                                            options={priority}
-                                                            placeholder="Choose"
-                                                            classNamePrefix="react-select"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <div className="form-wrap">
-                                                        <label className="col-form-label">
-                                                            Status<span className="text-danger">*</span>
-                                                        </label>
-                                                        <Select
-                                                            className="select"
-                                                            options={statusOption}
-                                                            placeholder="Closed"
-                                                            classNamePrefix="react-select"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* /Basic Info */}
-                                </div>
-                            </div>
-                            <div className="submit-button text-end">
-                                <Link to="#" className="btn btn-light sidebar-close1">
-                                    Cancel
-                                </Link>
-                                <button type="submit" className="btn btn-primary">
-                                    Save Changes
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            {/* /Edit User */}
-            {/* Delete User */}
-            <div
-                className="modal custom-modal fade"
-                id="delete_contact"
-                role="dialog"
-            >
+
+            {/* Delete page */}
+            <div className="modal custom-modal fade" id="delete_page" role="dialog">
                 <div className="modal-dialog modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-header border-0 m-0 justify-content-end">
@@ -1333,17 +879,15 @@ const Tickets = () => {
                                 <div className="success-popup-icon">
                                     <i className="ti ti-trash-x" />
                                 </div>
-                                <h3>Remove Tickets</h3>
-                                <p className="del-info">Are you sure you want to remove it.</p>
+                                <h3>Remove FAQ?</h3>
+                                <p className="del-info">
+                                    Are you sure you want to remove page you selected.
+                                </p>
                                 <div className="col-lg-12 text-center modal-btn">
-                                    <Link
-                                        to="#"
-                                        className="btn btn-light"
-                                        data-bs-dismiss="modal"
-                                    >
+                                    <Link to="#" className="btn btn-light" data-bs-dismiss="modal">
                                         Cancel
                                     </Link>
-                                    <Link to={route.tickets} className="btn btn-danger">
+                                    <Link to="#" className="btn btn-danger" data-bs-dismiss="modal">
                                         Yes, Delete it
                                     </Link>
                                 </div>
@@ -1352,9 +896,125 @@ const Tickets = () => {
                     </div>
                 </div>
             </div>
-            {/* /Delete User */}
-        </div>
-    );
-};
+            {/* /Delete page */}
+            {/* Create Page */}
+            <div className="modal custom-modal fade" id="create_page" role="dialog">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header border-0 m-0 justify-content-end">
+                            <button
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <i className="ti ti-x" />
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            <div className="success-message text-center">
+                                <div className="success-popup-icon bg-light-blue">
+                                    <i className="ti ti-user-plus" />
+                                </div>
+                                <h3>Page Created Successfully!!!</h3>
+                                <p>View the details of contact, created</p>
+                                <div className="col-lg-12 text-center modal-btn">
+                                    <Link to="#" className="btn btn-light" data-bs-dismiss="modal">
+                                        Cancel
+                                    </Link>
+                                    <Link to="#" className="btn btn-primary" data-bs-dismiss="modal">
+                                        View Details
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/* /Create Contact */}
 
-export default Tickets;
+            {/* Add FAQ */}
+            <div className="modal custom-modal fade" id="add_faq" role="dialog">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">{title}</h5>
+                            <div className="d-flex align-items-center mod-toggle">
+                                <button
+                                    className="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                >
+                                    <i className="ti ti-x" />
+                                </button>
+                            </div>
+                        </div>
+                        <div className="modal-body">
+                            <form>
+                                <div className="form-wrap">
+                                    <label className="col-form-label">
+                                        Category <span className="text-danger">*</span>
+                                    </label>
+                                    <input type="text" className="form-control" />
+                                </div>
+                                <div className="form-wrap">
+                                    <label className="col-form-label">
+                                        Question <span className="text-danger">*</span>
+                                    </label>
+                                    <input type="text" className="form-control" />
+                                </div>
+                                <div className="form-wrap">
+                                    <label className="col-form-label">
+                                        Answer <span className="text-danger">*</span>
+                                    </label>
+                                    <textarea className="form-control" rows={4} defaultValue={""} />
+                                </div>
+                                <div className="form-wrap">
+                                    <label className="col-form-label">
+                                        Status <span className="text-danger">*</span>
+                                    </label>
+                                    <div className="radio-wrap">
+                                        <div className="d-flex align-items-center">
+                                            <div className="radio-btn">
+                                                <input
+                                                    type="radio"
+                                                    className="status-radio"
+                                                    id="active1"
+                                                    name="status"
+                                                    defaultChecked
+                                                />
+                                                <label htmlFor="active1">Active</label>
+                                            </div>
+                                            <div className="radio-btn">
+                                                <input
+                                                    type="radio"
+                                                    className="status-radio"
+                                                    id="inactive1"
+                                                    name="status"
+                                                />
+                                                <label htmlFor="inactive1">Inactive</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="modal-btn">
+                                    <Link to="#" className="btn btn-light" data-bs-dismiss="modal">
+                                        Cancel
+                                    </Link>
+                                    <button type="submit" className="btn btn-primary">
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/* /Add FAQ  */}
+
+
+        </>
+
+    )
+}
+
+export default Faq

@@ -14,7 +14,7 @@ import {
 } from "../../selectOption/selectOption";
 import Select from "react-select";
 import { Link } from "react-router-dom";
-// import DateRangePicker from "react-bootstrap-daterangepicker";
+import DateRangePicker from "react-bootstrap-daterangepicker";
 import { contactData } from "../../data/contactData";
 import DataTable from "../../components/Table/DataTable";
 // import { TableData } from "../../../core/data/interface";
@@ -442,12 +442,12 @@ const CustomerList = () => {
                               <i className="ti ti-calendar" />
                             </span>
 
-                            {/* <DateRangePicker initialSettings={initialSettings}>
+                            <DateRangePicker initialSettings={initialSettings}>
                               <input
                                 className="form-control bookingrange"
                                 type="text"
                               />
-                            </DateRangePicker> */}
+                            </DateRangePicker>
                           </div>
                         </li>
                       </ul>

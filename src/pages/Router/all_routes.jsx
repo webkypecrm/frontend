@@ -9,6 +9,7 @@ export const all_routes = {
     //subscription
     companies: "/subscription/manage-companies",
     companiesGrid: "/subscription/manage-companies-grid",
+    companyDetails: "/subscription/company-details",
 
     //hrms
     deleteRequest: "/hrms/delete-request",
@@ -75,6 +76,23 @@ export const all_routes = {
     ticketStage: "/support/ticket-stage",
 
 
+     // application routes
+     todo: "/application/todo",
+     email: "/application/email",
+     videoCall: "/application/video-call",
+     chat: "/application/chat",
+     audioCall: "/application/audio-call",
+     callHistory: "/application/call-history",
+     fileManager: "/application/file-manager",
+     calendar: "/application/calendar",
+     notes: "/application/notes",
+
+    //Marketing / Deals
+    deals: "/marketing/deals",
+    dealsDetails: "/marketing/deals-details",
+    dealsKanban: "/marketing/deals-kanban",
+    campaign: "/marketing/campaign",
+
 
     //crm routes
     activityCalls: "/crm/activity-calls",
@@ -86,20 +104,17 @@ export const all_routes = {
 
     tasksImportant: "/crm/tasks-important",
     tasksCompleted: "/crm/tasks-completed",
-    campaign: "/crm/campaign",
     campaignComplete: "/crm/campaign-complete",
     campaignArchieve: "/crm/campaign-archieve",
     addCampaign: "/crm/addCampaign",
     analytics: "/crm/analytics",
     contactDetails: "/crm/contact-details",
-    deals: "/crm/deals",
-    dealsDetails: "/crm/deals-details",
-    dealsKanban: "/crm/deals-kanban",
+
 
 
     pipeline: "/crm/pipeline",
     projects: "/crm/projects",
-    companyDetails: "/crm/company-details",
+
     projectDetails: "/crm/project-details",
 
     // companiesGrid: "/crm/companies-grid",
@@ -121,10 +136,8 @@ export const all_routes = {
 
     bankAccounts: "/bank-accounts",
     blankPage: "/blank-page",
-    calendar: "/calendar",
     dataTables: "/data-tables",
     tablesBasic: "/tables-basic",
-    notes: "/notes",
     comingSoon: "/coming-soon",
 
     // auth routes routes
@@ -235,15 +248,6 @@ export const all_routes = {
     leadReports: "/reports/lead-reports",
     projectReports: "/reports/project-reports",
     taskReports: "/reports/task-reports",
-
-    // application routes
-    todo: "/application/todo",
-    email: "/application/email",
-    videoCall: "/application/video-call",
-    chat: "/application/chat",
-    audioCall: "/application/audio-call",
-    callHistory: "/application/call-history",
-    fileManager: "/application/file-manager",
 
 
 

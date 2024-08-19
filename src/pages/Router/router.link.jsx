@@ -13,6 +13,7 @@ import CustomerGrid from "../Customer/CustomerGrid";
 
 import Companies from "../Subscription/Companies";
 import CompaniesGrid from "../Subscription/CompaniesGrid";
+import CompaniesDetails from "../Subscription/CompaniesDetails"
 
 import Task from "../Task/Task";
 
@@ -53,6 +54,22 @@ import Calls from "../Settings/Master/Calls";
 // import ContactMessages from "../support/contactMessages";
 import TicketStage from "../Support/TicketStage";
 
+import Faq from "../Content/Faq";
+
+import Chat from "../Application/Chat";
+import VideoCall from "../Application/VideoCall";
+import Todo from "../Application/ToDo";
+import FileManager from "../Application/FileManager";
+import CallHistory from "../Application/CallHistory";
+import AudioCall from "../Application/AudioCall";
+import Email from "../Application/Email";
+import Notes from "../Application/Notes";
+import Calendar from "../Application/Calender";
+
+import Deals from "../Marketing/Deals";
+import DealsDetails from "../Marketing/DealsDetails";
+import DealsKanban from "../Marketing/DealsKanban";
+import Campaign from "../Marketing/Campaign";
 
 // import Activities from "../crm/activities";
 // import Campaign from "../crm/campaign";
@@ -74,7 +91,7 @@ import TicketStage from "../Support/TicketStage";
 // import DataTable from "../tables/dataTable";
 // import BasicTable from "../tables/basicTable";
 // import Country from "../content/countries";
-// import DealsKanban from "../crm/deals/dealsKanban";
+
 // import DealReports from "../reports/dealReports";
 // import DeleteRequest from "../userManagement/deleteRequest";
 // import Membershipplan from "../membership/membershipplan";
@@ -151,14 +168,14 @@ import Register from "../Auth/Register";
 // // import BanIpAddress from "../settings/otherSettings/banIpaddress";
 // // import LostReason from "../crmSetting/lostreason";
 
-// import Faq from "../content/faq";
+
 // import LostReason from "../crmSetting/lostReason";
 
 // import CompaniesGrid from "../crm/companies/companiesGrid";
 // import Pipeline from "../crm/pipeline";
 // import Projects from "../crm/projects";
 // import Task from "../crm/task";
-// import CompaniesDetails from "../crm/companies/companiesDetails";
+
 // import States from "../content/states";
 // import Testimonials from "../content/testimonials";
 // import ClipBoard from "../uiInterface/advanced-ui/clipboard";
@@ -259,6 +276,10 @@ export const publicRoutes = [
     {
         path: route.companiesGrid,
         element: <CompaniesGrid />,
+    },
+    {
+        path: route.companyDetails,
+        element: <CompaniesDetails />,
     },
     {
         path: route.tasks,
@@ -376,6 +397,10 @@ export const publicRoutes = [
         path: route.smsGateways,
         element: <SmsGateways />,
     },
+    {
+        path: route.faq,
+        element: <Faq />,
+    },
     //   {
     //     path: route.contactMessages,
     //     element: <ContactMessages />,
@@ -385,16 +410,59 @@ export const publicRoutes = [
         path: route.ticketStage,
         element: <TicketStage />,
     },
-    //   {
-    //     path: route.audioCall,
-    //     element: <AudioCall />,
-    //     route: Route,
-    //   },
-    //   {
-    //     path: route.callHistory,
-    //     element: <CallHistory />,
-    //     route: Route,
-    //   },
+    {
+        path: route.audioCall,
+        element: <AudioCall />,
+    },
+    {
+        path: route.callHistory,
+        element: <CallHistory />,
+    },
+    {
+        path: route.todo,
+        element: <Todo />,
+    },
+    {
+        path: route.email,
+        element: <Email />,
+    },
+    {
+        path: route.videoCall,
+        element: <VideoCall />,
+    },
+    {
+        path: route.chat,
+        element: <Chat />,
+    },
+    {
+        path: route.fileManager,
+        element: <FileManager />,
+    },
+    {
+        path: route.notes,
+        element: <Notes />,
+    },
+    {
+        path: route.calendar,
+        element: <Calendar />,
+    },
+
+    {
+        path: route.deals,
+        element: <Deals />,
+    },
+    {
+        path: route.dealsDetails,
+        element: <DealsDetails />,
+    },
+    {
+        path: route.dealsKanban,
+        element: <DealsKanban />,
+    },
+    {
+        path: route.campaign,
+        element: <Campaign />,
+    },
 
     //   {
     //     path: route.callHistory,
@@ -406,11 +474,7 @@ export const publicRoutes = [
     //     element: <Activities />,
     //     route: Route,
     //   },
-    //   {
-    //     path: route.campaign,
-    //     element: <Campaign />,
-    //     route: Route,
-    //   },
+
     //   {
     //     path: route.activityMeeting,
     //     element: <ActivityMetting />,
@@ -476,11 +540,7 @@ export const publicRoutes = [
     //     element: <BlankPage />,
     //     route: Route,
     //   },
-    //   {
-    //     path: route.calendar,
-    //     element: <Calendar />,
-    //     route: Route,
-    //   },
+
     //   {
     //     path: route.manageusers,
     //     element: <Manageusers />,
@@ -498,10 +558,7 @@ export const publicRoutes = [
     //     path: route.membershipTransaction,
     //     element: <MembershipTransaction />,
     //   },
-    //   {
-    //     path: route.notes,
-    //     element: <Notes />,
-    //   },
+
 
     //   {
     //     path: route.countries,
@@ -526,21 +583,7 @@ export const publicRoutes = [
     //     route: Route,
     //   },
 
-    //   {
-    //     path: route.deals,
-    //     element: <Deals />,
-    //     route: Route,
-    //   },
-    //   {
-    //     path: route.dealsDetails,
-    //     element: <DealsDetails />,
-    //     route: Route,
-    //   },
-    //   {
-    //     path: route.dealsKanban,
-    //     element: <DealsKanban />,
-    //     route: Route,
-    //   },
+
     //   {
     //     path: route.deleteRequest,
     //     element: <DeleteRequest />,
@@ -711,26 +754,7 @@ export const publicRoutes = [
     //     element: <ProjectDashboard />,
     //     route: Route,
     //   },
-    //   {
-    //     path: route.todo,
-    //     element: <Todo />,
-    //     route: Route,
-    //   },
-    //   {
-    //     path: route.email,
-    //     element: <Email />,
-    //     route: Route,
-    //   },
-    //   {
-    //     path: route.videoCall,
-    //     element: <VideoCall />,
-    //     route: Route,
-    //   },
-    //   {
-    //     path: route.chat,
-    //     element: <Chat />,
-    //     route: Route,
-    //   },
+
     //   {
     //     path: route.pages,
     //     element: <Pages />,
@@ -782,16 +806,8 @@ export const publicRoutes = [
     //   },
     //   
 
-    //   {
-    //     path: route.fileManager,
-    //     element: <FileManager />,
-    //     route: Route,
-    //   },
-    //   {
-    //     path: route.faq,
-    //     element: <Faq />,
-    //     route: Route,
-    //   },
+
+
     //  
 
     //   {
@@ -805,11 +821,7 @@ export const publicRoutes = [
     //     route: Route,
     //   },
 
-    //   {
-    //     path: route.companyDetails,
-    //     element: <CompaniesDetails />,
-    //     route: Route,
-    //   },
+
     //   {
     //     path: route.states,
     //     element: <States />,

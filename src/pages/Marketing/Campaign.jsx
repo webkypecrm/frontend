@@ -1,42 +1,58 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import Select from "react-select";
+import React, { useState } from "react";
 import DateRangePicker from "react-bootstrap-daterangepicker";
-import "bootstrap-daterangepicker/daterangepicker.css";
-import {
-    countryoptions1,
-    languageOptions,
-    optiondeals,
-    optionindustry,
-    options,
-    optionschoose,
-    optionsource,
-    optionssymbol,
-} from "../../selectOption/selectOption";
-import DataTable from "../../components/Table/DataTable"
-import ImageWithBasePath from "../../components/ImageWithBasePath";
+import { Link, useLocation } from "react-router-dom";
+import Select from "react-select";
+import { compaignData } from "../../data/campaignData";
+// import { TableData } from "../../../core/data/interface";
+// import Table from "../../../core/common/dataTable/index";
+// import CampaignModal from "../../../core/modals/campaign_modal";
+// import { useDispatch, useSelector } from "react-redux";
+// import {
+//     setActivityTogglePopup,
+//     setActivityTogglePopupTwo,
+// } from "../../../core/data/redux/commonSlice";
 import { all_routes } from "../Router/all_routes";
-import { leadsData } from "../../data/leadsData"
+// import CollapseHeader from "../../../core/common/collapse-header";
+import DataTable from "../../components/Table/DataTable";
 
-
-const LeadsPage = () => {
-
+const Campaign = () => {
     const route = all_routes;
-    const [adduser, setAdduser] = useState(false);
-    const [addcompany, setAddCompany] = useState(false);
-    const [modalTitle, setModalTitle] = useState("Add New Lead");
-    const data = leadsData;
+    const [activityToggle, setActivityToggle] = useState(false)
+    const [activityToggleTwo, setAtivityToggleTwo] = useState(false)
 
-    const togglePopup = (isEditing) => {
-        setModalTitle(isEditing ? "Edit Lead" : "Add New Lead");
-        setAdduser(!adduser);
+    // const dispatch = useDispatch();
+    // const activityToggle = useSelector(
+    //     (state) => state?.activityTogglePopup
+    // );
+    // const activityToggleTwo = useSelector(
+    //     (state) => state?.activityToggleTwo
+    // );
+
+    const location = useLocation();
+    const isLinkActive = (route) => {
+        return location.pathname === route;
     };
-    const addcompanyPopup = () => {
-        setAddCompany(!addcompany);
-    };
+    const multiSelectOption = [
+        { value: "small_business", label: "Small Business" },
+        { value: "corporate_companies", label: "Corporate Companies" },
+        { value: "urban_apartment", label: "Urban Apartment" },
+        { value: "business", label: "Business" },
+    ];
+
+    const data = compaignData;
 
     const [stars, setStars] = useState({});
 
+    const initializeStarsState = () => {
+        const starsState = {};
+        compaignData.forEach((item, index) => {
+            starsState[index] = false;
+        });
+        setStars(starsState);
+    };
+    React.useEffect(() => {
+        initializeStarsState();
+    }, []);
     const handleStarToggle = (index) => {
         setStars((prevStars) => ({
             ...prevStars,
@@ -57,66 +73,87 @@ const LeadsPage = () => {
             ),
         },
         {
-            title: "Lead Name",
-            dataIndex: "lead_name",
-            key: "lead_name",
+            title: "Name",
+            dataIndex: "name",
+            // sorter: (a: TableData, b: TableData) => a.name.length - b.name.length,
+        },
+        {
+            title: "Type",
+            dataIndex: "type",
+            // sorter: (a: TableData, b: TableData) => a.type.length - b.type.length,
+        },
+        {
+            title: "Progress",
+            dataIndex: "progress",
+            // width: 500, // Specify the width here
+            render: (text) => {
+                const progressData = text
+                    .split("\n")
+                    .filter((item) => item.trim() !== ""); // Split progress data by newline and filter out empty strings
+                return (
+                    <ul className="list-progress">
+                        {progressData.map((item, index) => {
+                            const [percentage, label] = item
+                                .split("%")
+                                .map((str) => str.trim()); // Split each item into percentage and label
+                            return (
+                                <li key={index}>
+                                    <h6>{percentage}</h6>
+                                    <p>{label}</p>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                );
+            },
             // sorter: (a: TableData, b: TableData) =>
-            //   a.lead_name.length - b.lead_name.length,
+            //     a.progress.length - b.progress.length,
+        },
+        // {
+        //     title: "Members",
+        //     dataIndex: "members",
+        //     sorter: (a: TableData, b: TableData) => a.members.length - b.members.length,
+        // },
+        {
+            title: "Start Date",
+            dataIndex: "startDate",
+            // sorter: (a: TableData, b: TableData) =>
+            //     a.startDate.length - b.startDate.length,
+        },
+        {
+            title: "End Date",
+            dataIndex: "endDate",
+            // sorter: (a: TableData, b: TableData) =>
+            //     a.endDate.length - b.endDate.length,
         },
 
         {
-            title: "Company Name",
-            render: (text, record) => (
-                <div className="table-avatar d-flex align-items-center">
-                    <Link to="/crm/company-details" className="company-img">
-                        <ImageWithBasePath src={record.image} alt="UserImage" />
-                    </Link>
-                    <Link
-                        to="/crm/company-details"
-                        className="profile-split d-flex flex-column"
-                    >
-                        {record.company_name}
-                        <span>{text.company_address}</span>
-                    </Link>
-                </div>
-            ),
-        },
-        {
-            title: "Phone",
-            dataIndex: "phone",
-            key: "phone",
-            // sorter: (a: TableData, b: TableData) =>
-            //   a.company_name.length - b.company_name.length,
-        },
-        {
-            title: "Email",
-            dataIndex: "email",
-            key: "email",
-            // sorter: (a: TableData, b: TableData) =>
-            //   a.company_name.length - b.company_name.length,
-        },
-        {
-            title: "Lead Status",
+            title: "Status",
             dataIndex: "status",
             render: (text) => (
                 <div>
-                    {text === "Closed" && (
+                    {text === "Success" && (
                         <span className="badge badge-pill badge-status bg-success">
                             {text}
                         </span>
                     )}
-                    {text === "Connected" && (
+                    {text === "Pending" && (
                         <span className="badge badge-pill badge-status bg-warning">
                             {text}
                         </span>
                     )}
-                    {text === "Lost" && (
+                    {text === "Bounced" && (
                         <span className="badge badge-pill badge-status bg-danger">
                             {text}
                         </span>
                     )}
-                    {text === "Not connected" && (
-                        <span className="badge badge-pill badge-status bg-pending">
+                    {text === "Paused" && (
+                        <span className="badge badge-pill badge-status bg-info">
+                            {text}
+                        </span>
+                    )}
+                    {text === "Running" && (
+                        <span className="badge badge-pill badge-status bg-green">
                             {text}
                         </span>
                     )}
@@ -124,53 +161,52 @@ const LeadsPage = () => {
             ),
             sorter: true,
         },
+
         {
-            title: "Created Date",
-            dataIndex: "created_date",
-            key: "created_date",
+            title: "Created",
+            dataIndex: "created",
             // sorter: (a: TableData, b: TableData) =>
-            //   a.company_name.length - b.company_name.length,
+            //     a.created.length - b.created.length,
         },
         {
-            title: "Lead Owner",
-            dataIndex: "owner",
-            key: "owner",
-            // sorter: (a: TableData, b: TableData) =>
-            //   a.company_name.length - b.company_name.length,
-        },
-        {
-            title: "Action",
-            dataIndex: "action",
+            title: "Actions",
+            dataIndex: "actions",
             render: () => (
                 <div className="dropdown table-action">
                     <Link
                         to="#"
-                        className="action-icon "
+                        className="action-icon"
                         data-bs-toggle="dropdown"
-                        aria-expanded="false"
+                        aria-expanded="true"
                     >
-                        <i className="fa fa-ellipsis-v" />
+                        <i className="fa fa-ellipsis-v"></i>
                     </Link>
-                    <div className="dropdown-menu dropdown-menu-right">
+                    <div
+                        className="dropdown-menu dropdown-menu-right"
+                        style={{
+                            position: "absolute",
+                            inset: "0px auto auto 0px",
+                            margin: "0px",
+                            transform: "translate3d(-99.3333px, 35.3333px, 0px)",
+                        }}
+                        data-popper-placement="bottom-start"
+                    >
                         <Link
-                            className="dropdown-item"
+                            className="dropdown-item edit-popup"
                             to="#"
-                            onClick={() => togglePopup(true)}
+                            onClick={() =>
+                                setActivityToggle(!activityToggle)
+                            }
                         >
-                            <i className="ti ti-edit text-blue" /> Edit
+                            <i className="ti ti-edit text-blue"></i> Edit
                         </Link>
-
                         <Link
                             className="dropdown-item"
                             to="#"
                             data-bs-toggle="modal"
-                            data-bs-target="#delete_contact"
+                            data-bs-target="#delete_campaign"
                         >
                             <i className="ti ti-trash text-danger"></i> Delete
-                        </Link>
-
-                        <Link className="dropdown-item" to="#">
-                            <i className="ti ti-clipboard-copy text-blue-light" /> clone
                         </Link>
                     </div>
                 </div>
@@ -208,13 +244,8 @@ const LeadsPage = () => {
         startDate: new Date("2020-08-04T04:57:17.076Z"), // Set "Last 7 Days" as default
         timePicker: false,
     };
-    const [newContents, setNewContents] = useState([0]);
 
-    const addNewContent = () => {
-        setNewContents([...newContents, newContents.length]);
-    };
-
-    return <>
+    return (
         <>
             {/* Page Wrapper */}
             <div className="page-wrapper">
@@ -224,12 +255,12 @@ const LeadsPage = () => {
                             {/* Page Header */}
                             <div className="page-header">
                                 <div className="row align-items-center">
-                                    <div className="col-8">
+                                    <div className="col-4">
                                         <h4 className="page-title">
-                                            Leads<span className="count-title">123</span>
+                                            Campaign<span className="count-title">123</span>
                                         </h4>
                                     </div>
-                                    <div className="col-4 text-end">
+                                    <div className="col-8 text-end">
                                         <div className="head-icons">
                                             {/* <CollapseHeader /> */}
                                         </div>
@@ -237,6 +268,88 @@ const LeadsPage = () => {
                                 </div>
                             </div>
                             {/* /Page Header */}
+                            {/* Campaign Status */}
+                            <div className="row">
+                                <div className="col-xl-3 col-lg-6">
+                                    <div className="campaign-box bg-danger-light">
+                                        <div className="campaign-img">
+                                            <span>
+                                                <i className="ti ti-brand-campaignmonitor" />
+                                            </span>
+                                            <p>Campaign</p>
+                                        </div>
+                                        <h2>474</h2>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-lg-6">
+                                    <div className="campaign-box bg-warning-light">
+                                        <div className="campaign-img">
+                                            <span>
+                                                <i className="ti ti-send" />
+                                            </span>
+                                            <p>Sent</p>
+                                        </div>
+                                        <h2>454</h2>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-lg-6">
+                                    <div className="campaign-box bg-purple-light">
+                                        <div className="campaign-img">
+                                            <span>
+                                                <i className="ti ti-brand-feedly" />
+                                            </span>
+                                            <p>Opened</p>
+                                        </div>
+                                        <h2>658</h2>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-lg-6">
+                                    <div className="campaign-box bg-success-light">
+                                        <div className="campaign-img">
+                                            <span>
+                                                <i className="ti ti-brand-pocket" />
+                                            </span>
+                                            <p>Completed</p>
+                                        </div>
+                                        <h2>747</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* /Campaign Status */}
+                            {/* Campaign Tab */}
+                            <div className="campaign-tab">
+                                <ul className="nav">
+                                    <li>
+                                        <Link
+                                            to={route.campaign}
+                                            className={isLinkActive(route.campaign) ? "active" : ""}
+                                        >
+                                            Active Campaign<span>24</span>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            to={route.campaignComplete}
+                                            className={
+                                                isLinkActive(route.campaignComplete) ? "active" : ""
+                                            }
+                                        >
+                                            Completed Campaign
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            to={route.campaignArchieve}
+                                            className={
+                                                isLinkActive(route.campaignArchieve) ? "active" : ""
+                                            }
+                                        >
+                                            Archived Campaign
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                            {/* Campaign Tab */}
                             <div className="card main-card">
                                 <div className="card-body">
                                     {/* Search */}
@@ -250,7 +363,7 @@ const LeadsPage = () => {
                                                     <input
                                                         type="text"
                                                         className="form-control"
-                                                        placeholder="Search User"
+                                                        placeholder="Search Campaign"
                                                     />
                                                 </div>
                                             </div>
@@ -289,10 +402,12 @@ const LeadsPage = () => {
                                                             <Link
                                                                 to="#"
                                                                 className="btn btn-primary add-popup"
-                                                                onClick={() => togglePopup(false)}
+                                                                onClick={() =>
+                                                                    setActivityToggle(!activityToggle)
+                                                                }
                                                             >
-                                                                <i className="ti ti-square-rounded-plus" />
-                                                                Add Leads
+                                                                <i className="ti ti-square-rounded-plus" /> Add
+                                                                New Campaign
                                                             </Link>
                                                         </li>
                                                     </ul>
@@ -350,11 +465,9 @@ const LeadsPage = () => {
                                                         <span className="form-icon">
                                                             <i className="ti ti-calendar" />
                                                         </span>
-                                                        <DateRangePicker
-                                                            initialSettings={initialSettings}
-                                                        >
+                                                        <DateRangePicker initialSettings={initialSettings}>
                                                             <input
-                                                                className="form-control bookingrange"
+                                                                className="form-control  date-range bookingrange"
                                                                 type="text"
                                                             />
                                                         </DateRangePicker>
@@ -375,11 +488,11 @@ const LeadsPage = () => {
                                                             <i className="ti ti-columns-3" />
                                                             Manage Columns
                                                         </Link>
-                                                        <div className="dropdown-menu  dropdown-menu-md-end">
+                                                        <div className="dropdown-menu  dropdown-menu-xl-end">
                                                             <h4>Want to manage datatables?</h4>
                                                             <p>
-                                                                Please drag and drop your column to reorder
-                                                                your table and enable see option as you want.
+                                                                Please drag and drop your column to reorder your
+                                                                table and enable see option as you want.
                                                             </p>
                                                             <ul>
                                                                 <li>
@@ -402,7 +515,7 @@ const LeadsPage = () => {
                                                                 <li>
                                                                     <p>
                                                                         <i className="ti ti-grip-vertical" />
-                                                                        Phone
+                                                                        Type
                                                                     </p>
                                                                     <div className="status-toggle">
                                                                         <input
@@ -419,7 +532,7 @@ const LeadsPage = () => {
                                                                 <li>
                                                                     <p>
                                                                         <i className="ti ti-grip-vertical" />
-                                                                        Email
+                                                                        Progress
                                                                     </p>
                                                                     <div className="status-toggle">
                                                                         <input
@@ -436,7 +549,7 @@ const LeadsPage = () => {
                                                                 <li>
                                                                     <p>
                                                                         <i className="ti ti-grip-vertical" />
-                                                                        Location
+                                                                        Members
                                                                     </p>
                                                                     <div className="status-toggle">
                                                                         <input
@@ -453,7 +566,7 @@ const LeadsPage = () => {
                                                                 <li>
                                                                     <p>
                                                                         <i className="ti ti-grip-vertical" />
-                                                                        Created Date
+                                                                        Start Date
                                                                     </p>
                                                                     <div className="status-toggle">
                                                                         <input
@@ -470,7 +583,7 @@ const LeadsPage = () => {
                                                                 <li>
                                                                     <p>
                                                                         <i className="ti ti-grip-vertical" />
-                                                                        Last Activity
+                                                                        End Date
                                                                     </p>
                                                                     <div className="status-toggle">
                                                                         <input
@@ -504,7 +617,7 @@ const LeadsPage = () => {
                                                                 <li>
                                                                     <p>
                                                                         <i className="ti ti-grip-vertical" />
-                                                                        Action
+                                                                        Created
                                                                     </p>
                                                                     <div className="status-toggle">
                                                                         <input
@@ -515,6 +628,23 @@ const LeadsPage = () => {
                                                                         />
                                                                         <label
                                                                             htmlFor="col-contact"
+                                                                            className="checktoggle"
+                                                                        />
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <p>
+                                                                        <i className="ti ti-grip-vertical" />
+                                                                        Action
+                                                                    </p>
+                                                                    <div className="status-toggle">
+                                                                        <input
+                                                                            type="checkbox"
+                                                                            id="col-action"
+                                                                            className="check"
+                                                                        />
+                                                                        <label
+                                                                            htmlFor="col-action"
                                                                             className="checktoggle"
                                                                         />
                                                                     </div>
@@ -533,7 +663,7 @@ const LeadsPage = () => {
                                                             <i className="ti ti-filter-share" />
                                                             Filter
                                                         </Link>
-                                                        <div className="filter-dropdown-menu dropdown-menu  dropdown-menu-md-end">
+                                                        <div className="filter-dropdown-menu dropdown-menu  dropdown-menu-xl-end">
                                                             <div className="filter-set-view">
                                                                 <div className="filter-set-head">
                                                                     <h4>
@@ -1022,24 +1152,15 @@ const LeadsPage = () => {
                                                         </div>
                                                     </div>
                                                 </li>
-                                                <li>
-                                                    <div className="view-icons">
-                                                        <Link to="/sales/leads" className="active">
-                                                            <i className="ti ti-list-tree" />
-                                                        </Link>
-                                                        <Link to="/sales/leads-kanban">
-                                                            <i className="ti ti-grid-dots" />
-                                                        </Link>
-                                                    </div>
-                                                </li>
                                             </ul>
                                         </div>
                                     </div>
                                     {/* /Filter */}
-                                    {/* Manage Users List */}
-                                    <div className="table-responsive custom-table">
+                                    {/* Campaign List */}
+                                    <div className="col-sm-12 table-responsive">
                                         <DataTable dataSource={data} columns={columns} />
                                     </div>
+
                                     <div className="row align-items-center">
                                         <div className="col-md-6">
                                             <div className="datatable-length" />
@@ -1048,260 +1169,171 @@ const LeadsPage = () => {
                                             <div className="datatable-paginate" />
                                         </div>
                                     </div>
-                                    {/* /Manage Users List */}
+                                    {/* /Campaign List */}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            {/* /Page Wrapper */}
-            {/* Add User */}
-            <div className={`toggle-popup ${adduser ? "sidebar-popup" : ""}`}>
-                <div className="sidebar-layout">
-                    <div className="sidebar-header">
-                        <h4>{modalTitle}</h4>
-                        <Link
-                            to="#"
-                            className="sidebar-close toggle-btn"
-                            onClick={togglePopup}
-                        >
-                            <i className="ti ti-x" />
-                        </Link>
-                    </div>
-                    <div className="toggle-body">
-                        <div className="pro-create">
-                            <form>
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <div className="form-wrap">
-                                            <label className="col-form-label">
-                                                Lead Name <span className="text-danger">*</span>
-                                            </label>
-                                            <input type="text" className="form-control" />
-                                        </div>
+                {/* Delete Campaign */}
+                <div
+                    className="modal custom-modal fade"
+                    id="delete_campaign"
+                    role="dialog"
+                >
+                    <div className="modal-dialog modal-dialog-centered">
+                        <div className="modal-content">
+                            <div className="modal-header border-0 m-0 justify-content-end">
+                                <button
+                                    className="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                >
+                                    <i className="ti ti-x" />
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <div className="success-message text-center">
+                                    <div className="success-popup-icon">
+                                        <i className="ti ti-trash-x" />
                                     </div>
-                                    <div className="col-md-12">
-                                        <div className="form-wrap">
-                                            <div className="radio-wrap">
-                                                <label className="col-form-label">Lead Type</label>
-                                                <div className="d-flex flex-wrap">
-                                                    <div className="radio-btn">
-                                                        <input
-                                                            type="radio"
-                                                            className="status-radio"
-                                                            id="person"
-                                                            name="leave"
-                                                            defaultChecked
-                                                        />
-                                                        <label htmlFor="person">Person</label>
-                                                    </div>
-                                                    <div className="radio-btn">
-                                                        <input
-                                                            type="radio"
-                                                            className="status-radio"
-                                                            id="org"
-                                                            name="leave"
-                                                        />
-                                                        <label htmlFor="org">Organization</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-12">
-                                        <div className="form-wrap">
-                                            <div className="d-flex justify-content-between align-items-center">
-                                                <label className="col-form-label">
-                                                    Company <span className="text-danger">*</span>
-                                                </label>
-                                                <Link
-                                                    to="#"
-                                                    className="add-new add-new-company add-popups"
-                                                    onClick={addcompanyPopup}
-                                                >
-                                                    <i className="ti ti-square-rounded-plus me-2" />
-                                                    Add New
-                                                </Link>
-                                            </div>
-                                            <Select
-                                                className="select"
-                                                options={options}
-                                                classNamePrefix="react-select"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6">
-                                        <div className="form-wrap">
-                                            <label className="col-form-label">
-                                                Value <span className="text-danger">*</span>
-                                            </label>
-                                            <input type="text" className="form-control" />
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6">
-                                        <div className="form-wrap">
-                                            <label className="col-form-label">
-                                                Currency <span className="text-danger">*</span>
-                                            </label>
-                                            <Select
-                                                className="select"
-                                                options={optionssymbol}
-                                                classNamePrefix="react-select"
-                                            />
-                                        </div>
-                                    </div>
-                                    {newContents.map((index) => (
-                                        <div className="col-md-12" key={index}>
-                                            <div className="add-product-new">
-                                                <div className="row align-items-end">
-                                                    <div className="col-md-8">
-                                                        <div className="form-wrap mb-2">
-                                                            <label className="col-form-label">
-                                                                Phone <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                defaultValue="+1 875455453"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-4 d-flex align-items-center">
-                                                        <div className="form-wrap w-100 mb-2">
-                                                            <Select
-                                                                className="select"
-                                                                options={optionschoose}
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                    <div className="col-md-12">
+                                    <h3>Remove Campaign??</h3>
+                                    <p className="del-info">
+                                        Are you sure you want to remove campaign you selected.
+                                    </p>
+                                    <div className="col-lg-12 text-center modal-btn">
                                         <Link
-                                            onClick={addNewContent}
                                             to="#"
-                                            className="add-new add-new-phone mb-3 d-block"
+                                            className="btn btn-light"
+                                            data-bs-dismiss="modal"
                                         >
-                                            <i className="ti ti-square-rounded-plus me-2" />
-                                            Add New
+                                            Cancel
+                                        </Link>
+                                        <Link to={route.campaign} className="btn btn-danger">
+                                            Yes, Delete it
                                         </Link>
                                     </div>
-                                    <div className="col-md-6">
-                                        <div className="form-wrap">
-                                            <label className="col-form-label">
-                                                Source <span className="text-danger">*</span>
-                                            </label>
-                                            <Select
-                                                className="select"
-                                                options={optionsource}
-                                                classNamePrefix="react-select"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6">
-                                        <div className="form-wrap">
-                                            <label className="col-form-label">
-                                                Industry <span className="text-danger">*</span>
-                                            </label>
-                                            <Select
-                                                className="select"
-                                                options={optionindustry}
-                                                classNamePrefix="react-select"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6">
-                                        <div className="form-wrap">
-                                            <label className="col-form-label">Owner</label>
-                                            {/* <SelectWithImage2 /> */}
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6">
-                                        <div className="form-wrap">
-                                            <label className="col-form-label">Tags </label>
-                                            <input
-                                                className="input-tags form-control"
-                                                type="text"
-                                                data-role="tagsinput"
-                                                name="Label"
-                                                defaultValue="Rated"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="col-md-12">
-                                        <div className="form-wrap">
-                                            <label className="col-form-label">
-                                                Description <span className="text-danger">*</span>
-                                            </label>
-                                            <textarea
-                                                className="form-control"
-                                                rows={5}
-                                                defaultValue={""}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="col-md-12">
-                                        <div className="radio-wrap form-wrap">
-                                            <label className="col-form-label">Visibility</label>
-                                            <div className="d-flex flex-wrap">
-                                                <div className="radio-btn">
-                                                    <input
-                                                        type="radio"
-                                                        className="status-radio"
-                                                        id="public1"
-                                                        name="visible"
-                                                    />
-                                                    <label htmlFor="public1">Public</label>
-                                                </div>
-                                                <div className="radio-btn">
-                                                    <input
-                                                        type="radio"
-                                                        className="status-radio"
-                                                        id="private1"
-                                                        name="visible"
-                                                    />
-                                                    <label htmlFor="private1">Private</label>
-                                                </div>
-                                                <div
-                                                    className="radio-btn"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#access_view"
-                                                >
-                                                    <input
-                                                        type="radio"
-                                                        className="status-radio"
-                                                        id="people1"
-                                                        name="visible"
-                                                    />
-                                                    <label htmlFor="people1">Select People</label>
-                                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {/* /Delete Campaign */}
+                {/* Add New Campaign */}
+                <div className="toggle-popup">
+                    <div className="sidebar-layout">
+                        <div className="sidebar-header">
+                            <h4>Add New Campaign</h4>
+                            <Link to="#" className="sidebar-close toggle-btn">
+                                <i className="ti ti-x" />
+                            </Link>
+                        </div>
+                        <div className="toggle-body">
+                            <form className="toggle-height">
+                                <div className="pro-create">
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <div className="form-wrap">
+                                                <label className="col-form-label">
+                                                    Name <span className="text-danger">*</span>
+                                                </label>
+                                                <input type="text" className="form-control" />
+                                            </div>
+                                            <div className="form-wrap">
+                                                <label className="col-form-label">
+                                                    Campaign Type <span className="text-danger">*</span>
+                                                </label>
+                                                <select className="select2">
+                                                    <option>Choose</option>
+                                                    <option>Public Relations</option>
+                                                    <option>Brand</option>
+                                                    <option>Media</option>
+                                                </select>
                                             </div>
                                         </div>
-                                        <div className="radio-wrap form-wrap">
-                                            <label className="col-form-label">Status</label>
-                                            <div className="d-flex flex-wrap">
-                                                <div className="radio-btn">
-                                                    <input
-                                                        type="radio"
-                                                        className="status-radio"
-                                                        id="active1"
-                                                        name="status"
-                                                        defaultChecked
-                                                    />
-                                                    <label htmlFor="active1">Active</label>
+                                        <div className="col-lg-3 col-md-6">
+                                            <div className="form-wrap">
+                                                <label className="col-form-label">
+                                                    Deal Value<span className="text-danger"> *</span>
+                                                </label>
+                                                <input className="form-control" type="text" />
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-3 col-md-6">
+                                            <div className="form-wrap">
+                                                <label className="col-form-label">
+                                                    Currency <span className="text-danger">*</span>
+                                                </label>
+                                                <select className="select">
+                                                    <option>Select</option>
+                                                    <option>$</option>
+                                                    <option>€</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-3 col-md-6">
+                                            <div className="form-wrap">
+                                                <label className="col-form-label">
+                                                    Period <span className="text-danger">*</span>
+                                                </label>
+                                                <input className="form-control" type="text" />
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-3 col-md-6">
+                                            <div className="form-wrap">
+                                                <label className="col-form-label">
+                                                    Period Value <span className="text-danger">*</span>
+                                                </label>
+                                                <input className="form-control" type="text" />
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-12">
+                                            <div className="form-wrap">
+                                                <label className="col-form-label">
+                                                    Target Audience <span className="text-danger">*</span>
+                                                </label>
+                                                <Select
+                                                    options={multiSelectOption}
+                                                    isMulti
+                                                    defaultValue={[
+                                                        multiSelectOption[0],
+                                                        multiSelectOption[1],
+                                                        multiSelectOption[2],
+                                                    ]}
+                                                />
+                                            </div>
+                                            <div className="form-wrap">
+                                                <label className="col-form-label">
+                                                    Description <span className="text-danger">*</span>
+                                                </label>
+                                                <textarea
+                                                    className="form-control"
+                                                    rows={4}
+                                                    defaultValue={""}
+                                                />
+                                            </div>
+                                            <div className="form-wrap">
+                                                <label className="col-form-label">
+                                                    Attachment <span className="text-danger">*</span>
+                                                </label>
+                                                <div className="drag-attach">
+                                                    <input type="file" />
+                                                    <div className="img-upload">
+                                                        <i className="ti ti-file-broken" />
+                                                        Upload File
+                                                    </div>
                                                 </div>
-                                                <div className="radio-btn">
-                                                    <input
-                                                        type="radio"
-                                                        className="status-radio"
-                                                        id="inactive1"
-                                                        name="status"
-                                                    />
-                                                    <label htmlFor="inactive1">Inactive</label>
+                                            </div>
+                                            <div className="form-wrap">
+                                                <label className="col-form-label">Uploaded Files</label>
+                                                <div className="upload-file upload-list">
+                                                    <div>
+                                                        <h6>tes.txt</h6>
+                                                        <p>4.25 MB</p>
+                                                    </div>
+                                                    <Link to="#" className="text-danger">
+                                                        <i className="ti ti-trash-x" />
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </div>
@@ -1309,545 +1341,6 @@ const LeadsPage = () => {
                                 </div>
                                 <div className="submit-button text-end">
                                     <Link to="#" className="btn btn-light sidebar-close">
-                                        Cancel
-                                    </Link>
-                                    <Link
-                                        to="#"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#create_contact"
-                                        className="btn btn-primary"
-                                    >
-                                        Create
-                                    </Link>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {/* /Add User */}
-            <div className="modal custom-modal fade" id="save_view" role="dialog">
-                <div className="modal-dialog modal-dialog-centered">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title">Add New View</h5>
-                            <button
-                                className="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                            >
-                                <i className="ti ti-x" />
-                            </button>
-                        </div>
-                        <div className="modal-body">
-                            <form>
-                                <div className="form-wrap">
-                                    <label className="col-form-label">View Name</label>
-                                    <input type="text" className="form-control" />
-                                </div>
-                                <div className="modal-btn text-end">
-                                    <Link
-                                        to="#"
-                                        className="btn btn-light"
-                                        data-bs-dismiss="modal"
-                                    >
-                                        Cancel
-                                    </Link>
-                                    <button type="submit" className="btn btn-danger">
-                                        Save
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className={`toggle-popup2 ${addcompany ? "sidebar-popup" : ""}`}>
-                <div className="sidebar-layout">
-                    <div className="sidebar-header">
-                        <h4>Add New Company</h4>
-                        <Link
-                            to="#"
-                            className="sidebar-close2 toggle-btn"
-                            onClick={addcompanyPopup}
-                        >
-                            <i className="ti ti-x" />
-                        </Link>
-                    </div>
-                    <div className="toggle-body">
-                        <div className="pro-create">
-                            <form>
-                                <div className="accordion-lists" id="list-accord">
-                                    {/* Basic Info */}
-                                    <div className="user-accordion-item">
-                                        <Link
-                                            to="#"
-                                            className="accordion-wrap"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#basic"
-                                        >
-                                            <span>
-                                                <i className="ti ti-user-plus" />
-                                            </span>
-                                            Basic Info
-                                        </Link>
-                                        <div
-                                            className="accordion-collapse collapse show"
-                                            id="basic"
-                                            data-bs-parent="#list-accord"
-                                        >
-                                            <div className="content-collapse">
-                                                <div className="row">
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap">
-                                                            <div className="profile-upload">
-                                                                <div className="profile-upload-img">
-                                                                    <span>
-                                                                        <i className="ti ti-photo" />
-                                                                    </span>
-                                                                    <ImageWithBasePath
-                                                                        src="assets/img/icons/company-icon-03.svg"
-                                                                        alt="img"
-                                                                        className="preview1"
-                                                                    />
-                                                                    <button
-                                                                        type="button"
-                                                                        className="profile-remove"
-                                                                    >
-                                                                        <i className="ti ti-x" />
-                                                                    </button>
-                                                                </div>
-                                                                <div className="profile-upload-content">
-                                                                    <label className="profile-upload-btn">
-                                                                        <i className="ti ti-file-broken" /> Upload
-                                                                        File
-                                                                        <input
-                                                                            type="file"
-                                                                            className="input-img"
-                                                                        />
-                                                                    </label>
-                                                                    <p>JPG, GIF or PNG. Max size of 800K</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Company Name
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap">
-                                                            <div className="d-flex justify-content-between align-items-center">
-                                                                <label className="col-form-label">
-                                                                    Email <span className="text-danger">*</span>
-                                                                </label>
-                                                                <div className="status-toggle small-toggle-btn d-flex align-items-center">
-                                                                    <span className="me-2 label-text">
-                                                                        Email Opt Out
-                                                                    </span>
-                                                                    <input
-                                                                        type="checkbox"
-                                                                        id="user"
-                                                                        className="check"
-                                                                        defaultChecked
-                                                                    />
-                                                                    <label
-                                                                        htmlFor="user"
-                                                                        className="checktoggle"
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Phone 1 <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Phone 2
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Fax <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Website <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Ratings
-                                                            </label>
-                                                            <div className="icon-form-end">
-                                                                <span className="form-icon">
-                                                                    <i className="ti ti-star" />
-                                                                </span>
-                                                                <input
-                                                                    type="text"
-                                                                    className="form-control"
-                                                                    placeholder="4.2"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Owner</label>
-                                                            {/* <SelectWithImage2 /> */}
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Tags </label>
-                                                            <input
-                                                                className="input-tags form-control"
-                                                                type="text"
-                                                                data-role="tagsinput"
-                                                                name="Label"
-                                                                defaultValue="Collab"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <div className="d-flex align-items-center justify-content-between">
-                                                                <label className="col-form-label">
-                                                                    Deals
-                                                                </label>
-                                                            </div>
-                                                            <Select
-                                                                className="select2"
-                                                                options={optiondeals}
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Source <span className="text-danger">*</span>
-                                                            </label>
-                                                            <Select
-                                                                className="select2"
-                                                                options={optionsource}
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Industry{" "}
-                                                                <span className="text-danger">*</span>
-                                                            </label>
-                                                            <Select
-                                                                className="select2"
-                                                                options={optionindustry}
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Contact <span className="text-danger">*</span>
-                                                            </label>
-                                                            {/* <SelectWithImage2 /> */}
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Currency{" "}
-                                                                <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Language{" "}
-                                                                <span className="text-danger">*</span>
-                                                            </label>
-                                                            <Select
-                                                                className="select"
-                                                                options={languageOptions}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap mb-0">
-                                                            <label className="col-form-label">
-                                                                Description{" "}
-                                                                <span className="text-danger">*</span>
-                                                            </label>
-                                                            <textarea
-                                                                className="form-control"
-                                                                rows={5}
-                                                                defaultValue={""}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* /Basic Info */}
-                                    {/* Address Info */}
-                                    <div className="user-accordion-item">
-                                        <Link
-                                            to="#"
-                                            className="accordion-wrap collapsed"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#address"
-                                        >
-                                            <span>
-                                                <i className="ti ti-map-pin-cog" />
-                                            </span>
-                                            Address Info
-                                        </Link>
-                                        <div
-                                            className="accordion-collapse collapse"
-                                            id="address"
-                                            data-bs-parent="#list-accord"
-                                        >
-                                            <div className="content-collapse">
-                                                <div className="row">
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Street Address{" "}
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">City </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                State / Province{" "}
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap mb-wrap">
-                                                            <label className="col-form-label">
-                                                                Country
-                                                            </label>
-                                                            <Select
-                                                                className="select"
-                                                                options={countryoptions1}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap mb-wrap">
-                                                            <label className="col-form-label">
-                                                                Zipcode{" "}
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* /Address Info */}
-                                    {/* Social Profile */}
-                                    <div className="user-accordion-item">
-                                        <Link
-                                            to="#"
-                                            className="accordion-wrap collapsed"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#social"
-                                        >
-                                            <span>
-                                                <i className="ti ti-social" />
-                                            </span>
-                                            Social Profile
-                                        </Link>
-                                        <div
-                                            className="accordion-collapse collapse"
-                                            id="social"
-                                            data-bs-parent="#list-accord"
-                                        >
-                                            <div className="content-collapse">
-                                                <div className="row">
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Facebook
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Skype </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Linkedin{" "}
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Twitter
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap mb-wrap">
-                                                            <label className="col-form-label">
-                                                                Whatsapp
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap mb-wrap">
-                                                            <label className="col-form-label">
-                                                                Instagram
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* /Social Profile */}
-                                    {/* Access */}
-                                    <div className="user-accordion-item">
-                                        <Link
-                                            to="#"
-                                            className="accordion-wrap collapsed"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#access"
-                                        >
-                                            <span>
-                                                <i className="ti ti-accessible" />
-                                            </span>
-                                            Access
-                                        </Link>
-                                        <div
-                                            className="accordion-collapse collapse"
-                                            id="access"
-                                            data-bs-parent="#list-accord"
-                                        >
-                                            <div className="content-collapse">
-                                                <div className="row">
-                                                    <div className="col-md-12">
-                                                        <div className="radio-wrap form-wrap">
-                                                            <label className="col-form-label">
-                                                                Visibility
-                                                            </label>
-                                                            <div className="d-flex flex-wrap">
-                                                                <div className="radio-btn">
-                                                                    <input
-                                                                        type="radio"
-                                                                        className="status-radio"
-                                                                        id="public"
-                                                                        name="visible"
-                                                                    />
-                                                                    <label htmlFor="public">Public</label>
-                                                                </div>
-                                                                <div className="radio-btn">
-                                                                    <input
-                                                                        type="radio"
-                                                                        className="status-radio"
-                                                                        id="private"
-                                                                        name="visible"
-                                                                    />
-                                                                    <label htmlFor="private">Private</label>
-                                                                </div>
-                                                                <div
-                                                                    className="radio-btn"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#access_view"
-                                                                >
-                                                                    <input
-                                                                        type="radio"
-                                                                        className="status-radio"
-                                                                        id="people"
-                                                                        name="visible"
-                                                                    />
-                                                                    <label htmlFor="people">
-                                                                        Select People
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="radio-wrap">
-                                                            <label className="col-form-label">Status</label>
-                                                            <div className="d-flex flex-wrap">
-                                                                <div className="radio-btn">
-                                                                    <input
-                                                                        type="radio"
-                                                                        className="status-radio"
-                                                                        id="active"
-                                                                        name="status"
-                                                                        defaultChecked
-                                                                    />
-                                                                    <label htmlFor="active">Active</label>
-                                                                </div>
-                                                                <div className="radio-btn">
-                                                                    <input
-                                                                        type="radio"
-                                                                        className="status-radio"
-                                                                        id="inactive"
-                                                                        name="status"
-                                                                    />
-                                                                    <label htmlFor="inactive">Inactive</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* /Access */}
-                                </div>
-                                <div className="submit-button text-end">
-                                    <Link to="#" className="btn btn-light sidebar-close2">
                                         Cancel
                                     </Link>
                                     <button type="submit" className="btn btn-primary">
@@ -1858,52 +1351,12 @@ const LeadsPage = () => {
                         </div>
                     </div>
                 </div>
+                {/* /Add New Campaign */}
             </div>
-            <div
-                className="modal custom-modal fade"
-                id="delete_contact"
-                role="dialog"
-            >
-                <div className="modal-dialog modal-dialog-centered">
-                    <div className="modal-content">
-                        <div className="modal-header border-0 m-0 justify-content-end">
-                            <button
-                                className="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                            >
-                                <i className="ti ti-x" />
-                            </button>
-                        </div>
-                        <div className="modal-body">
-                            <div className="success-message text-center">
-                                <div className="success-popup-icon">
-                                    <i className="ti ti-trash-x" />
-                                </div>
-                                <h3>Remove Leads?</h3>
-                                <p className="del-info">
-                                    Are you sure you want to remove lead you selected.
-                                </p>
-                                <div className="col-lg-12 text-center modal-btn">
-                                    <Link
-                                        to="#"
-                                        className="btn btn-light"
-                                        data-bs-dismiss="modal"
-                                    >
-                                        Cancel
-                                    </Link>
-                                    <Link to="/leads" className="btn btn-danger">
-                                        Yes, Delete it
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {/* /Page Wrapper */}
+            {/* <CampaignModal /> */}
         </>
-    </>
-}
+    );
+};
 
-
-export default LeadsPage
+export default Campaign;
