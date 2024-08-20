@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 // import { setThemeSettings } from "../../data/redux/commonSlice";
 import ImageWithBasePath from "../ImageWithBasePath";
 import { Link } from "react-router-dom";
-const ThemeSettings = () => {
+const ThemeSettings = ({themeOpen, setThemeOpen}) => {
 //   const dispatch = useDispatch();
-const [themeOpen, setThemeOpen] = useState(false)
+// const [themeOpen, setThemeOpen] = useState(false)
 //   const themeOpen = useSelector((state) => state?.themeSettings);
 
   const [layoutTheme, setLayoutTheme] = useState(
@@ -186,6 +186,7 @@ const [themeOpen, setThemeOpen] = useState(false)
               <div className="col-lg-12">
                 <div className="theme-colorsset">
                   <ul>
+                    
                     <li>
                       <div className="input-themeselects">
                         <input

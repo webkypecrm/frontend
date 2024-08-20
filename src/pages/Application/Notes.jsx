@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Select from "react-select";
-// import NotesContent from "./notesContent";
+import NotesContent from "../../components/Notes/NotesContent";
 import ImageWithBasePath from "../../components/ImageWithBasePath";
 import { PlusCircle, Sliders } from "react-feather";
-// import NotesModal from "./notesModal";
+import NotesModal from "../../components/Notes/NotesModal";
 
 const Notes = () => {
   const [isOpen, setOpen] = useState(false);
@@ -205,12 +205,12 @@ const Notes = () => {
                 isOpen && "budgeted-role-notes"
               }`}
             >
-              {/* <NotesContent /> */}
+              <NotesContent />
             </div>
           </div>
         </div>
       </div>
-      {/* <NotesModal /> */}
+      <NotesModal />
 
       {/* Delete Unit */}
       <div className="modal fade" id="delete-note-units">

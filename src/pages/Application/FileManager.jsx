@@ -19,8 +19,9 @@ import {
   Trash2,
 } from "react-feather";
 
-// import FileContent from "./fileContent";
-// import FileModal from "./fileModal";
+
+import FileContent from "../../components/FileManager/FileContent";
+import FileModal from "../../components/FileManager/FileModal";
 
 const FileManager = () => {
   const [isOpen, setOpen] = useState(false);
@@ -236,14 +237,14 @@ const FileManager = () => {
               isOpen && "budgeted-role-notes"
             }`}
           >
-            {/* {isOpen ? (
+            {isOpen ? (
               <FileContent />
             ) : (
               <FileContent />
-            )} */}
+            )}
           </div>
         </div>
-        {/* <FileModal /> */}
+        <FileModal />
       </div>
     </div>
   );

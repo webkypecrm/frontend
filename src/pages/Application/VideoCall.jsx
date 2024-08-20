@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import ImageWithBasePath from "../../components/ImageWithBasePath";
 // import 'slick-carousel/slick/slick.css';
 // import 'slick-carousel/slick/slick-theme.css';
-// import Slider from 'react-slick';
 // import { useDispatch, useSelector } from "react-redux";
 import Scrollbars from "react-custom-scrollbars-2";
 import { ChevronUp, Phone, Plus, RotateCcw, X } from "react-feather";
@@ -11,7 +10,8 @@ import Slider from "react-slick";
 // import { OverlayTrigger, Tooltip, TooltipProps } from "react-bootstrap";
 // import { JSX } from "react/jsx-runtime";
 
-const VideoCall = () => {
+
+const Videocall = () => {
     const [videoStatus, setVideoStatus] = useState({
         video1: false,
         video2: false,
@@ -33,7 +33,7 @@ const VideoCall = () => {
     const [addClass, setAddClass] = useState(false);
     const [isShow, setShow] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
-    // const dispatch = useDispatch();
+    //   const dispatch = useDispatch();
 
     const [isMuted, setIsMuted] = useState(false);
     const [isAudioMuted, setAudioIsMuted] = useState(false);
@@ -222,7 +222,8 @@ const VideoCall = () => {
                                                     </Link>
                                                 </div>
                                             </div>
-                                            <Slider {...settings} className="video-slide d-flex">
+                                            {/* <Slider {...settings} className="video-slide d-flex"> */}
+                                            <div className="video-slide d-flex">
                                                 <div className="join-video single-user">
                                                     <ImageWithBasePath
                                                         src="assets/img/users/user-01.jpg"
@@ -244,8 +245,8 @@ const VideoCall = () => {
                                                         >
                                                             <i
                                                                 className={`bx ${micStatus.mic1
-                                                                    ? "bx-microphone-off"
-                                                                    : "bx-microphone"
+                                                                        ? "bx-microphone-off"
+                                                                        : "bx-microphone"
                                                                     }`}
                                                             />
                                                         </Link>
@@ -272,8 +273,8 @@ const VideoCall = () => {
                                                         >
                                                             <i
                                                                 className={`bx ${micStatus.mic2
-                                                                    ? "bx-microphone-off"
-                                                                    : "bx-microphone"
+                                                                        ? "bx-microphone-off"
+                                                                        : "bx-microphone"
                                                                     }`}
                                                             />
                                                         </Link>
@@ -300,8 +301,8 @@ const VideoCall = () => {
                                                         >
                                                             <i
                                                                 className={`bx ${micStatus.mic3
-                                                                    ? "bx-microphone-off"
-                                                                    : "bx-microphone"
+                                                                        ? "bx-microphone-off"
+                                                                        : "bx-microphone"
                                                                     }`}
                                                             />
                                                         </Link>
@@ -328,14 +329,15 @@ const VideoCall = () => {
                                                         >
                                                             <i
                                                                 className={`bx ${micStatus.mic4
-                                                                    ? "bx-microphone-off"
-                                                                    : "bx-microphone"
+                                                                        ? "bx-microphone-off"
+                                                                        : "bx-microphone"
                                                                     }`}
                                                             />
                                                         </Link>
                                                     </div>
                                                 </div>
-                                            </Slider>
+                                            </div>
+                                            {/* </Slider> */}
                                         </div>
                                         {/* /Horizontal View */}
                                     </div>
@@ -391,8 +393,8 @@ const VideoCall = () => {
                                                                             >
                                                                                 <i
                                                                                     className={`bx ${micStatus.mic5
-                                                                                        ? "bx-microphone-off"
-                                                                                        : "bx-microphone"
+                                                                                            ? "bx-microphone-off"
+                                                                                            : "bx-microphone"
                                                                                         }`}
                                                                                 />
                                                                             </Link>
@@ -409,8 +411,8 @@ const VideoCall = () => {
                                                                             >
                                                                                 <i
                                                                                     className={`bx ${videoStatus.video1
-                                                                                        ? "bx-video-off"
-                                                                                        : "bx-video"
+                                                                                            ? "bx-video-off"
+                                                                                            : "bx-video"
                                                                                         }`}
                                                                                 />
                                                                             </Link>
@@ -444,8 +446,8 @@ const VideoCall = () => {
                                                                             >
                                                                                 <i
                                                                                     className={`bx ${micStatus.mic6
-                                                                                        ? "bx-microphone-off"
-                                                                                        : "bx-microphone"
+                                                                                            ? "bx-microphone-off"
+                                                                                            : "bx-microphone"
                                                                                         }`}
                                                                                 />
                                                                             </Link>
@@ -462,8 +464,8 @@ const VideoCall = () => {
                                                                             >
                                                                                 <i
                                                                                     className={`bx ${videoStatus.video2
-                                                                                        ? "bx-video-off"
-                                                                                        : "bx-video"
+                                                                                            ? "bx-video-off"
+                                                                                            : "bx-video"
                                                                                         }`}
                                                                                 />
                                                                             </Link>
@@ -497,8 +499,8 @@ const VideoCall = () => {
                                                                             >
                                                                                 <i
                                                                                     className={`bx ${micStatus.mic7
-                                                                                        ? "bx-microphone-off"
-                                                                                        : "bx-microphone"
+                                                                                            ? "bx-microphone-off"
+                                                                                            : "bx-microphone"
                                                                                         }`}
                                                                                 />
                                                                             </Link>
@@ -515,8 +517,8 @@ const VideoCall = () => {
                                                                             >
                                                                                 <i
                                                                                     className={`bx ${videoStatus.video3
-                                                                                        ? "bx-video-off"
-                                                                                        : "bx-video"
+                                                                                            ? "bx-video-off"
+                                                                                            : "bx-video"
                                                                                         }`}
                                                                                 />
                                                                             </Link>
@@ -550,8 +552,8 @@ const VideoCall = () => {
                                                                             >
                                                                                 <i
                                                                                     className={`bx ${micStatus.mic8
-                                                                                        ? "bx-microphone-off"
-                                                                                        : "bx-microphone"
+                                                                                            ? "bx-microphone-off"
+                                                                                            : "bx-microphone"
                                                                                         }`}
                                                                                 />
                                                                             </Link>
@@ -568,8 +570,8 @@ const VideoCall = () => {
                                                                             >
                                                                                 <i
                                                                                     className={`bx ${videoStatus.video4
-                                                                                        ? "bx-video-off"
-                                                                                        : "bx-video"
+                                                                                            ? "bx-video-off"
+                                                                                            : "bx-video"
                                                                                         }`}
                                                                                 />
                                                                             </Link>
@@ -603,8 +605,8 @@ const VideoCall = () => {
                                                                             >
                                                                                 <i
                                                                                     className={`bx ${micStatus.mic9
-                                                                                        ? "bx-microphone-off"
-                                                                                        : "bx-microphone"
+                                                                                            ? "bx-microphone-off"
+                                                                                            : "bx-microphone"
                                                                                         }`}
                                                                                 />
                                                                             </Link>
@@ -621,8 +623,8 @@ const VideoCall = () => {
                                                                             >
                                                                                 <i
                                                                                     className={`bx ${videoStatus.video5
-                                                                                        ? "bx-video-off"
-                                                                                        : "bx-video"
+                                                                                            ? "bx-video-off"
+                                                                                            : "bx-video"
                                                                                         }`}
                                                                                 />
                                                                             </Link>
@@ -656,8 +658,8 @@ const VideoCall = () => {
                                                                             >
                                                                                 <i
                                                                                     className={`bx ${micStatus.mic10
-                                                                                        ? "bx-microphone-off"
-                                                                                        : "bx-microphone"
+                                                                                            ? "bx-microphone-off"
+                                                                                            : "bx-microphone"
                                                                                         }`}
                                                                                 />
                                                                             </Link>
@@ -674,8 +676,8 @@ const VideoCall = () => {
                                                                             >
                                                                                 <i
                                                                                     className={`bx ${videoStatus.video8
-                                                                                        ? "bx-video-off"
-                                                                                        : "bx-video"
+                                                                                            ? "bx-video-off"
+                                                                                            : "bx-video"
                                                                                         }`}
                                                                                 />
                                                                             </Link>
@@ -709,8 +711,8 @@ const VideoCall = () => {
                                                                             >
                                                                                 <i
                                                                                     className={`bx ${micStatus.mic11
-                                                                                        ? "bx-microphone-off"
-                                                                                        : "bx-microphone"
+                                                                                            ? "bx-microphone-off"
+                                                                                            : "bx-microphone"
                                                                                         }`}
                                                                                 />
                                                                             </Link>
@@ -727,8 +729,8 @@ const VideoCall = () => {
                                                                             >
                                                                                 <i
                                                                                     className={`bx ${videoStatus.video6
-                                                                                        ? "bx-video-off"
-                                                                                        : "bx-video"
+                                                                                            ? "bx-video-off"
+                                                                                            : "bx-video"
                                                                                         }`}
                                                                                 />
                                                                             </Link>
@@ -762,8 +764,8 @@ const VideoCall = () => {
                                                                             >
                                                                                 <i
                                                                                     className={`bx ${micStatus.mic12
-                                                                                        ? "bx-microphone-off"
-                                                                                        : "bx-microphone"
+                                                                                            ? "bx-microphone-off"
+                                                                                            : "bx-microphone"
                                                                                         }`}
                                                                                 />
                                                                             </Link>
@@ -780,8 +782,8 @@ const VideoCall = () => {
                                                                             >
                                                                                 <i
                                                                                     className={`bx ${videoStatus.video7
-                                                                                        ? "bx-video-off"
-                                                                                        : "bx-video"
+                                                                                            ? "bx-video-off"
+                                                                                            : "bx-video"
                                                                                         }`}
                                                                                 />
                                                                             </Link>
@@ -1038,8 +1040,8 @@ const VideoCall = () => {
                                                 >
                                                     <i
                                                         className={`bx ${isAudioMuted
-                                                            ? "bx-microphone-off"
-                                                            : "bx-microphone"
+                                                                ? "bx-microphone-off"
+                                                                : "bx-microphone"
                                                             }`}
                                                     />
                                                 </Link>
@@ -1074,4 +1076,4 @@ const VideoCall = () => {
     );
 };
 
-export default VideoCall;
+export default Videocall;

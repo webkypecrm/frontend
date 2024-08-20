@@ -1,11 +1,12 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ImageWithBasePath from "../ImageWithBasePath";
 import Scrollbars from "react-custom-scrollbars-2";
 import { all_routes } from "../../pages/Router/all_routes";
 
 const Sidebar = ({ setExpandMenu }) => {
+    const Location = useLocation();
     const [openMenus, setOpenMenus] = useState({})
     const route = all_routes;
     const toggle = () => {
@@ -51,7 +52,7 @@ const Sidebar = ({ setExpandMenu }) => {
                             <ul>
                                 <li className="submenu">
                                     <Link to="#"
-                                        className={openMenus['menu1'] ? "subdrop active" : "subdrop"}
+                                        className={openMenus['menu1'] ? "subdrop active active" : "subdrop"}
                                         onClick={() => {
                                             handleMenu('menu1')
                                         }}
@@ -74,7 +75,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                             handleMenu('application')
                                         }}
                                     >
-                                        <i className="ti ti-layout-2"></i><span>Application</span><span className="menu-arrow"></span>
+                                        <i className="ti ti-brand-airtable"></i><span>Application</span><span className="menu-arrow"></span>
                                     </Link>
                                     {openMenus["application"] &&
                                         <ul>
@@ -112,7 +113,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                         }}
 
                                     >
-                                        <i className="ti ti-layout-2"></i><span>Subscription</span><span className="menu-arrow"></span>
+                                        <i className="ti ti-building-community"></i><span>Subscription</span><span className="menu-arrow"></span>
                                     </Link>
                                     {openMenus['menu-sub'] &&
                                         <ul>
@@ -128,9 +129,8 @@ const Sidebar = ({ setExpandMenu }) => {
                                         onClick={() => {
                                             handleMenu('menu2')
                                         }}
-
                                     >
-                                        <i className="ti ti-layout-2"></i><span>HRMS</span><span className="menu-arrow"></span>
+                                        <i className="ti ti-file-invoice"></i><span>HRMS</span><span className="menu-arrow"></span>
                                     </Link>
                                     {openMenus['menu2'] &&
                                         <ul>
@@ -154,7 +154,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                             handleMenu('menu3')
                                         }}
                                     >
-                                        <i className="ti ti-layout-2"></i><span>PRODUCT/SERVICES</span><span className="menu-arrow"></span>
+                                        <i className="ti ti-file-report"></i><span>PRODUCT/SERVICES</span><span className="menu-arrow"></span>
                                     </Link>
                                     {openMenus["menu3"] &&
                                         <ul>
@@ -190,7 +190,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                             handleMenu('Menu4')
                                         }}
                                     >
-                                        <i className="ti ti-brand-airtable">
+                                        <i className="ti ti-chart-arcs">
                                         </i><span>SALES</span>
                                         <span className="menu-arrow"></span></Link>
                                     <ul>
@@ -209,7 +209,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                         onClick={() => {
                                             handleMenu('Menu5')
                                         }}>
-                                        <i className="ti ti-brand-airtable">
+                                        <i className="ti ti-list-check">
                                         </i><span>TASKS</span>
                                         <span className="menu-arrow"></span></Link>
                                     <ul>
@@ -227,7 +227,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                         onClick={() => {
                                             handleMenu('Menu6')
                                         }}>
-                                        <i className="ti ti-brand-airtable">
+                                        <i className="ti ti-user-up">
                                         </i><span>CUSTOMERS</span>
                                         <span className="menu-arrow"></span></Link>
                                     <ul>
@@ -242,7 +242,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                         onClick={() => {
                                             handleMenu('Menu7')
                                         }}>
-                                        <i className="ti ti-brand-airtable">
+                                        <i className="ti ti-report-money">
                                         </i><span>FINANCE</span>
                                         <span className="menu-arrow"></span></Link>
                                     <ul>
@@ -258,7 +258,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                             handleMenu('Menu8')
                                         }}
                                     >
-                                        <i className="ti ti-brand-airtable">
+                                        <i className="ti ti-ticket">
                                         </i><span>SUPPORT</span>
                                         <span className="menu-arrow"></span></Link>
                                     <ul>
@@ -273,7 +273,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                         onClick={() => {
                                             handleMenu('Menu9')
                                         }}>
-                                        <i className="ti ti-brand-airtable">
+                                        <i className="ti ti-timeline-event-exclamation">
                                         </i><span>MARKETING</span>
                                         <span className="menu-arrow"></span></Link>
                                     <ul>
@@ -288,7 +288,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                         onClick={() => {
                                             handleMenu('Menu10')
                                         }}>
-                                        <i className="ti ti-brand-airtable">
+                                        <i className="ti ti-settings-cog">
                                         </i><span>SETTINGS</span>
                                         <span className="menu-arrow"></span></Link>
                                     <ul>

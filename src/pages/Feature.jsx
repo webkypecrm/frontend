@@ -10,25 +10,31 @@ import ThemeSettings from "../components/ThemeSetting/ThemeSetting"
 const Feature = () => {
     const [miniSidebar, setMiniSidebar] = useState(false)
     const [expandMenu, setExpandMenu] = useState(false)
+    const [headerCollapse, setheaderCollapse] = useState(false)
+    const [mobileSidebar, setmobileSidebar] = useState(false)
+    const [themeOpen, setThemeOpen] = useState(false)
 
     return <>
         <div className={`
       ${miniSidebar ? "mini-sidebar" : ""}
       ${expandMenu ? "expand-menu" : ""}`}>
-            <div className="main-wrapper ">
-                {/* <div
+            {/* <div className="main-wrapper "> */}
+            <div
                 className={`main-wrapper 
         ${headerCollapse ? "header-collapse" : ""} 
         ${mobileSidebar ? "slide-nav" : ""}`}
-            > */}
+            >
                 <Header setMiniSidebar={setMiniSidebar} setExpandMenu={setExpandMenu} />
                 <Sidebar setExpandMenu={setExpandMenu} />
                 <Outlet />
-                <ThemeSettings />
-
-                {/* </div>
-            <div className="sidebar-overlay"></div> */}
+                <ThemeSettings themeOpen={themeOpen} setThemeOpen={setThemeOpen} />
             </div>
+            <div className="sidebar-overlay"></div>
+            {/* </div> */}
+            <div
+                className={`sidebar-themeoverlay ${themeOpen ? "open" : ""}`}
+                onClick={() => setThemeOpen(!themeOpen)}
+            ></div>
         </div>
     </>
 }
