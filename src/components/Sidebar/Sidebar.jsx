@@ -68,43 +68,6 @@ const Sidebar = ({ setExpandMenu }) => {
                                     }
 
                                 </li>
-                                {/* <li className="submenu">
-                                    <Link to="#"
-                                        className={openMenus['application'] ? "subdrop active" : "subdrop"}
-                                        onClick={() => {
-                                            handleMenu('application')
-                                        }}
-                                    >
-                                        <i className="ti ti-brand-airtable"></i><span>Application</span><span className="menu-arrow"></span>
-                                    </Link>
-                                    {openMenus["application"] &&
-                                        <ul>
-                                            <li><Link to={route.chat}>Chat</Link></li>
-                                            <li className="submenu submenu-two subdrop">
-                                                <Link to="#"
-                                                    className={openMenus['applicationCalls'] ? "subdrop active" : "subdrop"}
-                                                    onClick={() => {
-                                                        handleMenu('applicationCalls')
-                                                    }} >
-                                                    Call
-                                                    <span className="menu-arrow inside-submenu"></span></Link>
-                                                {openMenus['applicationCalls'] &&
-                                                    <ul>
-                                                        <li><Link to={route.videoCall}>Video Call</Link></li>
-                                                        <li><Link to={route.audioCall}>Audio Call</Link></li>
-                                                        <li><Link to={route.callHistory}>Call History</Link></li>
-                                                    </ul>
-                                                }
-                                            </li>
-                                            <li><Link to={route.calendar} >Calender</Link></li>
-                                            <li><Link to={route.email}>Email</Link></li>
-                                            <li><Link to={route.todo} >To Do</Link></li>
-                                            <li><Link to={route.notes}>Notes</Link></li>
-                                            <li><Link to={route.fileManager} >File Manager</Link></li>
-                                        </ul>
-                                    }
-                                </li> */}
-
                                 <li className="submenu">
                                     <Link to="#"
                                         className={openMenus['menu2'] ? "subdrop active" : "subdrop"}
@@ -146,7 +109,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                             handleMenu('product')
                                         }}
                                     >
-                                        <i className="ti ti-file-report"></i><span>PRODUCT</span><span className="menu-arrow"></span>
+                                        <i className="ti ti-brand-slack"></i><span>PRODUCT</span><span className="menu-arrow"></span>
                                     </Link>
                                     {openMenus["product"] &&
                                         <ul>
@@ -328,16 +291,16 @@ const Sidebar = ({ setExpandMenu }) => {
                                         }}
 
                                     >
-                                        <i className="ti ti-building-community"></i><span>EXPENSE</span><span className="menu-arrow"></span>
+                                        <i className="ti ti-file-delta"></i><span>EXPENSE</span><span className="menu-arrow"></span>
                                     </Link>
                                     {openMenus['expense'] &&
                                         <ul>
-                                            <li><Link to={route.companies}>Expense Category </Link></li>
-                                            <li><Link to={route.membershipplan}>Expense Sub Category </Link></li>
-                                            <li><Link to={route.membershipAddon}>Create Expense</Link></li>
-                                            <li><Link to={route.membershipTransaction}>Manage Expense</Link></li>
-                                            <li><Link to={route.membershipTransaction}>Expense Summary</Link></li>
-                                            <li><Link to={route.membershipTransaction}>AI-Expense Summary</Link></li>
+                                            <li><Link to={route.salesDashboard}>Expense Category </Link></li>
+                                            <li><Link to={route.salesDashboard}>Expense Sub Category </Link></li>
+                                            <li><Link to={route.salesDashboard}>Create Expense</Link></li>
+                                            <li><Link to={route.salesDashboard}>Manage Expense</Link></li>
+                                            <li><Link to={route.salesDashboard}>Expense Summary</Link></li>
+                                            <li><Link to={route.salesDashboard}>AI-Expense Summary</Link></li>
                                             <li><Link to={route.membershipTransaction}>Connect with Zoho</Link></li>
                                         </ul>
                                     }

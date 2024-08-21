@@ -1982,7 +1982,7 @@ bg-light {
   border-radius: 5px;
   overflow: hidden;
 }
-.sidebar .sidebar-menu > ul > li ul li a {
+/* .sidebar .sidebar-menu > ul > li ul li a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1995,7 +1995,7 @@ bg-light {
   position: relative;
   width: 100%;
   padding: 3px;
-}
+} */
 .sidebar .sidebar-menu > ul > li ul li a i {
   color: #262A2A;
   font-size: 16px;
