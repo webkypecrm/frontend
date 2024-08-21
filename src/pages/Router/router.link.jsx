@@ -10,6 +10,7 @@ import LeadsKanban from "../Sales/LeadsKanban";
 
 import CustomerList from "../Customer/CustomerList";
 import CustomerGrid from "../Customer/CustomerGrid";
+import CustomerDetails from "../Customer/CustomerDetails"
 
 import Companies from "../Subscription/Companies";
 import CompaniesGrid from "../Subscription/CompaniesGrid";
@@ -270,6 +271,10 @@ export const publicRoutes = [
 
     },
     {
+        path: route.customerDetails,
+        element: <CustomerDetails />,
+    },
+    {
         path: route.companies,
         element: <Companies />,
     },
@@ -525,11 +530,7 @@ export const publicRoutes = [
     //     element: <Country />,
     //     route: Route,
     //   },
-    //   {
-    //     path: route.contactDetails,
-    //     element: <ContactDetails />,
-    //     route: Route,
-    //   },
+
     //   {
     //     path: route.bankAccounts,
     //     element: <BankAccounts />,

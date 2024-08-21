@@ -61,7 +61,7 @@ const CustomerGrid = () => {
                                 <div className="row align-items-center">
                                     <div className="col-8">
                                         <h4 className="page-title">
-                                            Contacts<span className="count-title">123</span>
+                                            Customer<span className="count-title">123</span>
                                         </h4>
                                     </div>
                                     <div className="col-4 text-end">
@@ -86,7 +86,7 @@ const CustomerGrid = () => {
                                                     <input
                                                         type="text"
                                                         className="form-control"
-                                                        placeholder="Search Contacts"
+                                                        placeholder="Search Customers"
                                                     />
                                                 </div>
                                             </div>
@@ -723,7 +723,7 @@ const CustomerGrid = () => {
                                             <div className="contact-grid">
                                                 <div className="grid-head">
                                                     <div className="users-profile">
-                                                        <Link to={route.contactDetails} className="avatar">
+                                                        <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
                                                                 src="assets/img/profiles/avatar-19.jpg"
                                                                 alt="img"
@@ -731,7 +731,7 @@ const CustomerGrid = () => {
                                                         </Link>
                                                         <div className="name-user">
                                                             <h6>
-                                                                <Link to={route.contactDetails}>
+                                                                <Link to={route.customerDetails}>
                                                                     Darlee Robertson
                                                                 </Link>
                                                             </h6>
@@ -771,7 +771,7 @@ const CustomerGrid = () => {
                                                             </Link>
                                                             <Link
                                                                 className="dropdown-item"
-                                                                to={route.contactDetails}
+                                                                to={route.customerDetails}
                                                             >
                                                                 <i className="ti ti-eye text-blue-light" />{" "}
                                                                 Preview
@@ -856,7 +856,7 @@ const CustomerGrid = () => {
                                             <div className="contact-grid">
                                                 <div className="grid-head">
                                                     <div className="users-profile">
-                                                        <Link to={route.contactDetails} className="avatar">
+                                                        <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
                                                                 src="assets/img/profiles/avatar-20.jpg"
                                                                 alt="img"
@@ -864,7 +864,7 @@ const CustomerGrid = () => {
                                                         </Link>
                                                         <div className="name-user">
                                                             <h6>
-                                                                <Link to={route.contactDetails}>
+                                                                <Link to={route.customerDetails}>
                                                                     Sharon Roy
                                                                 </Link>
                                                             </h6>
@@ -904,7 +904,7 @@ const CustomerGrid = () => {
                                                             </Link>
                                                             <Link
                                                                 className="dropdown-item"
-                                                                to={route.contactDetails}
+                                                                to={route.customerDetails}
                                                             >
                                                                 <i className="ti ti-eye text-blue-light" />{" "}
                                                                 Preview
@@ -989,7 +989,7 @@ const CustomerGrid = () => {
                                             <div className="contact-grid">
                                                 <div className="grid-head">
                                                     <div className="users-profile">
-                                                        <Link to={route.contactDetails} className="avatar">
+                                                        <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
                                                                 src="assets/img/profiles/avatar-21.jpg"
                                                                 alt="img"
@@ -997,7 +997,7 @@ const CustomerGrid = () => {
                                                         </Link>
                                                         <div className="name-user">
                                                             <h6>
-                                                                <Link to={route.contactDetails}>Vaughan</Link>
+                                                                <Link to={route.customerDetails}>Vaughan</Link>
                                                             </h6>
                                                             <p>Senior Manager</p>
                                                         </div>
@@ -1035,7 +1035,7 @@ const CustomerGrid = () => {
                                                             </Link>
                                                             <Link
                                                                 className="dropdown-item"
-                                                                to={route.contactDetails}
+                                                                to={route.customerDetails}
                                                             >
                                                                 <i className="ti ti-eye text-blue-light" />{" "}
                                                                 Preview
@@ -1120,7 +1120,7 @@ const CustomerGrid = () => {
                                             <div className="contact-grid">
                                                 <div className="grid-head">
                                                     <div className="users-profile">
-                                                        <Link to={route.contactDetails} className="avatar">
+                                                        <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
                                                                 src="assets/img/profiles/avatar-23.jpg"
                                                                 alt="img"
@@ -1128,7 +1128,7 @@ const CustomerGrid = () => {
                                                         </Link>
                                                         <div className="name-user">
                                                             <h6>
-                                                                <Link to={route.contactDetails}>Jessica</Link>
+                                                                <Link to={route.customerDetails}>Jessica</Link>
                                                             </h6>
                                                             <p>Test Engineer</p>
                                                         </div>
@@ -1166,7 +1166,7 @@ const CustomerGrid = () => {
                                                             </Link>
                                                             <Link
                                                                 className="dropdown-item"
-                                                                to={route.contactDetails}
+                                                                to={route.customerDetails}
                                                             >
                                                                 <i className="ti ti-eye text-blue-light" />{" "}
                                                                 Preview
@@ -1251,7 +1251,7 @@ const CustomerGrid = () => {
                                             <div className="contact-grid">
                                                 <div className="grid-head">
                                                     <div className="users-profile">
-                                                        <Link to={route.contactDetails} className="avatar">
+                                                        <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
                                                                 src="assets/img/profiles/avatar-16.jpg"
                                                                 alt="img"
@@ -1259,7 +1259,7 @@ const CustomerGrid = () => {
                                                         </Link>
                                                         <div className="name-user">
                                                             <h6>
-                                                                <Link to={route.contactDetails}>
+                                                                <Link to={route.customerDetails}>
                                                                     Carol Thomas
                                                                 </Link>
                                                             </h6>
@@ -1299,7 +1299,7 @@ const CustomerGrid = () => {
                                                             </Link>
                                                             <Link
                                                                 className="dropdown-item"
-                                                                to={route.contactDetails}
+                                                                to={route.customerDetails}
                                                             >
                                                                 <i className="ti ti-eye text-blue-light" />{" "}
                                                                 Preview
@@ -1384,7 +1384,7 @@ const CustomerGrid = () => {
                                             <div className="contact-grid">
                                                 <div className="grid-head">
                                                     <div className="users-profile">
-                                                        <Link to={route.contactDetails} className="avatar">
+                                                        <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
                                                                 src="assets/img/profiles/avatar-22.jpg"
                                                                 alt="img"
@@ -1392,7 +1392,7 @@ const CustomerGrid = () => {
                                                         </Link>
                                                         <div className="name-user">
                                                             <h6>
-                                                                <Link to={route.contactDetails}>
+                                                                <Link to={route.customerDetails}>
                                                                     Dawn Mercha
                                                                 </Link>
                                                             </h6>
@@ -1432,7 +1432,7 @@ const CustomerGrid = () => {
                                                             </Link>
                                                             <Link
                                                                 className="dropdown-item"
-                                                                to={route.contactDetails}
+                                                                to={route.customerDetails}
                                                             >
                                                                 <i className="ti ti-eye text-blue-light" />{" "}
                                                                 Preview
@@ -1517,7 +1517,7 @@ const CustomerGrid = () => {
                                             <div className="contact-grid">
                                                 <div className="grid-head">
                                                     <div className="users-profile">
-                                                        <Link to={route.contactDetails} className="avatar">
+                                                        <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
                                                                 src="assets/img/profiles/avatar-24.jpg"
                                                                 alt="img"
@@ -1525,7 +1525,7 @@ const CustomerGrid = () => {
                                                         </Link>
                                                         <div className="name-user">
                                                             <h6>
-                                                                <Link to={route.contactDetails}>
+                                                                <Link to={route.customerDetails}>
                                                                     Rachel Hampton
                                                                 </Link>
                                                             </h6>
@@ -1565,7 +1565,7 @@ const CustomerGrid = () => {
                                                             </Link>
                                                             <Link
                                                                 className="dropdown-item"
-                                                                to={route.contactDetails}
+                                                                to={route.customerDetails}
                                                             >
                                                                 <i className="ti ti-eye text-blue-light" />{" "}
                                                                 Preview
@@ -1650,7 +1650,7 @@ const CustomerGrid = () => {
                                             <div className="contact-grid">
                                                 <div className="grid-head">
                                                     <div className="users-profile">
-                                                        <Link to={route.contactDetails} className="avatar">
+                                                        <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
                                                                 src="assets/img/profiles/avatar-25.jpg"
                                                                 alt="img"
@@ -1658,7 +1658,7 @@ const CustomerGrid = () => {
                                                         </Link>
                                                         <div className="name-user">
                                                             <h6>
-                                                                <Link to={route.contactDetails}>
+                                                                <Link to={route.customerDetails}>
                                                                     Jonelle Curtiss
                                                                 </Link>
                                                             </h6>
@@ -1698,7 +1698,7 @@ const CustomerGrid = () => {
                                                             </Link>
                                                             <Link
                                                                 className="dropdown-item"
-                                                                to={route.contactDetails}
+                                                                to={route.customerDetails}
                                                             >
                                                                 <i className="ti ti-eye text-blue-light" />{" "}
                                                                 Preview
@@ -1783,7 +1783,7 @@ const CustomerGrid = () => {
                                             <div className="contact-grid">
                                                 <div className="grid-head">
                                                     <div className="users-profile">
-                                                        <Link to={route.contactDetails} className="avatar">
+                                                        <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
                                                                 src="assets/img/profiles/avatar-26.jpg"
                                                                 alt="img"
@@ -1791,7 +1791,7 @@ const CustomerGrid = () => {
                                                         </Link>
                                                         <div className="name-user">
                                                             <h6>
-                                                                <Link to={route.contactDetails}>Jonathan</Link>
+                                                                <Link to={route.customerDetails}>Jonathan</Link>
                                                             </h6>
                                                             <p>Team Lead Dev</p>
                                                         </div>
@@ -1829,7 +1829,7 @@ const CustomerGrid = () => {
                                                             </Link>
                                                             <Link
                                                                 className="dropdown-item"
-                                                                to={route.contactDetails}
+                                                                to={route.customerDetails}
                                                             >
                                                                 <i className="ti ti-eye text-blue-light" />{" "}
                                                                 Preview
@@ -1914,7 +1914,7 @@ const CustomerGrid = () => {
                                             <div className="contact-grid">
                                                 <div className="grid-head">
                                                     <div className="users-profile">
-                                                        <Link to={route.contactDetails} className="avatar">
+                                                        <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
                                                                 src="assets/img/profiles/avatar-01.jpg"
                                                                 alt="img"
@@ -1922,7 +1922,7 @@ const CustomerGrid = () => {
                                                         </Link>
                                                         <div className="name-user">
                                                             <h6>
-                                                                <Link to={route.contactDetails}>Brook</Link>
+                                                                <Link to={route.customerDetails}>Brook</Link>
                                                             </h6>
                                                             <p>Team Lead Dev </p>
                                                         </div>
@@ -1960,7 +1960,7 @@ const CustomerGrid = () => {
                                                             </Link>
                                                             <Link
                                                                 className="dropdown-item"
-                                                                to={route.contactDetails}
+                                                                to={route.customerDetails}
                                                             >
                                                                 <i className="ti ti-eye text-blue-light" />{" "}
                                                                 Preview
@@ -2045,7 +2045,7 @@ const CustomerGrid = () => {
                                             <div className="contact-grid">
                                                 <div className="grid-head">
                                                     <div className="users-profile">
-                                                        <Link to={route.contactDetails} className="avatar">
+                                                        <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
                                                                 src="assets/img/profiles/avatar-06.jpg"
                                                                 alt="img"
@@ -2053,7 +2053,7 @@ const CustomerGrid = () => {
                                                         </Link>
                                                         <div className="name-user">
                                                             <h6>
-                                                                <Link to={route.contactDetails}>
+                                                                <Link to={route.customerDetails}>
                                                                     Eric Adams
                                                                 </Link>
                                                             </h6>
@@ -2093,7 +2093,7 @@ const CustomerGrid = () => {
                                                             </Link>
                                                             <Link
                                                                 className="dropdown-item"
-                                                                to={route.contactDetails}
+                                                                to={route.customerDetails}
                                                             >
                                                                 <i className="ti ti-eye text-blue-light" />{" "}
                                                                 Preview
@@ -2178,7 +2178,7 @@ const CustomerGrid = () => {
                                             <div className="contact-grid">
                                                 <div className="grid-head">
                                                     <div className="users-profile">
-                                                        <Link to={route.contactDetails} className="avatar">
+                                                        <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
                                                                 src="assets/img/profiles/avatar-05.jpg"
                                                                 alt="img"
@@ -2186,7 +2186,7 @@ const CustomerGrid = () => {
                                                         </Link>
                                                         <div className="name-user">
                                                             <h6>
-                                                                <Link to={route.contactDetails}>
+                                                                <Link to={route.customerDetails}>
                                                                     Richard Cooper
                                                                 </Link>
                                                             </h6>
@@ -2226,7 +2226,7 @@ const CustomerGrid = () => {
                                                             </Link>
                                                             <Link
                                                                 className="dropdown-item"
-                                                                to={route.contactDetails}
+                                                                to={route.customerDetails}
                                                             >
                                                                 <i className="ti ti-eye text-blue-light" />{" "}
                                                                 Preview
@@ -2312,7 +2312,7 @@ const CustomerGrid = () => {
                                     {/* /Contact Grid */}
                                     <div className="load-btn text-center">
                                         <Link to="#" className="btn btn-primary">
-                                            Load More Contacts
+                                            Load More Customer
                                             <i className="ti ti-loader" />
                                         </Link>
                                     </div>
@@ -2332,11 +2332,11 @@ const CustomerGrid = () => {
             >
                 <div className="sidebar-layout">
                     <div className="sidebar-header">
-                        <h4>Add New Deals</h4>
+                        <h4>Add New Customer</h4>
                         <Link
                             to="#"
                             className="sidebar-close toggle-btn"
-                        // onClick={() => dispatch(setActivityTogglePopup(!activityToggle))}
+                        onClick={() => setActivityToggle(!activityToggle)}
                         >
                             <i className="ti ti-x" />
                         </Link>
@@ -2587,7 +2587,7 @@ const CustomerGrid = () => {
             >
                 <div className="sidebar-layout">
                     <div className="sidebar-header">
-                        <h4>Edit Contact</h4>
+                        <h4>Edit Customer</h4>
                         <Link
                             to="#"
                             className="sidebar-close1 toggle-btn"
@@ -3177,9 +3177,9 @@ const CustomerGrid = () => {
                                 <div className="success-popup-icon">
                                     <i className="ti ti-trash-x" />
                                 </div>
-                                <h3>Remove Contacts?</h3>
+                                <h3>Remove Customer?</h3>
                                 <p className="del-info">
-                                    Are you sure you want to remove contact you selected.
+                                    Are you sure you want to remove customer you selected.
                                 </p>
                                 <div className="col-lg-12 text-center modal-btn">
                                     <Link
@@ -3492,7 +3492,7 @@ const CustomerGrid = () => {
                                 <div className="success-popup-icon bg-light-blue">
                                     <i className="ti ti-user-plus" />
                                 </div>
-                                <h3>Contact Created Successfully!!!</h3>
+                                <h3>Customer Created Successfully!!!</h3>
                                 <p>View the details of contact, created</p>
                                 <div className="col-lg-12 text-center modal-btn">
                                     <Link

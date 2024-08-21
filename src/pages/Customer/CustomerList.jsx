@@ -125,7 +125,7 @@ const CustomerList = () => {
       dataIndex: "Phone",
       render: (text, record, index) => (
         <div className="table-avatar d-flex align-items-center" key={index}>
-          <Link to={route.contactDetails} className="avatar">
+          <Link to={route.customerDetails} className="avatar">
             <ImageWithBasePath
               className="avatar-img"
               src={record.customer_image}
@@ -133,7 +133,7 @@ const CustomerList = () => {
             />
           </Link>
           <Link
-            to={route.contactDetails}
+            to={route.customerDetails}
             className="profile-split d-flex flex-column"
           >
             {record.customer_name} <span>{record.customer_no}</span>
@@ -313,7 +313,7 @@ const CustomerList = () => {
                 <div className="row align-items-center">
                   <div className="col-8">
                     <h4 className="page-title">
-                      Contacts<span className="count-title">123</span>
+                      Customer<span className="count-title">123</span>
                     </h4>
                   </div>
                   <div className="col-4 text-end">
@@ -2620,7 +2620,7 @@ const CustomerList = () => {
                   >
                     Cancel
                   </Link>
-                  <Link to={route.contactDetails} className="btn btn-primary">
+                  <Link to={route.customerDetails} className="btn btn-primary">
                     View Details
                   </Link>
                 </div>

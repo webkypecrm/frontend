@@ -215,7 +215,7 @@ const Manageusers = () => {
                 <div className="row align-items-center">
                   <div className="col-8">
                     <h4 className="page-title">
-                      User<span className="count-title">123</span>
+                      Staff<span className="count-title">123</span>
                     </h4>
                   </div>
                   <div className="col-4 text-end">
@@ -239,7 +239,7 @@ const Manageusers = () => {
                           <input
                             type="text"
                             className="form-control"
-                            placeholder="Search User"
+                            placeholder="Search Staff"
                           />
                         </div>
                       </div>
@@ -281,7 +281,7 @@ const Manageusers = () => {
                                 onClick={() => togglePopup(false)}
                               >
                                 <i className="ti ti-square-rounded-plus" />
-                                Add User
+                                Add Staff
                               </Link>
                             </li>
                           </ul>
@@ -520,7 +520,7 @@ const Manageusers = () => {
                               <i className="ti ti-filter-share" />
                               Filter
                             </Link>
-                            <div className="filter-dropdown-menu dropdown-menu  dropdown-menu-md-end show">
+                            <div className="filter-dropdown-menu dropdown-menu  dropdown-menu-md-end">
                               <div className="filter-set-view">
                                 <div className="filter-set-head">
                                   <h4>

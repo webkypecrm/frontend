@@ -24,6 +24,7 @@ export const all_routes = {
     //customer
     customerList: "/customer/customer-list",
     customerGrid: "/customer/customer-grid",
+    customerDetails: "/customer/customer-details",
 
     //task
     tasks: "/task/tasks",
@@ -108,7 +109,7 @@ export const all_routes = {
     campaignArchieve: "/crm/campaign-archieve",
     addCampaign: "/crm/addCampaign",
     analytics: "/crm/analytics",
-    contactDetails: "/crm/contact-details",
+   
 
 
 
