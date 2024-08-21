@@ -57,7 +57,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                             handleMenu('menu1')
                                         }}
                                     >
-                                        <i className="ti ti-layout-2"></i><span>Dashboard</span><span className="menu-arrow"></span>
+                                        <i className="ti ti-layout-2"></i><span>DASHBOARD</span><span className="menu-arrow"></span>
                                     </Link>
                                     {openMenus["menu1"] &&
                                         <ul>
@@ -68,7 +68,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                     }
 
                                 </li>
-                                <li className="submenu">
+                                {/* <li className="submenu">
                                     <Link to="#"
                                         className={openMenus['application'] ? "subdrop active" : "subdrop"}
                                         onClick={() => {
@@ -103,7 +103,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                             <li><Link to={route.fileManager} >File Manager</Link></li>
                                         </ul>
                                     }
-                                </li>
+                                </li> */}
 
                                 <li className="submenu">
                                     <Link to="#"
@@ -113,11 +113,14 @@ const Sidebar = ({ setExpandMenu }) => {
                                         }}
 
                                     >
-                                        <i className="ti ti-building-community"></i><span>Subscription</span><span className="menu-arrow"></span>
+                                        <i className="ti ti-building-community"></i><span>SUBSCRIPTION</span><span className="menu-arrow"></span>
                                     </Link>
                                     {openMenus['menu-sub'] &&
                                         <ul>
                                             <li><Link to={route.companies}>Manage Companies </Link></li>
+                                            <li><Link to={route.membershipplan}>Membership Plans </Link></li>
+                                            <li><Link to={route.membershipAddon}>Membership Addons </Link></li>
+                                            <li><Link to={route.membershipTransaction}>Transactions </Link></li>
                                         </ul>
                                     }
 

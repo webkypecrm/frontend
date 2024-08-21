@@ -10,6 +10,9 @@ export const all_routes = {
     companies: "/subscription/manage-companies",
     companiesGrid: "/subscription/manage-companies-grid",
     companyDetails: "/subscription/company-details",
+    membershipplan: "/subscription/membership-plans",
+    membershipAddon: "/subscription/membership-addons",
+    membershipTransaction: "/subscription/membership-transactions",
 
     //hrms
     deleteRequest: "/hrms/delete-request",
@@ -268,7 +271,5 @@ export const all_routes = {
 
 
     // membership routes
-    membershipplan: "/membership-plans",
-    membershipAddon: "/membership-addons",
-    membershipTransaction: "/membership-transactions",
+  
 };

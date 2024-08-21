@@ -15,6 +15,10 @@ import CustomerDetails from "../Customer/CustomerDetails"
 import Companies from "../Subscription/Companies";
 import CompaniesGrid from "../Subscription/CompaniesGrid";
 import CompaniesDetails from "../Subscription/CompaniesDetails"
+import MembershipAddon from "../Subscription/MembershipAddon";
+import MembershipTransaction from "../Subscription/MembershipTransaction";
+import Membershipplan from "../Subscription/MembershipPlan";
+
 
 import Task from "../Task/Task";
 
@@ -95,8 +99,7 @@ import Campaign from "../Marketing/Campaign";
 
 // import DealReports from "../reports/dealReports";
 // import DeleteRequest from "../userManagement/deleteRequest";
-// import Membershipplan from "../membership/membershipplan";
-// import MembershipAddon from "../membership/membershipaddon";
+
 
 // import Notes from "../application/notes";
 // import Cities from "../content/cities";
@@ -285,6 +288,18 @@ export const publicRoutes = [
     {
         path: route.companyDetails,
         element: <CompaniesDetails />,
+    },
+    {
+        path: route.membershipplan,
+        element: <Membershipplan />,
+    },
+    {
+        path: route.membershipAddon,
+        element: <MembershipAddon />,
+    },
+    {
+        path: route.membershipTransaction,
+        element: <MembershipTransaction />,
     },
     {
         path: route.tasks,
@@ -547,18 +562,7 @@ export const publicRoutes = [
     //     element: <Manageusers />,
     //   },
 
-    //   {
-    //     path: route.membershipplan,
-    //     element: <Membershipplan />,
-    //   },
-    //   {
-    //     path: route.membershipAddon,
-    //     element: <MembershipAddon />,
-    //   },
-    //   {
-    //     path: route.membershipTransaction,
-    //     element: <MembershipTransaction />,
-    //   },
+
 
 
     //   {

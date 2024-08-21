@@ -69,7 +69,7 @@ const Header = ({ setMiniSidebar, setExpandMenu }) => {
                 <span />
             </span>
         </Link>
-        <div className="header-user">      
+        <div className="header-user">
             <ul className="nav user-menu">
                 {/* Search */}
                 <li className="nav-item nav-search-inputs me-auto">
@@ -265,12 +265,52 @@ const Header = ({ setMiniSidebar, setExpandMenu }) => {
                             </div>
                         </li>
                         <li className="nav-item">
+                            <Link to={route.chat} className="btn btn-help">
+                                <i className="ti ti-message-exclamation" />
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to={route.audioCall} className="btn btn-help">
+                                <i className="ti ti-phone-calling" />
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to={route.videoCall} className="btn btn-help">
+                                <i className="ti ti-video-plus" />
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to={route.callHistory} className="btn btn-help">
+                                <i className="ti ti-history-toggle" />
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to={route.calendar} className="btn btn-help">
+                                <i className="ti ti-calendar-month" />
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to={route.todo} className="btn btn-help">
+                                <i className="ti ti-clipboard-list" />
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to={route.notes} className="btn btn-help">
+                                <i className="ti ti-note" />
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to={route.fileManager} className="btn btn-help">
+                                <i className="ti ti-file-analytics" />
+                            </Link>
+                        </li>
+                        <li className="nav-item">
                             <Link to={route.faq} className="btn btn-help">
                                 <i className="ti ti-help-hexagon" />
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="#" className="btn btn-chart-pie">
+                            <Link to={route.salesDashboard} className="btn btn-chart-pie">
                                 <i className="ti ti-chart-pie" />
                             </Link>
                         </li>
@@ -394,7 +434,7 @@ const Header = ({ setMiniSidebar, setExpandMenu }) => {
                 <li className="nav-item dropdown has-arrow main-drop">
                     <a href="#"
                         className="nav-link userset"
-                        data-bs-toggle="dropdown"                       
+                        data-bs-toggle="dropdown"
                         onClick={() => { setIsUserInfo(!isUserInfo) }}>
                         <span className="user-info">
                             <span className="user-letter">
@@ -417,37 +457,7 @@ const Header = ({ setMiniSidebar, setExpandMenu }) => {
                         </div>
                     </div>
                 </li>
-                {/* <li className="nav-item dropdown has-arrow main-drop">
-              <Link
-                to="#"
-                className="nav-link userset"
-                data-bs-toggle="dropdown"
-              >
-                <span className="user-info">
-                  <span className="user-letter">
-                    <ImageWithBasePath
-                      src="assets/img/profiles/avatar-20.jpg"
-                      alt="Profile"
-                    />
-                  </span>
-                  <span className="badge badge-success rounded-pill" />
-                </span>
-              </Link>
-              <div className={` dropdown-menu  menu-drop-user show `}>
-                <div className="profilename">
-                  <Link className="dropdown-item" to={route.salesDashboard}>
-                    <i className="ti ti-layout-2" /> Dashboard
-                  </Link>
-                  <Link className="dropdown-item" to={route.profile}>
-                    <i className="ti ti-user-pin" /> My Profile
-                  </Link>
-                  <Link className="dropdown-item" to={route.login}>
-                    <i className="ti ti-lock" /> Logout
-                  </Link>
-                </div>
-              </div>
-            </li> */}
-                {/* /Profile Dropdown */}
+                {/* Profile Dropdown */}
             </ul>
         </div>
         {/* Mobile Menu */}
