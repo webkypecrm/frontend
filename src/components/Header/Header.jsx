@@ -46,8 +46,8 @@ const Header = ({ setMiniSidebar, setExpandMenu }) => {
                     ) : (
                         <ImageWithBasePath src="assets/img/logo.svg" alt="Logo" />
                     )} */}
-                <ImageWithBasePath src="assets/img/logo.svg" alt="Logo" />
-                <ImageWithBasePath src="assets/img/white-logo.svg" className="white-logo" alt="Logo" />
+                <img src="https://webkype.com/kypeimg/logo_blue.png" alt="Logo" style={{width:"200px", height:'auto'}}/>
+                <img src="https://webkype.com/kypeimg/logo_blue.png" className="white-logo" alt="Logo" />
             </Link>
             <Link to={route.salesDashboard} className="logo-small">
                 <ImageWithBasePath src="assets/img/logo-small.svg" alt="Logo" />
@@ -438,7 +438,7 @@ const Header = ({ setMiniSidebar, setExpandMenu }) => {
                         onClick={() => { setIsUserInfo(!isUserInfo) }}>
                         <span className="user-info">
                             <span className="user-letter">
-                                <img src="/assets/img/profiles/avatar-20.jpg" alt="Profile" />
+                                <img src="/assets/img/profiles/gajenn.png" alt="Profile" />
                             </span>
                             <span className="badge badge-success rounded-pill"></span>
                         </span>
