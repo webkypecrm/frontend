@@ -310,7 +310,7 @@ const Header = ({ setMiniSidebar, setExpandMenu }) => {
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={route.salesDashboard} className="btn btn-chart-pie">
+                            <Link to={route.membershipplan} className="btn btn-chart-pie">
                                 <i className="ti ti-chart-pie" />
                             </Link>
                         </li>

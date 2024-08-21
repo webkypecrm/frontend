@@ -157,7 +157,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                             handleMenu('menu3')
                                         }}
                                     >
-                                        <i className="ti ti-file-report"></i><span>PRODUCT/SERVICES</span><span className="menu-arrow"></span>
+                                        <i className="ti ti-file-report"></i><span>PRODUCT</span><span className="menu-arrow"></span>
                                     </Link>
                                     {openMenus["menu3"] &&
                                         <ul>
@@ -186,6 +186,44 @@ const Sidebar = ({ setExpandMenu }) => {
                                     }
 
                                 </li>
+
+                                <li className="submenu">
+                                    <Link to="#"
+                                        className={openMenus['menu3'] ? "subdrop active" : "subdrop"}
+                                        onClick={() => {
+                                            handleMenu('menu3')
+                                        }}
+                                    >
+                                        <i className="ti ti-file-report"></i><span>SERVICES</span><span className="menu-arrow"></span>
+                                    </Link>
+                                    {openMenus["menu3"] &&
+                                        <ul>
+                                            <li className="submenu submenu-two subdrop">
+                                                <Link to="#"
+                                                    className={openMenus['subMenu1'] ? "subdrop active" : "subdrop"}
+                                                    onClick={() => {
+                                                        handleMenu('subMenu1')
+                                                    }} >
+                                                    Type
+                                                    <span className="menu-arrow inside-submenu"></span></Link>
+                                                {openMenus['subMenu1'] &&
+                                                    <ul>
+                                                        <li><Link to="product.html">Product</Link></li>
+                                                        <li><Link to="service.html">Service</Link></li>
+                                                    </ul>
+                                                }
+                                            </li>
+                                            <li><Link to="calendar.html">Select Category</Link></li>
+                                            <li><Link to="todo.html">Name </Link></li>
+                                            <li><Link to="notes.html">Permissions</Link></li>
+                                            <li><Link to="file-manager.html">Unit </Link></li>
+                                            <li><Link to="file-manager.html">Tax</Link></li>
+                                            <li><Link to="file-manager.html">Product Listing</Link></li>
+                                        </ul>
+                                    }
+
+                                </li>
+
                                 <li className="submenu">
                                     <Link to="#"
                                         className={openMenus['Menu4'] ? "subdrop active" : "subdrop"}
