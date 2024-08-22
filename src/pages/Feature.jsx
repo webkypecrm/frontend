@@ -1,10 +1,10 @@
 import { useState } from "react"
-import Sidebar from "../components/Sidebar/Sidebar"
-import Header from "../components/Header/Header"
+import Sidebar from "../components/Layouts/Sidebar/Sidebar"
+import Header from "../components/Layouts/Header/Header"
 
 // import SalesDashboard from "../components/Content/SalesDashboard"
 import { Outlet } from "react-router-dom"
-import ThemeSettings from "../components/ThemeSetting/ThemeSetting"
+import ThemeSettings from "../components/Layouts/ThemeSetting/ThemeSetting"
 
 
 const Feature = () => {

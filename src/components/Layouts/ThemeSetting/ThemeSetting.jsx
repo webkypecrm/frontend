@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 // import { setThemeSettings } from "../../data/redux/commonSlice";
-import ImageWithBasePath from "../ImageWithBasePath";
+import ImageWithBasePath from "../../ImageWithBasePath";
 import { Link } from "react-router-dom";
 const ThemeSettings = ({themeOpen, setThemeOpen}) => {
 //   const dispatch = useDispatch();

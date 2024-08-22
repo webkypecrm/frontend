@@ -61,6 +61,7 @@
     "react-tag-input": "^6.9.0",
     "react-tag-input-component": "^2.0.2",
     "react-time-picker": "^6.5.2",
+    "react-tooltip": "^5.28.0",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.72.0",
     "slick-carousel": "^1.8.1",

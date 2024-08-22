@@ -1,8 +1,9 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom"
-import ImageWithBasePath from "../ImageWithBasePath"
-import { all_routes } from "../../pages/Router/all_routes";
+import ImageWithBasePath from "../../ImageWithBasePath"
+import { all_routes } from "../../../pages/Router/all_routes";
+import { Tooltip } from 'react-tooltip'
 
 const Header = ({ setMiniSidebar, setExpandMenu }) => {
     const [layoutBs, setLayoutBs] = useState(localStorage.getItem("dataTheme"));
@@ -46,11 +47,11 @@ const Header = ({ setMiniSidebar, setExpandMenu }) => {
                     ) : (
                         <ImageWithBasePath src="assets/img/logo.svg" alt="Logo" />
                     )} */}
-                <img src="https://webkype.com/kypeimg/logo_blue.png" alt="Logo" style={{width:"200px", height:'auto'}}/>
+                <img src="https://webkype.com/kypeimg/logo_blue.png" alt="Logo" style={{ width: "200px", height: 'auto' }} />
                 <img src="https://webkype.com/kypeimg/logo_blue.png" className="white-logo" alt="Logo" />
             </Link>
             <Link to={route.salesDashboard} className="logo-small">
-                <ImageWithBasePath src="assets/img/logo-small.svg" alt="Logo" />
+                <img src="/favicon.png" alt="Logo" />
             </Link>
             <Link id="toggle_btn" to="#" onClick={toggleMiniSidebar}>
                 <i className="ti ti-arrow-bar-to-left" />
@@ -118,9 +119,14 @@ const Header = ({ setMiniSidebar, setExpandMenu }) => {
                                 to="#"
                                 className="btn btn-header-list"
                                 data-bs-toggle="dropdown"
+                                data-tooltip-id="sevices-tooltip"
+                                data-tooltip-content="Services"
                             >
                                 <i className="ti ti-layout-grid-add" />
                             </Link>
+                            <Tooltip id="sevices-tooltip"
+                                style={{ backgroundColor: "#E0F5D7", color: "#00918E", border: "1px solid #00918E" }}
+                            />
                             <div className="dropdown-menu dropdown-menu-end menus-info">
                                 <div className="row">
                                     <div className="col-md-6">
@@ -265,69 +271,118 @@ const Header = ({ setMiniSidebar, setExpandMenu }) => {
                             </div>
                         </li>
                         <li className="nav-item">
-                            <Link to={route.chat} className="btn btn-help">
+
+                            <Link to={route.chat} className="btn btn-help"
+                                data-tooltip-id="tooltip"
+                                data-tooltip-content="Chat"
+                            >
                                 <i className="ti ti-message-exclamation" />
                             </Link>
+                            <Tooltip id="tooltip"
+                                style={{ backgroundColor: "#F3EDFF", color: "#3C2371" }}
+                            />
+
                         </li>
                         <li className="nav-item">
-                            <Link to={route.audioCall} className="btn btn-help">
+                            <Link to={route.audioCall} className="btn btn-help"
+                                data-tooltip-id="tooltip"
+                                data-tooltip-content="Audio"
+                            >
                                 <i className="ti ti-phone-calling" />
                             </Link>
+
                         </li>
                         <li className="nav-item">
-                            <Link to={route.videoCall} className="btn btn-help">
+                            <Link to={route.videoCall} className="btn btn-help"
+                                data-tooltip-id="tooltip"
+                                data-tooltip-content="Video"
+                            >
                                 <i className="ti ti-video-plus" />
                             </Link>
+
                         </li>
                         <li className="nav-item">
-                            <Link to={route.callHistory} className="btn btn-help">
+                            <Link to={route.callHistory} className="btn btn-help"
+                                data-tooltip-id="tooltip"
+                                data-tooltip-content="Call History"
+                            >
                                 <i className="ti ti-history-toggle" />
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={route.calendar} className="btn btn-help">
+                            <Link to={route.calendar} className="btn btn-help"
+                                data-tooltip-id="tooltip"
+                                data-tooltip-content="Calendar"
+                            >
                                 <i className="ti ti-calendar-month" />
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={route.todo} className="btn btn-help">
+                            <Link to={route.todo} className="btn btn-help"
+                                data-tooltip-id="tooltip"
+                                data-tooltip-content="ToDo"
+                            >
                                 <i className="ti ti-clipboard-list" />
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={route.notes} className="btn btn-help">
+                            <Link to={route.notes} className="btn btn-help"
+                                data-tooltip-id="tooltip"
+                                data-tooltip-content="Notes"
+                            >
                                 <i className="ti ti-note" />
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={route.fileManager} className="btn btn-help">
+                            <Link to={route.fileManager} className="btn btn-help"
+                                data-tooltip-id="tooltip"
+                                data-tooltip-content="File Manager"
+                            >
                                 <i className="ti ti-file-analytics" />
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={route.faq} className="btn btn-help">
+                            <Link to={route.faq} className="btn btn-help"
+                                data-tooltip-id="tooltip"
+                                data-tooltip-content="FAQ"
+                            >
                                 <i className="ti ti-help-hexagon" />
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={route.membershipplan} className="btn btn-chart-pie">
+                            <Link to={route.membershipplan} className="btn btn-chart-pie"
+                                data-tooltip-id="plans-tooltip"
+                                data-tooltip-content="Plans"
+                            >
                                 <i className="ti ti-chart-pie" />
                             </Link>
+                            <Tooltip id="plans-tooltip"
+                                style={{ backgroundColor: "#FFF7D8", color: "#FFA201" }}
+                            />
                         </li>
                     </ul>
                 </li>
                 {/* /Nav List */}
                 {/* Email */}
                 <li className="nav-item nav-item-email nav-item-box">
-                    <Link to={route.email}>
+                    <Link to={route.email}
+                        data-tooltip-id="email-tooltip"
+                        data-tooltip-content="Email"
+                    >
                         <i className="ti ti-message-circle-exclamation" />
                         <span className="badge rounded-pill">14</span>
                     </Link>
+                    <Tooltip id="email-tooltip"
+                        style={{ backgroundColor: "lightgrey", color: "#3E4265" }}
+                    />
                 </li>
                 {/* /Email */}
                 {/* Notifications */}
                 <li className="nav-item dropdown nav-item-box">
-                    <Link to="#" className="nav-link" data-bs-toggle="dropdown">
+                    <Link to="#" className="nav-link" data-bs-toggle="dropdown"
+                        data-tooltip-id="email-tooltip"
+                        data-tooltip-content="Notification"
+                    >
                         <i className="ti ti-bell" />
                         <span className="badge rounded-pill">13</span>
                     </Link>
@@ -431,7 +486,9 @@ const Header = ({ setMiniSidebar, setExpandMenu }) => {
                 </li>
                 {/* /Notifications */}
                 {/* Profile Dropdown */}
-                <li className="nav-item dropdown has-arrow main-drop">
+                <li className="nav-item dropdown has-arrow main-drop"
+                    data-tooltip-id="email-tooltip"
+                    data-tooltip-content="Profile">
                     <a href="#"
                         className="nav-link userset"
                         data-bs-toggle="dropdown"

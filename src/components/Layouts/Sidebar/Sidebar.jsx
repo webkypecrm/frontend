@@ -1,9 +1,9 @@
 
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import ImageWithBasePath from "../ImageWithBasePath";
+import ImageWithBasePath from "../../ImageWithBasePath";
 import Scrollbars from "react-custom-scrollbars-2";
-import { all_routes } from "../../pages/Router/all_routes";
+import { all_routes } from "../../../pages/Router/all_routes";
 
 const Sidebar = ({ setExpandMenu }) => {
     const Location = useLocation();

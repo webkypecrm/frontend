@@ -20,6 +20,7 @@ import "../src/style/icon/ionic/ionicons.css";
 import "../src/style/icon/tabler-icons/webfont/tabler-icons.css";
 // import ALLRoutes from "./feature-module/router/router";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
+import 'react-tooltip/dist/react-tooltip.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
