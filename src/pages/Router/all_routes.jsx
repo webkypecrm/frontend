@@ -58,10 +58,11 @@ export const all_routes = {
     smsGateways: "/setting/system-settings/sms-gateways",
 
     // setting / financial settings
-    bankAccount: "/setting/financial-settings/bank-account",
+    bankAccounts: "/setting/financial-settings/bank-account",
     currencies: "/setting/financial-settings/currencies",
     paymentGateways: "/setting/financial-settings/payment-gateways",
     taxRates: "/setting/financial-settings/tax-rates",
+    // bankAccounts: "/bank-accounts",
 
     //setting / other settings
     banIpAddrress: "/setting/other-settings/ban-ip-address",
@@ -138,7 +139,7 @@ export const all_routes = {
     estimationKanban: "/crm/estimation-kanban",
 
 
-    bankAccounts: "/bank-accounts",
+   
     blankPage: "/blank-page",
     dataTables: "/data-tables",
     tablesBasic: "/tables-basic",

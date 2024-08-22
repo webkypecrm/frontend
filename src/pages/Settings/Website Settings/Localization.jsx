@@ -2,9 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 // import CollapseHeader from "../../../core/common/collapse-header";
+import { all_routes } from "../../Router/all_routes";
 
 const Localization = () => {
-  
+  const route = all_routes
   const languageOptions = [
     { value: "english", label: "English" },
     { value: "spanish", label: "Spanish" },
@@ -69,7 +70,7 @@ const Localization = () => {
                 </div>
                 <div className="col-4 text-end">
                   <div className="head-icons">
-                      {/* <CollapseHeader /> */}
+                    {/* <CollapseHeader /> */}
                   </div>
                 </div>
               </div>
@@ -124,24 +125,24 @@ const Localization = () => {
                       <h4>Website Settings</h4>
                       <ul>
                         <li>
-                          <Link to="/company-settings">Company Settings</Link>
-                        </li>
-                        <li>
-                          <Link to="/localization" className="active">
-                            Localization
+                          <Link to={route.companySettings}>
+                            Company Settings
                           </Link>
                         </li>
                         <li>
-                          <Link to="/prefixes">Prefixes</Link>
+                          <Link to={route.localization} className="active">Localization</Link>
                         </li>
                         <li>
-                          <Link to="/preference">Preference</Link>
+                          <Link to={route.prefixes}>Prefixes</Link>
                         </li>
                         <li>
-                          <Link to="/appearance">Appearance</Link>
+                          <Link to={route.preference}>Preference</Link>
                         </li>
                         <li>
-                          <Link to="/language">Language</Link>
+                          <Link to={route.appearance}>Appearance</Link>
+                        </li>
+                        <li>
+                          <Link to={route.language}>Language</Link>
                         </li>
                       </ul>
                     </div>

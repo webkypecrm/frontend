@@ -24,10 +24,11 @@ const Register = () => {
                     <form>
                         <div className="login-user-info">
                             <div className="login-logo">
-                                <ImageWithBasePath
-                                    src="assets/img/logo.svg"
+                                <img
+                                    src="https://webkype.com/kypeimg/logo_blue.png"
                                     className="img-fluid"
                                     alt="Logo"
+                                    style={{ height: "40px" }}
                                 />
                             </div>
                             <div className="login-heading">
@@ -73,8 +74,8 @@ const Register = () => {
                                     />
                                     <span
                                         className={`ti toggle-passwords ${passwordVisibility.confirmPassword
-                                                ? "ti-eye"
-                                                : "ti-eye-off"
+                                            ? "ti-eye"
+                                            : "ti-eye-off"
                                             }`}
                                         onClick={() => togglePasswordVisibility("confirmPassword")}
                                     ></span>

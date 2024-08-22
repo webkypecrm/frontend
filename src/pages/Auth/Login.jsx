@@ -10,7 +10,7 @@ const LoginPage = () => {
                     <form action="dashboard/sales-dashboard">
                         <div className="login-user-info">
                             <div className="login-logo">
-                                <img src="https://webkype.com/kypeimg/logo_blue.png" className="img-fluid" alt="Logo" />
+                                <img src="https://webkype.com/kypeimg/logo_blue.png" className="img-fluid" alt="Logo" style={{ height: "40px" }} />
                             </div>
                             <div className="login-heading">
                                 <h4>Sign In</h4>

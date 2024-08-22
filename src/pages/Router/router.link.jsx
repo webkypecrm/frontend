@@ -382,7 +382,7 @@ export const publicRoutes = [
         element: <Printers />,
     },
     {
-        path: route.bankAccount,
+        path: route.bankAccounts,
         element: <BankAccounts />,
     },
     {
