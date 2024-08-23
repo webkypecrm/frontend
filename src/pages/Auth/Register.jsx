@@ -105,12 +105,12 @@ const Register = () => {
                                     </Link>
                                 </h6>
                             </div>
-                            <div className="form-set-login or-text">
+                            {/* <div className="form-set-login or-text">
                                 <h4>OR</h4>
-                            </div>
+                            </div> */}
                             <div className="login-social-link">
-                                <ul className="nav">
-                                    <li>
+                                <ul className="nav" style={{ visibility: "hidden" }}>
+                                    <li >
                                         <Link to="#" className="facebook-logo">
                                             <ImageWithBasePath
                                                 src="assets/img/icons/facebook-logo.svg"
@@ -136,7 +136,7 @@ const Register = () => {
                                     </li>
                                 </ul>
                                 <div className="copyright-text">
-                                    <p>Copyright ©2024 - CRMS</p>
+                                    <p>Copyright ©2024 - WEBKYPE</p>
                                 </div>
                             </div>
                         </div>

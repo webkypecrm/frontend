@@ -86,23 +86,42 @@ const Sidebar = ({ setExpandMenu }) => {
                                     {openMenus['menu2'] &&
                                         <ul>
                                             <li><Link to={route.manageStaff}>Manage Staff </Link></li>
-                                            <li><Link to={route.manageStaff}>Add Staff</Link></li>
+                                            {/* <li><Link to={route.manageStaff}>Add Staff</Link></li>
                                             <li><Link to={route.manageStaff}>Active Staff </Link></li>
-                                            <li><Link to={route.manageStaff}>In Active Staff </Link> </li>
-                                            <li><Link to={route.rolesPermissions}>Role & Permissions</Link></li>
-                                            <li><Link to={route.rolesPermissions}>Staff Grouping</Link></li>
+                                            <li><Link to={route.manageStaff}>In Active Staff </Link> </li> */}
+                                            {/* <li><Link to={route.rolesPermissions}>Role & Permissions</Link></li> */}
+                                            {/* <li><Link to={route.rolesPermissions}>Staff Grouping</Link></li>
                                             <li><Link to={route.rolesPermissions}>Staff Department</Link></li>
-                                            <li><Link to={route.rolesPermissions}>Staff Designation</Link></li>
-                                            <li><Link to={route.rolesPermissions}>Staff Targets</Link></li>
-                                            <li><Link to={route.rolesPermissions}>Staff Achievements</Link></li>
+                                            <li><Link to={route.rolesPermissions}>Staff Designation</Link></li> */}
+                                            {/* <li><Link to={route.rolesPermissions}>Staff Targets</Link></li> */}
+                                            {/* <li><Link to={route.rolesPermissions}>Staff Achievements</Link></li> */}
                                             <li><Link to={route.rolesPermissions}>Staff Attendance</Link></li>
                                             <li><Link to={route.rolesPermissions}>Staff Leaves</Link></li>
-                                            <li><Link to={route.rolesPermissions}>Staff Incentives</Link></li>
-                                            <li><Link to={route.rolesPermissions}>Staff Rewards</Link></li>
+                                            {/* <li><Link to={route.rolesPermissions}>Staff Incentives</Link></li> */}
+                                            {/* <li><Link to={route.rolesPermissions}>Staff Rewards</Link></li> */}
                                             <li><Link to={route.rolesPermissions}>Staff Salary</Link></li>
                                             <li><Link to={route.rolesPermissions}>Staff KYC </Link></li>
                                             <li><Link to={route.rolesPermissions}>Staff Exit</Link></li>
                                             <li><Link to={route.rolesPermissions}>Staff Knowledge Transfer</Link></li>
+                                        </ul>
+                                    }
+
+                                </li>
+                                <li className="submenu">
+                                    <Link to="#"
+                                        className={openMenus['incentives'] ? "subdrop active" : "subdrop"}
+                                        onClick={() => {
+                                            handleMenu('incentives')
+                                        }}
+                                    >
+                                        <i className="ti ti-file-invoice"></i><span>INCENTIVES</span><span className="menu-arrow"></span>
+                                    </Link>
+                                    {openMenus['incentives'] &&
+                                        <ul>
+                                            <li><Link to={route.rolesPermissions}>Staff Targets</Link></li>
+                                            <li><Link to={route.rolesPermissions}>Staff Achievements</Link></li>
+                                            <li><Link to={route.rolesPermissions}>Staff Incentives</Link></li>
+                                            <li><Link to={route.rolesPermissions}>Staff Rewards</Link></li>
                                         </ul>
                                     }
 
@@ -122,10 +141,10 @@ const Sidebar = ({ setExpandMenu }) => {
                                             <li><Link to="calendar.html">Manage Product</Link></li>
                                             <li><Link to="todo.html">Disabled Product </Link></li>
                                             <li><Link to="notes.html">Add Product</Link></li>
-                                            <li><Link to="file-manager.html">Product Category </Link></li>
+                                            {/* <li><Link to="file-manager.html">Product Category </Link></li>
                                             <li><Link to="file-manager.html">Product Sub Cat</Link></li>
                                             <li><Link to="file-manager.html">Product Tax</Link></li>
-                                            <li><Link to="file-manager.html">Product Unit</Link></li>
+                                            <li><Link to="file-manager.html">Product Unit</Link></li> */}
                                         </ul>
                                     }
 
@@ -145,10 +164,10 @@ const Sidebar = ({ setExpandMenu }) => {
                                             <li><Link to="calendar.html">Manage Services</Link></li>
                                             <li><Link to="todo.html">Disabled Services </Link></li>
                                             <li><Link to="notes.html">Add Services</Link></li>
-                                            <li><Link to="file-manager.html">Services Category </Link></li>
+                                            {/* <li><Link to="file-manager.html">Services Category </Link></li>
                                             <li><Link to="file-manager.html">Services Sub Cat</Link></li>
                                             <li><Link to="file-manager.html">Services Tax</Link></li>
-                                            <li><Link to="file-manager.html">Services Unit</Link></li>
+                                            <li><Link to="file-manager.html">Services Unit</Link></li> */}
 
                                         </ul>
                                     }
@@ -168,10 +187,6 @@ const Sidebar = ({ setExpandMenu }) => {
                                     <ul>
                                         <li><Link to={route.leads}>Manage Leads</Link></li>
                                         <li><Link to={route.leads}>Add Lead</Link></li>
-                                        <li><Link to={route.leads}>Leads Source </Link></li>
-                                        <li><Link to={route.leads}>Lost Reasons</Link></li>
-                                        <li><Link to={route.leads}>Industry</Link></li>
-                                        <li><Link to={route.leads}>Lead Stage</Link></li>
                                         <li><Link to={route.leads}>Proposal Template</Link></li>
                                     </ul>
                                 </li>
@@ -241,8 +256,8 @@ const Sidebar = ({ setExpandMenu }) => {
                                         </i><span>SUPPORT</span>
                                         <span className="menu-arrow"></span></Link>
                                     <ul>
-                                        <li><Link to={route.ticketStage}>Support Category</Link></li>
-                                        <li><Link to={route.ticketStage}>Support Sub Category</Link></li>
+                                        {/* <li><Link to={route.ticketStage}>Support Category</Link></li>
+                                        <li><Link to={route.ticketStage}>Support Sub Category</Link></li> */}
                                         <li><Link to={route.ticketStage}>Create Support Ticket</Link></li>
                                         <li><Link to={route.ticketStage}>Open Tickets</Link></li>
                                         <li><Link to={route.ticketStage}>In Process Tickets</Link></li>
@@ -251,7 +266,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                         <li><Link to={route.ticketStage}>AI Chatbot</Link></li>
                                         <li><Link to={route.ticketStage}>Video Chat</Link></li>
                                         <li><Link to={route.ticketStage}>Voice Calls</Link></li>
-                                        <li><Link to={route.ticketStage}>Manage FAQ</Link></li>
+                                        {/* <li><Link to={route.ticketStage}>Manage FAQ</Link></li> */}
                                     </ul>
                                 </li>
                                 <li className="submenu">
@@ -301,8 +316,8 @@ const Sidebar = ({ setExpandMenu }) => {
                                     </Link>
                                     {openMenus['expense'] &&
                                         <ul>
-                                            <li><Link to={route.salesDashboard}>Expense Category </Link></li>
-                                            <li><Link to={route.salesDashboard}>Expense Sub Category </Link></li>
+                                            {/* <li><Link to={route.salesDashboard}>Expense Category </Link></li>
+                                            <li><Link to={route.salesDashboard}>Expense Sub Category </Link></li> */}
                                             <li><Link to={route.salesDashboard}>Create Expense</Link></li>
                                             <li><Link to={route.salesDashboard}>Manage Expense</Link></li>
                                             <li><Link to={route.salesDashboard}>Expense Summary</Link></li>
@@ -467,10 +482,13 @@ const Sidebar = ({ setExpandMenu }) => {
                                                 <span className="menu-arrow inside-submenu"></span></Link>
                                             {openMenus['staff-master'] &&
                                                 <ul>
-                                                    <li><Link to={route.profile}>Profile</Link></li>
-                                                    <li><Link to={route.security}>Security</Link></li>
-                                                    <li><Link to={route.notification}>Notification</Link></li>
-                                                    <li><Link to={route.connectedApps}>Connected App</Link></li>
+                                                    <li><Link to={route.profile}>Group </Link></li>
+                                                    <li><Link to={route.security}> Department </Link></li>
+                                                    <li><Link to={route.notification}> Designation </Link></li>
+                                                    <li><Link to={route.connectedApps}>Roles</Link></li>
+                                                    <li><Link to={route.connectedApps}>Permissions</Link></li>
+                                                    <li><Link to={route.connectedApps}>Working Shift</Link></li>
+                                                    <li><Link to={route.connectedApps}>Job Type</Link></li>
                                                 </ul>
                                             }
                                         </li>
@@ -484,12 +502,10 @@ const Sidebar = ({ setExpandMenu }) => {
                                                 <span className="menu-arrow inside-submenu"></span></Link>
                                             {openMenus['product-master'] &&
                                                 <ul>
-                                                    <li><Link to={route.companySettings}>Company Setting</Link></li>
-                                                    <li><Link to={route.localization}>Localization</Link></li>
-                                                    <li><Link to={route.prefixes}>Prefixes</Link></li>
-                                                    <li><Link to={route.preference}>Preference</Link></li>
-                                                    <li><Link to={route.appearance}>Appearance</Link></li>
-                                                    <li><Link to={route.language}>Language</Link></li>
+                                                    <li><Link to={route.companySettings}>Category</Link></li>
+                                                    <li><Link to={route.localization}>Sub Category</Link></li>
+                                                    <li><Link to={route.prefixes}>Tax</Link></li>
+                                                    <li><Link to={route.preference}>Unit</Link></li>
                                                 </ul>
                                             }
                                         </li>
@@ -499,14 +515,14 @@ const Sidebar = ({ setExpandMenu }) => {
                                                 onClick={() => {
                                                     handleMenu('service-master')
                                                 }} >
-                                               Services Master
+                                                Services Master
                                                 <span className="menu-arrow inside-submenu"></span></Link>
                                             {openMenus['service-master'] &&
                                                 <ul>
-                                                    <li><Link to={route.invoiceSettings}>Invoice</Link></li>
-                                                    <li><Link to={route.printers}>Printers</Link></li>
-                                                    <li><Link to={route.customFields}>Custom Fields</Link></li>
-
+                                                    <li><Link to={route.companySettings}>Category</Link></li>
+                                                    <li><Link to={route.localization}>Sub Category</Link></li>
+                                                    <li><Link to={route.prefixes}>Tax</Link></li>
+                                                    <li><Link to={route.preference}>Unit</Link></li>
                                                 </ul>
                                             }
                                         </li>
@@ -520,9 +536,10 @@ const Sidebar = ({ setExpandMenu }) => {
                                                 <span className="menu-arrow inside-submenu"></span></Link>
                                             {openMenus['sales-master'] &&
                                                 <ul>
-                                                    <li><Link to={route.emailSettings}>Email</Link></li>
-                                                    <li><Link to={route.smsGateways}>SMS-Gateways</Link></li>
-                                                    <li><Link to={route.gdprCookies}>GDPR-Cookies</Link></li>
+                                                    <li><Link to={route.emailSettings}>Source</Link></li>
+                                                    <li><Link to={route.smsGateways}>Reasons</Link></li>
+                                                    <li><Link to={route.gdprCookies}>Industry</Link></li>
+                                                    <li><Link to={route.gdprCookies}>Stage</Link></li>
 
                                                 </ul>
                                             }
@@ -537,11 +554,8 @@ const Sidebar = ({ setExpandMenu }) => {
                                                 <span className="menu-arrow inside-submenu"></span></Link>
                                             {openMenus['task-master'] &&
                                                 <ul>
-                                                    <li><Link to={route.paymentGateways}>Payment Gateways</Link></li>
-                                                    <li><Link to={route.bankAccount}>Bank Accounts</Link></li>
-                                                    <li><Link to={route.taxRates}>Tax Rates</Link></li>
-                                                    <li><Link to={route.currencies}>Currencies</Link></li>
-
+                                                    <li><Link to={route.companySettings}>Category</Link></li>
+                                                    <li><Link to={route.localization}>Sub Category</Link></li>
                                                 </ul>
                                             }
                                         </li>
@@ -555,8 +569,8 @@ const Sidebar = ({ setExpandMenu }) => {
                                                 <span className="menu-arrow inside-submenu"></span></Link>
                                             {openMenus['customer-master'] &&
                                                 <ul>
-                                                    <li><Link to={route.storage}>Storage</Link></li>
-                                                    <li><Link to={route.banIpAddrress}>Ban IP Address</Link></li>
+                                                    <li><Link to={route.storage}>Group</Link></li>
+                                                    <li><Link to={route.banIpAddrress}>Flag</Link></li>
 
                                                 </ul>
                                             }
@@ -571,11 +585,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                                 <span className="menu-arrow inside-submenu"></span></Link>
                                             {openMenus['finance-master'] &&
                                                 <ul>
-                                                    <li><Link to={route.sources}>Sources</Link></li>
-                                                    <li><Link to={route.lostReason}>Lost Reasons</Link></li>
-                                                    <li><Link to={route.contactStage}>Contact Stage</Link></li>
-                                                    <li><Link to={route.industry}>Industry</Link></li>
-                                                    <li><Link to={route.calls}>Calls</Link></li>
+                                                    <li><Link to={route.sources}>GST</Link></li>
                                                 </ul>
                                             }
                                         </li>
@@ -589,11 +599,10 @@ const Sidebar = ({ setExpandMenu }) => {
                                                 <span className="menu-arrow inside-submenu"></span></Link>
                                             {openMenus['subMenu8'] &&
                                                 <ul>
-                                                    <li><Link to={route.sources}>Sources</Link></li>
-                                                    <li><Link to={route.lostReason}>Lost Reasons</Link></li>
-                                                    <li><Link to={route.contactStage}>Contact Stage</Link></li>
-                                                    <li><Link to={route.industry}>Industry</Link></li>
-                                                    <li><Link to={route.calls}>Calls</Link></li>
+                                                    <li><Link to={route.companySettings}>Category</Link></li>
+                                                    <li><Link to={route.localization}>Sub Category</Link></li>
+                                                    <li><Link to={route.localization}>FAQ Category</Link></li>
+                                                    <li><Link to={route.localization}>FAQ Sub Category</Link></li>
                                                 </ul>
                                             }
                                         </li>
@@ -607,11 +616,24 @@ const Sidebar = ({ setExpandMenu }) => {
                                                 <span className="menu-arrow inside-submenu"></span></Link>
                                             {openMenus['marketing-master'] &&
                                                 <ul>
-                                                    <li><Link to={route.sources}>Sources</Link></li>
-                                                    <li><Link to={route.lostReason}>Lost Reasons</Link></li>
-                                                    <li><Link to={route.contactStage}>Contact Stage</Link></li>
-                                                    <li><Link to={route.industry}>Industry</Link></li>
-                                                    <li><Link to={route.calls}>Calls</Link></li>
+                                                    <li><Link to={route.sources}>Campaign Type</Link></li>
+                                                    <li><Link to={route.lostReason}>UTM Source</Link></li>
+                                                    <li><Link to={route.contactStage}>Vendor Category</Link></li>
+                                                </ul>
+                                            }
+                                        </li>
+                                        <li className="submenu submenu-two subdrop">
+                                            <Link to="#"
+                                                className={openMenus['expense-master'] ? "subdrop active" : "subdrop"}
+                                                onClick={() => {
+                                                    handleMenu('expense-master')
+                                                }} >
+                                                Expense Master
+                                                <span className="menu-arrow inside-submenu"></span></Link>
+                                            {openMenus['expense-master'] &&
+                                                <ul>
+                                                    <li><Link to={route.companySettings}>Category</Link></li>
+                                                    <li><Link to={route.localization}>Sub Category</Link></li>
                                                 </ul>
                                             }
                                         </li>

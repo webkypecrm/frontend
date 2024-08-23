@@ -76,11 +76,11 @@ const Login = () => {
                   </Link>
                 </h6>
               </div>
-              <div className="form-set-login or-text">
+              {/* <div className="form-set-login or-text">
                 <h4>OR</h4>
-              </div>
+              </div> */}
               <div className="login-social-link">
-                <ul className="nav">
+                <ul className="nav" style={{ visibility: "hidden" }}>
                   <li>
                     <Link to="#" className="facebook-logo">
                       <ImageWithBasePath
@@ -107,7 +107,7 @@ const Login = () => {
                   </li>
                 </ul>
                 <div className="copyright-text">
-                  <p>Copyright ©2024 - CRMS</p>
+                  <p>Copyright ©2024 - WEBKYPE</p>
                 </div>
               </div>
             </div>
