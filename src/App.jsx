@@ -6,10 +6,10 @@ import Loader from './components/Loader/Loader.jsx';
 import Feature from './pages/Feature.jsx';
 import AuthFeature from './pages/AuthFeature.jsx'
 import { authRoutes, publicRoutes } from './pages/Router/router.link.jsx';
+import PageNotFound from './pages/PageNotFound/PageNotFound.jsx';
 
 
 function App() {
-
 
   return (
     <BrowserRouter>
@@ -19,7 +19,6 @@ function App() {
           {publicRoutes.map((route, idx) => (
             <Route path={route.path} element={route.element} key={idx} />
           ))}
-
         </Route>
         <Route path={"/"} element={<AuthFeature />}>
           {authRoutes.map((route, idx) => (
@@ -27,8 +26,8 @@ function App() {
           ))}
 
         </Route>
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
-
     </BrowserRouter>
   )
 }

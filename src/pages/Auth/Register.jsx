@@ -28,7 +28,6 @@ const Register = () => {
                                     src="https://webkype.com/kypeimg/logo_blue.png"
                                     className="img-fluid"
                                     alt="Logo"
-                                    style={{ height: "40px" }}
                                 />
                             </div>
                             <div className="login-heading">

@@ -125,7 +125,7 @@ const Header = ({ setMiniSidebar, setExpandMenu }) => {
                                 <i className="ti ti-layout-grid-add" />
                             </Link>
                             <Tooltip id="sevices-tooltip"
-                                style={{ backgroundColor: "#E0F5D7", color: "#00918E", border: "1px solid #00918E" }}
+                                style={{ backgroundColor: "#E0F5D7", color: "#00918E" }}
                             />
                             <div className="dropdown-menu dropdown-menu-end menus-info">
                                 <div className="row">

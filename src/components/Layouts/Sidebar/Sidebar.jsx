@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ImageWithBasePath from "../../ImageWithBasePath";
 import Scrollbars from "react-custom-scrollbars-2";
@@ -18,13 +18,19 @@ const Sidebar = ({ setExpandMenu }) => {
     };
 
 
-    function handleMenu(menu) {
+    function handleMenu(menu, url) {
         setOpenMenus((prevState) => ({
             ...prevState,
-            [menu]: !prevState[menu],
+            [menu]: url === Location.pathname ? true : !prevState[menu],
+
         }));
     };
 
+    useEffect(() => {
+        handleMenu('menu1', route.salesDashboard)
+        handleMenu('menu2', route.manageStaff)
+        handleMenu('menu2', route.permissions)
+    }, [])
 
     return <div
         className="sidebar"
@@ -52,7 +58,7 @@ const Sidebar = ({ setExpandMenu }) => {
                             <ul>
                                 <li className="submenu">
                                     <Link to="#"
-                                        className={openMenus['menu1'] ? "subdrop active active" : "subdrop"}
+                                        className={openMenus['menu1'] ? "subdrop active active" : 'subdrop'}
                                         onClick={() => {
                                             handleMenu('menu1')
                                         }}
@@ -61,9 +67,9 @@ const Sidebar = ({ setExpandMenu }) => {
                                     </Link>
                                     {openMenus["menu1"] &&
                                         <ul>
-                                            <li><Link to="dashboard/sales-dashboard">Sales Dashboard</Link></li>
-                                            <li><Link to="dashboard/support-dashboard">Support Dashboard</Link></li>
-                                            <li><Link to="dashboard/staff-dashboard" >Staff Dashboard</Link></li>
+                                            <li><Link className={Location.pathname == route.salesDashboard ? 'active' : ''} to={route.salesDashboard}>Sales Dashboard</Link></li>
+                                            <li><Link to={route.salesDashboard}>Support Dashboard</Link></li>
+                                            <li><Link to={route.salesDashboard}>Staff Dashboard</Link></li>
                                         </ul>
                                     }
 
@@ -429,6 +435,177 @@ const Sidebar = ({ setExpandMenu }) => {
                                                 Master
                                                 <span className="menu-arrow inside-submenu"></span></Link>
                                             {openMenus['subMenu8'] &&
+                                                <ul>
+                                                    <li><Link to={route.sources}>Sources</Link></li>
+                                                    <li><Link to={route.lostReason}>Lost Reasons</Link></li>
+                                                    <li><Link to={route.contactStage}>Contact Stage</Link></li>
+                                                    <li><Link to={route.industry}>Industry</Link></li>
+                                                    <li><Link to={route.calls}>Calls</Link></li>
+                                                </ul>
+                                            }
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                <li className="submenu">
+                                    <Link to="#"
+                                        className={openMenus['setup'] ? "subdrop active" : "subdrop"}
+                                        onClick={() => {
+                                            handleMenu('setup')
+                                        }}>
+                                        <i className="ti ti-settings-cog">
+                                        </i><span>SETUP</span>
+                                        <span className="menu-arrow"></span></Link>
+                                    <ul>
+                                        <li className="submenu submenu-two subdrop">
+                                            <Link to="#"
+                                                className={openMenus['staff-master'] ? "subdrop active" : "subdrop"}
+                                                onClick={() => {
+                                                    handleMenu('staff-master')
+                                                }} >
+                                                Staff Master
+                                                <span className="menu-arrow inside-submenu"></span></Link>
+                                            {openMenus['staff-master'] &&
+                                                <ul>
+                                                    <li><Link to={route.profile}>Profile</Link></li>
+                                                    <li><Link to={route.security}>Security</Link></li>
+                                                    <li><Link to={route.notification}>Notification</Link></li>
+                                                    <li><Link to={route.connectedApps}>Connected App</Link></li>
+                                                </ul>
+                                            }
+                                        </li>
+                                        <li className="submenu submenu-two subdrop">
+                                            <Link to="#"
+                                                className={openMenus['product-master'] ? "subdrop active" : "subdrop"}
+                                                onClick={() => {
+                                                    handleMenu('product-master')
+                                                }} >
+                                                Product Master
+                                                <span className="menu-arrow inside-submenu"></span></Link>
+                                            {openMenus['product-master'] &&
+                                                <ul>
+                                                    <li><Link to={route.companySettings}>Company Setting</Link></li>
+                                                    <li><Link to={route.localization}>Localization</Link></li>
+                                                    <li><Link to={route.prefixes}>Prefixes</Link></li>
+                                                    <li><Link to={route.preference}>Preference</Link></li>
+                                                    <li><Link to={route.appearance}>Appearance</Link></li>
+                                                    <li><Link to={route.language}>Language</Link></li>
+                                                </ul>
+                                            }
+                                        </li>
+                                        <li className="submenu submenu-two subdrop">
+                                            <Link to="#"
+                                                className={openMenus['service-master'] ? "subdrop active" : "subdrop"}
+                                                onClick={() => {
+                                                    handleMenu('service-master')
+                                                }} >
+                                               Services Master
+                                                <span className="menu-arrow inside-submenu"></span></Link>
+                                            {openMenus['service-master'] &&
+                                                <ul>
+                                                    <li><Link to={route.invoiceSettings}>Invoice</Link></li>
+                                                    <li><Link to={route.printers}>Printers</Link></li>
+                                                    <li><Link to={route.customFields}>Custom Fields</Link></li>
+
+                                                </ul>
+                                            }
+                                        </li>
+                                        <li className="submenu submenu-two subdrop">
+                                            <Link to="#"
+                                                className={openMenus['sales-master'] ? "subdrop active" : "subdrop"}
+                                                onClick={() => {
+                                                    handleMenu('sales-master')
+                                                }} >
+                                                Sales Master
+                                                <span className="menu-arrow inside-submenu"></span></Link>
+                                            {openMenus['sales-master'] &&
+                                                <ul>
+                                                    <li><Link to={route.emailSettings}>Email</Link></li>
+                                                    <li><Link to={route.smsGateways}>SMS-Gateways</Link></li>
+                                                    <li><Link to={route.gdprCookies}>GDPR-Cookies</Link></li>
+
+                                                </ul>
+                                            }
+                                        </li>
+                                        <li className="submenu submenu-two subdrop">
+                                            <Link to="#"
+                                                className={openMenus['task-master'] ? "subdrop active" : "subdrop"}
+                                                onClick={() => {
+                                                    handleMenu('task-master')
+                                                }} >
+                                                Task Master
+                                                <span className="menu-arrow inside-submenu"></span></Link>
+                                            {openMenus['task-master'] &&
+                                                <ul>
+                                                    <li><Link to={route.paymentGateways}>Payment Gateways</Link></li>
+                                                    <li><Link to={route.bankAccount}>Bank Accounts</Link></li>
+                                                    <li><Link to={route.taxRates}>Tax Rates</Link></li>
+                                                    <li><Link to={route.currencies}>Currencies</Link></li>
+
+                                                </ul>
+                                            }
+                                        </li>
+                                        <li className="submenu submenu-two subdrop">
+                                            <Link to="#"
+                                                className={openMenus['customer-master'] ? "subdrop active" : "subdrop"}
+                                                onClick={() => {
+                                                    handleMenu('customer-master')
+                                                }} >
+                                                Customer Master
+                                                <span className="menu-arrow inside-submenu"></span></Link>
+                                            {openMenus['customer-master'] &&
+                                                <ul>
+                                                    <li><Link to={route.storage}>Storage</Link></li>
+                                                    <li><Link to={route.banIpAddrress}>Ban IP Address</Link></li>
+
+                                                </ul>
+                                            }
+                                        </li>
+                                        <li className="submenu submenu-two subdrop">
+                                            <Link to="#"
+                                                className={openMenus['finance-master'] ? "subdrop active" : "subdrop"}
+                                                onClick={() => {
+                                                    handleMenu('finance-master')
+                                                }} >
+                                                Finance Master
+                                                <span className="menu-arrow inside-submenu"></span></Link>
+                                            {openMenus['finance-master'] &&
+                                                <ul>
+                                                    <li><Link to={route.sources}>Sources</Link></li>
+                                                    <li><Link to={route.lostReason}>Lost Reasons</Link></li>
+                                                    <li><Link to={route.contactStage}>Contact Stage</Link></li>
+                                                    <li><Link to={route.industry}>Industry</Link></li>
+                                                    <li><Link to={route.calls}>Calls</Link></li>
+                                                </ul>
+                                            }
+                                        </li>
+                                        <li className="submenu submenu-two subdrop">
+                                            <Link to="#"
+                                                className={openMenus['subMenu8'] ? "subdrop active" : "subdrop"}
+                                                onClick={() => {
+                                                    handleMenu('subMenu8')
+                                                }} >
+                                                Support Master
+                                                <span className="menu-arrow inside-submenu"></span></Link>
+                                            {openMenus['subMenu8'] &&
+                                                <ul>
+                                                    <li><Link to={route.sources}>Sources</Link></li>
+                                                    <li><Link to={route.lostReason}>Lost Reasons</Link></li>
+                                                    <li><Link to={route.contactStage}>Contact Stage</Link></li>
+                                                    <li><Link to={route.industry}>Industry</Link></li>
+                                                    <li><Link to={route.calls}>Calls</Link></li>
+                                                </ul>
+                                            }
+                                        </li>
+                                        <li className="submenu submenu-two subdrop">
+                                            <Link to="#"
+                                                className={openMenus['marketing-master'] ? "subdrop active" : "subdrop"}
+                                                onClick={() => {
+                                                    handleMenu('marketing-master')
+                                                }} >
+                                                Marketing Master
+                                                <span className="menu-arrow inside-submenu"></span></Link>
+                                            {openMenus['marketing-master'] &&
                                                 <ul>
                                                     <li><Link to={route.sources}>Sources</Link></li>
                                                     <li><Link to={route.lostReason}>Lost Reasons</Link></li>

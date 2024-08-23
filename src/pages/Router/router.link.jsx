@@ -110,11 +110,11 @@ import Campaign from "../Marketing/Campaign";
 // import Leads from "../crm/leads/leads";
 import Login from "../Auth/Login";
 import Register from "../Auth/Register";
+import ForgotPassword from "../Auth/ForgotPassword";
 // import TwoStepVerification from "../auth/twoStepVerification";
 // import EmailVerification from "../auth/emailVerification";
 // import Success from "../auth/success";
 // import ResetPassword from "../auth/resetPassword";
-// import ForgotPassword from "../auth/forgotPassword";
 // import Accordion from "../uiInterface/base-ui/accordion";
 // import Avatar from "../uiInterface/base-ui/avatar";
 // import Borders from "../uiInterface/base-ui/borders";
@@ -1123,6 +1123,10 @@ export const authRoutes = [
         path: route.register,
         element: <Register />,
     },
+    {
+        path: route.forgotPassword,
+        element: <ForgotPassword />,
+    },
     //   {
     //     path: route.twoStepVerification,
     //     element: <TwoStepVerification />,
@@ -1148,11 +1152,7 @@ export const authRoutes = [
     //     element: <ResetPassword />,
     //     route: Route,
     //   },
-    //   {
-    //     path: route.forgotPassword,
-    //     element: <ForgotPassword />,
-    //     route: Route,
-    //   },
+
     //   {
     //     path: route.error404,
     //     element: <Error404 />,

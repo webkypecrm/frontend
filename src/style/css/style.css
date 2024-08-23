@@ -27033,7 +27033,7 @@ fieldset#first-field-file {
   display: flex;
 }
 .login-wrapper.account-bg {
-  background-image: url(assets/img/authentication/login-bg.jpg);
+  background-image: url(../../../../public/assets/img/authentication/login-bg.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
