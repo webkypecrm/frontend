@@ -16,11 +16,12 @@ import {
 import DataTable from "../../components/Table/DataTable"
 import ImageWithBasePath from "../../components/ImageWithBasePath";
 import { all_routes } from "../Router/all_routes";
-import { leadsData } from "../../data/leadsData"
+import { leadsData } from "../../data/leadsData";
+import { TagsInput } from "react-tag-input-component";
 
 
 const LeadsPage = () => {
-
+const [tagValue, setTagValue] = useState(['Collab'])
     const route = all_routes;
     const [adduser, setAdduser] = useState(false);
     const [addcompany, setAddCompany] = useState(false);
@@ -1215,18 +1216,31 @@ const LeadsPage = () => {
                                             <SelectWithImage2 />
                                         </div>
                                     </div> */}
+
+                                    <div className="col-md-12">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Value <span className="text-danger">*</span>
+                                            </label>
+                                            <input type="text" className="form-control" />
+                                        </div>
+                                    </div>
+
                                     <div className="col-md-6">
                                         <div className="form-wrap">
-                                            <label className="col-form-label">Tags </label>
-                                            <input
+                                            <label className="col-form-label">
+                                                Tags <span className="text-danger">*</span>
+                                            </label>
+
+                                            <TagsInput
                                                 className="input-tags form-control"
-                                                type="text"
-                                                data-role="tagsinput"
-                                                name="Label"
-                                                defaultValue="Rated"
+                                                value={tagValue}
+                                                onChange={setTagValue}
                                             />
                                         </div>
                                     </div>
+
+
                                     <div className="col-md-6">
                                         <div className="form-wrap">
                                             <label className="col-form-label">

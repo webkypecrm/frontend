@@ -140,19 +140,19 @@ const CustomerList = () => {
           </Link>
         </div>
       ),
-      // sorter: (a: TableData, b: TableData) => a.phone.length - b.phone.length,
+      sorter: (a, b) => a.phone.length - b.phone.length,
     },
 
     {
       title: "Phone",
       dataIndex: "phone",
-      // sorter: (a: TableData, b: TableData) => a.phone.length - b.phone.length,
+      sorter: (a, b) => a.phone.length - b.phone.length,
     },
 
     {
       title: "Email",
       dataIndex: "email",
-      //sorter: (a: TableData, b: TableData) => a.email.length - b.email.length,
+      sorter: (a, b) => a.email.length - b.email.length,
     },
 
     {
@@ -186,8 +186,8 @@ const CustomerList = () => {
     {
       title: "Location",
       dataIndex: "location",
-      // sorter: (a: TableData, b: TableData) =>
-      //   a.location.length - b.location.length,
+      sorter: (a, b) =>
+        a.location.length - b.location.length,
     },
 
     {
@@ -199,13 +199,13 @@ const CustomerList = () => {
           {text}
         </div>
       ),
-      // sorter: (a: TableData, b: TableData) => a.rating.length - b.rating.length,
+      sorter: (a, b) => a.rating.length - b.rating.length,
     },
 
     {
       title: "Owner",
       dataIndex: "owner",
-      // sorter: (a: TableData, b: TableData) => a.owner.length - b.owner.length,
+      sorter: (a, b) => a.owner.length - b.owner.length,
     },
     {
       title: "Contact",
@@ -239,7 +239,7 @@ const CustomerList = () => {
           </li>
         </div>
       ),
-      //sorter: (a: TableData, b: TableData) => a.owner.length - b.owner.length,
+      sorter: (a, b) => a.owner.length - b.owner.length,
     },
     {
       title: "Status",
@@ -253,7 +253,7 @@ const CustomerList = () => {
             <span className="badge badge-pill badge-status bg-danger">{text}</span>
           )}
         </div>),
-      // sorter: (a: TableData, b: TableData) => a.owner.length - b.owner.length,
+      sorter: (a, b) => a.owner.length - b.owner.length,
 
     },
     {
@@ -282,9 +282,9 @@ const CustomerList = () => {
             <Link
               className="dropdown-item edit-popup"
               to="#"
-            // onClick={() =>
-            //   setActivityTogglePopupTwo(prev => !prev)
-            // }
+            onClick={() =>
+              setActivityToggleTwo(prev => !prev)
+            }
             >
               <i className="ti ti-edit text-blue"></i> Edit
             </Link>
@@ -324,6 +324,54 @@ const CustomerList = () => {
                 </div>
               </div>
               {/* /Page Header */}
+              {/* Campaign Status */}
+              <div className="row">
+                <div className="col-xl-3 col-lg-6">
+                  <div className="campaign-box bg-danger-light">
+                    <div className="campaign-img">
+                      <span>
+                        <i className="ti ti-brand-campaignmonitor" />
+                      </span>
+                      <p>Campaign</p>
+                    </div>
+                    <h2>474</h2>
+                  </div>
+                </div>
+                <div className="col-xl-3 col-lg-6">
+                  <div className="campaign-box bg-warning-light">
+                    <div className="campaign-img">
+                      <span>
+                        <i className="ti ti-send" />
+                      </span>
+                      <p>Sent</p>
+                    </div>
+                    <h2>454</h2>
+                  </div>
+                </div>
+                <div className="col-xl-3 col-lg-6">
+                  <div className="campaign-box bg-purple-light">
+                    <div className="campaign-img">
+                      <span>
+                        <i className="ti ti-brand-feedly" />
+                      </span>
+                      <p>Opened</p>
+                    </div>
+                    <h2>658</h2>
+                  </div>
+                </div>
+                <div className="col-xl-3 col-lg-6">
+                  <div className="campaign-box bg-success-light">
+                    <div className="campaign-img">
+                      <span>
+                        <i className="ti ti-brand-pocket" />
+                      </span>
+                      <p>Completed</p>
+                    </div>
+                    <h2>747</h2>
+                  </div>
+                </div>
+              </div>
+              {/* /Campaign Status */}
               <div className="card main-card">
                 <div className="card-body">
                   {/* Search */}
@@ -1135,7 +1183,7 @@ const CustomerList = () => {
                                     </div>
                                     <div className="col-6">
                                       <Link
-                                        to={route.contactList}
+                                        to={route.customerList}
                                         className="btn btn-primary"
                                       >
                                         Filter
@@ -1730,9 +1778,9 @@ const CustomerList = () => {
             <Link
               to="#"
               className="sidebar-close1 toggle-btn"
-            // onClick={() =>
-            //   dispatch(setActivityTogglePopupTwo(!activityToggleTwo))
-            // }
+            onClick={() =>
+              setActivityToggleTwo(!activityToggleTwo)
+            }
             >
               <i className="ti ti-x" />
             </Link>

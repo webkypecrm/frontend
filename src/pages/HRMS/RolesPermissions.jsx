@@ -13,16 +13,16 @@ const RolesPermissions = () => {
         {
             title: "Role Name",
             dataIndex: "roleName",
-            // sorter: (a: TableData, b: TableData) =>
-            //     a.roleName.length - b.roleName.length,
+            sorter: (a, b) =>
+                a.roleName.length - b.roleName.length,
             key: "roleName",
             width: "235px",
         },
         {
             title: "Created at",
             dataIndex: "createdAt",
-            // sorter: (a: TableData, b: TableData) =>
-            //     a.createdAt.length - b.createdAt.length,
+            sorter: (a, b) =>
+                a.createdAt.length - b.createdAt.length,
             key: "createdAt",
             width: "316px",
         },
@@ -79,6 +79,54 @@ const RolesPermissions = () => {
                                 </div>
                             </div>
                             {/* /Page Header */}
+                             {/* Campaign Status */}
+                             <div className="row">
+                                <div className="col-xl-3 col-lg-6">
+                                    <div className="campaign-box bg-danger-light">
+                                        <div className="campaign-img">
+                                            <span>
+                                                <i className="ti ti-brand-campaignmonitor" />
+                                            </span>
+                                            <p>Campaign</p>
+                                        </div>
+                                        <h2>474</h2>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-lg-6">
+                                    <div className="campaign-box bg-warning-light">
+                                        <div className="campaign-img">
+                                            <span>
+                                                <i className="ti ti-send" />
+                                            </span>
+                                            <p>Sent</p>
+                                        </div>
+                                        <h2>454</h2>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-lg-6">
+                                    <div className="campaign-box bg-purple-light">
+                                        <div className="campaign-img">
+                                            <span>
+                                                <i className="ti ti-brand-feedly" />
+                                            </span>
+                                            <p>Opened</p>
+                                        </div>
+                                        <h2>658</h2>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-lg-6">
+                                    <div className="campaign-box bg-success-light">
+                                        <div className="campaign-img">
+                                            <span>
+                                                <i className="ti ti-brand-pocket" />
+                                            </span>
+                                            <p>Completed</p>
+                                        </div>
+                                        <h2>747</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* /Campaign Status */}
                             <div className="card main-card">
                                 <div className="card-body">
                                     {/* Search */}

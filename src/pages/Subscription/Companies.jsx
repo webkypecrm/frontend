@@ -274,9 +274,9 @@ const Companies = () => {
                         <Link
                             className="dropdown-item"
                             to="#"
-                        // onClick={() =>
-                        //     dispatch(setActivityTogglePopupTwo(!activityToggleTwo))
-                        // }
+                            onClick={() =>
+                                setActivityToggleTwo(!activityToggleTwo)
+                            }
                         >
                             <i className="ti ti-edit text-blue" /> Edit
                         </Link>
@@ -332,7 +332,7 @@ const Companies = () => {
                 <div className="content">
                     <div className="row">
                         <div className="col-md-12">
-                            
+
                             {/* Page Header */}
                             <div className="page-header">
                                 <div className="row align-items-center">
@@ -1804,9 +1804,9 @@ const Companies = () => {
                         <Link
                             to="#"
                             className="sidebar-close1 toggle-btn"
-                        // onClick={() =>
-                        //     dispatch(setActivityTogglePopupTwo(!activityToggleTwo))
-                        // }
+                        onClick={() =>
+                            setActivityToggleTwo(!activityToggleTwo)
+                        }
                         >
                             <i className="ti ti-x" />
                         </Link>

@@ -1122,26 +1122,13 @@ const Services = () => {
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </li>
-
-                                                        {/* <li>
-                                                            <div className="view-icons">
-                                                                <Link to={route.companies} className="active">
-                                                                    <i className="ti ti-list-tree" />
-                                                                </Link>
-                                                                <Link to={route.companiesGrid}>
-                                                                    <i className="ti ti-grid-dots" />
-                                                                </Link>
-                                                            </div>
-                                                        </li> */}
+                                                        </li>                                                       
                                                         <li>
                                                             <Link
                                                                 to="#"
                                                                 className="btn btn-primary add-popup"
                                                                 onClick={() =>
-
                                                                     setActivityToggle(!activityToggle)
-
                                                                 }
                                                             >
                                                                 <i className="ti ti-square-rounded-plus" />

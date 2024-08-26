@@ -8,6 +8,8 @@ import { all_routes } from "../Router/all_routes";
 import { manageusersData } from "../../data/manageUser";
 import DataTable from "../../components/Table/DataTable";
 // import CollapseHeader from "../../core/common/collapse-header";
+
+
 const route = all_routes;
 
 const Manageusers = () => {
@@ -79,11 +81,11 @@ const Manageusers = () => {
       title: "Name",
       render: (text, record) => (
         <div className="table-avatar d-flex align-items-center">
-          <Link to="/crm/company-details" className="avatar">
+          <Link to="/hrms/manage-staff" className="avatar">
             <ImageWithBasePath src={record.image} alt="UserImage" />
           </Link>
           <Link
-            to="/crm/company-details"
+            to="/hrms/manage-staff"
             className="profile-split d-flex flex-column"
           >
             {record.customer_name}
@@ -91,19 +93,19 @@ const Manageusers = () => {
           </Link>
         </div>
       ),
-      sorter: true,
+      sorter: (a, b) => a.customer_name.length - b.customer_name.length,
     },
     {
       title: "Phone",
       dataIndex: "phone",
       key: "phone",
-      sorter: true,
+      sorter: (a, b) => a.phone.length - b.phone.length,
     },
     {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      sorter: true,
+      sorter: (a, b) => a.email.length - b.email.length,
     },
     {
       title: "Location",
@@ -1008,7 +1010,7 @@ const Manageusers = () => {
                               </div>
                             </li>
 
-                            
+
                             <li>
                               <Link
                                 to="#"
