@@ -118,8 +118,8 @@
     margin-bottom: 20px;
 
     .form-control {
-        max-width: 320px;
-        min-height: 40px;
+        max-width: 220px;
+        min-height: 33px;
 
         @include respond-below(custom575) {
             width: 100%;
@@ -140,10 +140,10 @@
     }
 
     .form-control {
-        @include margin-padding(null, 8px 15px 8px 35px);
+        @include margin-padding(null, 5px 15px 5px 35px);
 
         &:focus {
-            @include margin-padding(null, 8px 15px 8px 35px);
+            @include margin-padding(null, 5px 15px 5px 35px);
         }
     }
 }
@@ -295,7 +295,7 @@
         -ms-flex-align: center;
         align-items: center;
         background: $white;
-        @include margin-padding(null, 9px 15px);
+        @include margin-padding(null, 6px 15px);
 
         i {
             margin-right: 8px;

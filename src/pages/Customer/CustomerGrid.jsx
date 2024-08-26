@@ -725,7 +725,7 @@ const CustomerGrid = () => {
                                                     <div className="users-profile">
                                                         <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-19.jpg"
+                                                                src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -844,7 +844,7 @@ const CustomerGrid = () => {
                                                             data-bs-placement="top"
                                                         >
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-14.jpg"
+                                                                src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -858,7 +858,7 @@ const CustomerGrid = () => {
                                                     <div className="users-profile">
                                                         <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-20.jpg"
+                                                                src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -977,7 +977,7 @@ const CustomerGrid = () => {
                                                             data-bs-placement="top"
                                                         >
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-14.jpg"
+                                                                src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -991,7 +991,7 @@ const CustomerGrid = () => {
                                                     <div className="users-profile">
                                                         <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-21.jpg"
+                                                               src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -1108,7 +1108,7 @@ const CustomerGrid = () => {
                                                             data-bs-placement="top"
                                                         >
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-14.jpg"
+                                                               src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -1122,7 +1122,7 @@ const CustomerGrid = () => {
                                                     <div className="users-profile">
                                                         <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-23.jpg"
+                                                               src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -1239,7 +1239,7 @@ const CustomerGrid = () => {
                                                             data-bs-placement="top"
                                                         >
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-14.jpg"
+                                                               src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -1253,7 +1253,7 @@ const CustomerGrid = () => {
                                                     <div className="users-profile">
                                                         <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-16.jpg"
+                                                               src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -1372,7 +1372,7 @@ const CustomerGrid = () => {
                                                             data-bs-placement="top"
                                                         >
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-14.jpg"
+                                                                src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -1386,7 +1386,7 @@ const CustomerGrid = () => {
                                                     <div className="users-profile">
                                                         <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-22.jpg"
+                                                                src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -1505,7 +1505,7 @@ const CustomerGrid = () => {
                                                             data-bs-placement="top"
                                                         >
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-14.jpg"
+                                                                src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -1519,7 +1519,7 @@ const CustomerGrid = () => {
                                                     <div className="users-profile">
                                                         <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-24.jpg"
+                                                                src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -1638,7 +1638,7 @@ const CustomerGrid = () => {
                                                             data-bs-placement="top"
                                                         >
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-14.jpg"
+                                                                src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -1652,7 +1652,7 @@ const CustomerGrid = () => {
                                                     <div className="users-profile">
                                                         <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-25.jpg"
+                                                               src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -1771,7 +1771,7 @@ const CustomerGrid = () => {
                                                             data-bs-placement="top"
                                                         >
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-14.jpg"
+                                                                src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -1785,7 +1785,7 @@ const CustomerGrid = () => {
                                                     <div className="users-profile">
                                                         <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-26.jpg"
+                                                                src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -1902,7 +1902,7 @@ const CustomerGrid = () => {
                                                             data-bs-placement="top"
                                                         >
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-14.jpg"
+                                                                src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -1916,7 +1916,7 @@ const CustomerGrid = () => {
                                                     <div className="users-profile">
                                                         <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-01.jpg"
+                                                               src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -2033,7 +2033,7 @@ const CustomerGrid = () => {
                                                             data-bs-placement="top"
                                                         >
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-14.jpg"
+                                                                src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -2047,7 +2047,7 @@ const CustomerGrid = () => {
                                                     <div className="users-profile">
                                                         <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-06.jpg"
+                                                               src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -2166,7 +2166,7 @@ const CustomerGrid = () => {
                                                             data-bs-placement="top"
                                                         >
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-14.jpg"
+                                                                src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -2180,7 +2180,7 @@ const CustomerGrid = () => {
                                                     <div className="users-profile">
                                                         <Link to={route.customerDetails} className="avatar">
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-05.jpg"
+                                                                src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -2299,7 +2299,7 @@ const CustomerGrid = () => {
                                                             data-bs-placement="top"
                                                         >
                                                             <ImageWithBasePath
-                                                                src="assets/img/profiles/avatar-14.jpg"
+                                                                src="assets/img/profiles/gajenn.png"
                                                                 alt="img"
                                                             />
                                                         </Link>
@@ -2630,7 +2630,7 @@ const CustomerGrid = () => {
                                                                         <i className="ti ti-photo" />
                                                                     </span>
                                                                     <ImageWithBasePath
-                                                                        src="assets/img/profiles/avatar-20.jpg"
+                                                                       src="assets/img/profiles/gajenn.png"
                                                                         alt="img"
                                                                         className="preview1"
                                                                     />

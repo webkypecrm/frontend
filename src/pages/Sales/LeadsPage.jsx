@@ -1075,14 +1075,6 @@ const LeadsPage = () => {
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="form-wrap">
-                                            <label className="col-form-label">
-                                                Lead Name <span className="text-danger">*</span>
-                                            </label>
-                                            <input type="text" className="form-control" />
-                                        </div>
-                                    </div>
-                                    <div className="col-md-12">
-                                        <div className="form-wrap">
                                             <div className="radio-wrap">
                                                 <label className="col-form-label">Lead Type</label>
                                                 <div className="d-flex flex-wrap">
@@ -1111,6 +1103,53 @@ const LeadsPage = () => {
                                     </div>
                                     <div className="col-md-12">
                                         <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Name <span className="text-danger">*</span>
+                                            </label>
+                                            <input type="text" className="form-control" />
+                                        </div>
+                                    </div>
+                                    <div className="col-md-12">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Email <span className="text-danger">*</span>
+                                            </label>
+                                            <input type="text" className="form-control" />
+                                        </div>
+                                    </div>
+                                    {newContents.map((index) => (
+                                        <div className="col-md-12" key={index}>
+                                            <div className="add-product-new">
+                                                <div className="row align-items-end">
+                                                    <div className="col-md-8">
+                                                        <div className="form-wrap mb-2">
+                                                            <label className="col-form-label">
+                                                                Phone <span className="text-danger">*</span>
+                                                            </label>
+                                                            <input
+                                                                type="text"
+                                                                className="form-control"
+                                                                defaultValue="+1 875455453"
+                                                            />
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                    <div className="col-md-12">
+                                        <Link
+                                            onClick={addNewContent}
+                                            to="#"
+                                            className="add-new add-new-phone mb-3 d-block"
+                                        >
+                                            <i className="ti ti-square-rounded-plus me-2" />
+                                            Add New
+                                        </Link>
+                                    </div>
+                                    <div className="col-md-12">
+                                        <div className="form-wrap">
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <label className="col-form-label">
                                                     Company <span className="text-danger">*</span>
@@ -1131,7 +1170,7 @@ const LeadsPage = () => {
                                             />
                                         </div>
                                     </div>
-                                    <div className="col-md-6">
+                                    {/* <div className="col-md-6">
                                         <div className="form-wrap">
                                             <label className="col-form-label">
                                                 Value <span className="text-danger">*</span>
@@ -1150,46 +1189,20 @@ const LeadsPage = () => {
                                                 classNamePrefix="react-select"
                                             />
                                         </div>
-                                    </div>
-                                    {newContents.map((index) => (
-                                        <div className="col-md-12" key={index}>
-                                            <div className="add-product-new">
-                                                <div className="row align-items-end">
-                                                    <div className="col-md-8">
-                                                        <div className="form-wrap mb-2">
-                                                            <label className="col-form-label">
-                                                                Phone <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                defaultValue="+1 875455453"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-4 d-flex align-items-center">
-                                                        <div className="form-wrap w-100 mb-2">
-                                                            <Select
-                                                                className="select"
-                                                                options={optionschoose}
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    </div> */}
+                                    <div className="col-md-6">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Country <span className="text-danger">*</span>
+                                            </label>
+                                            <Select
+                                                className="select"
+                                                options={[{ value: 'Choose', label: 'Choose' }]}
+                                                classNamePrefix="react-select"
+                                            />
                                         </div>
-                                    ))}
-                                    <div className="col-md-12">
-                                        <Link
-                                            onClick={addNewContent}
-                                            to="#"
-                                            className="add-new add-new-phone mb-3 d-block"
-                                        >
-                                            <i className="ti ti-square-rounded-plus me-2" />
-                                            Add New
-                                        </Link>
                                     </div>
+
                                     <div className="col-md-6">
                                         <div className="form-wrap">
                                             <label className="col-form-label">
@@ -1214,12 +1227,12 @@ const LeadsPage = () => {
                                             />
                                         </div>
                                     </div>
-                                    <div className="col-md-6">
+                                    {/* <div className="col-md-6">
                                         <div className="form-wrap">
                                             <label className="col-form-label">Owner</label>
-                                            {/* <SelectWithImage2 /> */}
+                                            <SelectWithImage2 />
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className="col-md-6">
                                         <div className="form-wrap">
                                             <label className="col-form-label">Tags </label>
@@ -1232,7 +1245,19 @@ const LeadsPage = () => {
                                             />
                                         </div>
                                     </div>
-                                    <div className="col-md-12">
+                                    <div className="col-md-6">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Assign To <span className="text-danger">*</span>
+                                            </label>
+                                            <Select
+                                                className="select"
+                                                options={[{ value: 'Choose', label: 'Choose' }]}
+                                                classNamePrefix="react-select"
+                                            />
+                                        </div>
+                                    </div>
+                                    {/* <div className="col-md-12">
                                         <div className="form-wrap">
                                             <label className="col-form-label">
                                                 Description <span className="text-danger">*</span>
@@ -1243,7 +1268,7 @@ const LeadsPage = () => {
                                                 defaultValue={""}
                                             />
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className="col-md-12">
                                         <div className="radio-wrap form-wrap">
                                             <label className="col-form-label">Visibility</label>
