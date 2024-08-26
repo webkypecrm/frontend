@@ -7,7 +7,7 @@ import ImageWithBasePath from "../../components/ImageWithBasePath";
 import { all_routes } from "../Router/all_routes";
 import { manageusersData } from "../../data/manageUser";
 import DataTable from "../../components/Table/DataTable";
-// import CollapseHeader from "../../core/common/collapse-header";
+import CollapseHeader from "../../components/CollapseHeader/CollapseHeader";
 
 
 const route = all_routes;
@@ -228,7 +228,7 @@ const Manageusers = () => {
                   </div>
                   <div className="col-8 text-end">
                     <div className="head-icons">
-                      {/* <CollapseHeader /> */}
+                      <CollapseHeader />
                     </div>
                   </div>
                 </div>

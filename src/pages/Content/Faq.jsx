@@ -7,7 +7,7 @@ import { faqData } from '../../data/faqData';
 // import { TableData } from '../../../core/data/interface';
 import { all_routes } from '../Router/all_routes';
 import DataTable from '../../components/Table/DataTable';
-// import CollapseHeader from '../../../core/common/collapse-header';
+import CollapseHeader from '../../components/CollapseHeader/CollapseHeader';
 const route = all_routes;
 
 const Faq = () => {
@@ -126,7 +126,7 @@ const Faq = () => {
                                     </div>
                                     <div className="col-4 text-end">
                                         <div className="head-icons">
-                                            {/* <CollapseHeader /> */}
+                                            <CollapseHeader />
                                         </div>
                                     </div>
                                 </div>

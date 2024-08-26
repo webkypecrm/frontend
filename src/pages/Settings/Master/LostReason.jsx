@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { lostReason } from "../../../data/lostReason";
 import DataTable from "../../../components/Table/DataTable";
-// import CollapseHeader from "../../core/common/collapse-header";
+import CollapseHeader from '../../../components/CollapseHeader/CollapseHeader';
 const LostReason = () => {
 
     const data = lostReason;
@@ -93,7 +93,7 @@ const LostReason = () => {
                     </div>
                     <div className="col-sm-4 text-sm-end">
                       <div className="head-icons">
-                        {/* <CollapseHeader /> */}
+                        <CollapseHeader />
                       </div>
                     </div>
                   </div>

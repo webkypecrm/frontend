@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // import BankAccountsModal from "../../../core/modals/bank_accounts";
 import { Link } from "react-router-dom";
 import { all_routes } from "../../Router/all_routes";
-// import CollapseHeader from "../../../core/common/collapse-header";
+import CollapseHeader from '../../../components/CollapseHeader/CollapseHeader';
 
 const BankAccounts = () => {
   const route = all_routes;
@@ -25,7 +25,7 @@ const BankAccounts = () => {
                 </div>
                 <div className="col-4 text-end">
                   <div className="head-icons">
-                    {/* <CollapseHeader /> */}
+                    <CollapseHeader />
                   </div>
                 </div>
               </div>

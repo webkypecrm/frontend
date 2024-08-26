@@ -14,7 +14,7 @@ import {
 } from "../../selectOption/selectOption";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
-// import CollapseHeader from "../../../core/common/collapse-header";
+import CollapseHeader from '../../components/CollapseHeader/CollapseHeader';
 // import { SelectWithImage2 } from "../../../core/common/selectWithImage2";
 import { all_routes } from "../Router/all_routes";
 import DateRangePicker from "react-bootstrap-daterangepicker";
@@ -66,7 +66,7 @@ const Task = () => {
                                     </div>
                                     <div className="col-8 text-end">
                                         <div className="head-icons">
-                                            {/* <CollapseHeader /> */}
+                                            <CollapseHeader />
                                         </div>
                                     </div>
                                 </div>

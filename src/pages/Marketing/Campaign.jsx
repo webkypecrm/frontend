@@ -12,7 +12,7 @@ import { compaignData } from "../../data/campaignData";
 //     setActivityTogglePopupTwo,
 // } from "../../../core/data/redux/commonSlice";
 import { all_routes } from "../Router/all_routes";
-// import CollapseHeader from "../../../core/common/collapse-header";
+import CollapseHeader from '../../components/CollapseHeader/CollapseHeader';
 import DataTable from "../../components/Table/DataTable";
 
 const Campaign = () => {
@@ -262,7 +262,7 @@ const Campaign = () => {
                                     </div>
                                     <div className="col-8 text-end">
                                         <div className="head-icons">
-                                            {/* <CollapseHeader /> */}
+                                            <CollapseHeader />
                                         </div>
                                     </div>
                                 </div>

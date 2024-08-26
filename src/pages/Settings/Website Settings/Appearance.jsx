@@ -3,7 +3,7 @@ import ImageWithBasePath from '../../../components/ImageWithBasePath'
 import { Link } from "react-router-dom";
 import Select from "react-select";
 import { all_routes } from "../../Router/all_routes";
-// import CollapseHeader from "../../../core/common/collapse-header";
+import CollapseHeader from '../../../components/CollapseHeader/CollapseHeader';
 const route = all_routes;
 const Appearance = () => {
   const options1 = [
@@ -35,7 +35,7 @@ const Appearance = () => {
                   </div>
                   <div className="col-4 text-end">
                     <div className="head-icons">
-                      {/* <CollapseHeader /> */}
+                      <CollapseHeader />
                     </div>
                   </div>
                 </div>

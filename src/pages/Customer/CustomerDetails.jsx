@@ -23,7 +23,7 @@ import {
 import DatePicker from "react-datepicker";
 import DefaultEditor from "react-simple-wysiwyg";
 import { TagsInput } from "react-tag-input-component";
-// import CollapseHeader from "../../../core/common/collapse-header";
+import CollapseHeader from "../../components/CollapseHeader/CollapseHeader";
 // import { SelectWithImage } from "../../../core/common/selectWithImage";
 
 const CustomerDetails = () => {
@@ -104,7 +104,7 @@ const CustomerDetails = () => {
                                     </div>
                                     <div className="col-sm-8 text-sm-end">
                                         <div className="head-icons">
-                                            {/* <CollapseHeader /> */}
+                                            <CollapseHeader />
                                         </div>
                                     </div>
                                 </div>

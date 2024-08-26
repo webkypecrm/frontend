@@ -15,7 +15,7 @@ import {
 } from "../../selectOption/selectOption";
 
 import ImageWithBasePath from "../../components/ImageWithBasePath";
-// import CollapseHeader from "../../../core/common/collapse-header";
+import CollapseHeader from '../../components/CollapseHeader/CollapseHeader';
 // import { SelectWithImage } from "../../../core/common/selectWithImage";
 // import { SelectWithImage2 } from "../../../core/common/selectWithImage2";
 
@@ -49,7 +49,7 @@ const LeadsKanban = () => {
                                 </div>
                                 <div className="col-8 text-end">
                                     <div className="head-icons">
-                                        {/* <CollapseHeader /> */}
+                                        <CollapseHeader />
                                     </div>
                                 </div>
                             </div>

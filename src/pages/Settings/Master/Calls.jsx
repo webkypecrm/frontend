@@ -3,8 +3,7 @@ import React from 'react'
 import { callsData } from '../../../data/callsData';
 import { Link } from "react-router-dom";
 import { all_routes } from '../../Router/all_routes';
-// import { TableData } from '../../core/data/interface';
-// import CollapseHeader from '../../core/common/collapse-header';
+import CollapseHeader from '../../../components/CollapseHeader/CollapseHeader';
 import DataTable from '../../../components/Table/DataTable';
 const route = all_routes;
 
@@ -87,7 +86,7 @@ const Calls = () => {
                     </div>
                     <div className="col-sm-4 text-sm-end">
                       <div className="head-icons">
-                        {/* <CollapseHeader /> */}
+                        <CollapseHeader />
                       </div>
                     </div>
                   </div>

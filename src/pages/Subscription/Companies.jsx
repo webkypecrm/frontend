@@ -23,7 +23,7 @@ import {
 } from "../../selectOption/selectOption";
 import DatePicker from "react-datepicker";
 import DefaultEditor from "react-simple-wysiwyg";
-// import CollapseHeader from "../../../core/common/collapse-header";
+import CollapseHeader from '../../components/CollapseHeader/CollapseHeader';
 import DataTable from "../../components/Table/DataTable";
 // import { SelectWithImage2 } from "../../../core/common/selectWithImage2";
 import { companiesData } from "../../data/companiesData";
@@ -343,7 +343,7 @@ const Companies = () => {
                                     </div>
                                     <div className="col-8 text-end">
                                         <div className="head-icons">
-                                            {/* <CollapseHeader /> */}
+                                            <CollapseHeader />
                                         </div>
                                     </div>
                                 </div>

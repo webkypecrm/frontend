@@ -2,7 +2,7 @@ import React from "react";
 import ImageWithBasePath from "../../../components/ImageWithBasePath";
 import { Link } from "react-router-dom";
 import { all_routes } from "../../Router/all_routes";
-// import CollapseHeader from "../../../core/common/collapse-header";
+import CollapseHeader from '../../../components/CollapseHeader/CollapseHeader';
 const route = all_routes;
 const Profile = () => {
   return (
@@ -18,7 +18,7 @@ const Profile = () => {
                 </div>
                 <div className="col-sm-8 text-sm-end">
                   <div className="head-icons">
-                    {/* <CollapseHeader /> */}
+                    <CollapseHeader />
                   </div>
                 </div>
               </div>

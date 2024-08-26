@@ -11,7 +11,7 @@ import {
 import DateRangePicker from "react-bootstrap-daterangepicker";
 import DatePicker from "react-datepicker";
 import Select from "react-select";
-// import CollapseHeader from "../../core/common/collapse-header";
+import CollapseHeader from '../../components/CollapseHeader/CollapseHeader';
 import DataTable from "../../components/Table/DataTable";
 
 const route = all_routes;
@@ -239,7 +239,7 @@ const Tickets = () => {
                                     </div>
                                     <div className="col-4 text-end">
                                         <div className="head-icons">
-                                            {/* <CollapseHeader /> */}
+                                            <CollapseHeader />
                                         </div>
                                     </div>
                                 </div>

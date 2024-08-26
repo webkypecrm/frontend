@@ -8,7 +8,7 @@ import { BtnBold, BtnItalic, Editor, EditorProvider, Toolbar } from 'react-simpl
 // import { useDispatch, useSelector } from 'react-redux';
 // import { setActivityTogglePopup } from '../../../core/data/redux/commonSlice';
 import ImageWithBasePath from "../../components/ImageWithBasePath";
-// import CollapseHeader from '../../../core/common/collapse-header';
+import CollapseHeader from '../../components/CollapseHeader/CollapseHeader';
 const DealsDetails = () => {
     const [activityToggle, setActivityToggle] = useState(false)
 
@@ -75,7 +75,7 @@ const DealsDetails = () => {
                                     </div>
                                     <div className="col-4 text-end">
                                         <div className="head-icons">
-                                            {/* <CollapseHeader /> */}
+                                            <CollapseHeader />
                                         </div>
                                     </div>
                                 </div>

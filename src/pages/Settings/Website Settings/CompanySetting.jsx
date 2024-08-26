@@ -2,7 +2,7 @@ import React from "react";
 import ImageWithBasePath from '../../../components/ImageWithBasePath'
 import { all_routes } from "../../Router/all_routes";
 import { Link } from "react-router-dom";
-// import CollapseHeader from "../../../core/common/collapse-header";
+import CollapseHeader from '../../../components/CollapseHeader/CollapseHeader';
 
 const CompanySettings = () => {
   const route = all_routes;
@@ -19,7 +19,7 @@ const CompanySettings = () => {
                 </div>
                 <div className="col-4 text-end">
                   <div className="head-icons">
-                    {/* <CollapseHeader /> */}
+                    <CollapseHeader />
                   </div>
                 </div>
               </div>

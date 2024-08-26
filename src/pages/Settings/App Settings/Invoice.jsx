@@ -2,7 +2,7 @@ import React from "react";
 import Select from "react-select";
 import { Link } from "react-router-dom";
 import { all_routes } from "../../Router/all_routes";
-// import CollapseHeader from "../../../core/common/collapse-header";
+import CollapseHeader from '../../../components/CollapseHeader/CollapseHeader';
 import ImageWithBasePath from "../../../components/ImageWithBasePath";
 const route = all_routes;
 const InvoiceSettings = () => {
@@ -28,7 +28,7 @@ const InvoiceSettings = () => {
                 </div>
                 <div className="col-4 text-end">
                   <div className="head-icons">
-                    {/* <CollapseHeader /> */}
+                    <CollapseHeader />
                   </div>
                 </div>
               </div>

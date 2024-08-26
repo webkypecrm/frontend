@@ -24,7 +24,7 @@ import { TagsInput } from "react-tag-input-component";
 import { all_routes } from "../Router/all_routes";
 import DatePicker from "react-datepicker";
 import DefaultEditor from "react-simple-wysiwyg";
-// import CollapseHeader from "../../../core/common/collapse-header";
+import CollapseHeader from "../../components/CollapseHeader/CollapseHeader";
 // import { SelectWithImage } from "../../../core/common/selectWithImage";
 // import { SelectWithImage2 } from "../../../core/common/selectWithImage2";
 
@@ -318,7 +318,7 @@ const CustomerList = () => {
                   </div>
                   <div className="col-4 text-end">
                     <div className="head-icons">
-                      {/* <CollapseHeader /> */}
+                      <CollapseHeader />
                     </div>
                   </div>
                 </div>

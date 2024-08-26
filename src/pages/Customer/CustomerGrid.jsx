@@ -22,7 +22,7 @@ import {
 import DatePicker from "react-datepicker";
 import Select from "react-select";
 import { TagsInput } from "react-tag-input-component";
-// import CollapseHeader from "../../../core/common/collapse-header";
+import CollapseHeader from "../../components/CollapseHeader/CollapseHeader";
 
 const CustomerGrid = () => {
     const [activityToggle, setActivityToggle] = useState(false)
@@ -66,7 +66,7 @@ const CustomerGrid = () => {
                                     </div>
                                     <div className="col-4 text-end">
                                         <div className="head-icons">
-                                            {/* <CollapseHeader /> */}
+                                            <CollapseHeader />
                                         </div>
                                     </div>
                                 </div>

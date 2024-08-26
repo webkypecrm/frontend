@@ -5,7 +5,7 @@ import DateRangePicker from "react-bootstrap-daterangepicker";
 import { membershiptransaction } from "../../data/membershiptransaction";
 import { all_routes } from "../Router/all_routes";
 // import { TableData } from "../../core/data/interface";
-// import CollapseHeader from "../../core/common/collapse-header";
+import CollapseHeader from '../../components/CollapseHeader/CollapseHeader';
 import DataTable from "../../components/Table/DataTable"
 const route = all_routes;
 
@@ -133,7 +133,7 @@ const MembershipTransaction = () => {
                                         </div>
                                         <div className="col-4 text-end">
                                             <div className="head-icons">
-                                                {/* <CollapseHeader /> */}
+                                                <CollapseHeader />
                                             </div>
                                         </div>
                                     </div>

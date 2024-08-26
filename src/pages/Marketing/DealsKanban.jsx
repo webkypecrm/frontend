@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { all_routes } from "../Router/all_routes";
 import ImageWithBasePath from "../../components/ImageWithBasePath";
-// import CollapseHeader from "../../../core/common/collapse-header";
+import CollapseHeader from '../../components/CollapseHeader/CollapseHeader';
 import Select from "react-select";
 import { options1 } from "../../selectOption/selectOption";
 
@@ -25,7 +25,7 @@ const DealsKanban = () => {
                   </div>
                   <div className="col-4 text-end">
                     <div className="head-icons">
-                      {/* <CollapseHeader /> */}
+                      <CollapseHeader />
                     </div>
                   </div>
                 </div>

@@ -5,20 +5,19 @@ import Header from "../components/Layouts/Header/Header"
 // import SalesDashboard from "../components/Content/SalesDashboard"
 import { Outlet } from "react-router-dom"
 import ThemeSettings from "../components/Layouts/ThemeSetting/ThemeSetting"
-
+import { HeaderCollapseContext } from "../context/HeaderCollapseContext"
 
 const Feature = () => {
     const [miniSidebar, setMiniSidebar] = useState(false)
     const [expandMenu, setExpandMenu] = useState(false)
-    const [headerCollapse, setheaderCollapse] = useState(false)
+    const [headerCollapse, setHeaderCollapse] = useState(false)
     const [mobileSidebar, setmobileSidebar] = useState(false)
     const [themeOpen, setThemeOpen] = useState(false)
 
-    return <>
+    return <HeaderCollapseContext.Provider value={{ headerCollapse, setHeaderCollapse }}>
         <div className={`
       ${miniSidebar ? "mini-sidebar" : ""}
       ${expandMenu ? "expand-menu" : ""}`}>
-            {/* <div className="main-wrapper "> */}
             <div
                 className={`main-wrapper 
         ${headerCollapse ? "header-collapse" : ""} 
@@ -36,7 +35,7 @@ const Feature = () => {
                 onClick={() => setThemeOpen(!themeOpen)}
             ></div>
         </div>
-    </>
+    </HeaderCollapseContext.Provider>
 }
 
 

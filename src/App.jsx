@@ -7,6 +7,7 @@ import Feature from './pages/Feature.jsx';
 import AuthFeature from './pages/AuthFeature.jsx'
 import { authRoutes, publicRoutes } from './pages/Router/router.link.jsx';
 import PageNotFound from './pages/PageNotFound/PageNotFound.jsx';
+import { HeaderCollapseContext } from './context/HeaderCollapseContext.jsx';
 
 
 function App() {
@@ -15,11 +16,13 @@ function App() {
     <BrowserRouter>
       <Loader />
       <Routes>
-        <Route element={<Feature />}>
-          {publicRoutes.map((route, idx) => (
-            <Route path={route.path} element={route.element} key={idx} />
-          ))}
-        </Route>
+       
+          <Route element={<Feature />}>
+            {publicRoutes.map((route, idx) => (
+              <Route path={route.path} element={route.element} key={idx} />
+            ))}
+          </Route>
+        
         <Route path={"/"} element={<AuthFeature />}>
           {authRoutes.map((route, idx) => (
             <Route path={route.path} element={route.element} key={idx} />

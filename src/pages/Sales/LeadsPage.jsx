@@ -18,6 +18,7 @@ import ImageWithBasePath from "../../components/ImageWithBasePath";
 import { all_routes } from "../Router/all_routes";
 import { leadsData } from "../../data/leadsData";
 import { TagsInput } from "react-tag-input-component";
+import CollapseHeader from '../../components/CollapseHeader/CollapseHeader';
 
 
 const LeadsPage = () => {
@@ -240,7 +241,7 @@ const [tagValue, setTagValue] = useState(['Collab'])
                                     </div>
                                     <div className="col-4 text-end">
                                         <div className="head-icons">
-                                            {/* <CollapseHeader /> */}
+                                            <CollapseHeader />
                                         </div>
                                     </div>
                                 </div>

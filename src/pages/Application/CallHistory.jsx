@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { callhistorydata } from "../../data/callHistoryData";
 import ImageWithBasePath from "../../components/ImageWithBasePath";
-// import Table from "../../../core/common/dataTable/index";
 import { all_routes } from "../Router/all_routes";
 import DataTable from "../../components/Table/DataTable";
 

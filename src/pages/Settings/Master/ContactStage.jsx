@@ -4,7 +4,7 @@ import { all_routes } from "../../Router/all_routes";
 import { contactStageData } from "../../../data/contactStageData";
 // import ContactStageModal from "../../core/modals/contactStageModal";
 // import Table from "../../core/common/dataTable/index";
-// import CollapseHeader from "../../core/common/collapse-header";
+import CollapseHeader from '../../../components/CollapseHeader/CollapseHeader';
 import DataTable from "../../../components/Table/DataTable";
 
 const ContactStage = () => {
@@ -88,7 +88,7 @@ const ContactStage = () => {
                 </div>
                 <div className="col-sm-4 text-sm-end">
                   <div className="head-icons">
-                  {/* <CollapseHeader /> */}
+                  <CollapseHeader />
                   </div>
                 </div>
               </div>

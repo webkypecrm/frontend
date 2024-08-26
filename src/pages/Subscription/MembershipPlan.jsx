@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Select from 'react-select';
-// import CollapseHeader from '../../core/common/collapse-header';
+import CollapseHeader from '../../components/CollapseHeader/CollapseHeader';
 
 const Membershipplan = () => {
     const [adduser, setAdduser] = useState(false);
@@ -39,7 +39,7 @@ const Membershipplan = () => {
                 </div>
                 <div className="col-4 text-end">
                     <div className="head-icons">
-                    {/* <CollapseHeader /> */}
+                    <CollapseHeader />
                     </div>
                 </div>
                 </div>

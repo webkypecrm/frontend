@@ -2,7 +2,7 @@ import React from "react";
 import Select from "react-select";
 import { Link } from "react-router-dom";
 import { all_routes } from "../../Router/all_routes";
-// import CollapseHeader from "../../../core/common/collapse-header";
+import CollapseHeader from '../../../components/CollapseHeader/CollapseHeader';
 const route = all_routes;
 const GdprCookies = () => {
   const options = [
@@ -23,7 +23,7 @@ const GdprCookies = () => {
                 </div>
                 <div className="col-4 text-end">
                   <div className="head-icons">
-                    {/* <CollapseHeader /> */}
+                    <CollapseHeader />
                   </div>
                 </div>
               </div>

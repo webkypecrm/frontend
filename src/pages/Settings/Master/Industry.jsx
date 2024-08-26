@@ -3,8 +3,7 @@ import React from "react";
 import { industryData } from "../../../data/industryData";
 import { all_routes } from "../../Router/all_routes";
 import { Link } from "react-router-dom";
-// import { TableData } from "../../core/data/interface";
-// import CollapseHeader from "../../core/common/collapse-header";
+import CollapseHeader from "../../../components/CollapseHeader/CollapseHeader";
 import DataTable from "../../../components/Table/DataTable";
 const route = all_routes;
 const Industry = () => {
@@ -87,7 +86,7 @@ const Industry = () => {
                   </div>
                   <div className="col-sm-4 text-sm-end">
                     <div className="head-icons">
-                      {/* <CollapseHeader /> */}
+                      <CollapseHeader />
                     </div>
                   </div>
                 </div>

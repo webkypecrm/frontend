@@ -23,7 +23,7 @@ import { TagsInput } from "react-tag-input-component";
 import DefaultEditor from "react-simple-wysiwyg";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { all_routes } from "../Router/all_routes";
-// import CollapseHeader from "../../../core/common/collapse-header";
+import CollapseHeader from '../../components/CollapseHeader/CollapseHeader';
 // import { SelectWithImage } from "../../../core/common/selectWithImage";
 
 const CompaniesDetails = () => {
@@ -100,7 +100,7 @@ const CompaniesDetails = () => {
                                     </div>
                                     <div className="col-sm-8 text-sm-end">
                                         <div className="head-icons">
-                                            {/* <CollapseHeader /> */}
+                                            <CollapseHeader />
                                         </div>
                                     </div>
                                 </div>

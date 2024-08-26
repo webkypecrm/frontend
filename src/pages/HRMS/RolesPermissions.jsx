@@ -4,7 +4,7 @@ import { rolesPermissionsData } from "../../data/rolesPermissions";
 import { Link } from "react-router-dom";
 import { all_routes } from "../Router/all_routes";
 // import { TableData } from "../../core/data/interface";
-// import CollapseHeader from "../../core/common/collapse-header";
+import CollapseHeader from '../../components/CollapseHeader/CollapseHeader';
 const route = all_routes;
 
 const RolesPermissions = () => {
@@ -73,7 +73,7 @@ const RolesPermissions = () => {
                                     </div>
                                     <div className="col-4 text-end">
                                         <div className="head-icons">
-                                            {/* <CollapseHeader /> */}
+                                            <CollapseHeader />
                                         </div>
                                     </div>
                                 </div>
