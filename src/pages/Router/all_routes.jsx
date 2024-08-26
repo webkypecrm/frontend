@@ -6,6 +6,13 @@ export const all_routes = {
     supportDashboard: "/dashboard/leads-dashboard",
     staffDashboard: "/dashboard/staff-dashboard",
 
+    //product
+    product: "/product",
+
+    //services
+    services: '/services',
+
+
     //subscription
     companies: "/subscription/manage-companies",
     companiesGrid: "/subscription/manage-companies-grid",
@@ -81,16 +88,16 @@ export const all_routes = {
     ticketStage: "/support/ticket-stage",
 
 
-     // application routes
-     todo: "/application/todo",
-     email: "/application/email",
-     videoCall: "/application/video-call",
-     chat: "/application/chat",
-     audioCall: "/application/audio-call",
-     callHistory: "/application/call-history",
-     fileManager: "/application/file-manager",
-     calendar: "/application/calendar",
-     notes: "/application/notes",
+    // application routes
+    todo: "/application/todo",
+    email: "/application/email",
+    videoCall: "/application/video-call",
+    chat: "/application/chat",
+    audioCall: "/application/audio-call",
+    callHistory: "/application/call-history",
+    fileManager: "/application/file-manager",
+    calendar: "/application/calendar",
+    notes: "/application/notes",
 
     //Marketing / Deals
     deals: "/marketing/deals",
@@ -113,7 +120,7 @@ export const all_routes = {
     campaignArchieve: "/crm/campaign-archieve",
     addCampaign: "/crm/addCampaign",
     analytics: "/crm/analytics",
-   
+
 
 
 
@@ -139,7 +146,7 @@ export const all_routes = {
     estimationKanban: "/crm/estimation-kanban",
 
 
-   
+
     blankPage: "/blank-page",
     dataTables: "/data-tables",
     tablesBasic: "/tables-basic",
@@ -272,5 +279,5 @@ export const all_routes = {
 
 
     // membership routes
-  
+
 };

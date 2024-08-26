@@ -114,8 +114,11 @@
 }
 
 .search-section {
-    border-bottom: 1px solid $light-900;
-    margin-bottom: 20px;
+    // border-bottom: 1px solid $light-900;
+    // margin-bottom: 20px;
+
+    border-bottom: 0px;
+    margin-bottom: 0px;
 
     .form-control {
         max-width: 220px;

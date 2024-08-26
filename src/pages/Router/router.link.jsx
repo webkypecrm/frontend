@@ -5,6 +5,10 @@ import SalesDashboardPage from "../Dashboard/SalesDashboardPage"
 import StaffPage from '../HRMS/StaffPage'
 import RolesPermissions from "../HRMS/RolesPermissions";
 
+import ProductPage from '../Product/Product'
+
+import ServicePage from "../Services/Services";
+
 import LeadsPage from "../Sales/LeadsPage";
 import LeadsKanban from "../Sales/LeadsKanban";
 
@@ -241,7 +245,6 @@ export const publicRoutes = [
     {
         path: route.salesDashboard,
         element: <SalesDashboardPage />,
-        route: Route,
     },
     {
         path: '/',
@@ -255,6 +258,14 @@ export const publicRoutes = [
     {
         path: route.rolesPermissions,
         element: <RolesPermissions />,
+    },
+    {
+        path: route.product,
+        element: <ProductPage />,
+    },
+    {
+        path: route.services,
+        element: <ServicePage />,
     },
     {
         path: route.leads,

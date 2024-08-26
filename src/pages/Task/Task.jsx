@@ -18,6 +18,7 @@ import DatePicker from "react-datepicker";
 // import { SelectWithImage2 } from "../../../core/common/selectWithImage2";
 import { all_routes } from "../Router/all_routes";
 import DateRangePicker from "react-bootstrap-daterangepicker";
+import DefaultEditor from "react-simple-wysiwyg";
 
 const Task = () => {
     const [activityToggle, setActivityToggle] = useState(false)
@@ -60,7 +61,7 @@ const Task = () => {
                                 <div className="row align-items-center">
                                     <div className="col-4">
                                         <h4 className="page-title">
-                                            Tasks<span className="count-title">123</span>
+                                            Task<span className="count-title">123</span>
                                         </h4>
                                     </div>
                                     <div className="col-8 text-end">
@@ -71,50 +72,69 @@ const Task = () => {
                                 </div>
                             </div>
                             {/* /Page Header */}
+
+
+                            {/* Campaign Status */}
+                            <div className="row">
+                                <div className="col-xl-3 col-lg-6">
+                                    <div className="campaign-box bg-danger-light">
+                                        <div className="campaign-img">
+                                            <span>
+                                                <i className="ti ti-brand-campaignmonitor" />
+                                            </span>
+                                            <p>Campaign</p>
+                                        </div>
+                                        <h2>474</h2>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-lg-6">
+                                    <div className="campaign-box bg-warning-light">
+                                        <div className="campaign-img">
+                                            <span>
+                                                <i className="ti ti-send" />
+                                            </span>
+                                            <p>Sent</p>
+                                        </div>
+                                        <h2>454</h2>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-lg-6">
+                                    <div className="campaign-box bg-purple-light">
+                                        <div className="campaign-img">
+                                            <span>
+                                                <i className="ti ti-brand-feedly" />
+                                            </span>
+                                            <p>Opened</p>
+                                        </div>
+                                        <h2>658</h2>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-lg-6">
+                                    <div className="campaign-box bg-success-light">
+                                        <div className="campaign-img">
+                                            <span>
+                                                <i className="ti ti-brand-pocket" />
+                                            </span>
+                                            <p>Completed</p>
+                                        </div>
+                                        <h2>747</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* /Campaign Status */}
                             <div className="card main-card">
                                 <div className="card-body">
                                     {/* Search */}
                                     <div className="search-section">
                                         <div className="row">
-                                            <div className="col-md-5 col-sm-4">
-                                                <div className="form-wrap icon-form">
-                                                    <span className="form-icon">
-                                                        <i className="ti ti-search" />
-                                                    </span>
-                                                    <input
-                                                        type="text"
-                                                        className="form-control"
-                                                        placeholder="Search Task"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="col-md-7 col-sm-8">
-                                                <div className="export-list text-sm-end">
-                                                    <ul>
-                                                        <li>
-                                                            <Link
-                                                                to="#"
-                                                                className="btn btn-primary add-popup"
-                                                                onClick={() =>
 
-                                                                    setActivityToggle(prev => !prev)
+                                            <div className="col-md-5 col-sm-4" style={{
+                                                display: "flex",
+                                                justifyContent: "start",
+                                                alignItems: "baseline",
+                                                gap: "20px"
+                                            }}>
 
-                                                                }
-                                                            >
-                                                                <i className="ti ti-square-rounded-plus" />
-                                                                Add New Task
-                                                            </Link>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* /Search */}
-                                    {/* Filter */}
-                                    <div className="filter-section">
-                                        <div className="row align-items-center">
-                                            <div className="col-md-4">
                                                 <div className="sortby-list">
                                                     <ul>
                                                         <li>
@@ -152,10 +172,25 @@ const Task = () => {
                                                         </li>
                                                     </ul>
                                                 </div>
+
+
+
+                                                <div className="form-wrap icon-form">
+                                                    <span className="form-icon">
+                                                        <i className="ti ti-search" />
+                                                    </span>
+                                                    <input
+                                                        type="text"
+                                                        className="form-control"
+                                                        placeholder="Search Task"
+                                                    />
+                                                </div>
                                             </div>
-                                            <div className="col-md-8">
-                                                <div className="filter-list">
-                                                    <ul className="justify-content-md-end">
+                                            <div className="col-md-7 col-sm-8">
+                                                <div className="export-list text-sm-end">
+                                                    <ul>
+
+
                                                         <li className="all-read">
                                                             <label className="checkboxs">
                                                                 <input type="checkbox" />
@@ -163,61 +198,22 @@ const Task = () => {
                                                                 Mark all as read
                                                             </label>
                                                         </li>
+
+
                                                         <li>
-                                                            <div className="sort-dropdown drop-down">
-                                                                <Link
-                                                                    to="#"
-                                                                    className="dropdown-toggle"
-                                                                    data-bs-toggle="dropdown"
-                                                                >
-                                                                    <i className="ti ti-sort-ascending-2" />
-                                                                    Sort{" "}
-                                                                </Link>
-                                                                <div className="dropdown-menu  dropdown-menu-start">
-                                                                    <ul>
-                                                                        <li>
-                                                                            <Link to="#">
-                                                                                <i className="ti ti-dots-vertical" />
-                                                                                Ascending
-                                                                            </Link>
-                                                                        </li>
-                                                                        <li>
-                                                                            <Link to="#">
-                                                                                <i className="ti ti-dots-vertical" />
-                                                                                Descending
-                                                                            </Link>
-                                                                        </li>
-                                                                        <li>
-                                                                            <Link to="#">
-                                                                                <i className="ti ti-dots-vertical" />
-                                                                                Recently Viewed
-                                                                            </Link>
-                                                                        </li>
-                                                                        <li>
-                                                                            <Link to="#">
-                                                                                <i className="ti ti-dots-vertical" />
-                                                                                Recently Added
-                                                                            </Link>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div className="form-wrap icon-form mb-0">
+                                                            <div className=" icon-form">
                                                                 <span className="form-icon">
                                                                     <i className="ti ti-calendar" />
                                                                 </span>
-                                                                <DateRangePicker
-                                                                    initialSettings={initialSettings}
-                                                                >
+                                                                <DateRangePicker initialSettings={initialSettings}>
                                                                     <input
-                                                                        className="form-control  date-range bookingrange"
+                                                                        className="form-control bookingrange"
                                                                         type="text"
                                                                     />
                                                                 </DateRangePicker>
                                                             </div>
                                                         </li>
+
                                                         <li>
                                                             <div className="form-sorts dropdown">
                                                                 <Link
@@ -226,7 +222,7 @@ const Task = () => {
                                                                     data-bs-auto-close="false"
                                                                 >
                                                                     <i className="ti ti-filter-share" />
-                                                                    Filter
+                                                                    {/* Filter */}
                                                                 </Link>
                                                                 <div className="filter-dropdown-menu dropdown-menu  dropdown-menu-md-end">
                                                                     <div className="filter-set-view">
@@ -235,7 +231,6 @@ const Task = () => {
                                                                                 <i className="ti ti-filter-share" />
                                                                                 Filter
                                                                             </h4>
-
                                                                         </div>
 
                                                                         <div
@@ -718,12 +713,27 @@ const Task = () => {
                                                                 </div>
                                                             </div>
                                                         </li>
+                                                        <li>
+                                                            <Link
+                                                                to="#"
+                                                                className="btn btn-primary add-popup"
+                                                                onClick={() =>
+
+                                                                    setActivityToggle(prev => !prev)
+
+                                                                }
+                                                            >
+                                                                <i className="ti ti-square-rounded-plus" />
+                                                                Add New Task
+                                                            </Link>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    {/* /Filter */}
+                                    {/* /Search */}
+
                                     {/* Recent Task List */}
                                     <div className="task-wrapper">
                                         <Link
@@ -1490,11 +1500,15 @@ const Task = () => {
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="form-wrap">
-                                            <label className="col-form-label">
-                                                Title <span className="text-danger">*</span>
-                                            </label>
-                                            <input type="text" className="form-control" />
+                                            <label className="col-form-label">Select Lead</label>
+
+                                            <Select
+                                                options={[{ value: 'Choose', label: 'Choose' }]}
+                                                className="select2"
+                                                placeholder="Choose"
+                                            />
                                         </div>
+
                                         <div className="form-wrap">
                                             <label className="col-form-label">Category</label>
 
@@ -1504,6 +1518,45 @@ const Task = () => {
                                                 placeholder="Choose"
                                             />
                                         </div>
+
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">Sub Category</label>
+
+                                            <Select
+                                                options={[{ value: 'Choose', label: 'Choose' }]}
+                                                className="select2"
+                                                placeholder="Choose"
+                                            />
+                                        </div>
+
+
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Title <span className="text-danger">*</span>
+                                            </label>
+                                            <input type="text" className="form-control" />
+                                        </div>
+
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">Task Priority</label>
+
+                                            <Select
+                                                options={[{ value: 'Choose', label: 'Choose' }]}
+                                                className="select2"
+                                                placeholder="Choose"
+                                            />
+                                        </div>
+
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">Assign To</label>
+
+                                            <Select
+                                                options={[{ value: 'Choose', label: 'Choose' }]}
+                                                className="select2"
+                                                placeholder="Choose"
+                                            />
+                                        </div>
+
                                         <div className="form-wrap">
                                             <label className="col-form-label">
                                                 Responsible Persons{" "}
@@ -1585,13 +1638,65 @@ const Task = () => {
                                             />
                                         </div>
                                     </div>
-                                    <div className="col-md-12">
+                                    <div className="col-lg-12">
                                         <div className="form-wrap">
                                             <label className="col-form-label">
                                                 Description <span className="text-danger">*</span>
                                             </label>
-                                            <div className="summernote" />
+                                            <DefaultEditor className="summernote" />
                                         </div>
+                                    </div>
+
+                                    <div className="form-wrap">
+                                        <label className="col-form-label">
+                                            Attachment <span className="text-danger">*</span>
+                                        </label>
+                                        <div className="drag-attach">
+                                            <input type="file" />
+                                            <div className="img-upload">
+                                                <i className="ti ti-file-broken" />
+                                                Upload File
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* <div className="form-wrap">
+                                                <label className="col-form-label">Uploaded Files</label>
+                                                <div className="upload-file upload-list">
+                                                    <div>
+                                                        <h6>tes.txt</h6>
+                                                        <p>4.25 MB</p>
+                                                    </div>
+                                                    <Link to="#" className="text-danger">
+                                                        <i className="ti ti-trash-x" />
+                                                    </Link>
+                                                </div>
+                                            </div> */}
+
+                                </div>
+                                <div className="radio-wrap form-wrap">
+                                    <label className="col-form-label">
+                                        Visibility
+                                    </label>
+                                    <div className="d-flex flex-wrap">
+                                        <div className="radio-btn">
+                                            <input
+                                                type="radio"
+                                                className="status-radio"
+                                                id="public"
+                                                name="visible"
+                                            />
+                                            <label htmlFor="public">Public</label>
+                                        </div>
+                                        <div className="radio-btn">
+                                            <input
+                                                type="radio"
+                                                className="status-radio"
+                                                id="private"
+                                                name="visible"
+                                            />
+                                            <label htmlFor="private">Private</label>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>

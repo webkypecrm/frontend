@@ -214,6 +214,14 @@ const LeadsPage = () => {
         setNewContents([...newContents, newContents.length]);
     };
 
+    const countries = [
+        { value: "Choose", label: "Choose" },
+        { value: "India", label: "India" },
+        { value: "USA", label: "USA" },
+        { value: "France", label: "France" },
+        { value: "UAE", label: "UAE" },
+    ];
+
     return <>
         <>
             {/* Page Wrapper */}
@@ -237,12 +245,63 @@ const LeadsPage = () => {
                                 </div>
                             </div>
                             {/* /Page Header */}
+
+
+                            {/* Campaign Status */}
+                            <div className="row">
+                                <div className="col-xl-3 col-lg-6">
+                                    <div className="campaign-box bg-danger-light">
+                                        <div className="campaign-img">
+                                            <span>
+                                                <i className="ti ti-brand-campaignmonitor" />
+                                            </span>
+                                            <p>Campaign</p>
+                                        </div>
+                                        <h2>474</h2>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-lg-6">
+                                    <div className="campaign-box bg-warning-light">
+                                        <div className="campaign-img">
+                                            <span>
+                                                <i className="ti ti-send" />
+                                            </span>
+                                            <p>Sent</p>
+                                        </div>
+                                        <h2>454</h2>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-lg-6">
+                                    <div className="campaign-box bg-purple-light">
+                                        <div className="campaign-img">
+                                            <span>
+                                                <i className="ti ti-brand-feedly" />
+                                            </span>
+                                            <p>Opened</p>
+                                        </div>
+                                        <h2>658</h2>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-lg-6">
+                                    <div className="campaign-box bg-success-light">
+                                        <div className="campaign-img">
+                                            <span>
+                                                <i className="ti ti-brand-pocket" />
+                                            </span>
+                                            <p>Completed</p>
+                                        </div>
+                                        <h2>747</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* /Campaign Status */}
+
                             <div className="card main-card">
                                 <div className="card-body">
                                     {/* Search */}
                                     <div className="search-section">
                                         <div className="row">
-                                            <div className="col-md-5 col-sm-4">
+                                            <div className="col-md-5 col-sm-4" style={{ width: '20%' }}>
                                                 <div className="form-wrap icon-form">
                                                     <span className="form-icon">
                                                         <i className="ti ti-search" />
@@ -254,18 +313,192 @@ const LeadsPage = () => {
                                                     />
                                                 </div>
                                             </div>
-                                            <div className="col-md-7 col-sm-8">
+                                            <div className="col-md-7 col-sm-8" style={{ width: '80%' }}>
                                                 <div className="export-list text-sm-end">
                                                     <ul>
                                                         <li>
-                                                            <div className="export-dropdwon">
+                                                            <div className=" icon-form">
+                                                                <span className="form-icon">
+                                                                    <i className="ti ti-calendar" />
+                                                                </span>
+                                                                <DateRangePicker initialSettings={initialSettings}>
+                                                                    <input
+                                                                        className="form-control bookingrange"
+                                                                        type="text"
+                                                                    />
+                                                                </DateRangePicker>
+                                                            </div>
+                                                        </li>
+
+                                                        <li>
+                                                            <div className="manage-dropdwon">
+                                                                <Link
+                                                                    to="#"
+                                                                    className="btn btn-purple-light"
+                                                                    data-bs-toggle="dropdown"
+                                                                    data-bs-auto-close="false"
+                                                                >
+                                                                    <i className="ti ti-columns-3" />
+                                                                    {/* Manage Columns */}
+                                                                </Link>
+                                                                <div className="dropdown-menu  dropdown-menu-md-end">
+                                                                    <h4>Want to manage datatables?</h4>
+                                                                    <p>
+                                                                        Please drag and drop your column to reorder your
+                                                                        table and enable see option as you want.
+                                                                    </p>
+                                                                    <ul>
+                                                                        <li>
+                                                                            <p>
+                                                                                <i className="ti ti-grip-vertical" />
+                                                                                Name
+                                                                            </p>
+                                                                            <div className="status-toggle">
+                                                                                <input
+                                                                                    type="checkbox"
+                                                                                    id="col-name"
+                                                                                    className="check"
+                                                                                />
+                                                                                <label
+                                                                                    htmlFor="col-name"
+                                                                                    className="checktoggle"
+                                                                                />
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p>
+                                                                                <i className="ti ti-grip-vertical" />
+                                                                                Phone
+                                                                            </p>
+                                                                            <div className="status-toggle">
+                                                                                <input
+                                                                                    type="checkbox"
+                                                                                    id="col-phone"
+                                                                                    className="check"
+                                                                                />
+                                                                                <label
+                                                                                    htmlFor="col-phone"
+                                                                                    className="checktoggle"
+                                                                                />
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p>
+                                                                                <i className="ti ti-grip-vertical" />
+                                                                                Email
+                                                                            </p>
+                                                                            <div className="status-toggle">
+                                                                                <input
+                                                                                    type="checkbox"
+                                                                                    id="col-email"
+                                                                                    className="check"
+                                                                                />
+                                                                                <label
+                                                                                    htmlFor="col-email"
+                                                                                    className="checktoggle"
+                                                                                />
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p>
+                                                                                <i className="ti ti-grip-vertical" />
+                                                                                Location
+                                                                            </p>
+                                                                            <div className="status-toggle">
+                                                                                <input
+                                                                                    type="checkbox"
+                                                                                    id="col-tag"
+                                                                                    className="check"
+                                                                                />
+                                                                                <label
+                                                                                    htmlFor="col-tag"
+                                                                                    className="checktoggle"
+                                                                                />
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p>
+                                                                                <i className="ti ti-grip-vertical" />
+                                                                                Created Date
+                                                                            </p>
+                                                                            <div className="status-toggle">
+                                                                                <input
+                                                                                    type="checkbox"
+                                                                                    id="col-loc"
+                                                                                    className="check"
+                                                                                />
+                                                                                <label
+                                                                                    htmlFor="col-loc"
+                                                                                    className="checktoggle"
+                                                                                />
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p>
+                                                                                <i className="ti ti-grip-vertical" />
+                                                                                Last Activity
+                                                                            </p>
+                                                                            <div className="status-toggle">
+                                                                                <input
+                                                                                    type="checkbox"
+                                                                                    id="col-rate"
+                                                                                    className="check"
+                                                                                />
+                                                                                <label
+                                                                                    htmlFor="col-rate"
+                                                                                    className="checktoggle"
+                                                                                />
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p>
+                                                                                <i className="ti ti-grip-vertical" />
+                                                                                Status
+                                                                            </p>
+                                                                            <div className="status-toggle">
+                                                                                <input
+                                                                                    type="checkbox"
+                                                                                    id="col-owner"
+                                                                                    className="check"
+                                                                                />
+                                                                                <label
+                                                                                    htmlFor="col-owner"
+                                                                                    className="checktoggle"
+                                                                                />
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p>
+                                                                                <i className="ti ti-grip-vertical" />
+                                                                                Action
+                                                                            </p>
+                                                                            <div className="status-toggle">
+                                                                                <input
+                                                                                    type="checkbox"
+                                                                                    id="col-contact"
+                                                                                    className="check"
+                                                                                    defaultChecked={true}
+                                                                                />
+                                                                                <label
+                                                                                    htmlFor="col-contact"
+                                                                                    className="checktoggle"
+                                                                                />
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+
+                                                        <li>
+                                                            <div className="export-dropdwon ">
                                                                 <Link
                                                                     to="#"
                                                                     className="dropdown-toggle"
                                                                     data-bs-toggle="dropdown"
                                                                 >
                                                                     <i className="ti ti-package-export" />
-                                                                    Export
+                                                                    {/* Export */}
                                                                 </Link>
                                                                 <div className="dropdown-menu  dropdown-menu-end">
                                                                     <ul>
@@ -286,6 +519,516 @@ const LeadsPage = () => {
                                                             </div>
                                                         </li>
                                                         <li>
+                                                            <div className="form-sorts dropdown">
+                                                                <Link
+                                                                    to="#"
+                                                                    data-bs-toggle="dropdown"
+                                                                    data-bs-auto-close="false"
+                                                                >
+                                                                    <i className="ti ti-filter-share" />
+                                                                    {/* Filter */}
+                                                                </Link>
+                                                                <div className="filter-dropdown-menu dropdown-menu  dropdown-menu-md-end">
+                                                                    <div className="filter-set-view">
+                                                                        <div className="filter-set-head">
+                                                                            <h4>
+                                                                                <i className="ti ti-filter-share" />
+                                                                                Filter
+                                                                            </h4>
+                                                                        </div>
+
+                                                                        <div
+                                                                            className="accordion"
+                                                                            id="accordionExample"
+                                                                        >
+                                                                            <div className="filter-set-content">
+                                                                                <div className="filter-set-content-head">
+                                                                                    <Link
+                                                                                        to="#"
+                                                                                        data-bs-toggle="collapse"
+                                                                                        data-bs-target="#collapseTwo"
+                                                                                        aria-expanded="true"
+                                                                                        aria-controls="collapseTwo"
+                                                                                    >
+                                                                                        Country
+                                                                                    </Link>
+                                                                                </div>
+                                                                                <div
+                                                                                    className="filter-set-contents accordion-collapse collapse show"
+                                                                                    id="collapseTwo"
+                                                                                    data-bs-parent="#accordionExample"
+                                                                                >
+                                                                                    <div className="filter-content-list">
+                                                                                        <div className="form-wrap icon-form">
+                                                                                            <span className="form-icon">
+                                                                                                <i className="ti ti-search" />
+                                                                                            </span>
+                                                                                            <input
+                                                                                                type="text"
+                                                                                                className="form-control"
+                                                                                                placeholder="Search Country"
+                                                                                            />
+                                                                                        </div>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input
+                                                                                                            type="checkbox"
+                                                                                                            defaultChecked
+                                                                                                        />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="collapse-inside-text">
+                                                                                                    <h5>India</h5>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input type="checkbox" />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="collapse-inside-text">
+                                                                                                    <h5>USA</h5>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input type="checkbox" />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="collapse-inside-text">
+                                                                                                    <h5>France</h5>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input type="checkbox" />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="collapse-inside-text">
+                                                                                                    <h5>United Kingdom</h5>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input type="checkbox" />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="collapse-inside-text">
+                                                                                                    <h5>UAE</h5>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input type="checkbox" />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="collapse-inside-text">
+                                                                                                    <h5>Italy</h5>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input type="checkbox" />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="collapse-inside-text">
+                                                                                                    <h5>Japan</h5>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input type="checkbox" />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="collapse-inside-text">
+                                                                                                    <h5>Germany</h5>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="filter-set-content">
+                                                                                <div className="filter-set-content-head">
+                                                                                    <Link
+                                                                                        to="#"
+                                                                                        className="collapsed"
+                                                                                        data-bs-toggle="collapse"
+                                                                                        data-bs-target="#owner"
+                                                                                        aria-expanded="false"
+                                                                                        aria-controls="owner"
+                                                                                    >
+                                                                                        Owner
+                                                                                    </Link>
+                                                                                </div>
+                                                                                <div
+                                                                                    className="filter-set-contents accordion-collapse collapse"
+                                                                                    id="owner"
+                                                                                    data-bs-parent="#accordionExample"
+                                                                                >
+                                                                                    <div className="filter-content-list">
+                                                                                        <div className="form-wrap icon-form">
+                                                                                            <span className="form-icon">
+                                                                                                <i className="ti ti-search" />
+                                                                                            </span>
+                                                                                            <input
+                                                                                                type="text"
+                                                                                                className="form-control"
+                                                                                                placeholder="Search Owner"
+                                                                                            />
+                                                                                        </div>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input
+                                                                                                            type="checkbox"
+                                                                                                            defaultChecked
+                                                                                                        />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="collapse-inside-text">
+                                                                                                    <h5>Hendry</h5>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input type="checkbox" />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="collapse-inside-text">
+                                                                                                    <h5>Guillory</h5>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input type="checkbox" />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="collapse-inside-text">
+                                                                                                    <h5>Jami</h5>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input type="checkbox" />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="collapse-inside-text">
+                                                                                                    <h5>Theresa</h5>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input type="checkbox" />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="collapse-inside-text">
+                                                                                                    <h5>Espinosa</h5>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="filter-set-content">
+                                                                                <div className="filter-set-content-head">
+                                                                                    <Link
+                                                                                        to="#"
+                                                                                        className="collapsed"
+                                                                                        data-bs-toggle="collapse"
+                                                                                        data-bs-target="#Status"
+                                                                                        aria-expanded="false"
+                                                                                        aria-controls="Status"
+                                                                                    >
+                                                                                        Status
+                                                                                    </Link>
+                                                                                </div>
+                                                                                <div
+                                                                                    className="filter-set-contents accordion-collapse collapse"
+                                                                                    id="Status"
+                                                                                    data-bs-parent="#accordionExample"
+                                                                                >
+                                                                                    <div className="filter-content-list">
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input
+                                                                                                            type="checkbox"
+                                                                                                            defaultChecked
+                                                                                                        />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="collapse-inside-text">
+                                                                                                    <h5>Active</h5>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input type="checkbox" />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="collapse-inside-text">
+                                                                                                    <h5>Inactive</h5>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="filter-set-content">
+                                                                                <div className="filter-set-content-head">
+                                                                                    <Link
+                                                                                        to="#"
+                                                                                        className="collapsed"
+                                                                                        data-bs-toggle="collapse"
+                                                                                        data-bs-target="#collapseOne"
+                                                                                        aria-expanded="false"
+                                                                                        aria-controls="collapseOne"
+                                                                                    >
+                                                                                        Rating
+                                                                                    </Link>
+                                                                                </div>
+                                                                                <div
+                                                                                    className="filter-set-contents accordion-collapse collapse"
+                                                                                    id="collapseOne"
+                                                                                    data-bs-parent="#accordionExample"
+                                                                                >
+                                                                                    <div className="filter-content-list">
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input
+                                                                                                            type="checkbox"
+                                                                                                            defaultChecked
+                                                                                                        />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="rating">
+                                                                                                    <i className="fa fa-star filled" />
+                                                                                                    <i className="fa fa-star filled" />
+                                                                                                    <i className="fa fa-star filled" />
+                                                                                                    <i className="fa fa-star filled" />
+                                                                                                    <i className="fa fa-star filled" />
+                                                                                                    <span>5.0</span>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input type="checkbox" />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="rating">
+                                                                                                    <i className="fa fa-star filled" />
+                                                                                                    <i className="fa fa-star filled" />
+                                                                                                    <i className="fa fa-star filled" />
+                                                                                                    <i className="fa fa-star filled" />
+                                                                                                    <i className="fa fa-star" />
+                                                                                                    <span>4.0</span>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input type="checkbox" />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="rating">
+                                                                                                    <i className="fa fa-star filled" />
+                                                                                                    <i className="fa fa-star filled" />
+                                                                                                    <i className="fa fa-star filled" />
+                                                                                                    <i className="fa fa-star" />
+                                                                                                    <i className="fa fa-star" />
+                                                                                                    <span>3.0</span>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input type="checkbox" />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="rating">
+                                                                                                    <i className="fa fa-star filled" />
+                                                                                                    <i className="fa fa-star filled" />
+                                                                                                    <i className="fa fa-star" />
+                                                                                                    <i className="fa fa-star" />
+                                                                                                    <i className="fa fa-star" />
+                                                                                                    <span>2.0</span>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input type="checkbox" />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="rating">
+                                                                                                    <i className="fa fa-star filled" />
+                                                                                                    <i className="fa fa-star" />
+                                                                                                    <i className="fa fa-star" />
+                                                                                                    <i className="fa fa-star" />
+                                                                                                    <i className="fa fa-star" />
+                                                                                                    <span>1.0</span>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="filter-set-content">
+                                                                                <div className="filter-set-content-head">
+                                                                                    <Link
+                                                                                        to="#"
+                                                                                        className="collapsed"
+                                                                                        data-bs-toggle="collapse"
+                                                                                        data-bs-target="#collapseThree"
+                                                                                        aria-expanded="false"
+                                                                                        aria-controls="collapseThree"
+                                                                                    >
+                                                                                        Tags
+                                                                                    </Link>
+                                                                                </div>
+                                                                                <div
+                                                                                    className="filter-set-contents accordion-collapse collapse"
+                                                                                    id="collapseThree"
+                                                                                    data-bs-parent="#accordionExample"
+                                                                                >
+                                                                                    <div className="filter-content-list">
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input
+                                                                                                            type="checkbox"
+                                                                                                            defaultChecked
+                                                                                                        />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="collapse-inside-text">
+                                                                                                    <h5>Promotion</h5>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input type="checkbox" />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="collapse-inside-text">
+                                                                                                    <h5>Rated</h5>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input type="checkbox" />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="collapse-inside-text">
+                                                                                                    <h5>Rejected</h5>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input type="checkbox" />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="collapse-inside-text">
+                                                                                                    <h5>Collab</h5>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <div className="filter-checks">
+                                                                                                    <label className="checkboxs">
+                                                                                                        <input type="checkbox" />
+                                                                                                        <span className="checkmarks" />
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div className="collapse-inside-text">
+                                                                                                    <h5>Calls</h5>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="filter-reset-btns">
+                                                                            <div className="row">
+                                                                                <div className="col-6">
+                                                                                    <Link to="#" className="btn btn-light">
+                                                                                        Reset
+                                                                                    </Link>
+                                                                                </div>
+                                                                                <div className="col-6">
+                                                                                    <Link
+                                                                                        to={route.contactList}
+                                                                                        className="btn btn-primary"
+                                                                                    >
+                                                                                        Filter
+                                                                                    </Link>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+
+                                                        <li>
+                                                            <div className="view-icons">
+                                                                <Link to="/sales/leads" className="active">
+                                                                    <i className="ti ti-list-tree" />
+                                                                </Link>
+                                                                <Link to="/sales/leads-kanban">
+                                                                    <i className="ti ti-grid-dots" />
+                                                                </Link>
+                                                            </div>
+                                                        </li>
+                                                        <li>
                                                             <Link
                                                                 to="#"
                                                                 className="btn btn-primary add-popup"
@@ -301,741 +1044,7 @@ const LeadsPage = () => {
                                         </div>
                                     </div>
                                     {/* /Search */}
-                                    {/* Filter */}
-                                    <div className="filter-section filter-flex">
-                                        <div className="sortby-list">
-                                            <ul>
-                                                <li>
-                                                    <div className="sort-dropdown drop-down">
-                                                        <Link
-                                                            to="#"
-                                                            className="dropdown-toggle"
-                                                            data-bs-toggle="dropdown"
-                                                        >
-                                                            <i className="ti ti-sort-ascending-2" />
-                                                            Sort{" "}
-                                                        </Link>
-                                                        <div className="dropdown-menu  dropdown-menu-start">
-                                                            <ul>
-                                                                <li>
-                                                                    <Link to="#">
-                                                                        <i className="ti ti-circle-chevron-right" />
-                                                                        Ascending
-                                                                    </Link>
-                                                                </li>
-                                                                <li>
-                                                                    <Link to="#">
-                                                                        <i className="ti ti-circle-chevron-right" />
-                                                                        Descending
-                                                                    </Link>
-                                                                </li>
-                                                                <li>
-                                                                    <Link to="#">
-                                                                        <i className="ti ti-circle-chevron-right" />
-                                                                        Recently Viewed
-                                                                    </Link>
-                                                                </li>
-                                                                <li>
-                                                                    <Link to="#">
-                                                                        <i className="ti ti-circle-chevron-right" />
-                                                                        Recently Added
-                                                                    </Link>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div className="form-wrap icon-form">
-                                                        <span className="form-icon">
-                                                            <i className="ti ti-calendar" />
-                                                        </span>
-                                                        <DateRangePicker
-                                                            initialSettings={initialSettings}
-                                                        >
-                                                            <input
-                                                                className="form-control bookingrange"
-                                                                type="text"
-                                                            />
-                                                        </DateRangePicker>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div className="filter-list">
-                                            <ul>
-                                                <li>
-                                                    <div className="manage-dropdwon">
-                                                        <Link
-                                                            to="#"
-                                                            className="btn btn-purple-light"
-                                                            data-bs-toggle="dropdown"
-                                                            data-bs-auto-close="false"
-                                                        >
-                                                            <i className="ti ti-columns-3" />
-                                                            Manage Columns
-                                                        </Link>
-                                                        <div className="dropdown-menu  dropdown-menu-md-end">
-                                                            <h4>Want to manage datatables?</h4>
-                                                            <p>
-                                                                Please drag and drop your column to reorder
-                                                                your table and enable see option as you want.
-                                                            </p>
-                                                            <ul>
-                                                                <li>
-                                                                    <p>
-                                                                        <i className="ti ti-grip-vertical" />
-                                                                        Name
-                                                                    </p>
-                                                                    <div className="status-toggle">
-                                                                        <input
-                                                                            type="checkbox"
-                                                                            id="col-name"
-                                                                            className="check"
-                                                                        />
-                                                                        <label
-                                                                            htmlFor="col-name"
-                                                                            className="checktoggle"
-                                                                        />
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <p>
-                                                                        <i className="ti ti-grip-vertical" />
-                                                                        Phone
-                                                                    </p>
-                                                                    <div className="status-toggle">
-                                                                        <input
-                                                                            type="checkbox"
-                                                                            id="col-phone"
-                                                                            className="check"
-                                                                        />
-                                                                        <label
-                                                                            htmlFor="col-phone"
-                                                                            className="checktoggle"
-                                                                        />
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <p>
-                                                                        <i className="ti ti-grip-vertical" />
-                                                                        Email
-                                                                    </p>
-                                                                    <div className="status-toggle">
-                                                                        <input
-                                                                            type="checkbox"
-                                                                            id="col-email"
-                                                                            className="check"
-                                                                        />
-                                                                        <label
-                                                                            htmlFor="col-email"
-                                                                            className="checktoggle"
-                                                                        />
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <p>
-                                                                        <i className="ti ti-grip-vertical" />
-                                                                        Location
-                                                                    </p>
-                                                                    <div className="status-toggle">
-                                                                        <input
-                                                                            type="checkbox"
-                                                                            id="col-tag"
-                                                                            className="check"
-                                                                        />
-                                                                        <label
-                                                                            htmlFor="col-tag"
-                                                                            className="checktoggle"
-                                                                        />
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <p>
-                                                                        <i className="ti ti-grip-vertical" />
-                                                                        Created Date
-                                                                    </p>
-                                                                    <div className="status-toggle">
-                                                                        <input
-                                                                            type="checkbox"
-                                                                            id="col-loc"
-                                                                            className="check"
-                                                                        />
-                                                                        <label
-                                                                            htmlFor="col-loc"
-                                                                            className="checktoggle"
-                                                                        />
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <p>
-                                                                        <i className="ti ti-grip-vertical" />
-                                                                        Last Activity
-                                                                    </p>
-                                                                    <div className="status-toggle">
-                                                                        <input
-                                                                            type="checkbox"
-                                                                            id="col-rate"
-                                                                            className="check"
-                                                                        />
-                                                                        <label
-                                                                            htmlFor="col-rate"
-                                                                            className="checktoggle"
-                                                                        />
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <p>
-                                                                        <i className="ti ti-grip-vertical" />
-                                                                        Status
-                                                                    </p>
-                                                                    <div className="status-toggle">
-                                                                        <input
-                                                                            type="checkbox"
-                                                                            id="col-owner"
-                                                                            className="check"
-                                                                        />
-                                                                        <label
-                                                                            htmlFor="col-owner"
-                                                                            className="checktoggle"
-                                                                        />
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <p>
-                                                                        <i className="ti ti-grip-vertical" />
-                                                                        Action
-                                                                    </p>
-                                                                    <div className="status-toggle">
-                                                                        <input
-                                                                            type="checkbox"
-                                                                            id="col-contact"
-                                                                            className="check"
-                                                                            defaultChecked={true}
-                                                                        />
-                                                                        <label
-                                                                            htmlFor="col-contact"
-                                                                            className="checktoggle"
-                                                                        />
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div className="form-sorts dropdown">
-                                                        <Link
-                                                            to="#"
-                                                            data-bs-toggle="dropdown"
-                                                            data-bs-auto-close="false"
-                                                        >
-                                                            <i className="ti ti-filter-share" />
-                                                            Filter
-                                                        </Link>
-                                                        <div className="filter-dropdown-menu dropdown-menu  dropdown-menu-md-end">
-                                                            <div className="filter-set-view">
-                                                                <div className="filter-set-head">
-                                                                    <h4>
-                                                                        <i className="ti ti-filter-share" />
-                                                                        Filter
-                                                                    </h4>
-                                                                </div>
 
-                                                                <div
-                                                                    className="accordion"
-                                                                    id="accordionExample"
-                                                                >
-                                                                    <div className="filter-set-content">
-                                                                        <div className="filter-set-content-head">
-                                                                            <Link
-                                                                                to="#"
-                                                                                data-bs-toggle="collapse"
-                                                                                data-bs-target="#collapseTwo"
-                                                                                aria-expanded="true"
-                                                                                aria-controls="collapseTwo"
-                                                                            >
-                                                                                Country
-                                                                            </Link>
-                                                                        </div>
-                                                                        <div
-                                                                            className="filter-set-contents accordion-collapse collapse show"
-                                                                            id="collapseTwo"
-                                                                            data-bs-parent="#accordionExample"
-                                                                        >
-                                                                            <div className="filter-content-list">
-                                                                                <div className="form-wrap icon-form">
-                                                                                    <span className="form-icon">
-                                                                                        <i className="ti ti-search" />
-                                                                                    </span>
-                                                                                    <input
-                                                                                        type="text"
-                                                                                        className="form-control"
-                                                                                        placeholder="Search Country"
-                                                                                    />
-                                                                                </div>
-                                                                                <ul>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input
-                                                                                                    type="checkbox"
-                                                                                                    defaultChecked
-                                                                                                />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="collapse-inside-text">
-                                                                                            <h5>India</h5>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input type="checkbox" />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="collapse-inside-text">
-                                                                                            <h5>USA</h5>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input type="checkbox" />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="collapse-inside-text">
-                                                                                            <h5>France</h5>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input type="checkbox" />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="collapse-inside-text">
-                                                                                            <h5>United Kingdom</h5>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input type="checkbox" />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="collapse-inside-text">
-                                                                                            <h5>UAE</h5>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input type="checkbox" />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="collapse-inside-text">
-                                                                                            <h5>Italy</h5>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input type="checkbox" />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="collapse-inside-text">
-                                                                                            <h5>Japan</h5>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input type="checkbox" />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="collapse-inside-text">
-                                                                                            <h5>Germany</h5>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="filter-set-content">
-                                                                        <div className="filter-set-content-head">
-                                                                            <Link
-                                                                                to="#"
-                                                                                className="collapsed"
-                                                                                data-bs-toggle="collapse"
-                                                                                data-bs-target="#owner"
-                                                                                aria-expanded="false"
-                                                                                aria-controls="owner"
-                                                                            >
-                                                                                Owner
-                                                                            </Link>
-                                                                        </div>
-                                                                        <div
-                                                                            className="filter-set-contents accordion-collapse collapse"
-                                                                            id="owner"
-                                                                            data-bs-parent="#accordionExample"
-                                                                        >
-                                                                            <div className="filter-content-list">
-                                                                                <div className="form-wrap icon-form">
-                                                                                    <span className="form-icon">
-                                                                                        <i className="ti ti-search" />
-                                                                                    </span>
-                                                                                    <input
-                                                                                        type="text"
-                                                                                        className="form-control"
-                                                                                        placeholder="Search Owner"
-                                                                                    />
-                                                                                </div>
-                                                                                <ul>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input
-                                                                                                    type="checkbox"
-                                                                                                    defaultChecked
-                                                                                                />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="collapse-inside-text">
-                                                                                            <h5>Hendry</h5>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input type="checkbox" />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="collapse-inside-text">
-                                                                                            <h5>Guillory</h5>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input type="checkbox" />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="collapse-inside-text">
-                                                                                            <h5>Jami</h5>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input type="checkbox" />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="collapse-inside-text">
-                                                                                            <h5>Theresa</h5>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input type="checkbox" />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="collapse-inside-text">
-                                                                                            <h5>Espinosa</h5>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="filter-set-content">
-                                                                        <div className="filter-set-content-head">
-                                                                            <Link
-                                                                                to="#"
-                                                                                className="collapsed"
-                                                                                data-bs-toggle="collapse"
-                                                                                data-bs-target="#Status"
-                                                                                aria-expanded="false"
-                                                                                aria-controls="Status"
-                                                                            >
-                                                                                Status
-                                                                            </Link>
-                                                                        </div>
-                                                                        <div
-                                                                            className="filter-set-contents accordion-collapse collapse"
-                                                                            id="Status"
-                                                                            data-bs-parent="#accordionExample"
-                                                                        >
-                                                                            <div className="filter-content-list">
-                                                                                <ul>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input
-                                                                                                    type="checkbox"
-                                                                                                    defaultChecked
-                                                                                                />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="collapse-inside-text">
-                                                                                            <h5>Active</h5>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input type="checkbox" />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="collapse-inside-text">
-                                                                                            <h5>Inactive</h5>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="filter-set-content">
-                                                                        <div className="filter-set-content-head">
-                                                                            <Link
-                                                                                to="#"
-                                                                                className="collapsed"
-                                                                                data-bs-toggle="collapse"
-                                                                                data-bs-target="#collapseOne"
-                                                                                aria-expanded="false"
-                                                                                aria-controls="collapseOne"
-                                                                            >
-                                                                                Rating
-                                                                            </Link>
-                                                                        </div>
-                                                                        <div
-                                                                            className="filter-set-contents accordion-collapse collapse"
-                                                                            id="collapseOne"
-                                                                            data-bs-parent="#accordionExample"
-                                                                        >
-                                                                            <div className="filter-content-list">
-                                                                                <ul>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input
-                                                                                                    type="checkbox"
-                                                                                                    defaultChecked
-                                                                                                />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="rating">
-                                                                                            <i className="fa fa-star filled" />
-                                                                                            <i className="fa fa-star filled" />
-                                                                                            <i className="fa fa-star filled" />
-                                                                                            <i className="fa fa-star filled" />
-                                                                                            <i className="fa fa-star filled" />
-                                                                                            <span>5.0</span>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input type="checkbox" />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="rating">
-                                                                                            <i className="fa fa-star filled" />
-                                                                                            <i className="fa fa-star filled" />
-                                                                                            <i className="fa fa-star filled" />
-                                                                                            <i className="fa fa-star filled" />
-                                                                                            <i className="fa fa-star" />
-                                                                                            <span>4.0</span>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input type="checkbox" />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="rating">
-                                                                                            <i className="fa fa-star filled" />
-                                                                                            <i className="fa fa-star filled" />
-                                                                                            <i className="fa fa-star filled" />
-                                                                                            <i className="fa fa-star" />
-                                                                                            <i className="fa fa-star" />
-                                                                                            <span>3.0</span>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input type="checkbox" />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="rating">
-                                                                                            <i className="fa fa-star filled" />
-                                                                                            <i className="fa fa-star filled" />
-                                                                                            <i className="fa fa-star" />
-                                                                                            <i className="fa fa-star" />
-                                                                                            <i className="fa fa-star" />
-                                                                                            <span>2.0</span>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input type="checkbox" />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="rating">
-                                                                                            <i className="fa fa-star filled" />
-                                                                                            <i className="fa fa-star" />
-                                                                                            <i className="fa fa-star" />
-                                                                                            <i className="fa fa-star" />
-                                                                                            <i className="fa fa-star" />
-                                                                                            <span>1.0</span>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="filter-set-content">
-                                                                        <div className="filter-set-content-head">
-                                                                            <Link
-                                                                                to="#"
-                                                                                className="collapsed"
-                                                                                data-bs-toggle="collapse"
-                                                                                data-bs-target="#collapseThree"
-                                                                                aria-expanded="false"
-                                                                                aria-controls="collapseThree"
-                                                                            >
-                                                                                Tags
-                                                                            </Link>
-                                                                        </div>
-                                                                        <div
-                                                                            className="filter-set-contents accordion-collapse collapse"
-                                                                            id="collapseThree"
-                                                                            data-bs-parent="#accordionExample"
-                                                                        >
-                                                                            <div className="filter-content-list">
-                                                                                <ul>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input
-                                                                                                    type="checkbox"
-                                                                                                    defaultChecked
-                                                                                                />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="collapse-inside-text">
-                                                                                            <h5>Promotion</h5>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input type="checkbox" />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="collapse-inside-text">
-                                                                                            <h5>Rated</h5>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input type="checkbox" />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="collapse-inside-text">
-                                                                                            <h5>Rejected</h5>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input type="checkbox" />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="collapse-inside-text">
-                                                                                            <h5>Collab</h5>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <div className="filter-checks">
-                                                                                            <label className="checkboxs">
-                                                                                                <input type="checkbox" />
-                                                                                                <span className="checkmarks" />
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <div className="collapse-inside-text">
-                                                                                            <h5>Calls</h5>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="filter-reset-btns">
-                                                                    <div className="row">
-                                                                        <div className="col-6">
-                                                                            <Link to="#" className="btn btn-light">
-                                                                                Reset
-                                                                            </Link>
-                                                                        </div>
-                                                                        <div className="col-6">
-                                                                            <Link
-                                                                                to={route.contactList}
-                                                                                className="btn btn-primary"
-                                                                            >
-                                                                                Filter
-                                                                            </Link>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div className="view-icons">
-                                                        <Link to="/sales/leads" className="active">
-                                                            <i className="ti ti-list-tree" />
-                                                        </Link>
-                                                        <Link to="/sales/leads-kanban">
-                                                            <i className="ti ti-grid-dots" />
-                                                        </Link>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    {/* /Filter */}
                                     {/* Manage Users List */}
                                     <div className="table-responsive custom-table">
                                         <DataTable dataSource={data} columns={columns} />
@@ -1073,34 +1082,7 @@ const LeadsPage = () => {
                         <div className="pro-create">
                             <form>
                                 <div className="row">
-                                    <div className="col-md-12">
-                                        <div className="form-wrap">
-                                            <div className="radio-wrap">
-                                                <label className="col-form-label">Lead Type</label>
-                                                <div className="d-flex flex-wrap">
-                                                    <div className="radio-btn">
-                                                        <input
-                                                            type="radio"
-                                                            className="status-radio"
-                                                            id="person"
-                                                            name="leave"
-                                                            defaultChecked
-                                                        />
-                                                        <label htmlFor="person">Person</label>
-                                                    </div>
-                                                    <div className="radio-btn">
-                                                        <input
-                                                            type="radio"
-                                                            className="status-radio"
-                                                            id="org"
-                                                            name="leave"
-                                                        />
-                                                        <label htmlFor="org">Organization</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                     <div className="col-md-12">
                                         <div className="form-wrap">
                                             <label className="col-form-label">
@@ -1393,15 +1375,15 @@ const LeadsPage = () => {
                         <h4>Add New Company</h4>
                         <Link
                             to="#"
-                            className="sidebar-close2 toggle-btn"
-                            onClick={addcompanyPopup}
+                            className="sidebar-close toggle-btn"
+                            onClick={() => setAddCompany((prev) => !prev)}
                         >
                             <i className="ti ti-x" />
                         </Link>
                     </div>
                     <div className="toggle-body">
-                        <div className="pro-create">
-                            <form>
+                        <form action="#" className="toggle-height">
+                            <div className="pro-create">
                                 <div className="accordion-lists" id="list-accord">
                                     {/* Basic Info */}
                                     <div className="user-accordion-item">
@@ -1432,8 +1414,8 @@ const LeadsPage = () => {
                                                                     </span>
                                                                     <ImageWithBasePath
                                                                         src="assets/img/icons/company-icon-03.svg"
-                                                                        alt="img"
                                                                         className="preview1"
+                                                                        alt="img"
                                                                     />
                                                                     <button
                                                                         type="button"
@@ -1446,10 +1428,7 @@ const LeadsPage = () => {
                                                                     <label className="profile-upload-btn">
                                                                         <i className="ti ti-file-broken" /> Upload
                                                                         File
-                                                                        <input
-                                                                            type="file"
-                                                                            className="input-img"
-                                                                        />
+                                                                        <input type="file" className="input-img" />
                                                                     </label>
                                                                     <p>JPG, GIF or PNG. Max size of 800K</p>
                                                                 </div>
@@ -1478,7 +1457,7 @@ const LeadsPage = () => {
                                                                         type="checkbox"
                                                                         id="user"
                                                                         className="check"
-                                                                        defaultChecked
+                                                                        defaultChecked={true}
                                                                     />
                                                                     <label
                                                                         htmlFor="user"
@@ -1489,26 +1468,42 @@ const LeadsPage = () => {
                                                             <input type="text" className="form-control" />
                                                         </div>
                                                     </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Phone 1 <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input type="text" className="form-control" />
+                                                    {newContents.map((index) => (
+                                                        <div className="col-md-12" key={index}>
+                                                            <div className="add-product-new">
+                                                                <div className="row align-items-end">
+                                                                    <div className="col-md-8">
+                                                                        <div className="form-wrap mb-2">
+                                                                            <label className="col-form-label">
+                                                                                Phone <span className="text-danger">*</span>
+                                                                            </label>
+                                                                            <input
+                                                                                type="text"
+                                                                                className="form-control"
+                                                                                defaultValue="+1 875455453"
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
                                                         </div>
+                                                    ))}
+                                                    <div className="col-md-12">
+                                                        <Link
+                                                            onClick={addNewContent}
+                                                            to="#"
+                                                            className="add-new add-new-phone mb-3 d-block"
+                                                        >
+                                                            <i className="ti ti-square-rounded-plus me-2" />
+                                                            Add New
+                                                        </Link>
                                                     </div>
+
                                                     <div className="col-md-6">
                                                         <div className="form-wrap">
                                                             <label className="col-form-label">
-                                                                Phone 2
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Fax <span className="text-danger">*</span>
+                                                                Business <span className="text-danger">*</span>
                                                             </label>
                                                             <input type="text" className="form-control" />
                                                         </div>
@@ -1524,90 +1519,7 @@ const LeadsPage = () => {
                                                     <div className="col-md-6">
                                                         <div className="form-wrap">
                                                             <label className="col-form-label">
-                                                                Ratings
-                                                            </label>
-                                                            <div className="icon-form-end">
-                                                                <span className="form-icon">
-                                                                    <i className="ti ti-star" />
-                                                                </span>
-                                                                <input
-                                                                    type="text"
-                                                                    className="form-control"
-                                                                    placeholder="4.2"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Owner</label>
-                                                            {/* <SelectWithImage2 /> */}
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Tags </label>
-                                                            <input
-                                                                className="input-tags form-control"
-                                                                type="text"
-                                                                data-role="tagsinput"
-                                                                name="Label"
-                                                                defaultValue="Collab"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <div className="d-flex align-items-center justify-content-between">
-                                                                <label className="col-form-label">
-                                                                    Deals
-                                                                </label>
-                                                            </div>
-                                                            <Select
-                                                                className="select2"
-                                                                options={optiondeals}
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Source <span className="text-danger">*</span>
-                                                            </label>
-                                                            <Select
-                                                                className="select2"
-                                                                options={optionsource}
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Industry{" "}
-                                                                <span className="text-danger">*</span>
-                                                            </label>
-                                                            <Select
-                                                                className="select2"
-                                                                options={optionindustry}
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Contact <span className="text-danger">*</span>
-                                                            </label>
-                                                            {/* <SelectWithImage2 /> */}
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Currency{" "}
-                                                                <span className="text-danger">*</span>
+                                                                GST Number <span className="text-danger">*</span>
                                                             </label>
                                                             <input type="text" className="form-control" />
                                                         </div>
@@ -1615,28 +1527,63 @@ const LeadsPage = () => {
                                                     <div className="col-md-6">
                                                         <div className="form-wrap">
                                                             <label className="col-form-label">
-                                                                Language{" "}
-                                                                <span className="text-danger">*</span>
+                                                                PAN Number <span className="text-danger">*</span>
+                                                            </label>
+                                                            <input type="text" className="form-control" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="col-md-6">
+                                                        <div className="form-wrap">
+                                                            <label className="col-form-label">
+                                                                Contact Name <span className="text-danger">*</span>
+                                                            </label>
+                                                            <input type="text" className="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <div className="form-wrap">
+                                                            <label className="col-form-label">
+                                                                Contact Email <span className="text-danger">*</span>
+                                                            </label>
+                                                            <input type="text" className="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <div className="form-wrap">
+                                                            <label className="col-form-label">
+                                                                Contact Mobile <span className="text-danger">*</span>
+                                                            </label>
+                                                            <input type="text" className="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <div className="form-wrap">
+                                                            <label className="col-form-label">
+                                                                Department <span className="text-danger">*</span>
                                                             </label>
                                                             <Select
                                                                 className="select"
-                                                                options={languageOptions}
+                                                                options={[{ value: 'Choose', label: 'Choose' }]}
+                                                                placeholder="Choose"
+                                                                classNamePrefix="react-select"
                                                             />
                                                         </div>
                                                     </div>
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap mb-0">
+                                                    <div className="col-md-6">
+                                                        <div className="form-wrap">
                                                             <label className="col-form-label">
-                                                                Description{" "}
-                                                                <span className="text-danger">*</span>
+                                                                Role <span className="text-danger">*</span>
                                                             </label>
-                                                            <textarea
-                                                                className="form-control"
-                                                                rows={5}
-                                                                defaultValue={""}
+                                                            <Select
+                                                                className="select"
+                                                                options={[{ value: 'Choose', label: 'Choose' }]}
+                                                                placeholder="Choose"
+                                                                classNamePrefix="react-select"
                                                             />
                                                         </div>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -1665,7 +1612,7 @@ const LeadsPage = () => {
                                                     <div className="col-md-12">
                                                         <div className="form-wrap">
                                                             <label className="col-form-label">
-                                                                Street Address{" "}
+                                                                Street Address
                                                             </label>
                                                             <input type="text" className="form-control" />
                                                         </div>
@@ -1679,27 +1626,25 @@ const LeadsPage = () => {
                                                     <div className="col-md-6">
                                                         <div className="form-wrap">
                                                             <label className="col-form-label">
-                                                                State / Province{" "}
+                                                                State / Province
                                                             </label>
                                                             <input type="text" className="form-control" />
                                                         </div>
                                                     </div>
                                                     <div className="col-md-6">
                                                         <div className="form-wrap mb-wrap">
-                                                            <label className="col-form-label">
-                                                                Country
-                                                            </label>
+                                                            <label className="col-form-label">Country</label>
                                                             <Select
                                                                 className="select"
-                                                                options={countryoptions1}
+                                                                options={countries}
+                                                                placeholder="USA"
+                                                                classNamePrefix="react-select"
                                                             />
                                                         </div>
                                                     </div>
                                                     <div className="col-md-6">
                                                         <div className="form-wrap mb-wrap">
-                                                            <label className="col-form-label">
-                                                                Zipcode{" "}
-                                                            </label>
+                                                            <label className="col-form-label">Zipcode </label>
                                                             <input type="text" className="form-control" />
                                                         </div>
                                                     </div>
@@ -1730,9 +1675,7 @@ const LeadsPage = () => {
                                                 <div className="row">
                                                     <div className="col-md-6">
                                                         <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Facebook
-                                                            </label>
+                                                            <label className="col-form-label">Facebook</label>
                                                             <input type="text" className="form-control" />
                                                         </div>
                                                     </div>
@@ -1752,17 +1695,13 @@ const LeadsPage = () => {
                                                     </div>
                                                     <div className="col-md-6">
                                                         <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Twitter
-                                                            </label>
+                                                            <label className="col-form-label">Twitter</label>
                                                             <input type="text" className="form-control" />
                                                         </div>
                                                     </div>
                                                     <div className="col-md-6">
                                                         <div className="form-wrap mb-wrap">
-                                                            <label className="col-form-label">
-                                                                Whatsapp
-                                                            </label>
+                                                            <label className="col-form-label">Whatsapp</label>
                                                             <input type="text" className="form-control" />
                                                         </div>
                                                     </div>
@@ -1834,9 +1773,7 @@ const LeadsPage = () => {
                                                                         id="people"
                                                                         name="visible"
                                                                     />
-                                                                    <label htmlFor="people">
-                                                                        Select People
-                                                                    </label>
+                                                                    <label htmlFor="people">Select People</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1849,7 +1786,7 @@ const LeadsPage = () => {
                                                                         className="status-radio"
                                                                         id="active"
                                                                         name="status"
-                                                                        defaultChecked
+                                                                        defaultChecked={true}
                                                                     />
                                                                     <label htmlFor="active">Active</label>
                                                                 </div>
@@ -1871,16 +1808,16 @@ const LeadsPage = () => {
                                     </div>
                                     {/* /Access */}
                                 </div>
-                                <div className="submit-button text-end">
-                                    <Link to="#" className="btn btn-light sidebar-close2">
-                                        Cancel
-                                    </Link>
-                                    <button type="submit" className="btn btn-primary">
-                                        Create
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div className="submit-button text-end">
+                                <Link to="#" className="btn btn-light sidebar-close" onClick={() => setAddCompany((prev) => !prev)}>
+                                    Cancel
+                                </Link>
+                                <Link to="#" className="btn btn-primary">
+                                    Create
+                                </Link>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

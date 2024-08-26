@@ -67,7 +67,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                     </Link>
                                     {openMenus["menu1"] &&
                                         <ul>
-                                            <li><Link className={Location.pathname == route.salesDashboard ? 'active' : ''} to={route.salesDashboard}>Sales Dashboard</Link></li>
+                                            <li><Link to={route.salesDashboard}>Sales Dashboard</Link></li>
                                             <li><Link to={route.salesDashboard}>Support Dashboard</Link></li>
                                             <li><Link to={route.salesDashboard}>Staff Dashboard</Link></li>
                                         </ul>
@@ -138,9 +138,9 @@ const Sidebar = ({ setExpandMenu }) => {
                                     </Link>
                                     {openMenus["product"] &&
                                         <ul>
-                                            <li><Link to="calendar.html">Manage Product</Link></li>
-                                            <li><Link to="todo.html">Disabled Product </Link></li>
-                                            <li><Link to="notes.html">Add Product</Link></li>
+                                            <li><Link to={route.product}>Manage Product</Link></li>
+                                            <li><Link to={route.product}>Disabled Product </Link></li>
+                                            <li><Link to={route.product}>Add Product</Link></li>
                                             {/* <li><Link to="file-manager.html">Product Category </Link></li>
                                             <li><Link to="file-manager.html">Product Sub Cat</Link></li>
                                             <li><Link to="file-manager.html">Product Tax</Link></li>
@@ -161,9 +161,9 @@ const Sidebar = ({ setExpandMenu }) => {
                                     </Link>
                                     {openMenus["menu3"] &&
                                         <ul>
-                                            <li><Link to="calendar.html">Manage Services</Link></li>
-                                            <li><Link to="todo.html">Disabled Services </Link></li>
-                                            <li><Link to="notes.html">Add Services</Link></li>
+                                            <li><Link to={route.services}>Manage Services</Link></li>
+                                            <li><Link to={route.services}>Disabled Services </Link></li>
+                                            <li><Link to={route.services}>Add Services</Link></li>
                                             {/* <li><Link to="file-manager.html">Services Category </Link></li>
                                             <li><Link to="file-manager.html">Services Sub Cat</Link></li>
                                             <li><Link to="file-manager.html">Services Tax</Link></li>

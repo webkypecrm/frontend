@@ -28,7 +28,7 @@ import DataTable from "../../components/Table/DataTable";
 // import { SelectWithImage2 } from "../../../core/common/selectWithImage2";
 import { companiesData } from "../../data/companiesData";
 
-const Companies = () => {
+const Services = () => {
     const [activityToggle, setActivityToggle] = useState(false)
     const [activityToggleTwo, setActivityToggleTwo] = useState(false)
     const [addTogglePopupTwo, setAddTogglePopupTwo] = useState(false)
@@ -332,13 +332,13 @@ const Companies = () => {
                 <div className="content">
                     <div className="row">
                         <div className="col-md-12">
-                            
+
                             {/* Page Header */}
                             <div className="page-header">
                                 <div className="row align-items-center">
                                     <div className="col-4">
                                         <h4 className="page-title">
-                                            Companies<span className="count-title">123</span>
+                                            Services<span className="count-title">123</span>
                                         </h4>
                                     </div>
                                     <div className="col-8 text-end">
@@ -414,7 +414,7 @@ const Companies = () => {
                                                     <input
                                                         type="text"
                                                         className="form-control"
-                                                        placeholder="Search Companies"
+                                                        placeholder="Search Services"
                                                     />
                                                 </div>
                                             </div>
@@ -1124,7 +1124,7 @@ const Companies = () => {
                                                             </div>
                                                         </li>
 
-                                                        <li>
+                                                        {/* <li>
                                                             <div className="view-icons">
                                                                 <Link to={route.companies} className="active">
                                                                     <i className="ti ti-list-tree" />
@@ -1133,7 +1133,7 @@ const Companies = () => {
                                                                     <i className="ti ti-grid-dots" />
                                                                 </Link>
                                                             </div>
-                                                        </li>
+                                                        </li> */}
                                                         <li>
                                                             <Link
                                                                 to="#"
@@ -1145,7 +1145,7 @@ const Companies = () => {
                                                                 }
                                                             >
                                                                 <i className="ti ti-square-rounded-plus" />
-                                                                Add Company
+                                                                Add Services
                                                             </Link>
                                                         </li>
                                                     </ul>
@@ -1224,7 +1224,7 @@ const Companies = () => {
             >
                 <div className="sidebar-layout">
                     <div className="sidebar-header">
-                        <h4>Add New Company</h4>
+                        <h4>Add New Services</h4>
                         <Link
                             to="#"
                             className="sidebar-close toggle-btn"
@@ -1253,6 +1253,105 @@ const Companies = () => {
                                         <div
                                             className="accordion-collapse collapse show"
                                             id="basic"
+                                            data-bs-parent="#list-accord"
+                                        >
+                                            <div className="content-collapse">
+                                                <div className="row">
+
+                                                    <div className="col-md-6">
+                                                        <div className="form-wrap">
+                                                            <label className="col-form-label">
+                                                                Category <span className="text-danger">*</span>
+                                                            </label>
+                                                            <Select
+                                                                className="select"
+                                                                options={[{ value: 'Choose', label: 'Choose' }]}
+                                                                placeholder="Choose"
+                                                                classNamePrefix="react-select"
+                                                            />
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="col-md-6">
+                                                        <div className="form-wrap">
+                                                            <label className="col-form-label">
+                                                                Sub Category <span className="text-danger">*</span>
+                                                            </label>
+                                                            <Select
+                                                                className="select"
+                                                                options={[{ value: 'Choose', label: 'Choose' }]}
+                                                                placeholder="Choose"
+                                                                classNamePrefix="react-select"
+                                                            />
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="col-md-12">
+                                                        <div className="form-wrap">
+                                                            <label className="col-form-label">
+                                                                Service Code
+                                                            </label>
+                                                            <input type="text" className="form-control" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="col-md-12">
+                                                        <div className="form-wrap">
+                                                            <label className="col-form-label">
+                                                                Company Name
+                                                            </label>
+                                                            <input type="text" className="form-control" />
+                                                        </div>
+                                                    </div>                                               
+
+                                                    <div className="col-md-6">
+                                                        <div className="form-wrap">
+                                                            <label className="col-form-label">
+                                                                Tax <span className="text-danger">*</span>
+                                                            </label>
+                                                            <Select
+                                                                className="select"
+                                                                options={[{ value: 'Choose', label: 'Choose' }]}
+                                                                placeholder="Choose"
+                                                                classNamePrefix="react-select"
+                                                            />
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="col-md-6">
+                                                        <div className="form-wrap">
+                                                            <label className="col-form-label">
+                                                                Unit <span className="text-danger">*</span>
+                                                            </label>
+                                                            <Select
+                                                                className="select"
+                                                                options={[{ value: 'Choose', label: 'Choose' }]}
+                                                                placeholder="Choose"
+                                                                classNamePrefix="react-select"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* /Basic Info */}
+                                    {/* Address Info */}
+                                    <div className="user-accordion-item">
+                                        <Link
+                                            to="#"
+                                            className="accordion-wrap collapsed"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#address"
+                                        >
+                                            <span>
+                                                <i className="ti ti-photo" />
+                                            </span>
+                                            Photo Upload
+                                        </Link>
+                                        <div
+                                            className="accordion-collapse collapse"
+                                            id="address"
                                             data-bs-parent="#list-accord"
                                         >
                                             <div className="content-collapse">
@@ -1287,407 +1386,11 @@ const Companies = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Company Name
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap">
-                                                            <div className="d-flex justify-content-between align-items-center">
-                                                                <label className="col-form-label">
-                                                                    Email <span className="text-danger">*</span>
-                                                                </label>
-                                                                <div className="status-toggle small-toggle-btn d-flex align-items-center">
-                                                                    <span className="me-2 label-text">
-                                                                        Email Opt Out
-                                                                    </span>
-                                                                    <input
-                                                                        type="checkbox"
-                                                                        id="user"
-                                                                        className="check"
-                                                                        defaultChecked={true}
-                                                                    />
-                                                                    <label
-                                                                        htmlFor="user"
-                                                                        className="checktoggle"
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    {newContents.map((index) => (
-                                                        <div className="col-md-12" key={index}>
-                                                            <div className="add-product-new">
-                                                                <div className="row align-items-end">
-                                                                    <div className="col-md-8">
-                                                                        <div className="form-wrap mb-2">
-                                                                            <label className="col-form-label">
-                                                                                Phone <span className="text-danger">*</span>
-                                                                            </label>
-                                                                            <input
-                                                                                type="text"
-                                                                                className="form-control"
-                                                                                defaultValue="+1 875455453"
-                                                                            />
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    ))}
-                                                    <div className="col-md-12">
-                                                        <Link
-                                                            onClick={addNewContent}
-                                                            to="#"
-                                                            className="add-new add-new-phone mb-3 d-block"
-                                                        >
-                                                            <i className="ti ti-square-rounded-plus me-2" />
-                                                            Add New
-                                                        </Link>
-                                                    </div>
-
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Business <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Website <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                GST Number <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                PAN Number <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    {/* <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Phone 1 <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Phone 2</label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>                                                     
-                                                     <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Ratings</label>
-                                                            <div className="icon-form-end">
-                                                                <span className="form-icon">
-                                                                    <i className="ti ti-star" />
-                                                                </span>
-                                                                <input
-                                                                    type="text"
-                                                                    className="form-control"
-                                                                    placeholder="4.2"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Owner</label>
-                                                            <SelectWithImage2 />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Tags </label>
-                                                            <input
-                                                                className="input-tags form-control"
-                                                                type="text"
-                                                                data-role="tagsinput"
-                                                                name="Label"
-                                                                defaultValue="Collab"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <div className="d-flex align-items-center justify-content-between">
-                                                                <label className="col-form-label">Deals</label>
-                                                                <Link
-                                                                    to="#"
-                                                                    className="label-add add-popups"
-                                                                    onClick={() =>
-                                                                        dispatch(
-                                                                            setAddTogglePopupTwo(!addTogglePopupTwo)
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    <i className="ti ti-square-rounded-plus" />
-                                                                    Add New
-                                                                </Link>
-                                                            </div>
-                                                            <Select
-                                                                className="select2"
-                                                                options={dealsopen}
-                                                                placeholder="Choose"
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Source <span className="text-danger">*</span>
-                                                            </label>
-
-                                                            <Select
-                                                                className="select2"
-                                                                options={activities}
-                                                                placeholder="Choose"
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Industry <span className="text-danger">*</span>
-                                                            </label>
-                                                            <Select
-                                                                className="select"
-                                                                options={industries}
-                                                                placeholder="Choose"
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Contact <span className="text-danger">*</span>
-                                                            </label>
-                                                            <SelectWithImage2 />
-                                                        </div>
-                                                    </div> */}
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Contact Name <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Contact Email <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Contact Mobile <span className="text-danger">*</span>
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Department <span className="text-danger">*</span>
-                                                            </label>
-                                                            <Select
-                                                                className="select"
-                                                                options={[{ value: 'Choose', label: 'Choose' }]}
-                                                                placeholder="Choose"
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Role <span className="text-danger">*</span>
-                                                            </label>
-                                                            <Select
-                                                                className="select"
-                                                                options={[{ value: 'Choose', label: 'Choose' }]}
-                                                                placeholder="Choose"
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    {/* <div className="col-md-12">
-                                                        <div className="form-wrap mb-0">
-                                                            <label className="col-form-label">
-                                                                Description{" "}
-                                                                <span className="text-danger">*</span>
-                                                            </label>
-                                                            <textarea
-                                                                className="form-control"
-                                                                rows={5}
-                                                                defaultValue={""}
-                                                            />
-                                                        </div>
-                                                    </div> */}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    {/* /Basic Info */}
-                                    {/* Address Info */}
-                                    <div className="user-accordion-item">
-                                        <Link
-                                            to="#"
-                                            className="accordion-wrap collapsed"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#address"
-                                        >
-                                            <span>
-                                                <i className="ti ti-map-pin-cog" />
-                                            </span>
-                                            Address Info
-                                        </Link>
-                                        <div
-                                            className="accordion-collapse collapse"
-                                            id="address"
-                                            data-bs-parent="#list-accord"
-                                        >
-                                            <div className="content-collapse">
-                                                <div className="row">
-                                                    <div className="col-md-12">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Street Address
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">City </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                State / Province
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap mb-wrap">
-                                                            <label className="col-form-label">Country</label>
-                                                            <Select
-                                                                className="select"
-                                                                options={countries}
-                                                                placeholder="USA"
-                                                                classNamePrefix="react-select"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap mb-wrap">
-                                                            <label className="col-form-label">Zipcode </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* /Address Info */}
-                                    {/* Social Profile */}
-                                    <div className="user-accordion-item">
-                                        <Link
-                                            to="#"
-                                            className="accordion-wrap collapsed"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#social"
-                                        >
-                                            <span>
-                                                <i className="ti ti-social" />
-                                            </span>
-                                            Social Profile
-                                        </Link>
-                                        <div
-                                            className="accordion-collapse collapse"
-                                            id="social"
-                                            data-bs-parent="#list-accord"
-                                        >
-                                            <div className="content-collapse">
-                                                <div className="row">
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Facebook</label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Skype </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">
-                                                                Linkedin{" "}
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap">
-                                                            <label className="col-form-label">Twitter</label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap mb-wrap">
-                                                            <label className="col-form-label">Whatsapp</label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <div className="form-wrap mb-wrap">
-                                                            <label className="col-form-label">
-                                                                Instagram
-                                                            </label>
-                                                            <input type="text" className="form-control" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* /Social Profile */}
+
                                     {/* Access */}
                                     <div className="user-accordion-item">
                                         <Link
@@ -2639,4 +2342,4 @@ const Companies = () => {
     );
 };
 
-export default Companies;
+export default Services;
