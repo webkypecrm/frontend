@@ -23,6 +23,7 @@ import DatePicker from "react-datepicker";
 import Select from "react-select";
 import { TagsInput } from "react-tag-input-component";
 import CollapseHeader from "../../components/CollapseHeader/CollapseHeader";
+import 'react-datepicker/dist/react-datepicker.css';
 
 const CustomerGrid = () => {
     const [activityToggle, setActivityToggle] = useState(false)

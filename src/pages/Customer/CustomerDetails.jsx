@@ -25,6 +25,7 @@ import DefaultEditor from "react-simple-wysiwyg";
 import { TagsInput } from "react-tag-input-component";
 import CollapseHeader from "../../components/CollapseHeader/CollapseHeader";
 // import { SelectWithImage } from "../../../core/common/selectWithImage";
+import 'react-datepicker/dist/react-datepicker.css';
 
 const CustomerDetails = () => {
     const route = all_routes;

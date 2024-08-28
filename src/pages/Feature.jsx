@@ -8,6 +8,7 @@ import ThemeSettings from "../components/Layouts/ThemeSetting/ThemeSetting"
 import { HeaderCollapseContext } from "../context/HeaderCollapseContext"
 
 const Feature = () => {
+
     const [miniSidebar, setMiniSidebar] = useState(false)
     const [expandMenu, setExpandMenu] = useState(false)
     const [headerCollapse, setHeaderCollapse] = useState(false)
@@ -15,9 +16,11 @@ const Feature = () => {
     const [themeOpen, setThemeOpen] = useState(false)
 
     return <HeaderCollapseContext.Provider value={{ headerCollapse, setHeaderCollapse }}>
+
         <div className={`
       ${miniSidebar ? "mini-sidebar" : ""}
       ${expandMenu ? "expand-menu" : ""}`}>
+
             <div
                 className={`main-wrapper 
         ${headerCollapse ? "header-collapse" : ""} 

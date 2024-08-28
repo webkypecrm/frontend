@@ -25,6 +25,7 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { all_routes } from "../Router/all_routes";
 import CollapseHeader from '../../components/CollapseHeader/CollapseHeader';
 // import { SelectWithImage } from "../../../core/common/selectWithImage";
+import 'react-datepicker/dist/react-datepicker.css';
 
 const CompaniesDetails = () => {
     const route = all_routes;

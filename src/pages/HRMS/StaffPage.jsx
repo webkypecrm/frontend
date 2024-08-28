@@ -7,7 +7,8 @@ import ImageWithBasePath from "../../components/ImageWithBasePath";
 import { all_routes } from "../Router/all_routes";
 import { manageusersData } from "../../data/manageUser";
 import DataTable from "../../components/Table/DataTable";
-import CollapseHeader from "../../components/CollapseHeader/CollapseHeader";
+import PageHeader from "../../components/Layouts/PageHeader";
+import CampaignStatus from "../../components/Layouts/CampaignStatus/Index";
 
 
 const route = all_routes;
@@ -218,71 +219,15 @@ const Manageusers = () => {
         <div className="content">
           <div className="row">
             <div className="col-md-12">
+
+
               {/* Page Header */}
-              <div className="page-header">
-                <div className="row align-items-center">
-                  <div className="col-4">
-                    <h4 className="page-title">
-                      Staff<span className="count-title">123</span>
-                    </h4>
-                  </div>
-                  <div className="col-8 text-end">
-                    <div className="head-icons">
-                      <CollapseHeader />
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <PageHeader title="Staff" count="123" />
               {/* /Page Header */}
 
 
               {/* Campaign Status */}
-              <div className="row">
-                <div className="col-xl-3 col-lg-6">
-                  <div className="campaign-box bg-danger-light">
-                    <div className="campaign-img">
-                      <span>
-                        <i className="ti ti-brand-campaignmonitor" />
-                      </span>
-                      <p>Campaign</p>
-                    </div>
-                    <h2>474</h2>
-                  </div>
-                </div>
-                <div className="col-xl-3 col-lg-6">
-                  <div className="campaign-box bg-warning-light">
-                    <div className="campaign-img">
-                      <span>
-                        <i className="ti ti-send" />
-                      </span>
-                      <p>Sent</p>
-                    </div>
-                    <h2>454</h2>
-                  </div>
-                </div>
-                <div className="col-xl-3 col-lg-6">
-                  <div className="campaign-box bg-purple-light">
-                    <div className="campaign-img">
-                      <span>
-                        <i className="ti ti-brand-feedly" />
-                      </span>
-                      <p>Opened</p>
-                    </div>
-                    <h2>658</h2>
-                  </div>
-                </div>
-                <div className="col-xl-3 col-lg-6">
-                  <div className="campaign-box bg-success-light">
-                    <div className="campaign-img">
-                      <span>
-                        <i className="ti ti-brand-pocket" />
-                      </span>
-                      <p>Completed</p>
-                    </div>
-                    <h2>747</h2>
-                  </div>
-                </div>
-              </div>
+              <CampaignStatus />
               {/* /Campaign Status */}
 
 
@@ -1117,15 +1062,6 @@ const Manageusers = () => {
                             <input type="text" className="form-control" />
                           </div>
                         </div>
-                        {/* <div className="col-md-6">
-                          <div className="form-wrap">
-                            <label className="col-form-label">
-                              User Name <span className="text-danger">*</span>
-                            </label>
-                            <input type="text" className="form-control" />
-                          </div>
-                        </div> */}
-
                         <div className="col-md-6">
                           <div className="form-wrap">
                             <div className="d-flex justify-content-between align-items-center">
@@ -1205,13 +1141,6 @@ const Manageusers = () => {
                             />
                           </div>
                         </div>
-
-                        {/* <div className="col-md-6">
-                          <div className="form-wrap">
-                            <label className="col-form-label">Phone 2</label>
-                            <input type="text" className="form-control" />
-                          </div>
-                        </div> */}
                         <div className="col-md-6">
                           <div className="form-wrap">
                             <label className="col-form-label">
@@ -1259,18 +1188,7 @@ const Manageusers = () => {
                             </div>
                           </div>
                         </div>
-                        {/* <div className="col-md-6">
-                          <div className="form-wrap">
-                            <label className="col-form-label">
-                              Location <span className="text-danger">*</span>
-                            </label>
-                            <Select
-                              classNamePrefix="react-select"
-                              className="select"
-                              options={options2}
-                            />
-                          </div>
-                        </div> */}
+
                         <div className="col-md-6">
                           <div className="radio-wrap">
                             <label className="col-form-label">Status</label>

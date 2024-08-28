@@ -27,9 +27,9 @@ const Sidebar = ({ setExpandMenu }) => {
     };
 
     useEffect(() => {
-        handleMenu('menu1', route.salesDashboard)
-        handleMenu('menu2', route.manageStaff)
-        handleMenu('menu2', route.permissions)
+
+        console.log(Location.pathname.slice('/'))
+
     }, [])
 
     return <div
@@ -58,14 +58,14 @@ const Sidebar = ({ setExpandMenu }) => {
                             <ul>
                                 <li className="submenu">
                                     <Link to="#"
-                                        className={openMenus['menu1'] ? "subdrop active active" : 'subdrop'}
+                                        className={openMenus['dashboard'] ? "subdrop active active" : 'subdrop'}
                                         onClick={() => {
-                                            handleMenu('menu1')
+                                            handleMenu('dashboard')
                                         }}
                                     >
                                         <i className="ti ti-layout-2"></i><span>DASHBOARD</span><span className="menu-arrow"></span>
                                     </Link>
-                                    {openMenus["menu1"] &&
+                                    {openMenus["dashboard"] &&
                                         <ul>
                                             <li><Link to={route.salesDashboard}>Sales Dashboard</Link></li>
                                             <li><Link to={route.salesDashboard}>Support Dashboard</Link></li>
@@ -76,35 +76,23 @@ const Sidebar = ({ setExpandMenu }) => {
                                 </li>
                                 <li className="submenu">
                                     <Link to="#"
-                                        className={openMenus['menu2'] ? "subdrop active" : "subdrop"}
+                                        className={openMenus['hrms'] ? "subdrop active" : "subdrop"}
                                         onClick={() => {
-                                            handleMenu('menu2')
+                                            handleMenu('hrms')
                                         }}
                                     >
                                         <i className="ti ti-file-invoice"></i><span>HRMS</span><span className="menu-arrow"></span>
                                     </Link>
-                                    {openMenus['menu2'] &&
-                                        <ul>
-                                            <li><Link to={route.manageStaff}>Manage Staff </Link></li>
-                                            {/* <li><Link to={route.manageStaff}>Add Staff</Link></li>
-                                            <li><Link to={route.manageStaff}>Active Staff </Link></li>
-                                            <li><Link to={route.manageStaff}>In Active Staff </Link> </li> */}
-                                            {/* <li><Link to={route.rolesPermissions}>Role & Permissions</Link></li> */}
-                                            {/* <li><Link to={route.rolesPermissions}>Staff Grouping</Link></li>
-                                            <li><Link to={route.rolesPermissions}>Staff Department</Link></li>
-                                            <li><Link to={route.rolesPermissions}>Staff Designation</Link></li> */}
-                                            {/* <li><Link to={route.rolesPermissions}>Staff Targets</Link></li> */}
-                                            {/* <li><Link to={route.rolesPermissions}>Staff Achievements</Link></li> */}
-                                            <li><Link to={route.rolesPermissions}>Staff Attendance</Link></li>
-                                            <li><Link to={route.rolesPermissions}>Staff Leaves</Link></li>
-                                            {/* <li><Link to={route.rolesPermissions}>Staff Incentives</Link></li> */}
-                                            {/* <li><Link to={route.rolesPermissions}>Staff Rewards</Link></li> */}
-                                            <li><Link to={route.rolesPermissions}>Staff Salary</Link></li>
-                                            <li><Link to={route.rolesPermissions}>Staff KYC </Link></li>
-                                            <li><Link to={route.rolesPermissions}>Staff Exit</Link></li>
-                                            <li><Link to={route.rolesPermissions}>Staff Knowledge Transfer</Link></li>
-                                        </ul>
-                                    }
+                                    <ul>
+                                        <li><Link className={Location.pathname === route.manageStaff ? " active" : ""} to={route.manageStaff}>Manage Staff </Link></li>
+                                        <li><Link to={route.rolesPermissions}>Staff Attendance</Link></li>
+                                        <li><Link to={route.rolesPermissions}>Staff Leaves</Link></li>
+                                        <li><Link to={route.rolesPermissions}>Staff Salary</Link></li>
+                                        <li><Link to={route.rolesPermissions}>Staff KYC </Link></li>
+                                        <li><Link to={route.rolesPermissions}>Staff Exit</Link></li>
+                                        <li><Link to={route.rolesPermissions}>Staff Knowledge Transfer</Link></li>
+                                    </ul>
+
 
                                 </li>
                                 <li className="submenu">
@@ -136,49 +124,36 @@ const Sidebar = ({ setExpandMenu }) => {
                                     >
                                         <i className="ti ti-brand-slack"></i><span>PRODUCT</span><span className="menu-arrow"></span>
                                     </Link>
-                                    {openMenus["product"] &&
-                                        <ul>
-                                            <li><Link to={route.product}>Manage Product</Link></li>
-                                            <li><Link to={route.product}>Disabled Product </Link></li>
-                                            <li><Link to={route.product}>Add Product</Link></li>
-                                            {/* <li><Link to="file-manager.html">Product Category </Link></li>
-                                            <li><Link to="file-manager.html">Product Sub Cat</Link></li>
-                                            <li><Link to="file-manager.html">Product Tax</Link></li>
-                                            <li><Link to="file-manager.html">Product Unit</Link></li> */}
-                                        </ul>
-                                    }
-
+                                    <ul>
+                                        <li><Link to={route.product}>Manage Product</Link></li>
+                                        <li><Link to={route.product}>Disabled Product </Link></li>
+                                        <li><Link to={route.product}>Add Product</Link></li>
+                                    </ul>
                                 </li>
 
                                 <li className="submenu">
                                     <Link to="#"
-                                        className={openMenus['menu3'] ? "subdrop active" : "subdrop"}
+                                        className={openMenus['services'] ? "subdrop active" : "subdrop"}
                                         onClick={() => {
-                                            handleMenu('menu3')
+                                            handleMenu('services')
                                         }}
                                     >
                                         <i className="ti ti-file-report"></i><span>SERVICES</span><span className="menu-arrow"></span>
                                     </Link>
-                                    {openMenus["menu3"] &&
-                                        <ul>
-                                            <li><Link to={route.services}>Manage Services</Link></li>
-                                            <li><Link to={route.services}>Disabled Services </Link></li>
-                                            <li><Link to={route.services}>Add Services</Link></li>
-                                            {/* <li><Link to="file-manager.html">Services Category </Link></li>
-                                            <li><Link to="file-manager.html">Services Sub Cat</Link></li>
-                                            <li><Link to="file-manager.html">Services Tax</Link></li>
-                                            <li><Link to="file-manager.html">Services Unit</Link></li> */}
+                                    <ul>
+                                        <li><Link to={route.services}>Manage Services</Link></li>
+                                        <li><Link to={route.services}>Disabled Services </Link></li>
+                                        <li><Link to={route.services}>Add Services</Link></li>
+                                    </ul>
 
-                                        </ul>
-                                    }
 
                                 </li>
 
                                 <li className="submenu">
                                     <Link to="#"
-                                        className={openMenus['Menu4'] ? "subdrop active" : "subdrop"}
+                                        className={openMenus['sales'] ? "subdrop active" : "subdrop"}
                                         onClick={() => {
-                                            handleMenu('Menu4')
+                                            handleMenu('sales')
                                         }}
                                     >
                                         <i className="ti ti-chart-arcs">
@@ -645,9 +620,9 @@ const Sidebar = ({ setExpandMenu }) => {
 
                     </ul>
                 </div>
-            </div>
-        </Scrollbars>
-    </div>
+            </div >
+        </Scrollbars >
+    </div >
 
 
 

@@ -27,6 +27,7 @@ import CollapseHeader from '../../components/CollapseHeader/CollapseHeader';
 import DataTable from "../../components/Table/DataTable";
 // import { SelectWithImage2 } from "../../../core/common/selectWithImage2";
 import { companiesData } from "../../data/companiesData";
+import 'react-datepicker/dist/react-datepicker.css';
 
 const Product = () => {
     const [activityToggle, setActivityToggle] = useState(false)

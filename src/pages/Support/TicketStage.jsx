@@ -13,6 +13,7 @@ import DatePicker from "react-datepicker";
 import Select from "react-select";
 import CollapseHeader from '../../components/CollapseHeader/CollapseHeader';
 import DataTable from "../../components/Table/DataTable";
+import 'react-datepicker/dist/react-datepicker.css';
 
 const route = all_routes;
 

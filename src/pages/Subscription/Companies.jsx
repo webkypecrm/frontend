@@ -27,6 +27,7 @@ import CollapseHeader from '../../components/CollapseHeader/CollapseHeader';
 import DataTable from "../../components/Table/DataTable";
 // import { SelectWithImage2 } from "../../../core/common/selectWithImage2";
 import { companiesData } from "../../data/companiesData";
+import 'react-datepicker/dist/react-datepicker.css';
 
 const Companies = () => {
     const [activityToggle, setActivityToggle] = useState(false)
@@ -1804,9 +1805,9 @@ const Companies = () => {
                         <Link
                             to="#"
                             className="sidebar-close1 toggle-btn"
-                        onClick={() =>
-                            setActivityToggleTwo(!activityToggleTwo)
-                        }
+                            onClick={() =>
+                                setActivityToggleTwo(!activityToggleTwo)
+                            }
                         >
                             <i className="ti ti-x" />
                         </Link>

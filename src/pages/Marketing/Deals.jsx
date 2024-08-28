@@ -24,6 +24,7 @@ import {
 import CollapseHeader from '../../components/CollapseHeader/CollapseHeader';
 // import { SelectWithImage2 } from "../../../core/common/selectWithImage2";
 import DataTable from "../../components/Table/DataTable"
+import 'react-datepicker/dist/react-datepicker.css';
 
 
 const Deals = () => {

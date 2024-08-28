@@ -28,6 +28,7 @@ import DatePicker from "react-datepicker";
 import CollapseHeader from '../../components/CollapseHeader/CollapseHeader';
 // import { SelectWithImage2 } from "../../../core/common/selectWithImage2";
 // import { SelectWithImage } from "../../../core/common/selectWithImage";
+import 'react-datepicker/dist/react-datepicker.css';
 
 const CompaniesGrid = () => {
     const [activityToggle, setActivityToggle] = useState(false)

@@ -27,6 +27,7 @@ import DefaultEditor from "react-simple-wysiwyg";
 import CollapseHeader from "../../components/CollapseHeader/CollapseHeader";
 // import { SelectWithImage } from "../../../core/common/selectWithImage";
 // import { SelectWithImage2 } from "../../../core/common/selectWithImage2";
+import 'react-datepicker/dist/react-datepicker.css';
 
 const CustomerList = () => {
   const [activityToggle, setActivityToggle] = useState(false)
