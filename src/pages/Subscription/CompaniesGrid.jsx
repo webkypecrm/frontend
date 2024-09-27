@@ -189,9 +189,6 @@ const CompaniesGrid = () => {
                                             <div className="col-md-7 col-sm-8" style={{ width: '80%' }}>
                                                 <div className="export-list text-sm-end">
                                                     <ul>
-
-
-
                                                         <li>
                                                             <div className=" icon-form">
                                                                 <span className="form-icon">

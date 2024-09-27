@@ -76,11 +76,24 @@ export const all_routes = {
     storage: "/setting/other-settings/storage",
 
     // setting / master
-    sources: "/setting/masters/sources",
-    contactStage: "/setting/masters/contact-stage",
-    industry: "/setting/masters/industry",
-    calls: "/setting/masters/calls",
-    lostReason: "/setting/masters/lost-reason",
+    // source: "/setting/masters/source",
+    // contactStage: "/setting/masters/contact-stage",
+    // industry: "/setting/masters/industry",
+    // calls: "/setting/masters/calls",
+    // lostReason: "/setting/masters/lost-reason",
+
+    //setup / staff-master
+    department: "/setup/staff-master/department",
+    role: "/setup/staff-master/role",
+    group: "/setup/staff-master/group",
+    jobType: "/setup/staff-master/job-type",
+    workShift: "/setup/staff-master/work-shift",
+
+    //setup / sales-master
+    source: "/setup/sales-master/source",
+    industry: "/setup/sales-master/industry",
+    reasons: "/setup/sales-master/reasons",
+    stage: "/setup/sales-master/stage",
 
 
     //support routes

@@ -1741,7 +1741,6 @@ const Task = () => {
                                                             />
                                                         </div>
                                                     </div>
-
                                                     <div className="col-md-6">
                                                         <div className="form-wrap">
                                                             <label className="col-form-label">Priority</label>
@@ -1758,7 +1757,6 @@ const Task = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                     <div className="col-md-6">
                                                         <div className="form-wrap">
                                                             <label className="col-form-label">Assign To (Responsible Persons)</label>
@@ -1798,7 +1796,6 @@ const Task = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                     <div className="col-md-6">
                                                         <div className="radio-wrap">
                                                             <label className="col-form-label">Status</label>
@@ -1827,8 +1824,6 @@ const Task = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-
-
                                                     <div className="col-lg-12">
                                                         <div className="form-wrap">
                                                             <label className="col-form-label">

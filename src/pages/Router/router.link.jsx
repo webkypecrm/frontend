@@ -54,11 +54,23 @@ import SmsGateways from "../Settings/System Settings/SmsGateways";
 import Storage from "../Settings/Other Settings/Storage";
 import BanIpAddress from "../Settings/Other Settings/BanIpAddress";
 
-import Sources from "../Settings/Master/Sources";
-import LostReason from "../Settings/Master/LostReason";
-import ContactStage from "../Settings/Master/ContactStage";
-import Industry from "../Settings/Master/Industry";
-import Calls from "../Settings/Master/Calls";
+// import Sources from "../Settings/Master/Sources";
+// import LostReason from "../Settings/Master/LostReason";
+// import ContactStage from "../Settings/Master/ContactStage";
+// import Industry from "../Settings/Master/Industry";
+// import Calls from "../Settings/Master/Calls";
+
+import Department from "../SetUp/StaffMaster/Department";
+import Role from "../SetUp/StaffMaster/Role";
+import Group from "../SetUp/StaffMaster/Group";
+import JobType from "../SetUp/StaffMaster/JobType";
+import WorkShift from "../SetUp/StaffMaster/WorkShift";
+
+import Source from "../SetUp/SalesMaster/Source";
+import Reasons from "../SetUp/SalesMaster/Reasons";
+import Industry from "../SetUp/SalesMaster/Industry";
+import Stage from "../SetUp/SalesMaster/Stage";
+
 
 // import ContactMessages from "../support/contactMessages";
 import TicketStage from "../Support/TicketStage";
@@ -115,6 +127,8 @@ import Campaign from "../Marketing/Campaign";
 import Login from "../Auth/Login";
 import Register from "../Auth/Register";
 import ForgotPassword from "../Auth/ForgotPassword";
+
+
 // import TwoStepVerification from "../auth/twoStepVerification";
 // import EmailVerification from "../auth/emailVerification";
 // import Success from "../auth/success";
@@ -317,25 +331,54 @@ export const publicRoutes = [
         element: <Task />,
     },
     {
-        path: route.sources,
-        element: <Sources />,
+        path: route.department,
+        element: <Department />,
     },
     {
-        path: route.lostReason,
-        element: <LostReason />,
+        path: route.role,
+        element: <Role />,
     },
     {
-        path: route.contactStage,
-        element: <ContactStage />,
+        path: route.group,
+        element: <Group />,
+    },
+    {
+        path: route.jobType,
+        element: <JobType />,
+    },
+    {
+        path: route.workShift,
+        element: <WorkShift />,
+    },
+    {
+        path: route.source,
+        element: <Source />,
+    },
+    {
+        path: route.reasons,
+        element: <Reasons />,
     },
     {
         path: route.industry,
         element: <Industry />,
     },
     {
-        path: route.calls,
-        element: <Calls />,
+        path: route.stage,
+        element: <Stage />,
     },
+    // {
+    //     path: route.lostReason,
+    //     element: <LostReason />,
+    // },
+    // {
+    //     path: route.contactStage,
+    //     element: <ContactStage />,
+    // },
+
+    // {
+    //     path: route.calls,
+    //     element: <Calls />,
+    // },
     {
         path: route.connectedApps,
         element: <ConnectedApps />,

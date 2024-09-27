@@ -3,16 +3,17 @@ import React, { useState } from "react";
 import { Table } from "antd";
 
 
-const DataTable = ({  dataSource ,columns }) => {
+const DataTable = ({ dataSource, columns, onSelectionChange, pageSize, totalPages, onFetchRecord }) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
- 
+console.log('totalPages =>', totalPages)
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
+    onSelectionChange(newSelectedRowKeys);
   };
 
   const rowSelection = {
     selectedRowKeys,
-    onChange: onSelectChange,
+    onChange: onSelectChange
   };
 
   return (
@@ -21,6 +22,13 @@ const DataTable = ({  dataSource ,columns }) => {
       rowSelection={rowSelection}
       columns={columns}
       dataSource={dataSource}
+      pagination={{
+        pageSize: pageSize,
+        total: totalPages,
+        onChange: (page) => {
+          onFetchRecord(page)
+        }
+      }}
     // Assuming `id` is the unique identifier of each record
     />
   );

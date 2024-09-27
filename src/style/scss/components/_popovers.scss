@@ -485,7 +485,7 @@
       width: 3px;
       margin-left: -1.5px;
       background-color: $gray-300;
-        @include position(absolute,0,null,0,50%);
+        @include position(absolute,0,null,0,10%);
     }
     > li {
       position: relative;
@@ -497,11 +497,11 @@
       >.timeline-panel {
           float: left;
           position: relative;
-          width: 46%;
-          padding: 20px;
-          border: 1px solid $gray-500;
-            @include rounded(0.25rem);
-            @include box-shadow(null, 0, 1px, 6px, null, rgba(0, 0, 0, .05));
+          width: 82%;
+          // padding: 20px;
+          // border: 1px solid $gray-500;
+            // @include rounded(0.25rem);
+            // @include box-shadow(null, 0, 1px, 6px, null, rgba(0, 0, 0, .05));
             &::before {
                 content: " ";
                 display: inline-block;
@@ -538,7 +538,7 @@
   color: $white;
   overflow: hidden;
     @include rounded(50%);
-    @include position(absolute,16px,null,null,50%);
+    @include position(absolute,16px,null,null,10%);
 }
 .timeline>li.timeline-inverted>.timeline-panel {
   float: right;

@@ -47,8 +47,8 @@ const Header = ({ setMiniSidebar, setExpandMenu }) => {
                     ) : (
                         <ImageWithBasePath src="assets/img/logo.svg" alt="Logo" />
                     )} */}
-                <img src="https://webkype.com/kypeimg/logo_blue.png" alt="Logo" style={{ width: "200px", height: 'auto' }} />
-                <img src="https://webkype.com/kypeimg/logo_blue.png" className="white-logo" alt="Logo" />
+                <img  src="/assets/img/webkype_img.png" alt="Logo" style={{ width: "200px", height: 'auto' }} />
+                <img  src="/assets/img/webkype_img.png" className="white-logo" alt="Logo" />
             </Link>
             <Link to={route.salesDashboard} className="logo-small">
                 <img src="/favicon.png" alt="Logo" />

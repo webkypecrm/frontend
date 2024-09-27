@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 import "bootstrap-daterangepicker/daterangepicker.css";
@@ -13,17 +13,29 @@ import {
     optionsource,
     optionssymbol,
 } from "../../selectOption/selectOption";
-
+import axios from "axios";
 import ImageWithBasePath from "../../components/ImageWithBasePath";
 import CollapseHeader from '../../components/CollapseHeader/CollapseHeader';
+import PageHeader from "../../components/Layouts/PageHeader";
 // import { SelectWithImage } from "../../../core/common/selectWithImage";
 // import { SelectWithImage2 } from "../../../core/common/selectWithImage2";
 
 
 const LeadsKanban = () => {
+
+    const apiUrl = import.meta.env.VITE_API_URL;
+    const Token = localStorage.getItem('token') || '';
+
+
     const [adduser, setAdduser] = useState(false);
     const [addcompany, setAddCompany] = useState(false);
     const [modalTitle, setModalTitle] = useState("Add New Lead");
+    const [data, setData] = useState({})
+    const [isLoading, setIsLoading] = useState(true)
+    const [error, setError] = useState(null)
+    const [stageOptions, setStageOptions] = useState([]);
+
+
     const togglePopup = (isEditing) => {
         setModalTitle(isEditing ? "Edit Lead" : "Add New Lead");
         setAdduser(!adduser);
@@ -33,6 +45,47 @@ const LeadsKanban = () => {
     };
 
 
+    const fetchLeadData = async () => {
+        try {
+            const response = await axios.get(`${apiUrl}/lead/lead-list`, {
+                headers: {
+                    Authorization: `Bearer ${Token}`
+                }
+            });
+            const formattedData = response.data.data.map((item) => ({
+                ...item,
+                key: item.leadId,
+                tags: JSON.parse(item.tags)
+            }));
+
+
+            const groupedLeads = formattedData.reduce((acc, lead) => {
+                const { stage } = lead;
+                if (!acc[stage]) {
+                    acc[stage] = [];
+                }
+                acc[stage].push(lead);
+                return acc;
+            }, {});
+
+            setData((prev) => ({ ...groupedLeads }));
+
+            setIsLoading(false)
+
+        } catch (error) {
+            setError(error)
+            setIsLoading(false)
+
+        }
+    };
+
+    useEffect(() => {
+        fetchLeadData()
+
+    }, [])
+
+    console.log('data =>', Object.entries(data))
+
     return (<>
         {/* Page Wrapper */}
         <div className="page-wrapper">
@@ -40,20 +93,7 @@ const LeadsKanban = () => {
                 <div className="row">
                     <div className="col-md-12">
                         {/* Page Header */}
-                        <div className="page-header">
-                            <div className="row align-items-center">
-                                <div className="col-4">
-                                    <h4 className="page-title">
-                                        Leads<span className="count-title">123</span>
-                                    </h4>
-                                </div>
-                                <div className="col-8 text-end">
-                                    <div className="head-icons">
-                                        <CollapseHeader />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <PageHeader title="Lead" count={data.length} />
                         {/* /Page Header */}
                         {/* Filter */}
                         <div className="filter-section filter-flex">
@@ -593,6 +633,122 @@ const LeadsKanban = () => {
                         </div>
                         {/* /Filter */}
                         {/* Leads Kanban */}
+                        { }
+
+                        <div className="kanban-wrapper leads-kanban-wrapper">
+
+
+                            {Object.entries(data).map(([key, value]) =>
+                                <div className="kanban-list-items" key={key}>
+                                    <div className="kanban-list-head">
+                                        <div className="d-flex justify-content-between align-items-center">
+                                            <div className="kanban-title-head dot-warning">
+                                                <h5>{key}</h5>
+                                                <span>{value.length} Leads - $15,44,540</span>
+                                            </div>
+                                            <div className="kanban-action-btns d-flex align-items-center">
+                                                <Link to="#" className="plus-btn add-popup" onClick={() => togglePopup(false)}>
+                                                    <i className="ti ti-plus" />
+                                                </Link>
+                                                <div className="dropdown table-action">
+                                                    <Link
+                                                        to="#"
+                                                        className="action-icon dropdown-toggle"
+                                                        data-bs-toggle="dropdown"
+                                                        aria-expanded="false"
+                                                    >
+                                                        <i className="fa fa-ellipsis-v" />
+                                                    </Link>
+                                                    <div className="dropdown-menu dropdown-menu-right">
+                                                        <Link className="dropdown-item edit-popup" to="#" onClick={() => togglePopup(true)}>
+                                                            <i className="fa-solid fa-pencil text-blue" /> Edit
+                                                        </Link>
+                                                        <Link
+                                                            className="dropdown-item"
+                                                            to="#"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#delete_deal"
+                                                        >
+                                                            <i className="fa-regular fa-trash-can text-danger" />{" "}
+                                                            Delete
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul className="kanban-drag-wrap">
+                                        {value.map((lead) => <li key={lead.leadId}>
+                                            <div className="kanban-card">
+                                                <div className="kanban-card-head">
+                                                    <span className="bar-design bg-warning" />
+                                                    <div className="kanban-card-title">
+                                                        <Link to="/leads-details">
+                                                            <span>{lead.leadName[0]}{lead.leadName[lead.leadName.length - 1]}</span>
+                                                        </Link>
+                                                        <h6>
+                                                            <Link to="/leads-details">{lead.leadName}</Link>
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                                <div className="kanban-card-body">
+                                                    <ul>
+                                                        <li>
+                                                            <i className="ti ti-report-money" />
+                                                            {lead.value}
+                                                        </li>
+                                                        <li>
+                                                            <i className="ti ti-mail" />
+                                                            {lead.leadEmail}
+                                                        </li>
+                                                        <li>
+                                                            <i className="ti ti-phone" />
+                                                            {lead.leadMobile1}
+                                                        </li>
+                                                        <li>
+                                                            <i className="ti ti-map-pin-pin" />
+                                                            {lead.country}
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div className="kanban-card-footer d-flex align-items-center justify-content-between">
+                                                    <span>
+                                                        <ImageWithBasePath src="assets/img/icons/company-icon-09.svg" alt="" />
+                                                    </span>
+                                                    <ul className="icons-social">
+                                                        <li>
+                                                            <Link to="#">
+                                                                <i className="ti ti-phone-check" />
+                                                            </Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link to="#">
+                                                                <i className="ti ti-message-circle-2" />
+                                                            </Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link to="#">
+                                                                <i className="ti ti-color-swatch" />
+                                                            </Link>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>)
+                                        }
+
+
+                                    </ul>
+                                </div>
+                            )}
+
+
+
+
+                        </div>
+
+
+
                         <div className="kanban-wrapper leads-kanban-wrapper">
                             <div className="kanban-list-items">
                                 <div className="kanban-list-head">

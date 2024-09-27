@@ -25,7 +25,7 @@ const Register = () => {
                         <div className="login-user-info">
                             <div className="login-logo">
                                 <img
-                                    src="https://webkype.com/kypeimg/logo_blue.png"
+                                     src="/assets/img/webkype_img.png"
                                     className="img-fluid"
                                     alt="Logo"
                                 />

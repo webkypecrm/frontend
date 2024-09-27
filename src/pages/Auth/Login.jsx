@@ -17,8 +17,8 @@ const Login = () => {
           <form>
             <div className="login-user-info">
               <div className="login-logo">
-                <img
-                  src="https://webkype.com/kypeimg/logo_blue.png"
+                <img                  
+                  src="/assets/img/webkype_img.png"
                   className="img-fluid"
                   alt="Logo"
                 />
@@ -42,9 +42,8 @@ const Login = () => {
                     className="pass-input form-control"
                   />
                   <span
-                    className={`ti toggle-password ${
-                      isPasswordVisible ? "ti-eye" : "ti-eye-off"
-                    }`}
+                    className={`ti toggle-password ${isPasswordVisible ? "ti-eye" : "ti-eye-off"
+                      }`}
                     onClick={togglePasswordVisibility}
                   ></span>
                 </div>
