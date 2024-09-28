@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import CommentList from './CommentList';
+import { Empty } from 'antd';
 
 const Comments = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -13,7 +14,7 @@ const Comments = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
     }
     const [formData, setFormData] = useState(initialForm);
 
-    console.log('formData in Comment  =>', formData);
+    // console.log('formData in Comment  =>', formData);
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -64,14 +65,16 @@ const Comments = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
                         </li>
                     </ul>
                 </div>
-                <div className="contact-activity">
-                    {data.map((item) =>
-                        <CommentList
-                            key={item.key}
-                            data={item}
-                        />
-                    )}
-                </div>
+                {data.length === 0 ? <Empty description={false} /> :
+                    <div className="contact-activity">
+                        {data.map((item) =>
+                            <CommentList
+                                key={item.key}
+                                data={item}
+                            />
+                        )}
+                    </div>
+                }
             </div>
 
             {/* Add File */}

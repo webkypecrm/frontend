@@ -34,7 +34,6 @@ const EditLead = ({
         countryId: leadDetails.countryId,
         industryId: leadDetails.industryId,
         sourceId: leadDetails.sourceId,
-        status: leadDetails.status,
         visibility: leadDetails.visibility
     }
     const [formData, setFormData] = useState(initialForm);

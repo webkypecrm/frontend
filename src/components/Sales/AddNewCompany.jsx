@@ -35,7 +35,6 @@ const AddNewCompany = ({
         instagram: '',
         whatsapp: '',
         visibility: 'public',
-        status: 'active',
         companyImg: null
     }
     const [formData, setFormData] = useState(initialForm);
@@ -630,7 +629,7 @@ const AddNewCompany = ({
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="col-md-6">
+                                                    {/* <div className="col-md-6">
                                                         <div className="radio-wrap form-wrap">
                                                             <label className="col-form-label">Status</label>
                                                             <div className="d-flex flex-wrap">
@@ -658,7 +657,7 @@ const AddNewCompany = ({
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> */}
                                                 </div>
                                             </div>
                                         </div>

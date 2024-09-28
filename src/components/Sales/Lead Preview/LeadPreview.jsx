@@ -17,7 +17,7 @@ const LeadPreview = ({ leadPreview, setLeadPreview, leadDetails }) => {
 
     const [leadFollowupData, setLeadFollowupData] = useState([]);
 
-    console.log('leadFollowData =>', leadFollowupData)
+    // console.log('leadFollowData =>', leadFollowupData)
 
     const fetchLeadFollowupData = async () => {
         try {

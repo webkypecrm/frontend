@@ -7,6 +7,7 @@ import {
 import DatePicker from "react-datepicker";
 import { toast } from 'react-toastify';
 import MeetingList from './MeetingList';
+import { Empty } from 'antd';
 
 
 
@@ -91,14 +92,16 @@ const Meeting = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
                     </li>
                 </ul>
             </div>
-            <div className="contact-activity">
-                {data.map((item) =>
-                    <MeetingList
-                        key={item.key}
-                        data={item}
-                    />
-                )}
-            </div>
+            {data.length === 0 ? <Empty description={false} /> :
+                <div className="contact-activity">
+                    {data.map((item) =>
+                        <MeetingList
+                            key={item.key}
+                            data={item}
+                        />
+                    )}
+                </div>
+            }
         </div>
         {/* Add Meeting */}
         <div

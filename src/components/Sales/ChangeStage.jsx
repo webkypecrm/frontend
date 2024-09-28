@@ -15,7 +15,7 @@ const ChangeStage = ({ leadForAssign, fetchLeadData }) => {
         stageId: '',
     }
     const [formData, setFormData] = useState(initialForm);
-    console.log('formData', formData)
+    // console.log('formData', formData)
 
     const handleSubmit = async (event) => {
         event.preventDefault()

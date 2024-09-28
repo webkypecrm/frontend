@@ -749,7 +749,7 @@ const LeadsKanban = () => {
 
 
 
-                        <div className="kanban-wrapper leads-kanban-wrapper">
+                        {/* <div className="kanban-wrapper leads-kanban-wrapper">
                             <div className="kanban-list-items">
                                 <div className="kanban-list-head">
                                     <div className="d-flex justify-content-between align-items-center">
@@ -1598,7 +1598,7 @@ const LeadsKanban = () => {
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> */}
                         {/* /Leads Kanban */}
                     </div>
                 </div>

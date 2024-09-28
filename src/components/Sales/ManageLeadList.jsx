@@ -11,7 +11,6 @@ import ChangeStage from './ChangeStage';
 import MultipleAssignTo from './MultipleAssignTo';
 
 
-
 const ManageLeadList = ({
     data,
     onLeadDetails,
@@ -32,7 +31,6 @@ const ManageLeadList = ({
     const [leadDetails, setLeadDetails] = useState({});
     const [leadForAssign, setLeadForAssign] = useState({});
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-
 
 
     const togglePopupTwo = () => {

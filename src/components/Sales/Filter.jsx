@@ -14,7 +14,7 @@ const Filter = ({
     industryOptions,
     countryOptions,
     setFilterByObj,
-    fetchLeadData
+    fetchLeadData,
 }) => {
     const [companyOptions, setCompanyOptions] = useState([]);
     const [staffOptions, setStaffOptions] = useState([]);
@@ -27,30 +27,43 @@ const Filter = ({
     const [filterByLeadOwner, setFilterByLeadOwner] = useState([]);
     const [filterByStage, setFilterByStage] = useState([]);
     const [clickFilter, setClickFilter] = useState(false);
-    const route = all_routes
+   
+
+
     const apiUrl = import.meta.env.VITE_API_URL;
     const Token = localStorage.getItem('token') || '';
+    const route = all_routes
 
 
     const handleFilter = () => {
 
-        setFilterByObj((...prev) => ({
+        setFilterByObj((prev) => ({
             ...prev,
-            industry: filterByIndusty,
-            source: filterBySource,
-            country: filterByCountry,
-            leadOwner: filterByLeadOwner,
-            stage: filterByStage,
-
-            // company: filterByCompany.length > 0 ? filterByCompany.join(',') : ''
-            // industry: filterByIndusty.length > 0 ? filterByIndusty.join(',') : '',
-            // source: filterBySource.length > 0 ? filterBySource.join(',') : '',
-            // country: filterByCountry.length > 0 ? filterByCountry.join(',') : '',
-            // leadOwner: filterByLeadOwner.length > 0 ? filterByLeadOwner.join(',') : '',
-            // stage: filterByStage.length > 0 ? filterByStage.join(',') : '',
-            // company: filterByCompany.length > 0 ? filterByCompany.join(',') : ''
+            "industry": filterByIndusty,
+            "source": filterBySource,
+            "country": filterByCountry,
+            "leadOwner": filterByLeadOwner,
+            "stage": filterByStage,
         }))
+
+        setFilterSlider(prev => !prev)
         setClickFilter(true)
+        // Reset 
+        setFilterByIndusty([]);
+        setFilterBySource([]);
+        setFilterByCountry([]);
+        setFilterByLeadOwner([]);
+        setFilterByCompany([]);
+        setFilterByStage([]);
+    }
+
+    const handleReset = () => {
+        setFilterByIndusty([]);
+        setFilterBySource([]);
+        setFilterByCountry([]);
+        setFilterByLeadOwner([]);
+        setFilterByCompany([]);
+        setFilterByStage([]);
     }
 
 
@@ -738,7 +751,7 @@ const Filter = ({
                             <div className="filter-reset-btns">
                                 <div className="row">
                                     <div className="col-6">
-                                        <Link to="#" className="btn btn-light">
+                                        <Link to="#" className="btn btn-light" onClick={handleReset}>
                                             Reset
                                         </Link>
                                     </div>

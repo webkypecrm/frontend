@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 import { toast } from 'react-toastify';
 import { event } from 'jquery';
 import CallList from './CallList';
+import { Empty } from 'antd';
 
 const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -41,7 +42,7 @@ const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
         }))
     };
 
-    console.log('formData in Call  =>', formData)
+    // console.log('formData in Call  =>', formData)
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
@@ -91,17 +92,18 @@ const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
                     </li>
                 </ul>
             </div>
-            <div className="calls-activity">
-                <div className="contact-activity">
-
-                    {data.map((item) => (
-                        <CallList
-                            key={item.id}
-                            data={item}
-                        />
-                    ))}
+            {data.length === 0 ? <Empty description={false} /> :
+                <div className="calls-activity">
+                    <div className="contact-activity">
+                        {data.map((item) => (
+                            <CallList
+                                key={item.id}
+                                data={item}
+                            />
+                        ))}
+                    </div>
                 </div>
-            </div>
+            }
         </div>
         {/* Create Call Log */}
         <div

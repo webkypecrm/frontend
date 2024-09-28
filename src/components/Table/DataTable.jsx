@@ -5,7 +5,7 @@ import { Table } from "antd";
 
 const DataTable = ({ dataSource, columns, onSelectionChange, pageSize, totalPages, onFetchRecord }) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-console.log('totalPages =>', totalPages)
+
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
     onSelectionChange(newSelectedRowKeys);

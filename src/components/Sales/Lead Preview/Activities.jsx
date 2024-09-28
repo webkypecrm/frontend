@@ -10,20 +10,6 @@ const Activities = ({ leadFollowupData }) => {
         <div className="tab-pane active show" id="activities">
             <div className="view-header">
                 <h4>Activities</h4>
-                <ul>
-                    <li>
-                        <div className="form-sort">
-                            <i className="ti ti-sort-ascending-2" />
-
-                            <Select
-                                className="select"
-                                options={ascendingandDecending}
-                                classNamePrefix="react-select"
-                                placeholder="Ascending"
-                            />
-                        </div>
-                    </li>
-                </ul>
             </div>
             <div className="row">
                 {/* Ribbon */}

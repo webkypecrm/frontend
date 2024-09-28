@@ -14,6 +14,7 @@ import EditLead from "../../components/Sales/EditLead";
 import EditCompany from "../../components/Sales/EditCompany";
 import Filter from '../../components/Sales/Filter'
 
+let num = 0;
 
 const LeadsPage = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -50,16 +51,20 @@ const LeadsPage = () => {
     });
     const [totalPages, setTotalPages] = useState(0);
     const [pageSize, setPageSize] = useState(2);
-    const [filterByObj, setFilterByObj] = useState({
+
+    const initialFilter = {
         from: "",
         to: "",
-        source: "",
-        industry: "",
-        country: "",
-        stage: "",
-        company: "",
-        leadOwner: "",
-    })
+        source: [],
+        industry: [],
+        country: [],
+        stage: [],
+        company: [],
+        leadOwner: [],
+        search:"",
+    }
+
+    const [filterByObj, setFilterByObj] = useState(initialFilter)
 
     const togglePopup = () => {
         setAddLead(prev => !prev);
@@ -69,12 +74,12 @@ const LeadsPage = () => {
         setLeadDetails(data)
     }
 
+    console.log('filterByObj =>', filterByObj , num++)
     const fetchLeadData = async (page) => {
         try {
-            console.log('filterByObj =>', filterByObj)
-            const { from, to, industry, source, country, stage, company, leadOwner } = filterByObj;
+            const { from, to, industry, source, country, stage, company, leadOwner, search } = filterByObj;
             const response = await axios.get(`${apiUrl}/lead/lead-list?page=${page ? page : 1}&pageSize=${pageSize}&to=${to}&from=${from}
-                &industry=${industry}&source=${source}&country=${country}&stage=${stage}&company=${company}&leadOwner=${leadOwner}`,
+                &industry=${industry}&source=${source}&country=${country}&stage=${stage}&company=${company}&leadOwner=${leadOwner}&search=${search}`,
                 {
                     headers: {
                         Authorization: `Bearer ${Token}`
@@ -115,7 +120,6 @@ const LeadsPage = () => {
 
         }
     };
-
     const fetchIndustryData = async () => {
         try {
             const response = await axios.get(`${apiUrl}/master/industry-list`, {
@@ -134,7 +138,6 @@ const LeadsPage = () => {
 
         }
     };
-
     const fetchCountryData = async () => {
         try {
             const response = await axios.get(`${apiUrl}/employee/country-list`, {
@@ -153,8 +156,6 @@ const LeadsPage = () => {
 
         }
     };
-
-
 
     useEffect(() => {
         fetchLeadData()
@@ -210,7 +211,6 @@ const LeadsPage = () => {
                                         manageColumns={manageColumns}
                                         pageSize={pageSize}
                                         totalPages={totalPages}
-
                                     />
                                 }
                                 {
@@ -273,6 +273,7 @@ const LeadsPage = () => {
                 countryOptions={countryOptions}
                 setFilterByObj={setFilterByObj}
                 fetchLeadData={fetchLeadData}
+                
             />
         </div>
         <div className="modal custom-modal fade" id="save_view" role="dialog">

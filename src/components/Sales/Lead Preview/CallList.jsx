@@ -49,12 +49,8 @@ const CallList = ({ data }) => {
                             <span>Remark: {data.lastCallSummary}</span><br />
                         </div>
                     </div>
-
                 </div>
-
             </li>
-
-
         </ul>
     </>)
 }
