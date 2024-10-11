@@ -38,7 +38,7 @@ const AddStaff = ({
         profilePic: null
     }
     const [formData, setFormData] = useState(initialForm)
-    const [passwords, setPasswords] = useState([false, false]); //for visible password
+    const [passwords, setPasswords] = useState([false, false]); 
     const [profilePicFile, setProfilePicFile] = useState(null)
     const [roleOptions, setRoleOptions] = useState([])
 
@@ -299,7 +299,6 @@ const AddStaff = ({
                                                 />
                                             </div>
                                         </div>
-
                                         <div className="col-md-4">
                                             <div className="form-wrap">
                                                 <label className="col-form-label">
@@ -317,7 +316,6 @@ const AddStaff = ({
                                                 />
                                             </div>
                                         </div>
-
                                         <div className="col-md-4">
                                             <div className="form-wrap">
                                                 <label className="col-form-label">
@@ -335,7 +333,6 @@ const AddStaff = ({
                                                 />
                                             </div>
                                         </div>
-
                                         <div className="col-md-4">
                                             <div className="form-wrap">
                                                 <label className="col-form-label">
@@ -353,7 +350,6 @@ const AddStaff = ({
                                                 />
                                             </div>
                                         </div>
-
                                         <div className="col-md-4">
                                             <div className="form-wrap">
                                                 <label className="col-form-label">
@@ -371,7 +367,6 @@ const AddStaff = ({
                                                 />
                                             </div>
                                         </div>
-
                                         <div className="col-md-4">
                                             <div className="form-wrap">
                                                 <label className="col-form-label">
@@ -401,7 +396,6 @@ const AddStaff = ({
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div className="col-md-4">
                                             <div className="form-wrap">
                                                 <label className="col-form-label">
@@ -430,7 +424,6 @@ const AddStaff = ({
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div className="col-md-4">
                                             <div className="radio-wrap">
                                                 <label className="col-form-label">Status</label>
@@ -443,7 +436,6 @@ const AddStaff = ({
                                                             name="status"
                                                             defaultChecked={true}
                                                             onChange={() => {
-
                                                                 handleInputChange({ target: { name: 'status', value: 'active' } })
                                                             }}
                                                         />

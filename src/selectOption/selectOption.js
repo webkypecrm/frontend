@@ -157,7 +157,6 @@ export const initialSettings = {
 };
 
 
-
 export const salestypelist = [
   { value: 'sales', label: 'Sales' },
   { value: 'marketing', label: 'Marketing' },
@@ -188,9 +187,9 @@ export const socialMedia = [
 ];
 export const priorityList = [
   { value: 'Select', label: 'Select' },
-  { value: 'Highy', label: 'Highy' },
-  { value: 'Low', label: 'Low' },
-  { value: 'Medium', label: 'Medium' },
+  { value: 'highy', label: 'Highy' },
+  { value: 'low', label: 'Low' },
+  { value: 'medium', label: 'Medium' },
 ];
 export const tagInputValues = [
   { value: 'Devops Design', label: 'Devops Design' },
@@ -208,8 +207,8 @@ export const status1 = [
 ];
 export const activeList = [
   { value: 'Select', label: 'Select' },
-  { value: 'Active', label: 'Active' },
-  { value: 'Inactive', label: 'Inactive' },
+  { value: 'active', label: 'Active' },
+  { value: 'inactive', label: 'Inactive' },
 ];
 export const ascendingandDecending = [
   { value: 'Sort By Date', label: 'Sort By Date' },
@@ -258,10 +257,10 @@ export const priority = [
   { value: 'High', label: 'High' },
 ]
 export const statusOption = [
-  { value: 'Closed', label: 'Closed' },
-  { value: 'Open', label: 'Open' },
-  { value: 'Pending', label: 'Pending' },
-  { value: 'Resolved', label: 'Resolved' },
+  { value: 'open', label: 'Open' },
+  { value: 'closed', label: 'Closed' },
+  { value: 'pending', label: 'Pending' },
+  { value: 'resolved', label: 'Resolved' },
 ];
 export const newselectOption = [
   { value: 'Select', label: 'Select' },

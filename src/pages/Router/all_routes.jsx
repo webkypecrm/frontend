@@ -30,6 +30,7 @@ export const all_routes = {
     //sales
     leads: "/sales/leads",
     leadsKanban: "/sales/leads-kanban",
+    leadsDetails: "/sales/leads-details/:leadId",
 
     //customer
     customerList: "/customer/customer-list",
@@ -38,6 +39,7 @@ export const all_routes = {
 
     //task
     tasks: "/task/tasks",
+    taskDetails: "/task/task-details/:taskId",
 
     //setting / general setting
     connectedApps: "/setting/general-settings/connected-apps",
@@ -95,6 +97,10 @@ export const all_routes = {
     reasons: "/setup/sales-master/reasons",
     stage: "/setup/sales-master/stage",
 
+    //setup / task-master
+    taskCategory: "/setup/task-master/task-category",
+    taskSubCategory: "/setup/task-master/task-sub-category",
+
 
     //support routes
     contactMessages: "/support/contact-messages",
@@ -145,8 +151,6 @@ export const all_routes = {
     // companiesGrid: "/crm/companies-grid",
     compaignComplete: "/crm/compaign-complete",
 
-    leadsDetails: "/leads-details",
-
     projectsGrid: "/projects-grid",
     ProposalsList: "/crm/proposals-list",
     ProposalsGrid: "/crm/proposals-grid",
@@ -175,96 +179,12 @@ export const all_routes = {
     lockScreen: "/lock-screen",
     resetPassword: "/reset-password",
 
-    //ui routes
-    alert: "/ui-alert",
-    accordion: "/ui-accordion",
-    avatar: "/ui-avatar",
-    badges: "/ui-badges",
-    border: "/ui-border",
-    breadcrums: "/ui-breadcrums",
-    button: "/ui-buttons",
-    buttonGroup: "/ui-button-group",
-    cards: "/ui-cards",
-    carousel: "/ui-carousel",
-    colors: "/ui-colors",
-    dropdowns: "/ui-dropdowns",
-    grid: "/ui-grid",
-    images: "/ui-images",
-    lightbox: "/ui-lightbox",
-    media: "/ui-media",
-    modals: "/ui-modals",
-    navTabs: "/ui-navtabs",
-    offcanvas: "/ui-offcanvas",
-    pagination: "/ui-pagination",
-    placeholder: "/ui-placeholder",
-    popover: "/ui-popover",
-    progress: "/ui-progress",
-    rangeSlider: "/ui-rangeslider",
-    spinner: "/ui-spinner",
-    sweetalert: "/ui-alert",
-    toasts: "/ui-toasts",
-    tooltip: "/ui-tooltip",
-    typography: "/ui-typography",
-    video: "/ui-video",
-    clipboard: "/ui-clipboard",
-    counter: "/ui-counter",
-    dragandDrop: "/ui-drag-drop",
-    rating: "/ui-rating",
-    ribbon: "/ui-ribbon",
-    stickyNotes: "/ui-sticky-notes",
-    textEditor: "/ui-text-editor",
-    timeLine: "/ui-timeline",
-    scrollBar: "/ui-scrollbar",
-    apexChat: "/ui-apexchat",
-    chart: "/ui-chartjs",
-    featherIcons: "/ui-feather-icon",
-    falgIcons: "/ui-flag-icon",
-    fantawesome: "/ui-fantawesome",
-    materialIcon: "/ui-material-icon",
-    pe7icon: "/ui-icon-pe7",
-    simpleLineIcon: "/ui-simpleline",
-    themifyIcon: "/ui-themify",
-    typicon: "/ui-typicon",
-    weatherIcon: "/ui-weather-icon",
-    basicInput: "/forms-basic-input",
-    checkboxandRadion: "/form-checkbox-radios",
-    inputGroup: "/form-input-groups",
-    gridandGutters: "/form-grid-gutters",
-    formSelect: "/form-select",
-    formMask: "/form-mask",
-    fileUpload: "/form-fileupload",
-    horizontalForm: "/form-horizontal",
-    verticalForm: "/form-vertical",
-    floatingLable: "/form-floating-labels",
-    formValidation: "/form-validation",
-    reactSelect: "/select",
-    formWizard: "/form-wizard",
-    dataTable: "/tables-basic",
-    tableBasic: "/data-tables",
-    iconicIcon: "/icon-ionic",
-
-    //base-ui
-    uiAlerts: "/ui-alerts",
-    uiAccordion: "/ui-accordion",
-    uiAvatar: "/ui-avatar",
-    uiBadges: "/ui-badges",
-    uiBorders: "/ui-borders",
-    uiButtons: "/ui-buttons",
-    uiButtonsGroup: "/ui-buttons-group",
-    uiBreadcrumb: "/ui-breadcrumb",
-    uiCards: "/ui-cards",
-    uiCarousel: "/ui-carousel",
-    uiColor: "/ui-color",
-    uiDropdowns: "ui-dropdowns",
-
     // pages routes
     error404: "/error-404",
     error500: "/error-500",
     underMaintenance: "/under-maintenance",
 
     // settings routes
-
-
 
     // reports routes
     companyReports: "/reports/company-reports",

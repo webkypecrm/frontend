@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { CSSTransition } from "react-transition-group";
 import PageHeader from "../../components/Layouts/PageHeader";
 import CampaignStatus from "../../components/Layouts/CampaignStatus/Index";
 import AddStaff from "../../components/HRMS/AddStaff";
@@ -11,7 +10,6 @@ import ErrorLoader from "../../components/Layouts/ErrorLoader/Index";
 import axios from "axios";
 import { Empty } from "antd";
 import { toast } from "react-toastify";
-
 
 
 const ManageStaff = () => {
@@ -27,7 +25,20 @@ const ManageStaff = () => {
   const [groupOptions, setGroupOptions] = useState([])
   const [workShiftOptions, setWorkShiftOptions] = useState([])
   const [jobTypeOptions, setJobTypeOptions] = useState([])
-
+  const [manageColumns, setManageColumns] = useState({
+    "Name": true,
+    "Email": true,
+    "Mobile": true,
+    "Gender": false,
+    "Created By": false,
+    "Department": true,
+    "Role": true,
+    "Group": true,
+    "Job Type": true,
+    "Work Shift": true,
+    "Created Date": true,
+    "Action": true,
+  });
 
   const togglePopup = () => {
     setAdduser(!adduser);
@@ -153,7 +164,11 @@ const ManageStaff = () => {
               <div className="card main-card">
                 <div className="card-body">
                   {/* Search */}
-                  <SearchSection togglePopup={togglePopup} />
+                  <SearchSection
+                    togglePopup={togglePopup}
+                    onManageColumns={setManageColumns}
+                    manageColumns={manageColumns}
+                  />
                   {/* /Search */}
 
                   {/* Manage Users List */}
@@ -163,13 +178,14 @@ const ManageStaff = () => {
                   {error &&
                     <ErrorLoader title={error.name} message={error.message} />
                   }
-                  {data.length > 0 &&
+                  {data.length > 0 && !error &&
                     <ManageStaffList
                       togglePopup={togglePopup}
                       setStaffDetails={setStaffDetails}
                       data={data}
                       setData={setData}
                       handleRefreshData={handleRefreshData}
+                      manageColumns={manageColumns}
                     />
                   }
                   {

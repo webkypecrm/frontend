@@ -11,6 +11,7 @@ import ServicePage from "../Services/Services";
 
 import LeadsPage from "../Sales/LeadsPage";
 import LeadsKanban from "../Sales/LeadsKanban";
+import LeadDetailsPage from "../Sales/LeadDetailsPage";
 
 import CustomerList from "../Customer/CustomerList";
 import CustomerGrid from "../Customer/CustomerGrid";
@@ -23,8 +24,8 @@ import MembershipAddon from "../Subscription/MembershipAddon";
 import MembershipTransaction from "../Subscription/MembershipTransaction";
 import Membershipplan from "../Subscription/MembershipPlan";
 
-
-import Task from "../Task/Task";
+import Task from "../Task/TaskPage";
+import TaskDetailsPage from "../Task/TaskDetailsPage"
 
 import Profile from "../Settings/General Settings/Profile";
 import Security from "../Settings/General Settings/Security";
@@ -71,6 +72,8 @@ import Reasons from "../SetUp/SalesMaster/Reasons";
 import Industry from "../SetUp/SalesMaster/Industry";
 import Stage from "../SetUp/SalesMaster/Stage";
 
+import TaskCategory from "../SetUp/TaskMaster/TaskCategory";
+import TaskSubCategory from "../SetUp/TaskMaster/TaskSubCategory";
 
 // import ContactMessages from "../support/contactMessages";
 import TicketStage from "../Support/TicketStage";
@@ -289,6 +292,10 @@ export const publicRoutes = [
         path: route.leadsKanban,
         element: <LeadsKanban />,
     },
+       {
+        path: route.leadsDetails,
+        element: <LeadDetailsPage />
+      },
     {
         path: route.customerList,
         element: <CustomerList />,
@@ -296,7 +303,6 @@ export const publicRoutes = [
     {
         path: route.customerGrid,
         element: <CustomerGrid />,
-
     },
     {
         path: route.customerDetails,
@@ -330,6 +336,11 @@ export const publicRoutes = [
         path: route.tasks,
         element: <Task />,
     },
+    {
+        path: route.taskDetails,
+        element: <TaskDetailsPage />,
+    },
+
     {
         path: route.department,
         element: <Department />,
@@ -366,6 +377,15 @@ export const publicRoutes = [
         path: route.stage,
         element: <Stage />,
     },
+    {
+        path: route.taskCategory,
+        element: <TaskCategory />,
+    },
+    {
+        path: route.taskSubCategory,
+        element: <TaskSubCategory />,
+    },
+
     // {
     //     path: route.lostReason,
     //     element: <LostReason />,

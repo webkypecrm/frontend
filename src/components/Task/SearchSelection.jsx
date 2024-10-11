@@ -1,38 +1,31 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-
 import DateRangePicker from 'react-bootstrap-daterangepicker'
+import { all_routes } from "../../pages/Router/all_routes";
+import {
+    initialSettings,
+} from "../../selectOption/selectOption";
 import ManageColumns from './ManageColumns';
 
-
-const SearchSection = ({
-    togglePopup,
+const SearchSelection = ({
+    setActivityToggle,
     onManageColumns,
     manageColumns,
     filterByObj,
     setFilterByObj,
-    fetchLeadData,
-    setFilterSlider
+    setFilterSlider,
+    fetchTaskData
+
 }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [debouncedTerm, setDebouncedTerm] = useState(searchTerm);
     const [manageColumnsSlider, setManageColumnsSlider] = useState(false);
+    const route = all_routes;
 
     const handleManageColumns = (name) => {
         onManageColumns((prev) => ({
             ...prev,
             [name]: !prev[name]
-        }))
-    }
-
-    const handleApply = (event, picker) => {
-        const start = picker.startDate.format('YYYY-MM-DD HH:mm:ss.SSS');
-        const end = picker.endDate.format('YYYY-MM-DD HH:mm:ss.SSS');
-
-        setFilterByObj((...prev) => ({
-            ...prev,
-            from: start ? start : "",
-            to: end
         }))
     }
 
@@ -66,13 +59,24 @@ const SearchSection = ({
         timePicker: false,
     };
 
+
+    const handleApply = (event, picker) => {
+        const start = picker.startDate.format('YYYY-MM-DD HH:mm:ss.SSS');
+        const end = picker.endDate.format('YYYY-MM-DD HH:mm:ss.SSS');
+
+        setFilterByObj((...prev) => ({
+            ...prev,
+            from: start ? start : "",
+            to: end
+        }))
+    }
+
     useEffect(() => {
         setFilterByObj({
             ...filterByObj,
             search: debouncedTerm,
         });
     }, [debouncedTerm]);
-
 
     useEffect(() => {
         const handler = setTimeout(() => {
@@ -85,18 +89,23 @@ const SearchSection = ({
         };
     }, [searchTerm]); // Runs when searchTerm changes
 
-
     useEffect(() => {
         if (filterByObj.from) {
-            fetchLeadData()
+            fetchTaskData()
         }
-        fetchLeadData()
+        fetchTaskData()
     }, [filterByObj])
 
     return (
         <div className="search-section">
             <div className="row">
-                <div className="col-md-5 col-sm-4" style={{ width: '20%' }}>
+
+                <div className="col-md-5 col-sm-4" style={{
+                    display: "flex",
+                    justifyContent: "start",
+                    alignItems: "baseline",
+                    gap: "20px"
+                }}>
                     <div className="form-wrap icon-form">
                         <span className="form-icon">
                             <i className="ti ti-search" />
@@ -111,7 +120,7 @@ const SearchSection = ({
                         />
                     </div>
                 </div>
-                <div className="col-md-7 col-sm-8" style={{ width: '80%' }}>
+                <div className="col-md-7 col-sm-8" >
                     <div className="export-list text-sm-end">
                         <ul>
                             <li>
@@ -121,7 +130,6 @@ const SearchSection = ({
                                     </span>
                                     <DateRangePicker
                                         initialSettings={initialSettings}
-
                                         onApply={handleApply}
                                     >
                                         <input
@@ -149,33 +157,6 @@ const SearchSection = ({
                                 </div>
                             </li>
                             <li>
-                                <div className="export-dropdwon ">
-                                    <Link
-                                        to="#"
-                                        className="dropdown-toggle"
-                                        data-bs-toggle="dropdown"
-                                    >
-                                        <i className="ti ti-package-export" />
-                                    </Link>
-                                    <div className="dropdown-menu  dropdown-menu-end">
-                                        <ul>
-                                            <li>
-                                                <Link to="#">
-                                                    <i className="ti ti-file-type-pdf text-danger" />
-                                                    Export as PDF
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link to="#">
-                                                    <i className="ti ti-file-type-xls text-green" />
-                                                    Export as Excel{" "}
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
                                 <div className="form-sorts dropdown">
                                     <Link
                                         onClick={() => { setFilterSlider(prev => !prev) }}
@@ -185,23 +166,15 @@ const SearchSection = ({
                                 </div>
                             </li>
                             <li>
-                                <div className="view-icons">
-                                    <Link to="/sales/leads" className="active">
-                                        <i className="ti ti-list-tree" />
-                                    </Link>
-                                    <Link to="/sales/leads-kanban">
-                                        <i className="ti ti-grid-dots" />
-                                    </Link>
-                                </div>
-                            </li>
-                            <li>
                                 <Link
                                     to="#"
                                     className="btn btn-primary add-popup"
-                                    onClick={() => togglePopup(false)}
+                                    onClick={() =>
+                                        setActivityToggle(prev => !prev)
+                                    }
                                 >
                                     <i className="ti ti-square-rounded-plus" />
-                                    Add Leads
+                                    Add New Task
                                 </Link>
                             </li>
                         </ul>
@@ -212,4 +185,4 @@ const SearchSection = ({
     )
 }
 
-export default SearchSection
+export default SearchSelection

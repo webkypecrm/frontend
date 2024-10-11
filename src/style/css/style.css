@@ -27033,7 +27033,7 @@ fieldset#first-field-file {
   display: flex;
 }
 .login-wrapper.account-bg {
-  background-image: url(../../../../public/assets/img/authentication/login-bg.jpg);
+  background-image: url(../../../../public/assets/img/authentication/auth-page.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -27043,13 +27043,13 @@ fieldset#first-field-file {
   backdrop-filter: blur(10px);
 }
 .login-wrapper.account-bg.register-bg {
-  background-image: url(../../../../public/assets/img/authentication/register-bg.jpg);
+  background-image: url(../../../../public/assets/img/authentication/auth-page.jpg);
 }
 .login-wrapper.account-bg.forgot-bg {
-  background-image: url(../../../../public/assets/img/authentication/forgot-bg.jpg);
+  background-image: url(../../../../public/assets/img/authentication/auth-page.jpg);
 }
 .login-wrapper.account-bg.reset-bg {
-  background-image: url(../../../../public/assets/img/authentication/reset-bg.jpg);
+  background-image: url(../../../../public/assets/img/authentication/auth-page.jpg);
 }
 .login-wrapper .login-content {
   width: 50%;

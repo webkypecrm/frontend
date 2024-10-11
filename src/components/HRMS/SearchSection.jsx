@@ -1,41 +1,57 @@
+import { useState } from "react";
 import { Link } from "react-router-dom"
 import DateRangePicker from "react-bootstrap-daterangepicker";
 import { all_routes } from "../../pages/Router/all_routes";
+import ManageColumns from "./ManageColumns";
 
-const SearchSection = ({togglePopup}) => {
+const SearchSection = ({
+    togglePopup,
+    onManageColumns,
+    manageColumns,
+}) => {
+    const [manageColumnsSlider, setManageColumnsSlider] = useState(false);
     const route = all_routes;
+
+    console.log('manageColumnsSlider =>', manageColumnsSlider);
+
+    const handleManageColumns = (name) => {
+        onManageColumns((prev) => ({
+            ...prev,
+            [name]: !prev[name]
+        }))
+    }
 
     const initialSettings = {
         endDate: new Date("2020-08-11T12:30:00.000Z"),
         ranges: {
-          "Last 30 Days": [
-            new Date("2020-07-12T04:57:17.076Z"),
-            new Date("2020-08-10T04:57:17.076Z"),
-          ],
-          "Last 7 Days": [
-            new Date("2020-08-04T04:57:17.076Z"),
-            new Date("2020-08-10T04:57:17.076Z"),
-          ],
-          "Last Month": [
-            new Date("2020-06-30T18:30:00.000Z"),
-            new Date("2020-07-31T18:29:59.999Z"),
-          ],
-          "This Month": [
-            new Date("2020-07-31T18:30:00.000Z"),
-            new Date("2020-08-31T18:29:59.999Z"),
-          ],
-          Today: [
-            new Date("2020-08-10T04:57:17.076Z"),
-            new Date("2020-08-10T04:57:17.076Z"),
-          ],
-          Yesterday: [
-            new Date("2020-08-09T04:57:17.076Z"),
-            new Date("2020-08-09T04:57:17.076Z"),
-          ],
+            "Last 30 Days": [
+                new Date("2020-07-12T04:57:17.076Z"),
+                new Date("2020-08-10T04:57:17.076Z"),
+            ],
+            "Last 7 Days": [
+                new Date("2020-08-04T04:57:17.076Z"),
+                new Date("2020-08-10T04:57:17.076Z"),
+            ],
+            "Last Month": [
+                new Date("2020-06-30T18:30:00.000Z"),
+                new Date("2020-07-31T18:29:59.999Z"),
+            ],
+            "This Month": [
+                new Date("2020-07-31T18:30:00.000Z"),
+                new Date("2020-08-31T18:29:59.999Z"),
+            ],
+            Today: [
+                new Date("2020-08-10T04:57:17.076Z"),
+                new Date("2020-08-10T04:57:17.076Z"),
+            ],
+            Yesterday: [
+                new Date("2020-08-09T04:57:17.076Z"),
+                new Date("2020-08-09T04:57:17.076Z"),
+            ],
         },
         startDate: new Date("2020-08-04T04:57:17.076Z"), // Set "Last 7 Days" as default
         timePicker: false,
-      };
+    };
 
 
     return <div className="search-section">
@@ -69,163 +85,21 @@ const SearchSection = ({togglePopup}) => {
                             </div>
                         </li>
                         <li>
-                            <div className="manage-dropdwon">
-                                <Link
-                                    to="#"
-                                    className="btn btn-purple-light"
-                                    data-bs-toggle="dropdown"
-                                    data-bs-auto-close="false"
-                                >
-                                    <i className="ti ti-columns-3" />
-                                    {/* Manage Columns */}
-                                </Link>
-                                <div className="dropdown-menu  dropdown-menu-md-end">
-                                    <h4>Want to manage datatables?</h4>
-                                    <p>
-                                        Please drag and drop your column to reorder your
-                                        table and enable see option as you want.
-                                    </p>
-                                    <ul>
-                                        <li>
-                                            <p>
-                                                <i className="ti ti-grip-vertical" />
-                                                Name
-                                            </p>
-                                            <div className="status-toggle">
-                                                <input
-                                                    type="checkbox"
-                                                    id="col-name"
-                                                    className="check"
-                                                />
-                                                <label
-                                                    htmlFor="col-name"
-                                                    className="checktoggle"
-                                                />
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                <i className="ti ti-grip-vertical" />
-                                                Phone
-                                            </p>
-                                            <div className="status-toggle">
-                                                <input
-                                                    type="checkbox"
-                                                    id="col-phone"
-                                                    className="check"
-                                                />
-                                                <label
-                                                    htmlFor="col-phone"
-                                                    className="checktoggle"
-                                                />
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                <i className="ti ti-grip-vertical" />
-                                                Email
-                                            </p>
-                                            <div className="status-toggle">
-                                                <input
-                                                    type="checkbox"
-                                                    id="col-email"
-                                                    className="check"
-                                                />
-                                                <label
-                                                    htmlFor="col-email"
-                                                    className="checktoggle"
-                                                />
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                <i className="ti ti-grip-vertical" />
-                                                Location
-                                            </p>
-                                            <div className="status-toggle">
-                                                <input
-                                                    type="checkbox"
-                                                    id="col-tag"
-                                                    className="check"
-                                                />
-                                                <label
-                                                    htmlFor="col-tag"
-                                                    className="checktoggle"
-                                                />
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                <i className="ti ti-grip-vertical" />
-                                                Created Date
-                                            </p>
-                                            <div className="status-toggle">
-                                                <input
-                                                    type="checkbox"
-                                                    id="col-loc"
-                                                    className="check"
-                                                />
-                                                <label
-                                                    htmlFor="col-loc"
-                                                    className="checktoggle"
-                                                />
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                <i className="ti ti-grip-vertical" />
-                                                Last Activity
-                                            </p>
-                                            <div className="status-toggle">
-                                                <input
-                                                    type="checkbox"
-                                                    id="col-rate"
-                                                    className="check"
-                                                />
-                                                <label
-                                                    htmlFor="col-rate"
-                                                    className="checktoggle"
-                                                />
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                <i className="ti ti-grip-vertical" />
-                                                Status
-                                            </p>
-                                            <div className="status-toggle">
-                                                <input
-                                                    type="checkbox"
-                                                    id="col-owner"
-                                                    className="check"
-                                                />
-                                                <label
-                                                    htmlFor="col-owner"
-                                                    className="checktoggle"
-                                                />
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                <i className="ti ti-grip-vertical" />
-                                                Action
-                                            </p>
-                                            <div className="status-toggle">
-                                                <input
-                                                    type="checkbox"
-                                                    id="col-contact"
-                                                    className="check"
-                                                    defaultChecked={true}
-                                                />
-                                                <label
-                                                    htmlFor="col-contact"
-                                                    className="checktoggle"
-                                                />
-                                            </div>
-                                        </li>
-                                    </ul>
+                        <div className="manage-dropdwon">
+                                    <Link
+                                        to="#"
+                                        className="btn btn-purple-light"
+                                        onClick={() => { setManageColumnsSlider(true) }}
+                                    >
+                                        <i className="ti ti-columns-3" />
+                                    </Link>
+                                    <ManageColumns
+                                        handleManageColumns={handleManageColumns}
+                                        manageColumns={manageColumns}
+                                        manageColumnsSlider={manageColumnsSlider}
+                                        setManageColumnsSlider={setManageColumnsSlider}
+                                    />
                                 </div>
-                            </div>
                         </li>
 
                         <li>

@@ -1,33 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import Select from 'react-select';
-import axios from 'axios';
 
 
-const AssignTo = ({ leadForAssign, fetchLeadData }) => {
+const TaskComment = ({ taskRecord, fetchTaskData }) => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const Token = localStorage.getItem('token') || '';
-    const [staffOptions, setStaffOptions] = useState([]);
+    console.log('taskRecord =>', taskRecord)
 
     const initialForm = {
-        leadId: '',
-        staffId: '',
+        taskId: '',
+        comment: '',
+        status: '',
     }
     const [formData, setFormData] = useState(initialForm);
 
+    console.log('formData =>', formData)
 
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
-            formData.leadId = leadForAssign.leadId
+            formData.taskId = +taskRecord.taskId;
+            formData.status = taskRecord.status;
             const formDataToSend = new FormData();
             for (const key in formData) {
                 if (formData[key] !== null) {
                     formDataToSend.append(key, formData[key])
                 }
             }
-            const response = await fetch(`${apiUrl}/lead/assigned-lead`, {
+            const response = await fetch(`${apiUrl}/task/add-task-log`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${Token}`
@@ -36,52 +37,27 @@ const AssignTo = ({ leadForAssign, fetchLeadData }) => {
             })
             const resData = await response.json();
             if (!response.ok) {
-                throw new Error(resData.message || 'Failed to update');
+                throw new Error(resData.message || 'Failed to add');
             }
             setFormData((prev) => ({ ...initialForm }))
-            fetchLeadData()
-            toast.success('Updated successfully!');
+            fetchTaskData()
+            toast.success('Add successfully!');
         } catch (error) {
             toast.error(error.message || 'Something went wrong');
         }
     }
 
-    useEffect(() => {
-        const fetchStaffData = async () => {
-            try {
-                const response = await axios.get(`${apiUrl}/staff/staff-list`, {
-                    headers: {
-                        Authorization: `Bearer ${Token}`
-                    }
-                });
-                const formattedData = response.data.data.map((item) => ({
-                    label: item.name,
-                    value: item.staffId
-                }));
-                setStaffOptions(() => [...formattedData]);
-
-            } catch (error) {
-                toast.error(error);
-            }
-        };
-
-        if (leadForAssign.leadId) {
-            fetchStaffData()
-        }
-
-    }, [leadForAssign?.leadId])
-
     return (<>
         {/* Assign To */}
         <div
             className="modal custom-modal fade modal-padding"
-            id="assigned_to"
+            id="task-comment"
             role="dialog"
         >
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title">Assign To</h5>
+                        <h5 className="modal-title">Add Comment</h5>
                         <button
                             type="button"
                             className="btn-close position-static"
@@ -94,25 +70,23 @@ const AssignTo = ({ leadForAssign, fetchLeadData }) => {
                     <div className="modal-body p-0">
                         <form onSubmit={handleSubmit}>
                             <div className="row">
-                                <div className="col-md-6">
-                                    <div className="form-wrap">
-                                        <label className="col-form-label">
-                                            Staff <span className="text-danger">*</span>
-                                        </label>
-                                        <Select
-                                            classNamePrefix="react-select"
-                                            className="select"
-                                            // value={staffOptions.find(option => option.value === formData.staffId)}
-                                            onChange={(event) => {
-                                                setFormData((prevData) => ({
-                                                    ...prevData,
-                                                    staffId: event.value
-                                                }))
-                                            }}
-                                            options={staffOptions}
-                                        />
-                                    </div>
+
+                                <div className="form-wrap">
+                                    <label className="col-form-label">
+                                        Comment <span className="text-danger"> *</span>
+                                    </label>
+                                    <input
+                                        className="form-control"
+                                        placeholder="Add text"
+                                        onChange={(event) => {
+                                            setFormData((prevData) => ({
+                                                ...prevData,
+                                                comment: event.target.value
+                                            }))
+                                        }}
+                                    />
                                 </div>
+
                                 <div className="text-end modal-btn">
                                     <Link
                                         to="#"
@@ -128,7 +102,6 @@ const AssignTo = ({ leadForAssign, fetchLeadData }) => {
                                         Confirm
                                     </button>
                                 </div>
-
                             </div>
                         </form>
                     </div>
@@ -140,4 +113,4 @@ const AssignTo = ({ leadForAssign, fetchLeadData }) => {
     )
 }
 
-export default AssignTo
+export default TaskComment

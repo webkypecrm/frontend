@@ -11,7 +11,7 @@
     display: -ms-flexbox;
     display: flex;
     &.account-bg {
-        background-image: url(assets/img/authentication/login-bg.jpg);
+        background-image: url(assets/img/authentication/auth-page.jpg);
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
@@ -20,13 +20,13 @@
             backdrop-filter: blur(10px);
         }
         &.register-bg {
-            background-image: url(../../../../public/assets/img/authentication/register-bg.jpg);
+            background-image: url(../../../../public/assets/img/authentication/auth-page.jpg);
         }
         &.forgot-bg {
-            background-image: url(../../../../public/assets/img/authentication/forgot-bg.jpg);
+            background-image: url(../../../../public/assets/img/authentication/auth-page.jpg);
         }
         &.reset-bg {
-            background-image: url(../../../../public/assets/img/authentication/register-bg.jpg);
+            background-image: url(../../../../public/assets/img/authentication/auth-page.jpg);
         }
         // &.email-veri-wrap {
         //     background-image: url(../img/authentication/email-verification-img.jpg);

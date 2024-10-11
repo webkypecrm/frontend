@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 // import './App.css'
 
@@ -9,12 +8,14 @@ import { authRoutes, publicRoutes } from './pages/Router/router.link.jsx';
 import PageNotFound from './pages/PageNotFound/PageNotFound.jsx'
 
 
+
 function App() {
- 
+
   return (
     <BrowserRouter>
       <Loader />
       <Routes>
+
         <Route element={<Feature />}>
           {publicRoutes.map((route, idx) => (
             <Route path={route.path} element={route.element} key={idx} />
@@ -25,8 +26,8 @@ function App() {
           {authRoutes.map((route, idx) => (
             <Route path={route.path} element={route.element} key={idx} />
           ))}
-
         </Route>
+        
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>

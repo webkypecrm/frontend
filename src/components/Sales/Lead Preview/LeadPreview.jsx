@@ -8,6 +8,7 @@ import Comment from './Comments';
 import Call from './Call';
 import Proposal from './Proposal';
 import axios from 'axios';
+import Task from './Task';
 
 
 const LeadPreview = ({ leadPreview, setLeadPreview, leadDetails }) => {
@@ -141,9 +142,14 @@ const LeadPreview = ({ leadPreview, setLeadPreview, leadDetails }) => {
                                     leadDetails={leadDetails}
                                 />
                                 {/* /Comments */}
-                                {/* Email */}
+                                {/* Proposal */}
                                 <Proposal />
-                                {/* /Email */}
+                                {/* Proposal */}                                
+                                <Task
+                                    leadFollowupData={leadFollowupData}
+                                    fetchLeadFollowupData={fetchLeadFollowupData}
+                                    leadDetails={leadDetails}
+                                />
                             </div>
                         </div>
                         {/* /Tab Content */}

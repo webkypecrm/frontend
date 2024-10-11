@@ -736,8 +736,6 @@ const LeadsKanban = () => {
                                             </div>
                                         </li>)
                                         }
-
-
                                     </ul>
                                 </div>
                             )}

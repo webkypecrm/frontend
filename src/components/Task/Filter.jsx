@@ -14,7 +14,7 @@ const Filter = ({
     industryOptions,
     countryOptions,
     setFilterByObj,
-    fetchLeadData,
+    fetchTaskData,
 }) => {
     const [companyOptions, setCompanyOptions] = useState([]);
     const [staffOptions, setStaffOptions] = useState([]);
@@ -43,7 +43,6 @@ const Filter = ({
             "country": filterByCountry,
             "leadOwner": filterByLeadOwner,
             "stage": filterByStage,
-            "company": filterByCompany
         }))
 
         setFilterSlider(prev => !prev)
@@ -127,7 +126,7 @@ const Filter = ({
 
     useEffect(() => {
         if (clickFilter) {
-            fetchLeadData()
+            fetchTaskData()
             setClickFilter(false)
         }
 

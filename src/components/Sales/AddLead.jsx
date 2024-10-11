@@ -52,6 +52,7 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
             [name]: value
         }))
     }
+    
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -84,7 +85,6 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
         } catch (error) {
             toast.error(error.message || 'Something went wrong');
         }
-
     }
 
     const fetchCompanyData = async () => {

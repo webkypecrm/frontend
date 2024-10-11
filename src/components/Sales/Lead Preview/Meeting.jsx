@@ -96,7 +96,7 @@ const Meeting = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
                 <div className="contact-activity">
                     {data.map((item) =>
                         <MeetingList
-                            key={item.key}
+                            key={item.id}
                             data={item}
                         />
                     )}

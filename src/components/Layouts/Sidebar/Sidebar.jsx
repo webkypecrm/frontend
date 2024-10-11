@@ -543,8 +543,8 @@ const Sidebar = ({ setExpandMenu }) => {
                                                     <span className="menu-arrow inside-submenu"></span></Link>
                                                 {openMenus['task-master'] &&
                                                     <ul>
-                                                        <li><Link to={route.companySettings}>Category</Link></li>
-                                                        <li><Link to={route.localization}>Sub Category</Link></li>
+                                                        <li><Link to={route.taskCategory}>Category</Link></li>
+                                                        <li><Link to={route.taskSubCategory}>Sub Category</Link></li>
                                                     </ul>
                                                 }
                                             </li>

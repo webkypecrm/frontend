@@ -508,7 +508,12 @@ const Header = ({ setMiniSidebar, setExpandMenu }) => {
                             <Link className="dropdown-item" to={route.profile}>
                                 <i className="ti ti-user-pin"></i> My Profile
                             </Link>
-                            <Link className="dropdown-item" to={route.login}>
+                            <Link 
+                            className="dropdown-item" 
+                            to={route.login} 
+                            onClick={()=>{
+                                localStorage.removeItem('token');
+                            }}>
                                 <i className="ti ti-lock"></i> Logout
                             </Link>
                         </div>

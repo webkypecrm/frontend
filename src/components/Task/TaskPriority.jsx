@@ -2,33 +2,34 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Select from 'react-select';
-import axios from 'axios';
+import {
+    priorityList,
+} from "../../selectOption/selectOption";
 
-
-const AssignTo = ({ leadForAssign, fetchLeadData }) => {
+const TaskPriority = ({ taskRecord, fetchTaskData }) => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const Token = localStorage.getItem('token') || '';
-    const [staffOptions, setStaffOptions] = useState([]);
+
+    console.log("taskRecord =>", taskRecord)
 
     const initialForm = {
-        leadId: '',
-        staffId: '',
+        taskId: '',
+        priority: '',
     }
     const [formData, setFormData] = useState(initialForm);
-
 
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
-            formData.leadId = leadForAssign.leadId
+            formData.taskId = +taskRecord.taskId
             const formDataToSend = new FormData();
             for (const key in formData) {
                 if (formData[key] !== null) {
                     formDataToSend.append(key, formData[key])
                 }
             }
-            const response = await fetch(`${apiUrl}/lead/assigned-lead`, {
-                method: 'POST',
+            const response = await fetch(`${apiUrl}/task/update-task-priority`, {
+                method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${Token}`
                 },
@@ -39,49 +40,24 @@ const AssignTo = ({ leadForAssign, fetchLeadData }) => {
                 throw new Error(resData.message || 'Failed to update');
             }
             setFormData((prev) => ({ ...initialForm }))
-            fetchLeadData()
+            fetchTaskData()
             toast.success('Updated successfully!');
         } catch (error) {
             toast.error(error.message || 'Something went wrong');
         }
     }
 
-    useEffect(() => {
-        const fetchStaffData = async () => {
-            try {
-                const response = await axios.get(`${apiUrl}/staff/staff-list`, {
-                    headers: {
-                        Authorization: `Bearer ${Token}`
-                    }
-                });
-                const formattedData = response.data.data.map((item) => ({
-                    label: item.name,
-                    value: item.staffId
-                }));
-                setStaffOptions(() => [...formattedData]);
-
-            } catch (error) {
-                toast.error(error);
-            }
-        };
-
-        if (leadForAssign.leadId) {
-            fetchStaffData()
-        }
-
-    }, [leadForAssign?.leadId])
-
     return (<>
         {/* Assign To */}
         <div
             className="modal custom-modal fade modal-padding"
-            id="assigned_to"
+            id="task_priority_update"
             role="dialog"
         >
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title">Assign To</h5>
+                        <h5 className="modal-title">Task Priority</h5>
                         <button
                             type="button"
                             className="btn-close position-static"
@@ -97,19 +73,19 @@ const AssignTo = ({ leadForAssign, fetchLeadData }) => {
                                 <div className="col-md-6">
                                     <div className="form-wrap">
                                         <label className="col-form-label">
-                                            Staff <span className="text-danger">*</span>
+                                            Priority <span className="text-danger">*</span>
                                         </label>
                                         <Select
                                             classNamePrefix="react-select"
                                             className="select"
-                                            // value={staffOptions.find(option => option.value === formData.staffId)}
+                                            value={priorityList.find(option => option.value === formData.priority)}
                                             onChange={(event) => {
                                                 setFormData((prevData) => ({
                                                     ...prevData,
-                                                    staffId: event.value
+                                                    priority: event.value
                                                 }))
                                             }}
-                                            options={staffOptions}
+                                            options={priorityList}
                                         />
                                     </div>
                                 </div>
@@ -140,4 +116,4 @@ const AssignTo = ({ leadForAssign, fetchLeadData }) => {
     )
 }
 
-export default AssignTo
+export default TaskPriority

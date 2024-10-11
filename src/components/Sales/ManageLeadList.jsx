@@ -9,6 +9,7 @@ import LeadPreview from './Lead Preview/LeadPreview';
 import AssignTo from './AssignTo';
 import ChangeStage from './ChangeStage';
 import MultipleAssignTo from './MultipleAssignTo';
+import { useNavigate } from "react-router-dom"
 
 
 const ManageLeadList = ({
@@ -21,8 +22,8 @@ const ManageLeadList = ({
     manageColumns,
     pageSize,
     totalPages,
-   
 }) => {
+    const navigate = useNavigate();
     const [stars, setStars] = useState({});
     const [leadId, setLeadId] = useState(null)
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -117,14 +118,17 @@ const ManageLeadList = ({
             // sorter: (a, b) =>
             //     a.lead_name.length - b.lead_name.length,
             render: (text, record) => {
-                return <div className="table-avatar d-flex align-items-center">
+                return <Link to={`/sales/leads-details/${record.leadId}`}
+                    className="table-avatar d-flex align-items-center"
+                    style={{ cursor: 'pointer' }}
+                >
                     <span className="company-img menu-list-icon bg-violet ">
                         <i className="ti ti-user-up" />
                     </span>
                     <ul>
                         <li>{record.leadName}</li>
                     </ul>
-                </div>
+                </Link >
             }
         },
         {
@@ -134,14 +138,15 @@ const ManageLeadList = ({
             // sorter: (a, b) =>
             //     a.lead_name.length - b.lead_name.length,
             render: (text, record) => {
-                return <div className="table-avatar d-flex align-items-center">
+                return <Link to={`/sales/leads-details/${record.leadId}`}
+                 className="table-avatar d-flex align-items-center">
                     <span className="company-img menu-list-icon bg-warning ">
                         <i className="ti ti-mail" />
                     </span>
                     <ul>
                         <li>{record.leadEmail}</li>
                     </ul>
-                </div>
+                </Link>
             }
         },
         {
@@ -484,7 +489,7 @@ const ManageLeadList = ({
                     </li>
                 </div>
             ),
-            // sorter: (a, b) => a.owner.length - b.owner.length,
+            // sorter: (a, b) => a.owner.length - b.owner.length, 
         },
         {
             title: "Stage",
@@ -605,7 +610,6 @@ const ManageLeadList = ({
                 return column
             }
         }
-
     })
 
 
@@ -615,7 +619,7 @@ const ManageLeadList = ({
                 <DataTable
                     dataSource={data}
                     columns={modifiedColumns}
-                    onSelectionChange={handleSelectedRowKeysChange}                    
+                    onSelectionChange={handleSelectedRowKeysChange}
                     pageSize={pageSize}
                     totalPages={totalPages}
                     onFetchRecord={handleFetchData}
@@ -653,6 +657,8 @@ const ManageLeadList = ({
                 fetchLeadData={fetchLeadData}
                 setSelectedRowKeys={setSelectedRowKeys}
             />
+
+
         </>
     )
 }

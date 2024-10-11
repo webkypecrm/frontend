@@ -1,23 +1,69 @@
 import React, { useState } from "react";
 import ImageWithBasePath from "../../components/ImageWithBasePath";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { all_routes } from "../Router/all_routes";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const route = all_routes;
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [isPasswordVisible, setPasswordVisible] = useState(false);
+  const navigate = useNavigate();
+
+  console.log(email, password)
 
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
   };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      setError("Please enter both email and password.");
+      return;
+    }
+    const apiUrl = import.meta.env.VITE_API_URL;
+    // console.log(apiUrl);
+
+    try {
+      const response = await fetch(`${apiUrl}/staff/staffLogin`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const responseData = await response.json();
+
+      if (responseData.status === "success") {
+        // console.log("Login successful");
+
+        // toast.success("Login successful");
+        localStorage.setItem("token", responseData.data.Token);
+
+        // Navigate to the next page
+        // setToken(responseData.data.Token);
+        navigate(route.salesDashboard);
+      } else {
+        throw new Error(responseData.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   return (
     <div className="account-content">
       <div className="login-wrapper account-bg">
         <div className="login-content">
-          <form>
+          <form onSubmit={handleLogin}>
             <div className="login-user-info">
               <div className="login-logo">
-                <img                  
+                <img
                   src="/assets/img/webkype_img.png"
                   className="img-fluid"
                   alt="Logo"
@@ -27,19 +73,31 @@ const Login = () => {
                 <h4>Sign In</h4>
                 <p>Access the CRMS panel using your email and passcode.</p>
               </div>
+              {error && <div className="text-danger">{error}</div>}
               <div className="form-wrap">
                 <label className="col-form-label">Email Address</label>
                 <div className="form-wrap-icon">
-                  <input type="text" className="form-control" />
+                  <input
+                    type="email"
+                    className="form-control"
+                    required
+                    onChange={(event) => {
+                      setEmail(event.target.value);
+                    }}
+                  />
                   <i className="ti ti-mail" />
                 </div>
-              </div>
+              </div>           
               <div className="form-wrap">
                 <label className="col-form-label">Password</label>
                 <div className="pass-group">
                   <input
                     type={isPasswordVisible ? "text" : "password"}
                     className="pass-input form-control"
+                    required
+                    onChange={(event) => {
+                      setPassword(event.target.value);
+                    }}
                   />
                   <span
                     className={`ti toggle-password ${isPasswordVisible ? "ti-eye" : "ti-eye-off"
@@ -61,11 +119,14 @@ const Login = () => {
                   </Link>
                 </div>
               </div>
+              
               <div className="form-wrap">
-                <Link to={route.salesDashboard} className="btn btn-primary">
+                <button type="submit" className="btn btn-primary" >
                   Sign In
-                </Link>
+                </button>
               </div>
+
+
               <div className="login-form">
                 <h6>
                   New on our platform?

@@ -23,7 +23,7 @@ const ActivityList = ({ data }) => {
                         data={data}
                     />
                 }
-                {data.type === 'leadComment' &&
+                {data.type === 'commentUpdate' &&
                     <CommentList
                         key={data.id}
                         data={data}

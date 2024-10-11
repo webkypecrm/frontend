@@ -5,30 +5,30 @@ import Select from 'react-select';
 import axios from 'axios';
 
 
-const AssignTo = ({ leadForAssign, fetchLeadData }) => {
+const AssignedTo = ({ taskRecord, fetchTaskData, staffOptions }) => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const Token = localStorage.getItem('token') || '';
-    const [staffOptions, setStaffOptions] = useState([]);
 
     const initialForm = {
-        leadId: '',
+        taskId: '',
         staffId: '',
     }
     const [formData, setFormData] = useState(initialForm);
 
+    console.log('formData =>', formData)
 
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
-            formData.leadId = leadForAssign.leadId
+            formData.taskId = taskRecord.taskId
             const formDataToSend = new FormData();
             for (const key in formData) {
                 if (formData[key] !== null) {
                     formDataToSend.append(key, formData[key])
                 }
             }
-            const response = await fetch(`${apiUrl}/lead/assigned-lead`, {
-                method: 'POST',
+            const response = await fetch(`${apiUrl}/task/task-assigned-to`, {
+                method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${Token}`
                 },
@@ -39,43 +39,18 @@ const AssignTo = ({ leadForAssign, fetchLeadData }) => {
                 throw new Error(resData.message || 'Failed to update');
             }
             setFormData((prev) => ({ ...initialForm }))
-            fetchLeadData()
+            fetchTaskData()
             toast.success('Updated successfully!');
         } catch (error) {
             toast.error(error.message || 'Something went wrong');
         }
     }
 
-    useEffect(() => {
-        const fetchStaffData = async () => {
-            try {
-                const response = await axios.get(`${apiUrl}/staff/staff-list`, {
-                    headers: {
-                        Authorization: `Bearer ${Token}`
-                    }
-                });
-                const formattedData = response.data.data.map((item) => ({
-                    label: item.name,
-                    value: item.staffId
-                }));
-                setStaffOptions(() => [...formattedData]);
-
-            } catch (error) {
-                toast.error(error);
-            }
-        };
-
-        if (leadForAssign.leadId) {
-            fetchStaffData()
-        }
-
-    }, [leadForAssign?.leadId])
-
     return (<>
         {/* Assign To */}
         <div
             className="modal custom-modal fade modal-padding"
-            id="assigned_to"
+            id="task_assigned_to"
             role="dialog"
         >
             <div className="modal-dialog modal-dialog-centered">
@@ -102,7 +77,6 @@ const AssignTo = ({ leadForAssign, fetchLeadData }) => {
                                         <Select
                                             classNamePrefix="react-select"
                                             className="select"
-                                            // value={staffOptions.find(option => option.value === formData.staffId)}
                                             onChange={(event) => {
                                                 setFormData((prevData) => ({
                                                     ...prevData,
@@ -140,4 +114,4 @@ const AssignTo = ({ leadForAssign, fetchLeadData }) => {
     )
 }
 
-export default AssignTo
+export default AssignedTo

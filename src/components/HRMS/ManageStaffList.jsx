@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 
 
 
-const ManageStaffList = ({ togglePopup, setStaffDetails, data, setData, handleRefreshData }) => {
+const ManageStaffList = ({ togglePopup, setStaffDetails, data, setData, handleRefreshData, manageColumns }) => {
   const [stars, setStars] = useState({});
   const [staffId, setStaffId] = useState(null)
 
@@ -27,10 +27,8 @@ const ManageStaffList = ({ togglePopup, setStaffDetails, data, setData, handleRe
   };
 
   const handleDelete = async () => {
-
     if (staffId) {
       try {
-
         await axios.delete(`${apiUrl}/staff/delete/${staffId}`, {
           headers: {
             Authorization: `Bearer ${Token}`
@@ -96,6 +94,18 @@ const ManageStaffList = ({ togglePopup, setStaffDetails, data, setData, handleRe
       title: "Email",
       dataIndex: "email",
       key: "email",
+      sorter: true,
+    },
+    {
+      title: "Gender",
+      dataIndex: "gender",
+      key: "gender",
+      sorter: true,
+    },
+    {
+      title: "Created By",
+      dataIndex: "createdBy",
+      key: "createdBy",
       sorter: true,
     },
     {
@@ -189,6 +199,18 @@ const ManageStaffList = ({ togglePopup, setStaffDetails, data, setData, handleRe
     },
   ];
 
+  const modifiedColumns = columns.filter((column, index) => {
+    if (index == 0) {
+        return column
+    }
+
+    for (const ele in manageColumns) {
+        if (column.title == ele && manageColumns[ele] == true) {
+            return column
+        }
+    }
+})
+
   useEffect(() => {
     initializeStarsState();
   }, []);
@@ -197,7 +219,7 @@ const ManageStaffList = ({ togglePopup, setStaffDetails, data, setData, handleRe
     {data.length !== 0 &&
       <>
         <div className="table-responsive custom-table">
-          <DataTable dataSource={data} columns={columns} />
+          <DataTable dataSource={data} columns={modifiedColumns} />
         </div>
         <div className="row align-items-center">
           <div className="col-md-6">

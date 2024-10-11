@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "bootstrap-daterangepicker/daterangepicker.css";
 import PageHeader from "../../components/Layouts/PageHeader"
@@ -50,7 +50,8 @@ const LeadsPage = () => {
         "Action": true,
     });
     const [totalPages, setTotalPages] = useState(0);
-    const [pageSize, setPageSize] = useState(2);
+    // const [pageSize, setPageSize] = useState(2);
+    const pageSize = 2
 
     const initialFilter = {
         from: "",
@@ -61,10 +62,9 @@ const LeadsPage = () => {
         stage: [],
         company: [],
         leadOwner: [],
-        search:"",
+        search: "",
     }
-
-    const [filterByObj, setFilterByObj] = useState(initialFilter)
+    const [filterByObj, setFilterByObj] = useState(initialFilter);
 
     const togglePopup = () => {
         setAddLead(prev => !prev);
@@ -74,7 +74,8 @@ const LeadsPage = () => {
         setLeadDetails(data)
     }
 
-    console.log('filterByObj =>', filterByObj , num++)
+    console.log('filterByObj =>', filterByObj, num++)
+
     const fetchLeadData = async (page) => {
         try {
             const { from, to, industry, source, country, stage, company, leadOwner, search } = filterByObj;
@@ -172,7 +173,7 @@ const LeadsPage = () => {
                 <div className="row">
                     <div className="col-md-12">
                         {/* Page Header */}
-                        <PageHeader title="Leads" count={data.length} />
+                        <PageHeader title="Leads" count={data.totalCount} />
                         {/* /Page Header */}
 
                         {/* Campaign Status */}
@@ -186,7 +187,7 @@ const LeadsPage = () => {
                                     togglePopup={togglePopup}
                                     onManageColumns={setManageColumns}
                                     manageColumns={manageColumns}
-                                    fetchLeadData={fetchLeadData}
+                                    fetchLeadData={fetchLeadData}  
                                     filterByObj={filterByObj}
                                     setFilterByObj={setFilterByObj}
                                     setFilterSlider={setFilterSlider}
@@ -200,7 +201,7 @@ const LeadsPage = () => {
                                 {error &&
                                     <ErrorLoader title={error.name} message={error.message} />
                                 }
-                                {data.length > 0 &&
+                                {data.length > 0 && !error &&
                                     <ManageLeadList
                                         data={data}
                                         onLeadDetails={leadDetailsHandler}
@@ -273,45 +274,10 @@ const LeadsPage = () => {
                 countryOptions={countryOptions}
                 setFilterByObj={setFilterByObj}
                 fetchLeadData={fetchLeadData}
-                
+
             />
         </div>
-        <div className="modal custom-modal fade" id="save_view" role="dialog">
-            <div className="modal-dialog modal-dialog-centered">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title">Add New View</h5>
-                        <button
-                            className="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                        >
-                            <i className="ti ti-x" />
-                        </button>
-                    </div>
-                    <div className="modal-body">
-                        <form>
-                            <div className="form-wrap">
-                                <label className="col-form-label">View Name</label>
-                                <input type="text" className="form-control" />
-                            </div>
-                            <div className="modal-btn text-end">
-                                <Link
-                                    to="#"
-                                    className="btn btn-light"
-                                    data-bs-dismiss="modal"
-                                >
-                                    Cancel
-                                </Link>
-                                <button type="submit" className="btn btn-danger">
-                                    Save
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
     </>
 }
 

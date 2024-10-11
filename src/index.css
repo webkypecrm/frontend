@@ -8,3 +8,11 @@ input::-webkit-inner-spin-button {
   display: flex;
   gap: 20px;
 }
+
+
+.task-details-li {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dotted gainsboro;
+}
