@@ -15,7 +15,6 @@ function App() {
     <BrowserRouter>
       <Loader />
       <Routes>
-
         <Route element={<Feature />}>
           {publicRoutes.map((route, idx) => (
             <Route path={route.path} element={route.element} key={idx} />

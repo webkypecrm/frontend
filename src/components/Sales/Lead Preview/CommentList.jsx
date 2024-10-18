@@ -3,7 +3,7 @@ import { Tag } from 'antd'
 
 const CommentList = ({ data }) => {
 
-    console.log('data =>', data)
+    console.log('data in CommentList =>', data)
 
     function getDate(value) {
         const isoDateString = value;
@@ -28,23 +28,38 @@ const CommentList = ({ data }) => {
         <li className="activity-wrap">
             <div>
                 <div>
-                    <div className="badge-day">
+                    <div className="badge-day" style={{
+                        fontSize: "x-small",
+                        margin: "",
+                        maxWidth: "9rem"
+                    }}>
                         <i className="ti ti-calendar-check" />
-                        {getDate(data.createdAt)}
+                        {getDate(data.createdAt)}, {getTime(data.createdAt)}
                     </div>
-                    <Tag color="cyan" style={{ marginLeft: '10px' }}>
+                    <Tag className='badge-day' color="cyan" style={{
+                        marginLeft: '10px',
+                        fontSize: "0.6rem",
+                        maxWidth: "9rem",
+                        display: 'inline'
+                    }}>
                         COMMENT
                     </Tag>
                 </div>
                 <div style={{ display: 'flex' }}>
-                    <span className="activity-icon bg-info">
+                    <span className="activity-icon bg-pending">
                         <i className="ti ti-mail-code" />
                     </span>
                     <div className="activity-info">
                         <h6>
-                            {data.createdBy}, Posted an Update
+                            {data?.staff?.name}, Posted an Update
                         </h6>
-                        <p>{data.comment}</p>
+                        <p style={{
+                            fontSize: "14px",
+                            color: "#6F6F6F"
+
+                        }}>
+                            <p>{data?.comment}</p>
+                        </p>
                     </div>
                 </div>
             </div>

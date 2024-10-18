@@ -91,13 +91,18 @@ const ManageTaskList = ({
             title: "Task ID",
             dataIndex: "taskId",
             key: "taskId",
-            render: (text, record, index) => (
+            render: (text, record, index) => (<div style={{ textAlign: 'center' }}>
                 <Link to={`/task/task-details/${record.taskId}`}
-                    style={{ cursor: 'pointer' }}
-                    // onClick={() => setActivityToggleTwo(!activityToggle)}
+                    style={{ cursor: 'pointer', textAlign: 'center' }}
+                     className="table-avatar d-flex align-items-center"
+                // onClick={() => setActivityToggleTwo(!activityToggle)}
                 >
+                    <span className="company-img menu-list-icon ">
+                        <i className="ti ti-id" />
+                    </span>
                     {text}
                 </Link>
+            </div>
             ),
         },
         {
@@ -108,10 +113,17 @@ const ManageTaskList = ({
                 <Link
                     to={`/task/task-details/${record.taskId}`}
                     style={{ cursor: 'pointer' }}
-                    // onClick={() => setActivityToggleTwo(!activityToggle)}
+                    className="table-avatar d-flex align-items-center"
+                // onClick={() => setActivityToggleTwo(!activityToggle)}
                 >
-                    {text}
+                     <span className="company-img menu-list-icon ">
+                        <i className="ti ti-clipboard" />
+                    </span>
+                    <Link to="#" className="profile-split d-flex flex-column">
+                        {text}                       
+                    </Link>                   
                 </Link>
+
             ),
         },
         {

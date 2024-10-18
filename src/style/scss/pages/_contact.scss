@@ -2482,7 +2482,7 @@ $green-hover: darken($green, 10%);
         padding-bottom: 15px;
 
         li {
-            @include margin-padding(0 10px 5px 0, null);
+            @include margin-padding(0 5px 5px 0, null);
         }
     }
 
@@ -2866,11 +2866,11 @@ $green-hover: darken($green, 10%);
 }
 
 .pipeline-list {
-    border-bottom: 1px solid $light-900;
-    margin-bottom: 15px;
+    // border-bottom: 1px solid $light-900;
+    // margin-bottom: 15px;
 
     ul {
-        margin-bottom: 15px;
+        margin-bottom: 12px;
 
         li {
             display: inline-block;
@@ -2889,20 +2889,20 @@ $green-hover: darken($green, 10%);
 
             a {
                 @include margin-padding(0 0 3px, 12px 25px 12px 50px);
-                font-size: $font-size-14;
-                font-weight: $font-weight-medium;
+                font-size: $font-size-10;
+                font-weight: 300;
                 display: inline-block;
                 text-align: center;
                 background: $light-300;
                 color: $title-color;
                 position: relative;
-                min-width: 185px;
+                min-width: 90px;
 
                 &::after {
                     content: '';
-                    @include position(absolute, 0, -23px, null, null);
-                    width: 45px;
-                    height: 45px;
+                    @include position(absolute, 0, -18px, null, null);
+                    width: 39px;
+                    height: 38px;
                     -webkit-transform: scale(.707) rotate(45deg);
                     -ms-transform: scale(.707) rotate(45deg);
                     -moz-transform: scale(.707) rotate(45deg);

@@ -8,7 +8,7 @@ import { Empty } from 'antd';
 const Comments = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const Token = localStorage.getItem('token') || '';
-    const data = leadFollowupData.filter((item) => item.type == 'commentUpdate')
+    const data = leadFollowupData.filter((item) => item.type == 'leadComment')
     const initialForm = {
         comment: ''
     }
