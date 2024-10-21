@@ -484,7 +484,7 @@
       position: absolute;
       width: 3px;
       margin-left: -1.5px;
-      background-color: $gray-300;
+      background-color: #484646;
         @include position(absolute,0,null,0,10%);
     }
     > li {
@@ -547,12 +547,15 @@
       left: -8px;
       border-right-width: 8px;
       border-left-width: 0;
+      color: transparent;
+      display: none;
     }
     &::after {
         right: auto;
         left: -7px;
         border-right-width: 7px;
         border-left-width: 0;
+        color: transparent;
       }
 }
 .timeline-badge.primary {

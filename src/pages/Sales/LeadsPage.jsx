@@ -79,6 +79,7 @@ const LeadsPage = () => {
     const fetchLeadData = async (page) => {
         try {
             const { from, to, industry, source, country, stage, company, leadOwner, search } = filterByObj;
+            console.log('search =>', search)
             const response = await axios.get(`${apiUrl}/lead/lead-list?page=${page ? page : 1}&pageSize=${pageSize}&to=${to}&from=${from}
                 &industry=${industry}&source=${source}&country=${country}&stage=${stage}&company=${company}&leadOwner=${leadOwner}&search=${search}`,
                 {

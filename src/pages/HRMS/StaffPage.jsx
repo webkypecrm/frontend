@@ -7,6 +7,7 @@ import EditStaff from "../../components/HRMS/EditStaff";
 import SearchSection from "../../components/HRMS/SearchSection";
 import ContentLoader from "../../components/Layouts/ContentLoader/Index";
 import ErrorLoader from "../../components/Layouts/ErrorLoader/Index";
+import Filter from "../../components/HRMS/Filter";
 import axios from "axios";
 import { Empty } from "antd";
 import { toast } from "react-toastify";
@@ -25,6 +26,7 @@ const ManageStaff = () => {
   const [groupOptions, setGroupOptions] = useState([])
   const [workShiftOptions, setWorkShiftOptions] = useState([])
   const [jobTypeOptions, setJobTypeOptions] = useState([])
+  const [filterSlider, setFilterSlider] = useState(false);
   const [manageColumns, setManageColumns] = useState({
     "Name": true,
     "Email": true,
@@ -39,23 +41,47 @@ const ManageStaff = () => {
     "Created Date": true,
     "Action": true,
   });
+  const [totalPages, setTotalPages] = useState(0);
+  // const [pageSize, setPageSize] = useState(2);
+  const pageSize = 2
+
+  const initialFilter = {
+    from: "",
+    to: "",
+    source: [],
+    industry: [],
+    country: [],
+    stage: [],
+    company: [],
+    leadOwner: [],
+    search: "",
+  }
+  const [filterByObj, setFilterByObj] = useState(initialFilter);
+
+  console.log('filterByObj =>', filterByObj)
+
 
   const togglePopup = () => {
     setAdduser(!adduser);
   };
 
-  const fetchData = async () => {
+  const fetchData = async (page) => {
     try {
-      const response = await axios.get(`${apiUrl}/staff/staff-list`, {
-        headers: {
-          Authorization: `Bearer ${Token}`
-        }
-      });
+      const { from, to, industry, source, country, stage, company, leadOwner, search } = filterByObj;
+      console.log('search =>', search)
+      const response = await axios.get(`${apiUrl}/staff/staff-list?page=${page ? page : 1}&pageSize=${pageSize}&to=${to}&from=${from}
+          &industry=${industry}&source=${source}&country=${country}&stage=${stage}&company=${company}&leadOwner=${leadOwner}&search=${search}`,
+        {
+          headers: {
+            Authorization: `Bearer ${Token}`
+          }
+        });
       const formattedData = response.data.data.map((item) => ({
         ...item,
         key: item.staffId,
       }));
       setData(formattedData);
+      setTotalPages(response.data.totalCount)
       setIsLoading(false)
     } catch (error) {
       setError(error)
@@ -133,8 +159,8 @@ const ManageStaff = () => {
     }
   };
 
-  const handleRefreshData = () => {
-    fetchData()
+  const handleRefreshData = (page) => {
+    fetchData(page)
   }
 
   useEffect(() => {
@@ -147,6 +173,7 @@ const ManageStaff = () => {
 
   }, []);
 
+  // console.log('data =>', data)
 
   return (
     <>
@@ -168,6 +195,11 @@ const ManageStaff = () => {
                     togglePopup={togglePopup}
                     onManageColumns={setManageColumns}
                     manageColumns={manageColumns}
+                    fetchData={handleRefreshData} 
+                    setFilterSlider={setFilterSlider}
+                    filterByObj={filterByObj}
+                    setFilterByObj={setFilterByObj}
+                    
                   />
                   {/* /Search */}
 
@@ -186,6 +218,8 @@ const ManageStaff = () => {
                       setData={setData}
                       handleRefreshData={handleRefreshData}
                       manageColumns={manageColumns}
+                      pageSize={pageSize}
+                      totalPages={totalPages}
                     />
                   }
                   {
@@ -227,6 +261,20 @@ const ManageStaff = () => {
         />
       }
       {/* /Edit Staff */}
+
+      <div className="form-sorts dropdown">
+        <Filter
+          filterSlider={filterSlider}
+          setFilterSlider={setFilterSlider}
+          sourceOptions={[]}
+          industryOptions={[]}
+          countryOptions={[]}
+          setFilterByObj={setFilterByObj}
+        // fetchLeadData={fetchLeadData}
+
+        />
+      </div>
+
     </>
   );
 };

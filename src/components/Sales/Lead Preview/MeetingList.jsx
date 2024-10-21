@@ -63,8 +63,10 @@ const MeetingList = ({ data }) => {
                                 {data?.staff?.name}, Posted an Update
                             </h6>
                             <p style={{
-                                fontSize: "12px",
-                                color: "#6F6F6F"
+                                    fontSize: "0.7rem",
+                                    color: "rgb(149 144 144)",
+                                    marginTop: "0.2rem",
+                                    fontWeight: "600"
                             }}>
                                 <span>{data.meetingType.toUpperCase()} meeting on {getDate(data.meetingDate)}, {getTime(data.meetingTime)}, </span>
                                 <span>Status: <strong> {data.status} </strong></span><br />

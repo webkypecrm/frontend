@@ -1,11 +1,8 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import ImageWithBasePath from "../../components/ImageWithBasePath";
-// import { useDispatch, useSelector } from "react-redux";
-// import {
-//   setActivityTogglePopup,
-//   setActivityTogglePopupTwo,
-// } from "../../../core/data/redux/commonSlice";
+import { toast } from "react-toastify";
+import axios from "axios";
 import Select from "react-select";
 import {
     ascendingandDecending,
@@ -26,18 +23,67 @@ import { all_routes } from "../Router/all_routes";
 import CollapseHeader from '../../components/CollapseHeader/CollapseHeader';
 // import { SelectWithImage } from "../../../core/common/selectWithImage";
 import 'react-datepicker/dist/react-datepicker.css';
+import { Empty } from "antd";
+import CreateCall from '../../components/Task/TaskDetails/CreateCall';
+import CreateMeeting from '../../components/Task/TaskDetails/CreateMeeting';
+import CreateComment from '../../components/Task/TaskDetails/CreateComment';
+import AddCallComment from '../../components/Task/TaskDetails/AddCallComment';
+import AddMeetingComment from '../../components/Task/TaskDetails/AddMeetingComment';
+import RescheduleCall from '../../components/Task/TaskDetails/RescheduleCall';
+import RescheduleMeeting from '../../components/Task/TaskDetails/RescheduleMeeting';
+
+
 
 const TaskDetailsPage = () => {
+    const params = useParams();
+    const { taskId } = params;
     const route = all_routes;
+    const apiUrl = import.meta.env.VITE_API_URL;
+    const Token = localStorage.getItem('token') || '';
+
     const [activityToggle, setActivityToggle] = useState(false)
     const [activityToggleTwo, setActivityToggleTwo] = useState(false)
-    //   const dispatch = useDispatch();
-    //   const activityToggle = useSelector(
-    //     (state) => state?.activityTogglePopup
-    //   );
-    //   const activityToggleTwo = useSelector(
-    //     (state) => state?.activityTogglePopupTwo
-    //   );
+    const [data, setData] = useState(null);
+    const [taskLogData, setTaskLogData] = useState([]);
+    const [groupActivityByDate, setGroupActivityByDate] = useState({});
+    const [callData, setCallData] = useState([]);
+    const [meetingData, setMeetingData] = useState([]);
+    const [commentData, setCommentData] = useState([]);
+    const [taskLogId, setTaskLogId] = useState('');
+
+
+    console.log('callData =>', callData)
+    console.log('meetingData =>', meetingData)
+    console.log('taskLogData =>', taskLogData)
+    // console.log('stageOptions =>', stageOptions)
+    console.log('commentData =>', commentData)
+
+    function getDate(value) {
+        const isoDateString = value;
+        const date = new Date(isoDateString);
+        // Format date into "DD MMM YYYY"
+        const options = { day: '2-digit', month: 'short', year: 'numeric' };
+        const formattedDate = date.toLocaleDateString('en-GB', options);
+        return formattedDate
+    }
+
+    function getTime(value) {
+        const isoDateString = value;
+        const date = new Date(isoDateString);
+
+        // Get hours, minutes, and determine AM/PM
+        let hours = date.getHours();
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const ampm = hours >= 12 ? 'pm' : 'am';
+
+        // Convert to 12-hour format
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+
+        const formattedTime = `${hours}:${minutes} ${ampm}`;
+        return formattedTime;
+    }
+
     const [owner, setOwner] = useState(["Collab"]);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const handleDateChange = (date) => {
@@ -86,6 +132,88 @@ const TaskDetailsPage = () => {
         { value: "France", label: "France" },
         { value: "UAE", label: "UAE" },
     ];
+
+
+    console.log('data =>', data)
+
+    function handleRefresh() {
+        fetchTaskLogData();
+        fetchTaskDetails();
+        fetchStageData();
+    }
+
+    const fetchTaskLogData = async () => {
+        try {
+            const response = await axios.get(`${apiUrl}/task/task-log/${data?.taskId}`, {
+                headers: {
+                    Authorization: `Bearer ${Token}`
+                }
+            });
+            console.log('data =>', response.data.data)
+            setTaskLogData((prev) => [...response.data.data]);
+            const groupedData = response.data.data.reduce((acc, item) => {
+                // const date = item.createdAt.split("T")[0]; 
+                const date = getDate(item.createdAt);
+                if (!acc[date]) {
+                    acc[date] = [];
+                }
+                acc[date].push(item);
+                return acc;
+            }, {});
+            setGroupActivityByDate((prev) => ({ ...groupedData }))
+            const callUpdates = response.data.data.filter((item) => item.type == 'callUpdate')
+            setCallData((prev) => [...callUpdates]);
+
+            const meetingUpdate = response.data.data.filter((item) => item.type == 'meetingUpdate')
+            setMeetingData((prev) => [...meetingUpdate])
+
+            const commentUpdate = response.data.data.filter((item) => item.type == 'taskComment')
+            setCommentData((prev) => [...commentUpdate])
+
+        } catch (error) {
+            console.log(error)
+            toast.error(error.message)
+        }
+    };
+
+    const fetchTaskDetails = async () => {
+        try {
+            const response = await axios.get(`${apiUrl}/task/task-details/${taskId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${Token}`
+                    }
+                }
+            );
+
+            setData((prev) => ({
+                ...response.data.data,
+                tags: JSON.parse(response.data.data.tags)
+            }));
+        } catch (error) {
+            console.log(error)
+            toast.error(error.message)
+        }
+    }
+
+
+    useEffect(() => {
+
+        if (data?.taskId) {
+            fetchTaskLogData()
+            // fetchStageData()
+        }
+
+    }, [data?.leadId])
+
+    useEffect(() => {
+        if (taskId) {
+            fetchTaskDetails()
+        }
+
+    }, [taskId])
+
+
     return (
         <>
             {/* Page Wrapper */}
@@ -117,12 +245,12 @@ const TaskDetailsPage = () => {
                                     <div className="col-sm-6">
                                         <ul className="contact-breadcrumb">
                                             <li>
-                                                <Link to={route.companies}>
+                                                <Link to='#'>
                                                     <i className="ti ti-arrow-narrow-left" />
-                                                    Company
+                                                    Task
                                                 </Link>
                                             </li>
-                                            <li>NovaWave LLC</li>
+                                            <li>{data?.taskTitle}</li>
                                         </ul>
                                     </div>
                                     <div className="col-sm-6 text-sm-end">
@@ -147,16 +275,15 @@ const TaskDetailsPage = () => {
                             <div className="contact-wrap">
                                 <div className="contact-profile">
                                     <div className="avatar company-avatar">
-                                        <ImageWithBasePath
-                                            src="assets/img/icons/company-icon-01.svg"
-                                            alt="img"
-                                        />
+                                        <span className="text-icon">
+                                            {data?.taskTitle[0]}{data?.taskTitle[data?.taskTitle?.length - 1]}
+                                        </span>
                                     </div>
                                     <div className="name-user">
-                                        <h5>NovaWave LLC</h5>
+                                        <h5>{data?.taskTitle}</h5>
                                         <p>
                                             <i className="ti ti-map-pin-pin me-1" />
-                                            22, Ave Street, Newyork, USA
+                                            {data?.taskType.toUpperCase()}
                                         </p>
                                         <div className="badge-rate">
                                             <p>
@@ -177,7 +304,7 @@ const TaskDetailsPage = () => {
                                         }
                                     >
                                         <i className="ti ti-circle-plus" />
-                                        Add Deal
+                                        {data?.status.toUpperCase()}
                                     </Link>
                                     <Link
                                         to="#"
@@ -228,7 +355,7 @@ const TaskDetailsPage = () => {
                         <div className="col-xl-3 theiaStickySidebar">
                             <div className="stickybar">
                                 <div className="contact-sidebar">
-                                    <h6>Basic Information</h6>
+                                    {/* <h6>Basic Information</h6>
                                     <ul className="basic-info">
                                         <li>
                                             <span>
@@ -248,85 +375,86 @@ const TaskDetailsPage = () => {
                                             </span>
                                             <p>Created on 5 Jan 2024, 10:30 am</p>
                                         </li>
-                                    </ul>
-                                    <h6>Other Information</h6>
+                                    </ul> */}
+                                    <h6>Information</h6>
                                     <ul className="other-info">
                                         <li>
-                                            <span className="other-title">Language</span>
-                                            <span>Language</span>
+                                            <span className="other-title">Start Date</span>
+                                            <span>{getDate(data?.startDate)}</span>
                                         </li>
                                         <li>
-                                            <span className="other-title">Currency</span>
-                                            <span>United States dollar</span>
+                                            <span className="other-title">End Date</span>
+                                            <span>{getDate(data?.endDate)}</span>
                                         </li>
                                         <li>
-                                            <span className="other-title">Last Modified</span>
-                                            <span>27 Sep 2023, 11:45 pm</span>
+                                            <span className="other-title">Priority</span>
+                                            <span>{data?.priority.toUpperCase()}</span>
                                         </li>
                                         <li>
-                                            <span className="other-title">Source</span>
-                                            <span>Paid Campaign</span>
+                                            <span className="other-title">Created Date</span>
+                                            <span>{getDate(data?.createdAt)}, {getTime(data?.createdAt)}</span>
                                         </li>
                                     </ul>
                                     <h6>Tags</h6>
                                     <ul className="tag-info">
-                                        <li>
+                                        {data?.tags.map((tag, index) => <li key={index}>
                                             <Link
                                                 to="#"
                                                 className="badge badge-tag badge-success-light"
                                             >
-                                                Collab
+                                                {tag}
                                             </Link>
-                                        </li>
-                                        <li>
-                                            <Link
-                                                to="#"
-                                                className="badge badge-tag badge-warning-light"
-                                            >
-                                                Rated
-                                            </Link>
-                                        </li>
+                                        </li>)}
                                     </ul>
-                                    <div className="con-sidebar-title">
+                                    {/* <div className="con-sidebar-title">
                                         <h6>Company</h6>
                                         <Link to="#" className="com-add add-popups">
                                             <i className="ti ti-circle-plus me-1" />
                                             Add New
                                         </Link>
+                                    </div> */}
+                                    <div className="con-sidebar-title">
+                                        <h6>Lead Details</h6>
+                                    </div>
+                                    <ul className="other-info">
+                                        <li>
+                                            <span className="other-title">Lead Name</span>
+                                            <span>{data?.leadName}</span>
+                                        </li>
+                                        <li>
+                                            <span className="other-title">Lead Email</span>
+                                            <span>{data?.lead?.leadEmail}</span>
+                                        </li>
+                                        <li>
+                                            <span className="other-title">Lead Mobile</span>
+                                            <span>{data?.lead?.leadMobile1}</span>
+                                        </li>
+                                        <li>
+                                            <span className="other-title">Created Date</span>
+                                            <span>{getDate(data?.lead?.createdAt)}, {getTime(data?.lead?.createdAt)}</span>
+                                        </li>
+                                    </ul>
+
+
+                                    <div className="con-sidebar-title">
+                                        <h6>Assign To</h6>
                                     </div>
                                     <ul className="company-info com-info">
                                         <li>
                                             <span>
-                                                <ImageWithBasePath
-                                                    src="assets/img/icons/company-icon-01.svg"
+                                                <img
+                                                    src={data?.assignedToImg}
                                                     alt="img"
                                                 />
                                             </span>
                                             <div>
-                                                <h6>NovaWaveLLC</h6>
-                                                <p>
-                                                    <i className="fa-solid fa-star" />
-                                                    3.5
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <ImageWithBasePath
-                                                    src="assets/img/icons/company-icon-02.svg"
-                                                    alt="img"
-                                                />
-                                            </span>
-                                            <div>
-                                                <h6>BlueSky Industries</h6>
-                                                <p>
-                                                    <i className="fa-solid fa-star" />
-                                                    4.2
-                                                </p>
+                                                <h6>{data?.assignedTo}</h6>
+
                                             </div>
                                         </li>
                                     </ul>
-                                    <h6>Social Profile</h6>
+
+                                    {/* <h6>Social Profile</h6>
                                     <ul className="social-info">
                                         <li>
                                             <Link to="#">
@@ -358,16 +486,16 @@ const TaskDetailsPage = () => {
                                                 <i className="fa-brands fa-linkedin" />
                                             </Link>
                                         </li>
-                                    </ul>
-                                    <h6>Settings</h6>
+                                    </ul> */}
+                                    <h6>Attachment</h6>
                                     <ul className="set-info">
                                         <li>
-                                            <Link to="#">
+                                            <Link to={data?.attachmentUrl}>
                                                 <i className="ti ti-share-2" />
-                                                Share Company
+                                                {data?.attachment ? data?.attachment : 'No Attachment'}
                                             </Link>
                                         </li>
-                                        <li>
+                                        {/* <li>
                                             <Link to="#">
                                                 <i className="ti ti-star" />
                                                 Add to Favourite
@@ -382,53 +510,89 @@ const TaskDetailsPage = () => {
                                                 <i className="ti ti-trash-x" />
                                                 Delete Company
                                             </Link>
-                                        </li>
+                                        </li> */}
                                     </ul>
                                 </div>
+
+                                {taskLogData.length > 0 &&
+                                    <ul className="other-info">
+                                        <li>
+                                            <span className="other-title">Last Modified</span>
+                                            <span>{taskLogData[0]?.createdAtDate}, {taskLogData[0]?.createdAtTime}</span>
+                                        </li>
+                                        <li>
+                                            <span className="other-title">Modified By</span>
+                                            <span>
+                                                <img
+                                                    src={taskLogData[0]?.staff?.profilePicUrl}
+                                                    className="avatar-xs"
+                                                    alt="img"
+                                                />{" "}
+                                                {taskLogData[0]?.staff?.name}
+                                            </span>
+                                        </li>
+                                    </ul>
+                                }
                             </div>
                         </div>
                         {/* /Contact Sidebar */}
                         {/* Contact Details */}
                         <div className="col-xl-9">
-                            <div className="contact-tab-wrap">
-                                <ul className="contact-nav nav">
-                                    <li>
-                                        <Link
-                                            to="#"
-                                            data-bs-toggle="tab"
-                                            data-bs-target="#activities"
-                                            className="active"
-                                        >
-                                            <i className="ti ti-alarm-minus" />
-                                            Activities
+                            <ul className="contact-nav nav">
+                                <li>
+                                    <Link
+                                        to="#"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#activities"
+                                        className="active"
+                                    >
+                                        <i className="ti ti-alarm-minus" />
+                                        Activities
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="#" data-bs-toggle="tab" data-bs-target="#task-calls">
+                                        <i className="ti ti-phone" />
+                                        Calls
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="#" data-bs-toggle="tab" data-bs-target="#task-meeting">
+                                        <i className="ti ti-notes" />
+                                        Meeting
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="#" data-bs-toggle="tab" data-bs-target="#task-comment">
+                                        <i className="ti ti-files" />
+                                        Comment
+                                    </Link>
+                                </li>
+                                {/* <li>
+                                    <Link to="#" data-bs-toggle="tab" data-bs-target="#lead-proposal">
+                                        <i className="ti ti-files" />
+                                        Proposal
+                                    </Link>
+                                </li> */}
+                                {/* <li>
+                                        <Link to="#" data-bs-toggle="tab" data-bs-target="#lead-details-task">
+                                            <i className="ti ti-files" />
+                                            Task
                                         </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="#" data-bs-toggle="tab" data-bs-target="#notes">
-                                            <i className="ti ti-notes" />
-                                            Notes
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="#" data-bs-toggle="tab" data-bs-target="#calls">
-                                            <i className="ti ti-phone" />
-                                            Calls
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="#" data-bs-toggle="tab" data-bs-target="#files">
-                                            <i className="ti ti-file" />
-                                            Files
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="#" data-bs-toggle="tab" data-bs-target="#email">
-                                            <i className="ti ti-mail-check" />
-                                            Email
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </div>
+                                    </li> */}
+                                <li>
+                                    <Link to="#" data-bs-toggle="tab" data-bs-target="#files">
+                                        <i className="ti ti-file" />
+                                        Files
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="#" data-bs-toggle="tab" data-bs-target="#email">
+                                        <i className="ti ti-mail-check" />
+                                        Email
+                                    </Link>
+                                </li>
+                            </ul>
                             {/* Tab Content */}
                             <div className="contact-tab-view">
                                 <div className="tab-content pt-0">
@@ -451,203 +615,497 @@ const TaskDetailsPage = () => {
                                                 </li>
                                             </ul>
                                         </div>
+
                                         <div className="contact-activity">
-                                            <div className="badge-day">
-                                                <i className="ti ti-calendar-check" />
-                                                29 Aug 2023
-                                            </div>
-                                            <ul>
-                                                <li className="activity-wrap">
-                                                    <span className="activity-icon bg-pending">
-                                                        <i className="ti ti-mail-code" />
-                                                    </span>
-                                                    <div className="activity-info">
-                                                        <h6>You sent 1 Message to the contact.</h6>
-                                                        <p>10:25 pm</p>
+                                            {taskLogData.length == 0 && <Empty description={false} />}
+
+                                            {Object.keys(groupActivityByDate).map((date) =>
+                                                <div key={date}>
+                                                    <div className="badge-day" >
+                                                        <i className="ti ti-calendar-check" />
+                                                        {date}
                                                     </div>
-                                                </li>
-                                                <li className="activity-wrap">
-                                                    <span className="activity-icon bg-secondary-success">
-                                                        <i className="ti ti-phone" />
-                                                    </span>
-                                                    <div className="activity-info">
-                                                        <h6>
-                                                            Denwar responded to your appointment schedule
-                                                            question by call at 09:30pm.
-                                                        </h6>
-                                                        <p>09:25 pm</p>
-                                                    </div>
-                                                </li>
-                                                <li className="activity-wrap">
-                                                    <span className="activity-icon bg-orange">
-                                                        <i className="ti ti-notes" />
-                                                    </span>
-                                                    <div className="activity-info">
-                                                        <h6>Notes added by Antony</h6>
-                                                        <p>
-                                                            Please accept my apologies for the inconvenience
-                                                            caused. It would be much appreciated if it's
-                                                            possible to reschedule to 6:00 PM, or any other
-                                                            day that week.
-                                                        </p>
-                                                        <p>10.00 pm</p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                            <div className="badge-day">
-                                                <i className="ti ti-calendar-check" />
-                                                28 Feb 2024
-                                            </div>
-                                            <ul>
-                                                <li className="activity-wrap">
-                                                    <span className="activity-icon bg-info">
-                                                        <i className="ti ti-user-pin" />
-                                                    </span>
-                                                    <div className="activity-info">
-                                                        <h6>
-                                                            Meeting With{" "}
-                                                            <span className="avatar-xs">
-                                                                <ImageWithBasePath
-                                                                    src="assets/img/profiles/avatar-19.jpg"
-                                                                    alt="img"
-                                                                />
-                                                            </span>{" "}
-                                                            Abraham
-                                                        </h6>
-                                                        <p>Schedueled on 05:00 pm</p>
-                                                    </div>
-                                                </li>
-                                                <li className="activity-wrap">
-                                                    <span className="activity-icon bg-secondary-success">
-                                                        <i className="ti ti-phone" />
-                                                    </span>
-                                                    <div className="activity-info">
-                                                        <h6>
-                                                            Drain responded to your appointment schedule
-                                                            question.
-                                                        </h6>
-                                                        <p>09:25 pm</p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                            <div className="badge-day">
-                                                <i className="ti ti-calendar-check" />
-                                                Upcoming Activity
-                                            </div>
-                                            <ul>
-                                                <li className="activity-wrap">
-                                                    <span className="activity-icon bg-info">
-                                                        <i className="ti ti-user-pin" />
-                                                    </span>
-                                                    <div className="activity-info">
-                                                        <h6>Product Meeting</h6>
-                                                        <p>
-                                                            A product team meeting is a gathering of the
-                                                            cross-functional product team — ideally including
-                                                            team members from product, engineering, marketing,
-                                                            and customer support.
-                                                        </p>
-                                                        <p>25 Jul 2023, 05:00 pm</p>
-                                                        <div className="upcoming-info">
-                                                            <div className="row">
-                                                                <div className="col-sm-4">
-                                                                    <p>Reminder</p>
-                                                                    <div className="dropdown">
-                                                                        <Link
-                                                                            to="#"
-                                                                            className="dropdown-toggle"
-                                                                            data-bs-toggle="dropdown"
-                                                                            aria-expanded="false"
-                                                                        >
-                                                                            <i className="ti ti-clock-edit me-1" />
-                                                                            Reminder
-                                                                            <i className="ti ti-chevron-down ms-1" />
-                                                                        </Link>
-                                                                        <div className="dropdown-menu dropdown-menu-right">
-                                                                            <Link className="dropdown-item" to="#">
-                                                                                Remainder
-                                                                            </Link>
-                                                                            <Link className="dropdown-item" to="#">
-                                                                                1 hr
-                                                                            </Link>
-                                                                            <Link className="dropdown-item" to="#">
-                                                                                10 hr
-                                                                            </Link>
-                                                                        </div>
-                                                                    </div>
+                                                    <ul>
+                                                        {groupActivityByDate[`${date}`].map((lead) => <li className="activity-wrap" key={lead.id} style={{ marginBottom: '1rem' }}>
+                                                            {lead.type == 'callUpdate' && <>
+                                                                <span className="activity-icon bg-secondary-success">
+                                                                    <i className="ti ti-phone" />
+                                                                </span>
+                                                                <div className="activity-info">
+                                                                    <h6>  {lead.status} a call on {getDate(lead.callBackDate)}, {getTime(lead.callBackTime)}</h6>
+                                                                    <p>{lead?.comment}</p>
+                                                                    <p>{lead.createdAtTime}</p>
                                                                 </div>
-                                                                <div className="col-sm-4">
-                                                                    <p>Task Priority</p>
-                                                                    <div className="dropdown">
-                                                                        <Link
-                                                                            to="#"
-                                                                            className="dropdown-toggle"
-                                                                            data-bs-toggle="dropdown"
-                                                                            aria-expanded="false"
-                                                                        >
-                                                                            <i className="ti ti-square-rounded-filled me-1 text-danger circle" />
-                                                                            High
-                                                                            <i className="ti ti-chevron-down ms-1" />
-                                                                        </Link>
-                                                                        <div className="dropdown-menu dropdown-menu-right">
-                                                                            <Link className="dropdown-item" to="#">
-                                                                                <i className="ti ti-square-rounded-filled me-1 text-danger circle" />
-                                                                                High
-                                                                            </Link>
-                                                                            <Link className="dropdown-item" to="#">
-                                                                                <i className="ti ti-square-rounded-filled me-1 text-success circle" />
-                                                                                Low
-                                                                            </Link>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-sm-4">
-                                                                    <p>Assigned to</p>
-                                                                    <div className="dropdown">
-                                                                        <Link
-                                                                            to="#"
-                                                                            className="dropdown-toggle"
-                                                                            data-bs-toggle="dropdown"
-                                                                            aria-expanded="false"
-                                                                        >
-                                                                            <ImageWithBasePath
-                                                                                src="assets/img/profiles/avatar-19.jpg"
-                                                                                alt="img"
-                                                                                className="avatar-xs"
-                                                                            />
-                                                                            John
-                                                                            <i className="ti ti-chevron-down ms-1" />
-                                                                        </Link>
-                                                                        <div className="dropdown-menu dropdown-menu-right">
-                                                                            <Link className="dropdown-item" to="#">
-                                                                                <ImageWithBasePath
-                                                                                    src="assets/img/profiles/avatar-19.jpg"
+                                                            </>
+                                                            }
+                                                            {
+                                                                lead.type == 'taskComment' &&
+                                                                <>
+                                                                    <span className="activity-icon bg-pending">
+                                                                        <i className="ti ti-mail-code" />
+                                                                    </span>
+                                                                    <div className="activity-info">
+                                                                        <h6>  Comment was posted by
+                                                                            <span className="avatar-xs">
+                                                                                <img
+                                                                                    src={lead?.staff?.profilePicUrl}
                                                                                     alt="img"
-                                                                                    className="avatar-xs"
                                                                                 />
-                                                                                John
-                                                                            </Link>
-                                                                            <Link className="dropdown-item" to="#">
-                                                                                <ImageWithBasePath
-                                                                                    src="assets/img/profiles/avatar-19.jpg"
-                                                                                    alt="img"
-                                                                                    className="avatar-xs"
-                                                                                />
-                                                                                Peter
-                                                                            </Link>
-                                                                        </div>
+                                                                            </span>{" "}
+                                                                            {lead?.staff?.name.split(' ')[0]}
+                                                                        </h6>
+                                                                        <p>{lead?.comment}</p>
+                                                                        <p>{lead?.createdAtTime}</p>
                                                                     </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
+                                                                </>
+
+                                                            }
+                                                            {
+                                                                lead.type == 'meetingUpdate' &&
+                                                                <>
+                                                                    <span className="activity-icon bg-info">
+                                                                        <i className="ti ti-user-pin" />
+                                                                    </span>
+                                                                    <div className="activity-info">
+                                                                        <h6>
+                                                                            <span className="avatar-xs">
+                                                                                <img
+                                                                                    src={lead?.staff?.profilePicUrl}
+                                                                                    alt="img"
+                                                                                />
+                                                                            </span>{" "}
+                                                                            {lead?.staff?.name.split(' ')[0]} {lead?.status.toLowerCase()} {lead?.task?.lead?.leadName.toUpperCase()} on {getDate(lead?.meetingDate)}
+                                                                        </h6>
+                                                                        <p>{lead?.comment}</p>
+                                                                        <p>{lead?.createdAtTime}</p>
+                                                                    </div>
+                                                                </>
+                                                            }
+                                                            {
+                                                                lead.type == 'statusUpdate' &&
+                                                                <>
+                                                                    <span className="activity-icon bg-pink">
+                                                                        <i className="ti ti-analyze" />
+                                                                    </span>
+                                                                    <div className="activity-info">
+                                                                        <h6>
+                                                                            Lead stage updated to {lead?.contactType.toLowerCase()}
+                                                                        </h6>
+                                                                        <p>{lead?.createdAtTime}</p>
+                                                                    </div>
+                                                                </>
+                                                            }
+                                                            {
+                                                                lead.type == 'assignUpdate' &&
+                                                                <>
+                                                                    <span className="activity-icon bg-tertiary">
+                                                                        <i className="ti ti-timeline-event-exclamation" />
+                                                                    </span>
+                                                                    <div className="activity-info">
+                                                                        <h6>
+                                                                            Task has been successfully assigned to
+                                                                            <span className="avatar-xs">
+                                                                                <img
+                                                                                    src={lead?.attachment}
+                                                                                    alt="img"
+                                                                                />
+                                                                            </span>
+                                                                            {lead?.contactType}
+                                                                        </h6>
+                                                                        <p>{lead?.createdAtTime}</p>
+                                                                    </div>
+                                                                </>
+                                                            }
+                                                        </li>)}
+                                                    </ul>
+
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                     {/* /Activities */}
+                                    {/* Meeting */}
+                                    <div className="tab-pane fade" id="task-meeting">
+                                        <div className="view-header">
+                                            <h4>Meeting</h4>
+                                            <ul>
+                                                <li>
+                                                    <div className="form-sort">
+                                                        <i className="ti ti-sort-ascending-2" />
+                                                        <Select
+                                                            className="select"
+                                                            options={ascendingandDecending}
+                                                            classNamePrefix="react-select"
+                                                            placeholder="Ascending"
+                                                        />
+                                                    </div>
+                                                </li>
+                                                {(meetingData[0]?.status == 'Done' || meetingData[0]?.status == '' || meetingData.length === 0) &&
+                                                    <li>
+                                                        <Link
+                                                            to="#"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#create_task_meeting"
+                                                            className="com-add"
+                                                        >
+                                                            <i className="ti ti-circle-plus me-1" />
+                                                            Add New
+                                                        </Link>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                        <div className="notes-activity" >
+                                            {meetingData.length == 0 && <Empty description={false} />}
+                                            {meetingData.map((data) => <div className="calls-box" key={data?.id}>
+                                                <div className="caller-info">
+                                                    <div className="calls-user">
+                                                        <img
+                                                            src={data?.staff?.profilePicUrl}
+                                                            alt="img"
+                                                        />
+                                                        <div style={{ display: 'grid' }}>
+                                                            <p>
+                                                                <span>{data?.staff?.name}</span> <strong>{data?.status.toLowerCase()}</strong> a meeting on {getDate(data.meetingDate)}, {getTime(data.meetingTime)}
+                                                            </p>
+                                                            <span className="badge-day" style={{ fontSize: 'x-small', margin: '0', maxWidth: '8rem' }}>{getDate(data?.createdAt)},{getTime(data?.createdAt)}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="calls-action">
+                                                        <div className="dropdown call-drop">
+                                                            {data?.status == 'Done' ?
+                                                                <Link
+                                                                    to="#"
+                                                                    className="dropdown-toggle bg-success"
+                                                                    aria-expanded="false"
+                                                                >
+                                                                    <i className="ti ti-square-check" />
+
+                                                                </Link>
+                                                                :
+                                                                <Link
+                                                                    to="#"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#create_task_meeting_comment"
+                                                                    className="dropdown-toggle bg-pending"
+                                                                    aria-expanded="false"
+                                                                    onClick={() => {
+                                                                        setTaskLogId(data?.taskLogId)
+                                                                    }}
+                                                                >
+                                                                    <i className="ti ti-square-check" />
+                                                                    {/* Mark Done */}
+                                                                </Link>
+                                                            }
+                                                        </div>
+                                                        {data?.status !== 'Done' &&
+                                                            <div className="dropdown call-drop">
+                                                                {
+                                                                    <Link
+                                                                        to="#"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#create_task_meeting_rescheduled"
+                                                                        className="dropdown-toggle"
+                                                                        aria-expanded="false"
+                                                                        onClick={() => {
+                                                                            setTaskLogId(data?.taskLogId)
+                                                                        }}
+                                                                    >
+                                                                        <i className="ti ti-calendar-month" />
+                                                                        {/* Re-scheduled */}
+                                                                    </Link>
+                                                                }
+                                                            </div>
+                                                        }
+
+                                                        <div className="dropdown action-drop">
+                                                            <Link
+                                                                to="#"
+                                                                className="dropdown-toggle"
+                                                                data-bs-toggle="dropdown"
+                                                                aria-expanded="false"
+                                                            >
+                                                                <i className="ti ti-dots-vertical" />
+                                                            </Link>
+                                                            <div className="dropdown-menu dropdown-menu-right">
+                                                                <Link className="dropdown-item" to="#">
+                                                                    <i className="ti ti-edit text-blue" />
+                                                                    Edit
+                                                                </Link>
+                                                                <Link className="dropdown-item" to="#">
+                                                                    <i className="ti ti-trash text-danger" />
+                                                                    Delete
+                                                                </Link>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <p>
+                                                    {data?.lastCallSummary}
+                                                </p>
+                                                <div className="upcoming-info">
+                                                    <div className="row">
+                                                        <div className="col-sm-4">
+                                                            <p>Meeting Type</p>
+                                                            <div className="dropdown">
+                                                                <Link
+                                                                    to="#"
+                                                                    className="dropdown-toggle"
+                                                                    data-bs-toggle="dropdown"
+                                                                    aria-expanded="false"
+                                                                >
+                                                                    <i className="ti ti-clock-edit me-1" />
+                                                                    {data?.meetingType.toUpperCase()}
+                                                                    <i className="ti ti-chevron-down ms-1" />
+                                                                </Link>
+                                                                <div className="dropdown-menu dropdown-menu-right">
+                                                                    <Link className="dropdown-item" to="#">
+                                                                        offline
+                                                                    </Link>
+                                                                    <Link className="dropdown-item" to="#">
+                                                                        online
+                                                                    </Link>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-sm-4">
+                                                            <p>{data?.meetingType === 'offline' ? 'Address' : 'URL'}</p>
+
+                                                            <div className="dropdown">
+                                                                <Link
+                                                                    to={data?.meetingType === 'offline' ? '#' : data?.meetingVenue}
+                                                                    className="dropdown-toggle"
+                                                                    aria-expanded="false"
+                                                                >
+                                                                    <i className="ti ti-square-rounded-filled me-1 text-success circle" />
+                                                                    {data?.meetingVenue}
+                                                                </Link>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {
+                                                    data?.comment &&
+                                                    <div className="reply-box">
+                                                        <p>
+                                                            {data?.comment}
+                                                        </p>
+                                                    </div>
+                                                }
+                                                {/* <div style={{ marginTop: '1rem' }}>
+                                                    <AddMeetingComment taskLogId={data.id} fetchtaskLogData={fetchtaskLogData} />
+                                                </div> */}
+                                            </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                    {/* /Meeting */}
+                                    {/* Calls */}
+                                    <div className="tab-pane fade" id="task-calls">
+                                        <div className="view-header">
+                                            <h4>Calls</h4>
+                                            {(callData[0]?.status == 'Done' || callData[0]?.status == '' || callData.length === 0) &&
+                                                <ul>
+                                                    <li>
+                                                        <Link
+                                                            to="#"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#create_task_call"
+                                                            className="com-add"
+                                                        >
+                                                            <i className="ti ti-circle-plus me-1" />
+                                                            Add New
+                                                        </Link>
+                                                    </li>
+                                                </ul>
+                                            }
+                                        </div>
+                                        <div className="calls-activity" >
+                                            {callData.length == 0 && <Empty description={false} />}
+                                            {callData.map((data) => <div className="calls-box" key={data.taskLogId}>
+                                                <div className="caller-info">
+                                                    <div className="calls-user">
+                                                        <img
+                                                            src={data?.staff?.profilePicUrl}
+                                                            alt="img"
+                                                        />
+                                                        <div style={{ display: 'grid' }}>
+                                                            <p>
+                                                                <span>{data?.staff?.name}</span> <strong> {data?.status.toLowerCase()} </strong>
+                                                                a call on {getDate(data.callBackDate)}, {getTime(data.callBackTime)}
+                                                            </p>
+                                                            <span className="badge-day" style={{ fontSize: 'x-small', margin: '0', maxWidth: '8rem' }}>{getDate(data?.createdAt)},{getTime(data?.createdAt)}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="calls-action">
+                                                        <div className="dropdown call-drop">
+                                                            {data?.status == 'Done' ?
+                                                                <Link
+                                                                    to="#"
+                                                                    className="dropdown-toggle bg-success"
+                                                                    aria-expanded="false"
+                                                                >
+                                                                    <i className="ti ti-square-check" />
+
+                                                                </Link>
+                                                                :
+                                                                <Link
+                                                                    to="#"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#create_call_comment"
+                                                                    className="dropdown-toggle bg-pending"
+                                                                    aria-expanded="false"
+                                                                    onClick={() => {
+                                                                        setTaskLogId(data?.taskLogId)
+                                                                    }}
+                                                                >
+                                                                    <i className="ti ti-square-check" />
+                                                                    {/* Mark Done */}
+                                                                </Link>
+                                                            }
+                                                        </div>
+                                                        {data?.status !== 'Done' &&
+                                                            <div className="dropdown call-drop">
+                                                                {
+                                                                    <Link
+                                                                        to="#"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#create_task_call_rescheduled"
+                                                                        className="dropdown-toggle"
+                                                                        aria-expanded="false"
+                                                                        onClick={() => {
+                                                                            setTaskLogId(data?.taskLogId)
+                                                                        }}
+                                                                    >
+                                                                        <i className="ti ti-calendar-month" />
+                                                                        {/* Re-scheduled */}
+                                                                    </Link>
+                                                                }
+                                                            </div>
+                                                        }
+
+                                                        <div className="dropdown action-drop">
+                                                            <Link
+                                                                to="#"
+                                                                className="dropdown-toggle"
+                                                                data-bs-toggle="dropdown"
+                                                                aria-expanded="false"
+                                                            >
+                                                                <i className="ti ti-dots-vertical" />
+                                                            </Link>
+                                                            <div className="dropdown-menu dropdown-menu-right">
+                                                                <Link className="dropdown-item" to="#">
+                                                                    <i className="ti ti-edit text-blue" />
+                                                                    Edit
+                                                                </Link>
+                                                                <Link className="dropdown-item" to="#">
+                                                                    <i className="ti ti-trash text-danger" />
+                                                                    Delete
+                                                                </Link>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <p>
+                                                    {data.lastCallSummary} <br />
+                                                </p>
+                                                {data?.comment &&
+                                                    <div className="reply-box"
+                                                        style={{
+                                                            backgroundColor: '#F9F9FC',
+                                                            borderRadius: "5px",
+                                                            margin: "0 0 15px",
+                                                            padding: "15px"
+                                                        }}>
+                                                        <p>
+                                                            {data?.comment}
+                                                        </p>
+                                                    </div>
+                                                }
+                                            </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                    {/* /Calls */}
+                                    {/* Comment */}
+                                    <div className="tab-pane fade" id="task-comment">
+                                        <div className="view-header">
+                                            <h4>Comment</h4>
+                                            <ul>
+                                                <li>
+                                                    <div className="form-sort">
+                                                        <i className="ti ti-sort-ascending-2" />
+                                                        <Select
+                                                            className="select"
+                                                            options={ascendingandDecending}
+                                                            classNamePrefix="react-select"
+                                                            placeholder="Ascending"
+                                                        />
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <Link
+                                                        to="#"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#create_task_comment"
+                                                        className="com-add"
+                                                    >
+                                                        <i className="ti ti-circle-plus me-1" />
+                                                        Add New
+                                                    </Link>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div className="notes-activity">
+                                            {commentData.length == 0 && <Empty description={false} />}
+                                            {commentData.map((data) => <div className="calls-box" key={data.taskLogId}>
+                                                <div className="caller-info">
+                                                    <div className="calls-user">
+                                                        <img
+                                                            src={data?.staff?.profilePicUrl}
+                                                            alt="img"
+                                                        />
+                                                        <div style={{ display: 'grid' }}>
+                                                            <p>
+                                                                <span>{data?.staff?.name}</span>
+                                                            </p>
+                                                            <span className="badge-day" style={{ fontSize: 'x-small', margin: '0', maxWidth: '8rem' }}>{getDate(data?.createdAt)},{getTime(data?.createdAt)}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="calls-action">
+                                                        <div className="dropdown action-drop">
+                                                            <Link
+                                                                to="#"
+                                                                className="dropdown-toggle"
+                                                                data-bs-toggle="dropdown"
+                                                                aria-expanded="false"
+                                                            >
+                                                                <i className="ti ti-dots-vertical" />
+                                                            </Link>
+                                                            <div className="dropdown-menu dropdown-menu-right">
+                                                                <Link className="dropdown-item" to="#">
+                                                                    <i className="ti ti-edit text-blue" />
+                                                                    Edit
+                                                                </Link>
+                                                                <Link className="dropdown-item" to="#">
+                                                                    <i className="ti ti-trash text-danger" />
+                                                                    Delete
+                                                                </Link>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <p>
+                                                    {data?.comment}
+                                                </p>
+                                            </div>
+
+                                            )}
+                                        </div>
+                                    </div>
+                                    {/* /Comment */}
                                     {/* Notes */}
-                                    <div className="tab-pane fade" id="notes">
+                                    {/* <div className="tab-pane fade" id="notes">
                                         <div className="view-header">
                                             <h4>Notes</h4>
                                             <ul>
@@ -946,251 +1404,8 @@ const TaskDetailsPage = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     {/* /Notes */}
-                                    {/* Calls */}
-                                    <div className="tab-pane fade" id="calls">
-                                        <div className="view-header">
-                                            <h4>Calls</h4>
-                                            <ul>
-                                                <li>
-                                                    <Link
-                                                        to="#"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#create_call"
-                                                        className="com-add"
-                                                    >
-                                                        <i className="ti ti-circle-plus me-1" />
-                                                        Add New
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div className="calls-activity">
-                                            <div className="calls-box">
-                                                <div className="caller-info">
-                                                    <div className="calls-user">
-                                                        <ImageWithBasePath
-                                                            src="assets/img/profiles/avatar-19.jpg"
-                                                            alt="img"
-                                                        />
-                                                        <p>
-                                                            <span>Darlee Robertson</span> logged a call on 23
-                                                            Jul 2023, 10:00 pm
-                                                        </p>
-                                                    </div>
-                                                    <div className="calls-action">
-                                                        <div className="dropdown call-drop">
-                                                            <Link
-                                                                to="#"
-                                                                className="dropdown-toggle"
-                                                                data-bs-toggle="dropdown"
-                                                                aria-expanded="false"
-                                                            >
-                                                                Busy
-                                                                <i className="ti ti-chevron-down ms-2" />
-                                                            </Link>
-                                                            <div className="dropdown-menu dropdown-menu-right">
-                                                                <Link className="dropdown-item" to="#">
-                                                                    Busy
-                                                                </Link>
-                                                                <Link className="dropdown-item" to="#">
-                                                                    No Answer
-                                                                </Link>
-                                                                <Link className="dropdown-item" to="#">
-                                                                    Unavailable
-                                                                </Link>
-                                                                <Link className="dropdown-item" to="#">
-                                                                    Wrong Number
-                                                                </Link>
-                                                                <Link className="dropdown-item" to="#">
-                                                                    Left Voice Message
-                                                                </Link>
-                                                                <Link className="dropdown-item" to="#">
-                                                                    Moving Forward
-                                                                </Link>
-                                                            </div>
-                                                        </div>
-                                                        <div className="dropdown action-drop">
-                                                            <Link
-                                                                to="#"
-                                                                className="dropdown-toggle"
-                                                                data-bs-toggle="dropdown"
-                                                                aria-expanded="false"
-                                                            >
-                                                                <i className="ti ti-dots-vertical" />
-                                                            </Link>
-                                                            <div className="dropdown-menu dropdown-menu-right">
-                                                                <Link className="dropdown-item" to="#">
-                                                                    <i className="ti ti-edit text-blue" />
-                                                                    Edit
-                                                                </Link>
-                                                                <Link className="dropdown-item" to="#">
-                                                                    <i className="ti ti-trash text-danger" />
-                                                                    Delete
-                                                                </Link>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <p>
-                                                    A project review evaluates the success of an
-                                                    initiative and identifies areas for improvement. It
-                                                    can also evaluate a current project to determine
-                                                    whether it's on the right track. Or, it can determine
-                                                    the success of a completed project.{" "}
-                                                </p>
-                                            </div>
-                                            <div className="calls-box">
-                                                <div className="caller-info">
-                                                    <div className="calls-user">
-                                                        <ImageWithBasePath
-                                                            src="assets/img/profiles/avatar-20.jpg"
-                                                            alt="img"
-                                                        />
-                                                        <p>
-                                                            <span>Sharon Roy</span> logged a call on 28 Jul
-                                                            2023, 09:00 pm
-                                                        </p>
-                                                    </div>
-                                                    <div className="calls-action">
-                                                        <div className="dropdown call-drop">
-                                                            <Link
-                                                                to="#"
-                                                                className="dropdown-toggle bg-pending"
-                                                                data-bs-toggle="dropdown"
-                                                                aria-expanded="false"
-                                                            >
-                                                                No Answer
-                                                                <i className="ti ti-chevron-down ms-2" />
-                                                            </Link>
-                                                            <div className="dropdown-menu dropdown-menu-right">
-                                                                <Link className="dropdown-item" to="#">
-                                                                    Busy
-                                                                </Link>
-                                                                <Link className="dropdown-item" to="#">
-                                                                    No Answer
-                                                                </Link>
-                                                                <Link className="dropdown-item" to="#">
-                                                                    Unavailable
-                                                                </Link>
-                                                                <Link className="dropdown-item" to="#">
-                                                                    Wrong Number
-                                                                </Link>
-                                                                <Link className="dropdown-item" to="#">
-                                                                    Left Voice Message
-                                                                </Link>
-                                                                <Link className="dropdown-item" to="#">
-                                                                    Moving Forward
-                                                                </Link>
-                                                            </div>
-                                                        </div>
-                                                        <div className="dropdown action-drop">
-                                                            <Link
-                                                                to="#"
-                                                                className="dropdown-toggle"
-                                                                data-bs-toggle="dropdown"
-                                                                aria-expanded="false"
-                                                            >
-                                                                <i className="ti ti-dots-vertical" />
-                                                            </Link>
-                                                            <div className="dropdown-menu dropdown-menu-right">
-                                                                <Link className="dropdown-item" to="#">
-                                                                    <i className="ti ti-edit text-blue" />
-                                                                    Edit
-                                                                </Link>
-                                                                <Link className="dropdown-item" to="#">
-                                                                    <i className="ti ti-trash text-danger" />
-                                                                    Delete
-                                                                </Link>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <p>
-                                                    A project plan typically contains a list of the
-                                                    essential elements of a project, such as stakeholders,
-                                                    scope, timelines, estimated cost and communication
-                                                    methods. The project manager typically lists the
-                                                    information based on the assignment.
-                                                </p>
-                                            </div>
-                                            <div className="calls-box">
-                                                <div className="caller-info">
-                                                    <div className="calls-user">
-                                                        <ImageWithBasePath
-                                                            src="assets/img/profiles/avatar-21.jpg"
-                                                            alt="img"
-                                                        />
-                                                        <p>
-                                                            <span>Vaughan</span> logged a call on 30 Jul 2023,
-                                                            08:00 pm
-                                                        </p>
-                                                    </div>
-                                                    <div className="calls-action">
-                                                        <div className="dropdown call-drop">
-                                                            <Link
-                                                                to="#"
-                                                                className="dropdown-toggle bg-pending"
-                                                                data-bs-toggle="dropdown"
-                                                                aria-expanded="false"
-                                                            >
-                                                                No Answer
-                                                                <i className="ti ti-chevron-down ms-2" />
-                                                            </Link>
-                                                            <div className="dropdown-menu dropdown-menu-right">
-                                                                <Link className="dropdown-item" to="#">
-                                                                    Busy
-                                                                </Link>
-                                                                <Link className="dropdown-item" to="#">
-                                                                    No Answer
-                                                                </Link>
-                                                                <Link className="dropdown-item" to="#">
-                                                                    Unavailable
-                                                                </Link>
-                                                                <Link className="dropdown-item" to="#">
-                                                                    Wrong Number
-                                                                </Link>
-                                                                <Link className="dropdown-item" to="#">
-                                                                    Left Voice Message
-                                                                </Link>
-                                                                <Link className="dropdown-item" to="#">
-                                                                    Moving Forward
-                                                                </Link>
-                                                            </div>
-                                                        </div>
-                                                        <div className="dropdown action-drop">
-                                                            <Link
-                                                                to="#"
-                                                                className="dropdown-toggle"
-                                                                data-bs-toggle="dropdown"
-                                                                aria-expanded="false"
-                                                            >
-                                                                <i className="ti ti-dots-vertical" />
-                                                            </Link>
-                                                            <div className="dropdown-menu dropdown-menu-right">
-                                                                <Link className="dropdown-item" to="#">
-                                                                    <i className="ti ti-edit text-blue" />
-                                                                    Edit
-                                                                </Link>
-                                                                <Link className="dropdown-item" to="#">
-                                                                    <i className="ti ti-trash text-danger" />
-                                                                    Delete
-                                                                </Link>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <p>
-                                                    Projects play a crucial role in the success of
-                                                    organizations, and their importance cannot be
-                                                    overstated. Whether it's launching a new product,
-                                                    improving an existing
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* /Calls */}
                                     {/* Files */}
                                     <div className="tab-pane fade" id="files">
                                         <div className="view-header">
@@ -1987,12 +2202,12 @@ const TaskDetailsPage = () => {
                                                 defaultValue={""}
                                             />
                                         </div>
-                                        <div className="form-wrap">
+                                        {/* <div className="form-wrap">
                                             <label className="checkboxs">
                                                 <input type="checkbox" />
                                                 <span className="checkmarks" /> Create a followup task
                                             </label>
-                                        </div>
+                                        </div> */}
                                         <div className="text-end modal-btn">
                                             <Link
                                                 to="#"
@@ -2344,6 +2559,15 @@ const TaskDetailsPage = () => {
                 </div>
             </div>
             {/* /Add File */}
+            {/* /Add Call Comment */}
+            <AddCallComment fetchTaskLogData={fetchTaskLogData} taskLogId={taskLogId} />
+            {/* /Add Call Comment */}
+            <RescheduleCall fetchTaskLogData={fetchTaskLogData} taskDetails={data} />
+
+            <RescheduleMeeting fetchTaskLogData={fetchTaskLogData} taskDetails={data} />
+
+            <AddMeetingComment fetchTaskLogData={fetchTaskLogData} taskLogId={taskLogId} />
+
             {/* Connect Account */}
             <div className="modal custom-modal fade" id="create_email" role="dialog">
                 <div className="modal-dialog modal-dialog-centered">
@@ -3994,6 +4218,13 @@ const TaskDetailsPage = () => {
                 </div>
             </div>
             {/* /Add New Deals */}
+
+
+            <CreateCall taskDetails={data} fetchTaskDetails={fetchTaskLogData} />
+
+            <CreateMeeting taskDetails={data} fetchTaskDetails={fetchTaskLogData} />
+
+            <CreateComment taskDetails={data} fetchTaskDetails={fetchTaskLogData} />
         </>
     );
 };

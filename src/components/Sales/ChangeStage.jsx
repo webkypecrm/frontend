@@ -20,7 +20,7 @@ const ChangeStage = ({ leadForAssign, fetchLeadData }) => {
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
-            formData.leadId = leadForAssign.leadId
+            formData.leadId = leadForAssign?.leadId
             const formDataToSend = new FormData();
             for (const key in formData) {
                 if (formData[key] !== null) {
@@ -60,7 +60,7 @@ const ChangeStage = ({ leadForAssign, fetchLeadData }) => {
             }
         };
 
-        if (leadForAssign.leadId) {
+        if (leadForAssign?.leadId) {
             fetchStageData()
         }
 

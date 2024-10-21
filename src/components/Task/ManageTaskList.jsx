@@ -94,7 +94,7 @@ const ManageTaskList = ({
             render: (text, record, index) => (<div style={{ textAlign: 'center' }}>
                 <Link to={`/task/task-details/${record.taskId}`}
                     style={{ cursor: 'pointer', textAlign: 'center' }}
-                     className="table-avatar d-flex align-items-center"
+                    className="table-avatar d-flex align-items-center"
                 // onClick={() => setActivityToggleTwo(!activityToggle)}
                 >
                     <span className="company-img menu-list-icon ">
@@ -116,12 +116,10 @@ const ManageTaskList = ({
                     className="table-avatar d-flex align-items-center"
                 // onClick={() => setActivityToggleTwo(!activityToggle)}
                 >
-                     <span className="company-img menu-list-icon ">
-                        <i className="ti ti-clipboard" />
-                    </span>
+
                     <Link to="#" className="profile-split d-flex flex-column">
-                        {text}                       
-                    </Link>                   
+                        {text}
+                    </Link>
                 </Link>
 
             ),
@@ -188,6 +186,21 @@ const ManageTaskList = ({
                     style={{ cursor: 'pointer' }}
                     onClick={() => setActivityToggleTwo(!activityToggle)}
                 >
+                    {record?.assignedByImg ?
+                        <Link to="#" className="avatar">
+                            <img
+                                className="avatar-img"
+                                src={record?.assignedByImg}
+                                alt="User Image"
+                            />
+                        </Link> :
+                        <Link to="#" className="avatar">
+                            <span className="company-img menu-list-icon bg-violet ">
+                                <i className="ti ti-user" />
+                            </span>
+                        </Link>
+                    }
+
                     <Link to="#" className="profile-split d-flex flex-column">
                         {text}
                         <span>CEO</span>

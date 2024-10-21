@@ -26,6 +26,7 @@ export const all_routes = {
     rolesPermissions: "/hrms/roles-permissions",
     manageStaff: "/hrms/manage-staff",
     permissions: "/hrms/permissions",
+    staffDetails: "/hrms/staff-details/:staffId",
 
     //sales
     leads: "/sales/leads",

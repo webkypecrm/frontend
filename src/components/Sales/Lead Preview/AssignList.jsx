@@ -1,7 +1,7 @@
 import React from 'react'
 import { Tag } from 'antd'
 
-const CommentList = ({ data }) => {
+const AssignList = ({ data }) => {
 
     console.log('data in CommentList =>', data)
 
@@ -42,25 +42,24 @@ const CommentList = ({ data }) => {
                         maxWidth: "9rem",
                         display: 'inline'
                     }}>
-                        COMMENT
+                        ASSIGN TO
                     </Tag>
                 </div>
-                <div style={{ display: 'flex' }}>
-                    <span className="activity-icon bg-pending">
-                        <i className="ti ti-mail-code" />
+                <div style={{ display: 'flex', alignItems:'center' }}>
+                    <span className="activity-icon bg-green">
+                        <i className="ti ti-timeline-event-exclamation" />
                     </span>
                     <div className="activity-info">
                         <h6>
-                            {data?.staff?.name}, Posted an Update
+                        Lead has been successfully assigned to 
+                            <span className="avatar-xs">
+                                <img
+                                    src={data?.attachment}
+                                    alt="img"
+                                />
+                            </span>
+                            {data?.contactType}
                         </h6>
-                        <p style={{
-                            fontSize: "0.7rem",
-                            color: "rgb(149 144 144)",
-                            marginTop: "0.2rem",
-                            fontWeight: "600"
-                        }}>
-                            <p>{data?.comment}</p>
-                        </p>
                     </div>
                 </div>
             </div>
@@ -69,4 +68,4 @@ const CommentList = ({ data }) => {
     )
 }
 
-export default CommentList
+export default AssignList

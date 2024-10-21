@@ -3,6 +3,7 @@ import { all_routes } from "./all_routes";
 
 import SalesDashboardPage from "../Dashboard/SalesDashboardPage"
 import StaffPage from '../HRMS/StaffPage'
+import StaffDetailPage from "../HRMS/StaffDetailPage";
 import RolesPermissions from "../HRMS/RolesPermissions";
 
 import ProductPage from '../Product/Product'
@@ -130,6 +131,7 @@ import Campaign from "../Marketing/Campaign";
 import Login from "../Auth/Login";
 import Register from "../Auth/Register";
 import ForgotPassword from "../Auth/ForgotPassword";
+
 
 
 // import TwoStepVerification from "../auth/twoStepVerification";
@@ -273,6 +275,10 @@ export const publicRoutes = [
         element: <StaffPage />,
     },
     {
+        path: route.staffDetails,
+        element: <StaffDetailPage />,
+    },
+    {
         path: route.rolesPermissions,
         element: <RolesPermissions />,
     },
@@ -292,10 +298,10 @@ export const publicRoutes = [
         path: route.leadsKanban,
         element: <LeadsKanban />,
     },
-       {
+    {
         path: route.leadsDetails,
         element: <LeadDetailsPage />
-      },
+    },
     {
         path: route.customerList,
         element: <CustomerList />,

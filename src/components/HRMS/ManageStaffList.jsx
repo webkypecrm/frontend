@@ -10,7 +10,17 @@ import { toast } from "react-toastify";
 
 
 
-const ManageStaffList = ({ togglePopup, setStaffDetails, data, setData, handleRefreshData, manageColumns }) => {
+
+const ManageStaffList = ({
+  togglePopup,
+  setStaffDetails,
+  data,
+  setData,
+  handleRefreshData,
+  manageColumns,
+  pageSize,
+  totalPages,
+}) => {
   const [stars, setStars] = useState({});
   const [staffId, setStaffId] = useState(null)
 
@@ -51,10 +61,15 @@ const ManageStaffList = ({ togglePopup, setStaffDetails, data, setData, handleRe
     }));
   };
 
+  const handleFetchData = (page) => {
+    handleRefreshData(page);
+  }
+
   const columns = [
     {
       title: "",
       dataIndex: "",
+      key: 'staffId',
       render: (text, record, index) => (
         <div
           className={`set-star rating-select ${stars[index] ? "filled" : ""}`}
@@ -67,81 +82,82 @@ const ManageStaffList = ({ togglePopup, setStaffDetails, data, setData, handleRe
     {
       title: 'Name',
       dataIndex: 'name',
-      key: 'name',
+      key: 'staffId',
       render: (text, record) => (
-        <div className="table-avatar d-flex align-items-center">
-          <Link to="#" className="avatar">
+        <Link to={`/hrms/staff-details/${record.staffId}`}
+          className="table-avatar d-flex align-items-center">
+          <Link to={`/hrms/staff-details/${record.staffId}`} className="avatar">
             <img src={record.profilePic} alt="UserImage" />
           </Link>
           <Link
-            to="#"
+           to={`/hrms/staff-details/${record.staffId}`}
             className="profile-split d-flex flex-column"
           >
             {record.name}
             <span>id : {record.staffId}</span>
           </Link>
-        </div>
+        </Link>
       ),
       sorter: true,
     },
     {
       title: "Mobile",
       dataIndex: "mobile",
-      key: "mobile",
+      key: "staffId",
       sorter: true,
     },
     {
       title: "Email",
       dataIndex: "email",
-      key: "email",
+      key: "staffId",
       sorter: true,
     },
     {
       title: "Gender",
       dataIndex: "gender",
-      key: "gender",
+      key: "staffId",
       sorter: true,
     },
     {
       title: "Created By",
       dataIndex: "createdBy",
-      key: "createdBy",
+      key: "staffId",
       sorter: true,
     },
     {
       title: "Department",
       dataIndex: "department",
-      key: "department",
+      key: "staffId",
       sorter: true,
     },
     {
       title: "Role",
       dataIndex: "role",
-      key: "role",
+      key: "staffId",
       sorter: true,
     },
     {
       title: "Group",
       dataIndex: "group",
-      key: "group",
+      key: "staffId",
       sorter: true,
     },
     {
       title: "Job Type",
       dataIndex: "jobType",
-      key: "jobType",
+      key: "staffId",
       sorter: true,
     },
     {
       title: "Work Shift",
       dataIndex: "workShift",
-      key: "workShift",
+      key: "staffId",
       sorter: true,
     },
     {
       title: "Status",
       dataIndex: "status",
-      key: 'status',
+      key: 'staffId',
       render: (text) => (
         <div>
           {text === "active" && (
@@ -201,25 +217,34 @@ const ManageStaffList = ({ togglePopup, setStaffDetails, data, setData, handleRe
 
   const modifiedColumns = columns.filter((column, index) => {
     if (index == 0) {
-        return column
+      return column
     }
 
     for (const ele in manageColumns) {
-        if (column.title == ele && manageColumns[ele] == true) {
-            return column
-        }
+      if (column.title == ele && manageColumns[ele] == true) {
+        return column
+      }
     }
-})
+  })
 
   useEffect(() => {
     initializeStarsState();
   }, []);
 
+  // console.log('data in StaffList =>', data)
+
   return <>
     {data.length !== 0 &&
       <>
         <div className="table-responsive custom-table">
-          <DataTable dataSource={data} columns={modifiedColumns} />
+          <DataTable
+            dataSource={data}
+            columns={modifiedColumns}
+            // onSelectionChange={handleSelectedRowKeysChange}
+            pageSize={pageSize}
+            totalPages={totalPages}
+            onFetchRecord={handleFetchData}
+          />
         </div>
         <div className="row align-items-center">
           <div className="col-md-6">

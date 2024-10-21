@@ -612,6 +612,7 @@ const ManageLeadList = ({
         }
     })
 
+    console.log('data in LeadList =>', data)
 
     return (
         <>
