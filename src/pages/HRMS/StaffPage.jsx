@@ -183,7 +183,7 @@ const ManageStaff = () => {
           <div className="row">
             <div className="col-md-12">
               {/* Page Header */}
-              <PageHeader title="Staff" count={data.length} />
+              <PageHeader title="Staff" count={totalPages} />
               {/* /Page Header */}
               {/* Campaign Status */}
               <CampaignStatus />

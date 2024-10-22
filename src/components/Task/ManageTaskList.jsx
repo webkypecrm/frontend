@@ -117,7 +117,8 @@ const ManageTaskList = ({
                 // onClick={() => setActivityToggleTwo(!activityToggle)}
                 >
 
-                    <Link to="#" className="profile-split d-flex flex-column">
+                    <Link to={`/task/task-details/${record.taskId}`}
+                        className="profile-split d-flex flex-column">
                         {text}
                     </Link>
                 </Link>

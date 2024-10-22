@@ -16,6 +16,7 @@ import {
     statusList,
 } from "../../selectOption/selectOption";
 import DatePicker from "react-datepicker";
+import Chart from "react-apexcharts";
 import { TagsInput } from "react-tag-input-component";
 import DefaultEditor from "react-simple-wysiwyg";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
@@ -31,6 +32,7 @@ import AddCallComment from '../../components/Task/TaskDetails/AddCallComment';
 import AddMeetingComment from '../../components/Task/TaskDetails/AddMeetingComment';
 import RescheduleCall from '../../components/Task/TaskDetails/RescheduleCall';
 import RescheduleMeeting from '../../components/Task/TaskDetails/RescheduleMeeting';
+import TaskStatus from "../../components/Task/TaskStatus";
 
 
 
@@ -50,6 +52,21 @@ const TaskDetailsPage = () => {
     const [meetingData, setMeetingData] = useState([]);
     const [commentData, setCommentData] = useState([]);
     const [taskLogId, setTaskLogId] = useState('');
+
+    // const [chartOptions1] = useState({
+    //     series: [44, 55, 41, 17],
+    //     chart: {
+    //         type: "donut",
+    //     },
+    //     colors: ["#4A00E5", "#0092E4", "#E41F07", "#FFA201"],
+    //     dataLabels: {
+    //         enabled: false,
+    //     },
+    //     title: {
+    //         text: "",
+    //         align: "left",
+    //     },
+    // });
 
 
     console.log('callData =>', callData)
@@ -198,7 +215,6 @@ const TaskDetailsPage = () => {
 
 
     useEffect(() => {
-
         if (data?.taskId) {
             fetchTaskLogData()
             // fetchStageData()
@@ -245,7 +261,7 @@ const TaskDetailsPage = () => {
                                     <div className="col-sm-6">
                                         <ul className="contact-breadcrumb">
                                             <li>
-                                                <Link to='#'>
+                                                <Link to={route.tasks}>
                                                     <i className="ti ti-arrow-narrow-left" />
                                                     Task
                                                 </Link>
@@ -298,10 +314,17 @@ const TaskDetailsPage = () => {
                                     </Link>
                                     <Link
                                         to="#"
-                                        className="btn btn-danger add-popup"
-                                        onClick={() =>
-                                            setActivityToggle(!activityToggle)
-                                        }
+                                        className={`btn btn-success add-popup
+                                            ${data?.status == 'open' && "bg-info"}
+                                            ${data?.status == 'pending' && "bg-pending"}
+                                            ${data?.status == 'resolved' && "bg-success"}
+                                            ${data?.status == 'closed' && "bg-danger"}
+                                            `}
+                                        // onClick={() =>
+                                        //     setActivityToggle(!activityToggle)
+                                        // }
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#task_stage_update"
                                     >
                                         <i className="ti ti-circle-plus" />
                                         {data?.status.toUpperCase()}
@@ -347,7 +370,18 @@ const TaskDetailsPage = () => {
                                             </Link>
                                         </div>
                                     </div>
+
+                                    {/* <div id="task-type">
+                                        <Chart
+                                            series={chartOptions1.series}
+                                            options={chartOptions1}
+                                            type="donut"
+                                        />
+                                    </div> */}
+
                                 </div>
+
+
                             </div>
                             {/* /Contact User */}
                         </div>
@@ -376,19 +410,34 @@ const TaskDetailsPage = () => {
                                             <p>Created on 5 Jan 2024, 10:30 am</p>
                                         </li>
                                     </ul> */}
-                                    <h6>Information</h6>
+                                    <h6>Lead Information</h6>
                                     <ul className="other-info">
                                         <li>
                                             <span className="other-title">Start Date</span>
-                                            <span>{getDate(data?.startDate)}</span>
+                                            <span>{getDate(data?.startDate)}, {getTime(data?.startDate)}</span>
                                         </li>
                                         <li>
                                             <span className="other-title">End Date</span>
-                                            <span>{getDate(data?.endDate)}</span>
+                                            <span>{getDate(data?.endDate)}, {getTime(data?.endDate)}</span>
                                         </li>
                                         <li>
                                             <span className="other-title">Priority</span>
-                                            <span>{data?.priority.toUpperCase()}</span>
+                                            {data?.priority === "medium" && (
+                                                <span className="badge badge-tag badge-warning-light">
+                                                    <span>{data?.priority}</span>
+                                                </span>
+                                            )}
+                                            {data?.priority === "low" && (
+                                                <span className="badge badge-tag badge-purple-light">
+                                                    <span>{data?.priority}</span>
+                                                </span>
+                                            )}
+                                            {data?.priority === "highy" && (
+                                                <span className="badge badge-tag badge-danger-light">
+                                                    <span>{data?.priority}</span>
+                                                </span>
+                                            )}
+
                                         </li>
                                         <li>
                                             <span className="other-title">Created Date</span>
@@ -445,11 +494,11 @@ const TaskDetailsPage = () => {
                                                 <img
                                                     src={data?.assignedToImg}
                                                     alt="img"
+                                                    style={{ objectFit: 'cover', height: '32px', width: '32px', borderRadius: '50%' }}
                                                 />
                                             </span>
                                             <div>
                                                 <h6>{data?.assignedTo}</h6>
-
                                             </div>
                                         </li>
                                     </ul>
@@ -674,7 +723,7 @@ const TaskDetailsPage = () => {
                                                                                     alt="img"
                                                                                 />
                                                                             </span>{" "}
-                                                                            {lead?.staff?.name.split(' ')[0]} {lead?.status.toLowerCase()} {lead?.task?.lead?.leadName.toUpperCase()} on {getDate(lead?.meetingDate)}
+                                                                            {lead?.staff?.name.split(' ')[0]} {lead?.status.toLowerCase()} meeting with {lead?.task?.lead?.leadName.toUpperCase()} on {getDate(lead?.meetingDate)}
                                                                         </h6>
                                                                         <p>{lead?.comment}</p>
                                                                         <p>{lead?.createdAtTime}</p>
@@ -689,7 +738,7 @@ const TaskDetailsPage = () => {
                                                                     </span>
                                                                     <div className="activity-info">
                                                                         <h6>
-                                                                            Lead stage updated to {lead?.contactType.toLowerCase()}
+                                                                            Task status updated to <strong style={{ marginLeft: '5px' }}>{lead?.status.toLowerCase()}</strong>
                                                                         </h6>
                                                                         <p>{lead?.createdAtTime}</p>
                                                                     </div>
@@ -706,11 +755,11 @@ const TaskDetailsPage = () => {
                                                                             Task has been successfully assigned to
                                                                             <span className="avatar-xs">
                                                                                 <img
-                                                                                    src={lead?.attachment}
+                                                                                    src={lead?.assignedToImg}
                                                                                     alt="img"
                                                                                 />
                                                                             </span>
-                                                                            {lead?.contactType}
+                                                                            {lead?.assignedToName}
                                                                         </h6>
                                                                         <p>{lead?.createdAtTime}</p>
                                                                     </div>
@@ -757,7 +806,7 @@ const TaskDetailsPage = () => {
                                         </div>
                                         <div className="notes-activity" >
                                             {meetingData.length == 0 && <Empty description={false} />}
-                                            {meetingData.map((data) => <div className="calls-box" key={data?.id}>
+                                            {meetingData.map((data) => <div className="calls-box" key={data?.taskLogId}>
                                                 <div className="caller-info">
                                                     <div className="calls-user">
                                                         <img
@@ -922,7 +971,7 @@ const TaskDetailsPage = () => {
                                         </div>
                                         <div className="calls-activity" >
                                             {callData.length == 0 && <Empty description={false} />}
-                                            {callData.map((data) => <div className="calls-box" key={data.taskLogId}>
+                                            {callData.map((data) => <div className="calls-box" key={data?.taskLogId}>
                                                 <div className="caller-info">
                                                     <div className="calls-user">
                                                         <img
@@ -1058,7 +1107,7 @@ const TaskDetailsPage = () => {
                                         </div>
                                         <div className="notes-activity">
                                             {commentData.length == 0 && <Empty description={false} />}
-                                            {commentData.map((data) => <div className="calls-box" key={data.taskLogId}>
+                                            {commentData.map((data) => <div className="calls-box" key={data?.taskLogId}>
                                                 <div className="caller-info">
                                                     <div className="calls-user">
                                                         <img
@@ -4219,12 +4268,16 @@ const TaskDetailsPage = () => {
             </div>
             {/* /Add New Deals */}
 
-
             <CreateCall taskDetails={data} fetchTaskDetails={fetchTaskLogData} />
 
             <CreateMeeting taskDetails={data} fetchTaskDetails={fetchTaskLogData} />
 
             <CreateComment taskDetails={data} fetchTaskDetails={fetchTaskLogData} />
+
+            <TaskStatus
+                taskRecord={data}
+                fetchTaskData={fetchTaskDetails}
+            />
         </>
     );
 };

@@ -17,6 +17,7 @@ const LeadPreview = ({ leadPreview, setLeadPreview, leadDetails }) => {
     const Token = localStorage.getItem('token') || '';
 
     const [leadFollowupData, setLeadFollowupData] = useState([]);
+    const [taskTab, setTaskTab] = useState(false);
 
     // console.log('leadFollowData =>', leadFollowupData)
 
@@ -32,7 +33,6 @@ const LeadPreview = ({ leadPreview, setLeadPreview, leadDetails }) => {
             //     key: item.leadId,
             //     tags: JSON.parse(item.tags)
             // }));
-
             // setData(formattedData);
 
             setLeadFollowupData((prev) => [...response.data.data]);
@@ -56,15 +56,17 @@ const LeadPreview = ({ leadPreview, setLeadPreview, leadDetails }) => {
 
     return (
         <>
-            <div className={`toggle-popup ${leadPreview ? "sidebar-popup" : ""}`}>
-                <div className="sidebar-layout">
-                    <div className="sidebar-header">
+            <div className={`toggle-popup ${leadPreview ? "sidebar-popup" : ""}`}
+            >
+                <div className={`${taskTab ? "sidebar-layout-extend" : "sidebar-layout"}`}>
+                    <div className={`${taskTab ? "sidebar-header-extend" : "sidebar-header"}`}>
                         <h4>Lead Preview</h4>
                         <Link
                             to="#"
                             className="sidebar-close toggle-btn"
                             onClick={() => {
                                 setLeadPreview(prev => !prev)
+                                    
                             }}
                         >
                             <i className="ti ti-x" />
@@ -78,38 +80,54 @@ const LeadPreview = ({ leadPreview, setLeadPreview, leadDetails }) => {
                                         to="#"
                                         data-bs-toggle="tab"
                                         data-bs-target="#activities"
-                                        className="active"
+                                        className="active"                                       
                                     >
                                         <i className="ti ti-eye" />
                                         Activities
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" data-bs-toggle="tab" data-bs-target="#calls">
+                                    <Link to="#" data-bs-toggle="tab" data-bs-target="#calls"
+                                        onClick={() => {
+                                            setTaskTab(false)
+                                        }}>
                                         <i className="ti ti-phone" />
                                         Calls
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" data-bs-toggle="tab" data-bs-target="#notes">
+                                    <Link to="#" data-bs-toggle="tab" data-bs-target="#notes"
+                                        onClick={() => {
+                                            setTaskTab(false)
+                                        }}>
                                         <i className="ti ti-notes" />
                                         Meeting
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" data-bs-toggle="tab" data-bs-target="#comments">
+                                    <Link to="#" data-bs-toggle="tab" data-bs-target="#comments"
+                                        onClick={() => {
+                                            setTaskTab(false)
+                                        }}>
                                         <i className="ti ti-file" />
                                         Comment
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" data-bs-toggle="tab" data-bs-target="#proposal">
+                                    <Link to="#" data-bs-toggle="tab" data-bs-target="#proposal"
+                                        onClick={() => {
+                                            setTaskTab(false)
+                                        }}>
                                         <i className="ti ti-mail-check" />
                                         Proposal
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" data-bs-toggle="tab" data-bs-target="#task">
+                                    <Link to="#" data-bs-toggle="tab" data-bs-target="#task"
+                                        onClick={() => {
+                                            setTaskTab(true)
+                                        }}
+                                    >
                                         <i className="ti ti-list-check" />
                                         Task
                                     </Link>
@@ -144,7 +162,7 @@ const LeadPreview = ({ leadPreview, setLeadPreview, leadDetails }) => {
                                 {/* /Comments */}
                                 {/* Proposal */}
                                 <Proposal />
-                                {/* Proposal */}                                
+                                {/* Proposal */}
                                 <Task
                                     leadFollowupData={leadFollowupData}
                                     fetchLeadFollowupData={fetchLeadFollowupData}

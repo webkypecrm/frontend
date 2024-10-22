@@ -84,13 +84,13 @@ const ManageStaffList = ({
       dataIndex: 'name',
       key: 'staffId',
       render: (text, record) => (
-        <Link to={`/hrms/staff-details/${record.staffId}`}
+        <Link to="#"
           className="table-avatar d-flex align-items-center">
-          <Link to={`/hrms/staff-details/${record.staffId}`} className="avatar">
+          <Link to="#" className="avatar">
             <img src={record.profilePic} alt="UserImage" />
           </Link>
           <Link
-           to={`/hrms/staff-details/${record.staffId}`}
+           to="#"
             className="profile-split d-flex flex-column"
           >
             {record.name}

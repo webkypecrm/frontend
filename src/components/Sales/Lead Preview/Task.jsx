@@ -24,7 +24,11 @@ const Task = ({ leadDetails }) => {
                     Authorization: `Bearer ${Token}`
                 }
             });
-            setTaskList((prev) => [...response.data.data])
+            const taskLists = response.data.data.map((task)=>({
+                ...task,
+                tags: JSON.parse(task.tags)
+            }))
+            setTaskList((prev) => [...taskLists])
             setTaskDetailsToggle(false)
         } catch (error) {
             toast.error(error.message)
@@ -58,7 +62,7 @@ const Task = ({ leadDetails }) => {
                 </div>
             }
         </div>
-        {
+        {/* {
             taskDetails &&
             <TaskDetails
                 taskToggle={taskDetailsToggle}
@@ -66,7 +70,7 @@ const Task = ({ leadDetails }) => {
                 data={taskDetails}
                 fetchTaskData={fetchTaskListByLeadid}
             />
-        }
+        } */}
 
     </>
     )

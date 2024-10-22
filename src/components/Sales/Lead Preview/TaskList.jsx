@@ -1,7 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { Tag } from 'antd';
+import ImageWithBasePath from '../../ImageWithBasePath';
 
 const TaskList = ({ data, onTaskToggle }) => {
+
+    console.log('data in TaskList  =>', data)
 
     function getDate(value) {
         const isoDateString = value;
@@ -26,8 +30,116 @@ const TaskList = ({ data, onTaskToggle }) => {
         onTaskToggle(data)
     }
 
-    return (
-        <li className="activity-wrap" onClick={handleToggle}>
+    return (<>
+        <div
+            className="tasks-activity tasks collapse show"
+        >
+            <ul>
+                <li className="task-wrap  success">
+                    <Link to={`/task/task-details/${data.taskId}`}     className="task-info">
+                        <span className="task-icon">
+                            <i className="ti ti-grip-vertical" />
+                        </span>
+                        {/* <div className="task-checkbox">
+                            <label className="checkboxs">
+                                <input type="checkbox" />
+                                <span className="checkmarks" />
+                            </label>
+                        </div> */}
+                        <div className="set-star rating-select">
+                            <i className="fa fa-star" />
+                        </div>
+                        <p>
+                            {/* <del>Use border radius as 5px or 10 px</del> */}
+                            {data?.description}
+                        </p>
+                        <span className="badge badge-pill badge-status bg-blue">
+                            <i className="ti ti-subtask" />
+                            Task
+                        </span>
+                        {
+                            data?.status == 'open' &&
+                            <span className="badge badge-tag bg-info">
+                                {data?.status}
+                            </span>
+                        }
+                        {
+                            data?.status == 'pending' &&
+                            <span className="badge badge-tag bg-pending">
+                                {data?.status}
+                            </span>
+                        }
+                        {
+                            data?.status == 'resolved' &&
+                            <span className="badge badge-tag bg-success">
+                                {data?.status}
+                            </span>
+                        }
+                        {
+                            data?.status == 'closed' &&
+                            <span className="badge badge-tag bg-danger">
+                                {data?.status}
+                            </span>
+                        }
+                    </Link>
+                    <div className="task-actions">
+                        <ul>
+                            <li className="task-time">
+                                {data?.tags.map((tag) => <span className="badge badge-tag badge-success-light" style={{marginRight:'5px'}}>
+                                    {tag}
+                                </span>)}
+                            </li>
+                            <li className="task-date">
+                                <i className="ti ti-calendar-exclamation" />
+                                {getDate(data?.createdAt)}
+                            </li>
+                            <li className="task-owner">
+                                <div className="task-user">
+                                    <img
+                                        src={data?.assignedToImg}
+                                        alt="img"
+                                    />
+                                </div>
+                                <div className="dropdown table-action">
+                                    <Link
+                                        to="#"
+                                        className="action-icon "
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false"
+                                    >
+                                        <i className="fa fa-ellipsis-v" />
+                                    </Link>
+                                    <div className="dropdown-menu dropdown-menu-right">
+                                        <Link
+                                            className="dropdown-item edit-popup"
+                                            to="#"
+                                            onClick={() =>
+                                                setActivityTogglePopupTwo(!activityToggleTwo)
+                                            }
+                                        >
+                                            <i className="ti ti-edit text-blue" />{" "}
+                                            Edit
+                                        </Link>
+                                        <Link
+                                            className="dropdown-item"
+                                            to="#"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#delete_activity"
+                                        >
+                                            <i className="ti ti-trash text-danger" />{" "}
+                                            Delete
+                                        </Link>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+
+        {/* <li className="activity-wrap" onClick={handleToggle}>
             <div>
                 <div>
                     <div className="badge-day">
@@ -118,7 +230,12 @@ const TaskList = ({ data, onTaskToggle }) => {
                     </div>
                 </div>
             </div>
-        </li >)
+        </li > */}
+
+    </>
+    )
 }
 
 export default TaskList
+
+// to={`/sales/leads-details/${data.taskId}`}

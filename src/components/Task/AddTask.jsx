@@ -42,12 +42,15 @@ const AddTask = ({
         attachment: null
     }
     const [formData, setFormData] = useState(initialForm);
-   
+
     const [tagValue, setTagValue] = useState(['Collab']);
     const [taskSubCategoryOptions, setTaskSubCategoryOptions] = useState([]);
     const [attachmentFile, setAttachementFile] = useState(null);
 
     console.log('attachmentFile =>', attachmentFile)
+
+    
+  
 
     const handleDateChange = (date) => {
         const newDate = new Date(date);
@@ -71,12 +74,12 @@ const AddTask = ({
     const handleFileChange = (event) => {
         console.log('event =>', event)
         const files = event.target.files;
-       
+
         if (files.length > 0) {
             const attachmentFile = files[0];
             if (attachmentFile.type.startsWith("application/") || attachmentFile.type.startsWith("text/csv") || attachmentFile.type.startsWith("image")) {
                 if (attachmentFile.size <= 1024 * 1024) {
-                    
+
                     console.log('files =>', files)
 
                     setAttachementFile(attachmentFile)
@@ -152,7 +155,7 @@ const AddTask = ({
         }
     }, [formData.taskCategoryId])
 
- console.log('formData =>', formData)
+    console.log('formData =>', formData)
 
     return (
         <div
@@ -257,7 +260,7 @@ const AddTask = ({
                                         <span className="form-icon">
                                             <i className="ti ti-calendar-check" />
                                         </span>
-                                        <DatePicker
+                                        <DatePicker                                            
                                             className="form-control datetimepicker deals-details"
                                             selected={formData.startDate}
                                             onChange={handleDateChange}
@@ -275,7 +278,7 @@ const AddTask = ({
                                             <i className="ti ti-calendar-check" />
                                         </span>
                                         <DatePicker
-                                            className="form-control datetimepicker deals-details"                                           
+                                            className="form-control datetimepicker deals-details"
                                             selected={formData.endDate}
                                             onChange={handleDateChange1}
                                             dateFormat="dd-MM-yyyy"

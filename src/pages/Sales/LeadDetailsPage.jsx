@@ -251,7 +251,7 @@ const LeadDetailsPage = () => {
                                     <div className="col-sm-6">
                                         <ul className="contact-breadcrumb">
                                             <li>
-                                                <Link to={route.leadsDetails}>
+                                                <Link to={route.leads}>
                                                     <i className="ti ti-arrow-narrow-left" />
                                                     Lead
                                                 </Link>
@@ -716,8 +716,6 @@ const LeadDetailsPage = () => {
                                                 </div>
                                             )}
                                         </div>
-
-
                                     </div>
                                     {/* /Activities */}
                                     {/* Meeting */}

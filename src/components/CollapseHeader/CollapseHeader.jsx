@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { HeaderCollapseContext } from "../../context/HeaderCollapseContext";
 
-const CollapseHeader = () => {
+const   CollapseHeader = () => {
     const { setHeaderCollapse } = useContext(HeaderCollapseContext);
 
     const toggleHeaderCollapse = () => {
