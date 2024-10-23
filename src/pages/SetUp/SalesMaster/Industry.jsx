@@ -28,6 +28,8 @@ const Industry = () => {
   }
   const [formData, setFormData] = useState(initialForm);
   const [departmentDetails, setDepartmentDetails] = useState({})
+  const [totalPages, setTotalPages] = useState(0);
+  const pageSize = 500
 
   // console.log('formData =>', formData, num++)
   // console.log('departmentDetails =>', departmentDetails, num1++)

@@ -28,6 +28,9 @@ const Department = () => {
     }
     const [formData, setFormData] = useState(initialForm);
     const [departmentDetails, setDepartmentDetails] = useState({})
+    const [totalPages, setTotalPages] = useState(0);
+    // const [pageSize, setPageSize] = useState(2);
+    const pageSize = 500
 
     // console.log('formData =>', formData, num++)
     // console.log('departmentDetails =>', departmentDetails, num1++)
@@ -81,6 +84,7 @@ const Department = () => {
             }
 
             setFormData(initialForm)
+            setTotalPages(response.data.totalCount)
             fetchData()
             toast.success('Department added successfully!');
 
@@ -284,7 +288,8 @@ const Department = () => {
                                                 <DataTable
                                                     dataSource={data}
                                                     columns={columns}
-                                                    
+                                                    totalPages={totalPages}
+                                                    pageSize={pageSize}
                                                 />
                                             </div>
                                             {/* <div className="row align-items-center">

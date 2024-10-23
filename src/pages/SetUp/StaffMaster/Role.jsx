@@ -29,6 +29,9 @@ const Role = () => {
     const [formData, setFormData] = useState(initialForm);
     const [departmentOptions, setDepartmentOptions] = useState([])
     const [roleDetails, setRoleDetails] = useState({})
+    const [totalPages, setTotalPages] = useState(0);
+    // const [pageSize, setPageSize] = useState(2);
+    const pageSize = 500
 
     // console.log('formData =>', formData, num++)
     // console.log('roleDetails =>', roleDetails, num1++)
@@ -49,6 +52,7 @@ const Role = () => {
                 status: 'active'
             }));
             setData(formattedData);
+            setTotalPages(response.data.totalCount)
             setIsLoading(false)
         } catch (error) {
             setError(error)
@@ -307,7 +311,10 @@ const Role = () => {
                                         data.length > 0 &&
                                         <>
                                             <div className="table-responsive custom-table">
-                                                <DataTable dataSource={data} columns={columns} />
+                                                <DataTable dataSource={data} columns={columns}
+                                                    totalPages={totalPages}
+                                                    pageSize={pageSize}
+                                                />
                                             </div>
                                             {/* <div className="row align-items-center">
                                                 <div className="col-md-6">
