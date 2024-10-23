@@ -2552,7 +2552,7 @@ body.mini-sidebar.expand-menu .sidebar .sidebar-menu > ul > li ul > li.active a 
   background-color: #2f0093;
 }
 [data-sidebar=blue] .sidebar .sidebar-menu .clinicdropdown a .user-names h5 {
-  color: #FFF;
+  color: #000;
 }
 [data-sidebar=blue] .sidebar .sidebar-menu .clinicdropdown a .user-names h6 {
   color: #e4e4e4;

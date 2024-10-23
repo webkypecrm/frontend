@@ -95,7 +95,7 @@ const TaskSubCategory = () => {
                 throw new Error(resData.message || 'Failed to add task-sub-category');
             }
 
-            setFormData(initialForm)
+            setFormData((prev) => ({ ...prev, name: '' }))
             fetchData()
             toast.success('Task sub category added successfully!');
 

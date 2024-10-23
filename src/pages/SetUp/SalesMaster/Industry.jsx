@@ -282,14 +282,14 @@ const Industry = () => {
                       <div className="table-responsive custom-table">
                         <DataTable dataSource={data} columns={columns} />
                       </div>
-                      <div className="row align-items-center">
+                      {/* <div className="row align-items-center">
                         <div className="col-md-6">
                           <div className="datatable-length" />
                         </div>
                         <div className="col-md-6">
                           <div className="datatable-paginate" />
                         </div>
-                      </div>
+                      </div> */}
                     </>
                   }
                   {data.length === 0 && <Empty />}

@@ -137,6 +137,44 @@ const ManageColumns = ({ handleManageColumns, manageColumns, manageColumnsSlider
               <li>
                 <p>
                   <i className="ti ti-grip-vertical" />
+                  State
+                </p>
+                <div className="status-toggle">
+                  <input
+                    type="checkbox"
+                    id="col-state"
+                    className="check"
+                    checked={manageColumns['State']}
+                    onChange={() => handleManageColumns('State')}
+                  />
+                  <label
+                    htmlFor="col-state"
+                    className="checktoggle"
+                  />
+                </div>
+              </li>
+              <li>
+                <p>
+                  <i className="ti ti-grip-vertical" />
+                  City
+                </p>
+                <div className="status-toggle">
+                  <input
+                    type="checkbox"
+                    id="col-city"
+                    className="check"
+                    checked={manageColumns['City']}
+                    onChange={() => handleManageColumns('City')}
+                  />
+                  <label
+                    htmlFor="col-city"
+                    className="checktoggle"
+                  />
+                </div>
+              </li>
+              <li>
+                <p>
+                  <i className="ti ti-grip-vertical" />
                   Company Name
                 </p>
                 <div className="status-toggle">

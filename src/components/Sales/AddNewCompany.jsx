@@ -43,6 +43,8 @@ const AddNewCompany = ({
     const [stateOptions, setStateOptions] = useState([])
     const [cityOptions, setCityOptions] = useState([])
 
+    console.log("formdata in add company =>", formData);
+
     const mobileArr = ['companyMobile1', 'companyMobile2', 'companyMobile3']
     const handleInputChange = (event) => {
         const { name, value } = event.target
@@ -272,26 +274,56 @@ const AddNewCompany = ({
                                                                         <input
                                                                             type="number"
                                                                             className="form-control"
+                                                                            maxLength="10"
+                                                                            required
                                                                             value={formData[mobileArr[index]]}
                                                                             onChange={(event) => {
                                                                                 let { value } = event.target
-                                                                                handleInputChange({ target: { name: mobileArr[index], value } })
+                                                                                if (value.length <= 10) {
+                                                                                    handleInputChange({ target: { name: mobileArr[index], value } });
+                                                                                } else {
+                                                                                    toast.error("Mobile number should not be more than 10 digits");
+                                                                                }
                                                                             }}
                                                                         />
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="col-md-6">
-                                                            <Link
-                                                                onClick={addNewContent}
-                                                                to="#"
-                                                                className="add-new add-new-phone mb-3 d-block"
-                                                            >
-                                                                <i className="ti ti-square-rounded-plus me-2" />
-                                                                Add New
-                                                            </Link>
-                                                        </div>
+                                                        {
+                                                            index === 0 && newContents.length < 3 &&
+                                                            <div className="col-md-6">
+                                                                <Link
+                                                                    onClick={addNewContent}
+                                                                    to="#"
+                                                                    className="add-new add-new-phone mb-3 d-block"
+                                                                >
+                                                                    <i className="ti ti-square-rounded-plus me-2" />
+                                                                    Add New
+                                                                </Link>
+                                                            </div>
+                                                        }
+
+                                                        {(index === 1 || index === 2) &&
+                                                            <div className="col-md-6">
+                                                                <Link
+                                                                    onClick={() => {
+                                                                        setNewContents((prev) => {
+                                                                            return [...prev.slice(0, index), ...prev.slice(index + 1)]
+                                                                        }),
+                                                                            setFormData((prev) => ({
+                                                                                ...prev,
+                                                                                [mobileArr[index]]: ''
+                                                                            }))
+                                                                    }}
+                                                                    to="#"
+                                                                    className="add-new add-new-phone mb-3 d-block"
+                                                                >
+                                                                    <i className="ti ti-square-rounded-minus me-2" />
+                                                                    Remove
+                                                                </Link>
+                                                            </div>
+                                                        }
                                                     </div>
                                                 ))}
 

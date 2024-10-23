@@ -608,10 +608,8 @@ const LeadDetailsPage = () => {
                                                 </li>
                                             </ul>
                                         </div>
-
                                         <div className="contact-activity">
                                             {leadFollowupData.length == 0 && <Empty description={false} />}
-
                                             {Object.keys(groupActivityByDate).map((date) =>
                                                 <div key={date}>
                                                     <div className="badge-day" >
@@ -712,7 +710,6 @@ const LeadDetailsPage = () => {
                                                             }
                                                         </li>)}
                                                     </ul>
-
                                                 </div>
                                             )}
                                         </div>

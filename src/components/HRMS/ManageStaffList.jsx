@@ -86,11 +86,18 @@ const ManageStaffList = ({
       render: (text, record) => (
         <Link to="#"
           className="table-avatar d-flex align-items-center">
-          <Link to="#" className="avatar">
-            <img src={record.profilePic} alt="UserImage" />
-          </Link>
+          {record?.profilePic ?
+            <Link to="#" className="avatar">
+              <img src={record.profilePic} alt="UserImage" />
+            </Link>
+            :
+            <Link to="#" className="avatar bg-pending">
+             <i className="ti ti-user" />
+            </Link>
+          }
+
           <Link
-           to="#"
+            to="#"
             className="profile-split d-flex flex-column"
           >
             {record.name}

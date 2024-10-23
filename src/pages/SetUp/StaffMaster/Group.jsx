@@ -1,6 +1,4 @@
-
-
-import React, { useState, useEffect } from "react";
+  import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { all_routes } from "../../Router/all_routes";
@@ -282,14 +280,14 @@ const Group = () => {
                                             <div className="table-responsive custom-table">
                                                 <DataTable dataSource={data} columns={columns} />
                                             </div>
-                                            <div className="row align-items-center">
+                                            {/* <div className="row align-items-center">
                                                 <div className="col-md-6">
                                                     <div className="datatable-length" />
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="datatable-paginate" />
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </>
                                     }
                                     {data.length === 0 && <Empty />}

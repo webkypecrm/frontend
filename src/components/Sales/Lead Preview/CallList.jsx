@@ -1,5 +1,6 @@
 import React from 'react'
 import { Tag } from 'antd';
+import { Link } from 'react-router-dom';
 
 const CallList = ({ data }) => {
 
@@ -31,7 +32,7 @@ const CallList = ({ data }) => {
 
     return (<>
         <ul>
-            <li className="activity-wrap">
+            <li className="activity-wrap" style={{ justifyContent: 'space-between' }}>
                 <div>
                     <div>
                         <div className="badge-day" style={{
@@ -61,10 +62,10 @@ const CallList = ({ data }) => {
                                 {data?.staff?.name}, Posted an Update
                             </h6>
                             <p style={{
-                                  fontSize: "0.7rem",
-                                  color: "rgb(149 144 144)",
-                                  marginTop: "0.2rem",
-                                  fontWeight: "600"
+                                fontSize: "0.7rem",
+                                color: "rgb(149 144 144)",
+                                marginTop: "0.2rem",
+                                fontWeight: "600"
                             }}>
                                 <span>Call Back Date & Time: {getDate(data.callBackDate)}, {getTime(data.callBackTime)}, </span>
                                 <span>Status: <strong> {data.status} </strong></span><br />
@@ -73,6 +74,60 @@ const CallList = ({ data }) => {
                         </div>
                     </div>
                 </div>
+                <div className="calls-box">
+                    <div className="caller-info">
+                        <div className="calls-action" style={{ display: 'flex', }}>
+                            <div className="dropdown call-drop">
+                                {data?.status == 'Done' ?
+                                    <Link
+                                        to="#"
+                                        className="dropdown-toggle bg-success"
+                                        aria-expanded="false"
+                                    >
+                                        <i className="ti ti-square-check" />
+
+                                    </Link>
+                                    :
+                                    <Link
+                                        to="#"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#create_call_comment"
+                                        className="dropdown-toggle bg-pending"
+                                        aria-expanded="false"
+                                        onClick={() => {
+                                            setFollowUp(data?.id)
+                                        }}
+                                    >
+                                        <i className="ti ti-square-check" />
+                                        {/* Mark Done */}
+                                    </Link>
+                                }
+                            </div>
+                            {data?.status !== 'Done' &&
+                                <div className="dropdown call-drop">
+                                    {
+                                        <Link
+                                            to="#"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#create_call_rescheduled"
+                                            className="dropdown-toggle"
+                                            aria-expanded="false"
+                                            onClick={() => {
+                                                setFollowUp(data?.id)
+                                            }}
+                                        >
+                                            <i className="ti ti-calendar-month" />
+                                            {/* Re-scheduled */}
+                                        </Link>
+                                    }
+                                </div>
+                            }
+
+
+                        </div>
+                    </div>
+                </div>
+
             </li>
         </ul >
     </>)

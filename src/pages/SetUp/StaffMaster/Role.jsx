@@ -96,7 +96,7 @@ const Role = () => {
                 throw new Error(resData.message || 'Failed to add role');
             }
 
-            setFormData(initialForm)
+            setFormData((prev) => ({ ...prev, name: '' }))
             fetchData()
             toast.success('Role added successfully!');
 
@@ -147,7 +147,7 @@ const Role = () => {
             if (!response.ok) {
                 throw new Error(resData.message || 'Failed to delete department');
             }
-            
+
             setRoleDetails({})
             fetchData()
             toast.success('Role deleted successfully!');
@@ -309,14 +309,14 @@ const Role = () => {
                                             <div className="table-responsive custom-table">
                                                 <DataTable dataSource={data} columns={columns} />
                                             </div>
-                                            <div className="row align-items-center">
+                                            {/* <div className="row align-items-center">
                                                 <div className="col-md-6">
                                                     <div className="datatable-length" />
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="datatable-paginate" />
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </>
                                     }
                                     {data.length === 0 && <Empty />}

@@ -23,61 +23,134 @@ const Register = () => {
                 <div className="login-content">
                     <form>
                         <div className="login-user-info">
+
                             <div className="login-logo">
                                 <img
-                                     src="/assets/img/webkype_img.png"
+                                    src="/assets/img/webkype_img.png"
                                     className="img-fluid"
                                     alt="Logo"
                                 />
                             </div>
                             <div className="login-heading">
-                                <h4>Register</h4>
-                                <p>Create new CRMS account</p>
+                                <h4>Free signup for kypeCrm</h4>
+                                <p>Team will call back for account activation.</p>
                             </div>
                             <div className="form-wrap">
-                                <label className="col-form-label">Name</label>
+                                {/* <label className="col-form-label">Name</label> */}
                                 <div className="form-wrap-icon">
-                                    <input type="text" className="form-control" />
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Company Name"
+                                    />
                                     <i className="ti ti-user" />
                                 </div>
                             </div>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="form-wrap" >
+
+                                        {/* <label className="col-form-label">Name</label> */}
+                                        <div className="form-wrap-icon">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Industry"
+                                            />
+                                            <i className="ti ti-user" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-md-6">
+                                    <div className="form-wrap" >
+                                        {/* <label className="col-form-label">Name</label> */}
+                                        <div className="form-wrap-icon">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Number of Users"
+                                            />
+                                            <i className="ti ti-user" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="form-wrap">
+                                        {/* <label className="col-form-label">Name</label> */}
+                                        <div className="form-wrap-icon">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Contact Name"
+                                            />
+                                            <i className="ti ti-user" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-md-6">
+                                    <div className="form-wrap">
+                                        {/* <label className="col-form-label">Name</label> */}
+                                        <div className="form-wrap-icon">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Contact Number"
+                                            />
+                                            <i className="ti ti-user" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className="form-wrap">
-                                <label className="col-form-label">Email Address</label>
+                                {/* <label className="col-form-label">Email Address</label> */}
                                 <div className="form-wrap-icon">
-                                    <input type="text" className="form-control" />
+                                    <input type="text" className="form-control" placeholder="Login Email Address" />
                                     <i className="ti ti-mail" />
                                 </div>
                             </div>
-                            <div className="form-wrap">
-                                <label className="col-form-label">Password</label>
-                                <div className="pass-group">
-                                    <input
-                                        type={passwordVisibility.password ? "text" : "password"}
-                                        className="pass-input form-control"
-                                    />
-                                    <span
-                                        className={`ti toggle-passwords ${passwordVisibility.password ? "ti-eye" : "ti-eye-off"
-                                            }`}
-                                        onClick={() => togglePasswordVisibility("password")}
-                                    ></span>
+
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="form-wrap">
+                                        {/* <label className="col-form-label">Password</label> */}
+                                        <div className="pass-group">
+                                            <input
+                                                type={passwordVisibility.password ? "text" : "password"}
+                                                className="pass-input form-control"
+                                                placeholder="Login Password"
+                                            />
+                                            <span
+                                                className={`ti toggle-passwords ${passwordVisibility.password ? "ti-eye" : "ti-eye-off"
+                                                    }`}
+                                                onClick={() => togglePasswordVisibility("password")}
+                                            ></span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="form-wrap">
-                                <label className="col-form-label">Confirm Password</label>
-                                <div className="pass-group">
-                                    <input
-                                        type={
-                                            passwordVisibility.confirmPassword ? "text" : "password"
-                                        }
-                                        className="pass-input form-control"
-                                    />
-                                    <span
-                                        className={`ti toggle-passwords ${passwordVisibility.confirmPassword
-                                            ? "ti-eye"
-                                            : "ti-eye-off"
-                                            }`}
-                                        onClick={() => togglePasswordVisibility("confirmPassword")}
-                                    ></span>
+                                <div className="col-md-6">
+                                    <div className="form-wrap">
+                                        {/* <label className="col-form-label">Confirm Password</label> */}
+                                        <div className="pass-group">
+                                            <input
+                                                type={
+                                                    passwordVisibility.confirmPassword ? "text" : "password"
+                                                }
+                                                className="pass-input form-control"
+                                                placeholder="Confirm Login Password"
+                                            />
+                                            <span
+                                                className={`ti toggle-passwords ${passwordVisibility.confirmPassword
+                                                    ? "ti-eye"
+                                                    : "ti-eye-off"
+                                                    }`}
+                                                onClick={() => togglePasswordVisibility("confirmPassword")}
+                                            ></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div className="form-wrap form-wrap-checkbox">

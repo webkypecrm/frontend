@@ -27,8 +27,6 @@ const Sidebar = ({ setExpandMenu }) => {
         // })
     };
 
-
-
     // useEffect(() => {
 
     //     console.log('openMenus =>', openMenus)
@@ -91,6 +89,10 @@ const Sidebar = ({ setExpandMenu }) => {
                                             <li><Link to={route.rolesPermissions}>Staff Attendance</Link></li>
                                             <li><Link to={route.rolesPermissions}>Staff Leaves</Link></li>
                                             <li><Link to={route.rolesPermissions}>Staff Salary</Link></li>
+                                            <li><Link to={route.rolesPermissions}>Staff Targets</Link></li>
+                                            <li><Link to={route.rolesPermissions}>Staff Achievements</Link></li>
+                                            <li><Link to={route.rolesPermissions}>Staff Incentives</Link></li>
+                                            <li><Link to={route.rolesPermissions}>Staff Rewards</Link></li>
                                             {/* <li><Link to={route.rolesPermissions}>Staff KYC </Link></li>
                                             <li><Link to={route.rolesPermissions}>Staff Exit</Link></li>
                                             <li><Link to={route.rolesPermissions}>Staff Knowledge Transfer</Link></li> */}
@@ -98,7 +100,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                     }
 
                                 </li>
-                                <li className="submenu">
+                                {/* <li className="submenu">
                                     <Link to="#"
                                         className={openMenus['incentives'] ? "subdrop active" : "subdrop"}
                                         onClick={() => {
@@ -116,7 +118,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                         </ul>
                                     }
 
-                                </li>
+                                </li> */}
 
                                 <li className="submenu">
                                     <Link to="#"
@@ -474,8 +476,8 @@ const Sidebar = ({ setExpandMenu }) => {
                                                     <ul>
                                                         <li><Link to={route.department}> Department </Link></li>
                                                         <li><Link to={route.role}>Roles</Link></li>
-                                                        <li><Link to={route.group}>Group </Link></li>                                                       
-                                                        <li><Link to={route.permissions}>Permissions</Link></li>
+                                                        <li><Link to={route.group}>Group </Link></li>
+                                                        <li><Link to="#">Permissions</Link></li>
                                                         <li><Link to={route.workShift}>Working Shift</Link></li>
                                                         <li><Link to={route.jobType}>Job Type</Link></li>
                                                     </ul>

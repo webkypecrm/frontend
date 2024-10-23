@@ -43,7 +43,7 @@ const ManageStaff = () => {
   });
   const [totalPages, setTotalPages] = useState(0);
   // const [pageSize, setPageSize] = useState(2);
-  const pageSize = 2
+  const pageSize = 50
 
   const initialFilter = {
     from: "",
@@ -183,10 +183,10 @@ const ManageStaff = () => {
           <div className="row">
             <div className="col-md-12">
               {/* Page Header */}
-              <PageHeader title="Staff" count={totalPages} />
+              <PageHeader title="Internal Staff (Employees)" count={totalPages} />
               {/* /Page Header */}
               {/* Campaign Status */}
-              <CampaignStatus />
+              {/* <CampaignStatus /> */}
               {/* /Campaign Status */}
               <div className="card main-card">
                 <div className="card-body">

@@ -24,6 +24,8 @@ const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
         callBack: '', //not use here
     }
     const [formData, setFormData] = useState(initialForm);
+
+
     // const [selectedDate1, setSelectedDate1] = useState(new Date());
     // const [selectedTime1, setSelectedTime1] = useState(null);
     const handleDateChange1 = (date) => {
@@ -41,6 +43,7 @@ const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
             callBackTime: time
         }))
     };
+
 
     // console.log('formData in Call  =>', formData)
     const handleSubmit = async (event) => {
@@ -79,7 +82,22 @@ const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
             <div className="view-header">
                 <h4>Calls</h4>
                 <ul>
-                    <li>
+                    {(data[0]?.status == 'Done' || data[0]?.status == '') &&
+                        <ul>
+                            <li>
+                                <Link
+                                    to="#"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#create_call"
+                                    className="com-add"
+                                >
+                                    <i className="ti ti-circle-plus me-1" />
+                                    Add New
+                                </Link>
+                            </li>
+                        </ul>
+                    }
+                    {/* <li>
                         <Link
                             to="#"
                             data-bs-toggle="modal"
@@ -89,7 +107,7 @@ const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
                             <i className="ti ti-circle-plus me-1" />
                             Add New
                         </Link>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
             {data.length === 0 ? <Empty description={false} /> :

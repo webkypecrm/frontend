@@ -5,6 +5,7 @@ import { TagsInput } from "react-tag-input-component";
 import AddNewCompany from "../../components/Sales/AddNewCompany";
 import { toast } from 'react-toastify'
 import axios from 'axios';
+import { makeArray } from 'jquery';
 
 
 const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, countryOptions, fetchLeadData }) => {
@@ -21,6 +22,8 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
         value: '',
         tags: '',
         companyId: null,
+        cityId: null,
+        stateId: null,
         countryId: null,
         industryId: null,
         sourceId: null,
@@ -31,15 +34,18 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
     const [tagValue, setTagValue] = useState(['Collab']);
     const [addCompany, setAddCompany] = useState(false);
     const [newContents, setNewContents] = useState([0]);
-    const [leadTypePerson, setLeadTypePerson] = useState(true);
+    const [haveCompany, setHaveCompany] = useState(false);
     const [companyOptions, setCompanyOptions] = useState([]);
+    const [stateOptions, setStateOptions] = useState([])
+    const [cityOptions, setCityOptions] = useState([])
 
     const mobileArr = ['leadMobile1', 'leadMobile2', 'leadMobile3']
+
+    console.log("haveCompany =>", haveCompany);
 
     const addNewContent = () => {
         setNewContents([...newContents, newContents.length]);
     };
-
 
     const addCompanyPopup = () => {
         setAddCompany(!addCompany);
@@ -52,7 +58,6 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
             [name]: value
         }))
     }
-    
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -111,6 +116,47 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
 
     }, [])
 
+
+    useEffect(() => {
+        const fetchStateData = async () => {
+            try {
+                const response = await axios.get(`${apiUrl}/employee/state-list/${formData.countryId}`, {
+                    headers: {
+                        Authorization: `Bearer ${Token}`
+                    }
+                });
+                const formattedData = response.data.data.map((item) => ({
+                    label: item.name,
+                    value: item.id
+                }));
+                setStateOptions(formattedData);
+            } catch (error) {
+                toast.error(error)
+            }
+        };
+        const fetchCityData = async () => {
+            try {
+                const response = await axios.get(`${apiUrl}/employee/city-list/${formData.stateId}`, {
+                    headers: {
+                        Authorization: `Bearer ${Token}`
+                    }
+                });
+                const formattedData = response.data.data.map((item) => ({
+                    label: item.name,
+                    value: item.id
+                }));
+                setCityOptions(formattedData);
+            } catch (error) {
+                toast.error(error)
+            }
+        };
+        if (formData.countryId) {
+            fetchStateData()
+        }
+        if (formData.stateId)
+            fetchCityData()
+    }, [formData.countryId, formData.stateId])
+
     return (
         <>
             <div className={`toggle-popup ${addLead ? "sidebar-popup" : ""}`}>
@@ -129,7 +175,7 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
                         <div className="pro-create">
                             <form onSubmit={handleSubmit}>
                                 <div className="row">
-                                    <div className="col-md-12">
+                                    {/* <div className="col-md-12">
                                         <div className="form-wrap">
                                             <div className="radio-wrap inline-radio-button">
                                                 <label className="col-form-label">Lead Type : </label>
@@ -162,23 +208,8 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
 
-                                    <div className="col-md-6">
-                                        <div className="form-wrap">
-                                            <label className="col-form-label">
-                                                Lead Name <span className="text-danger">*</span>
-                                            </label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                name='leadName'
-                                                required
-                                                value={formData.leadName}
-                                                onChange={handleInputChange}
-                                            />
-                                        </div>
-                                    </div>
                                     <div className="col-md-6">
                                         <div className="form-wrap">
                                             <label className="col-form-label">
@@ -187,6 +218,7 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
                                             <Select
                                                 classNamePrefix="react-select"
                                                 className="select"
+                                                required
                                                 value={sourceOptions.find(option => option.value === formData.sourceId)}
                                                 onChange={(event) => {
                                                     let { value } = event
@@ -201,33 +233,14 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
                                     <div className="col-md-6">
                                         <div className="form-wrap">
                                             <label className="col-form-label">
-                                                Industry <span className="text-danger">*</span>
-                                            </label>
-                                            <Select
-                                                classNamePrefix="react-select"
-                                                className="select"
-                                                value={industryOptions.find(option => option.value === formData.industryId)}
-                                                onChange={(event) => {
-                                                    let { value } = event
-                                                    handleInputChange({ target: { name: 'industryId', value } })
-
-                                                }}
-                                                options={industryOptions}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="col-md-6">
-                                        <div className="form-wrap">
-                                            <label className="col-form-label">
-                                                Value <span className="text-danger">*</span>
+                                                {"Lead Name (Contact Person)"} <span className="text-danger">*</span>
                                             </label>
                                             <input
-                                                type="number"
+                                                type="text"
                                                 className="form-control"
-                                                name='value'
+                                                name='leadName'
                                                 required
-                                                value={formData.value}
+                                                value={formData.leadName}
                                                 onChange={handleInputChange}
                                             />
                                         </div>
@@ -237,7 +250,7 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
                                         <div className="form-wrap">
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <label className="col-form-label">
-                                                    Lead Email <span className="text-danger">*</span>
+                                                    {"Lead Email (Contact Email)"}   <span className="text-danger"></span>
                                                 </label>
                                                 <div className="status-toggle small-toggle-btn d-flex align-items-center">
                                                     <span className="me-2 label-text">
@@ -259,12 +272,47 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
                                                 name="leadEmail"
                                                 type="email"
                                                 className="form-control"
-                                                required
                                                 value={formData.leadEmail}
                                                 onChange={handleInputChange}
                                             />
                                         </div>
                                     </div>
+
+                                    <div className="col-md-6">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Lead Industry <span className="text-danger"></span>
+                                            </label>
+                                            <Select
+                                                classNamePrefix="react-select"
+                                                className="select"
+                                                value={industryOptions.find(option => option.value === formData.industryId)}
+                                                onChange={(event) => {
+                                                    let { value } = event
+                                                    handleInputChange({ target: { name: 'industryId', value } })
+
+                                                }}
+                                                options={industryOptions}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-6">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Lead Value <span className="text-danger"></span>
+                                            </label>
+                                            <input
+                                                type="number"
+                                                className="form-control"
+                                                name='value'
+                                                placeholder='100'
+                                                value={formData.value}
+                                                onChange={handleInputChange}
+                                            />
+                                        </div>
+                                    </div>
+
                                     {newContents.map((index) => (
                                         <div className="col-md-6" key={index} >
                                             <div className="add-product-new">
@@ -272,65 +320,69 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
                                                     <div className="col-md-12">
                                                         <div className="form-wrap mb-2">
                                                             <label className="col-form-label">
-                                                                Lead Mobile <span className="text-danger">*</span>
+                                                                {"Lead Mobile (Contact Number)"} <span className="text-danger"></span>
                                                             </label>
                                                             <input
                                                                 name={mobileArr[index]}
                                                                 type="number"
                                                                 className="form-control"
                                                                 value={formData[mobileArr[index]]}
+                                                                maxLength="10"
+                                                                required
                                                                 onChange={(event) => {
                                                                     let { value } = event.target
-                                                                    handleInputChange({ target: { name: mobileArr[index], value } })
+                                                                    if (value.length <= 10) {
+                                                                        handleInputChange({ target: { name: mobileArr[index], value } });
+                                                                    } else {
+                                                                        toast.error("Mobile number should not be more than 10 digits");
+                                                                    }
+
                                                                 }}
                                                             />
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-md-6">
-                                                <Link
-                                                    onClick={addNewContent}
-                                                    to="#"
-                                                    className="add-new add-new-phone mb-3 d-block"
-                                                >
-                                                    <i className="ti ti-square-rounded-plus me-2" />
-                                                    Add New
-                                                </Link>
-                                            </div>
+                                            {
+                                                index === 0 && newContents.length < 3 &&
+                                                <div className="col-md-6">
+                                                    <Link
+                                                        onClick={addNewContent}
+                                                        to="#"
+                                                        className="add-new add-new-phone mb-3 d-block"
+                                                    >
+                                                        <i className="ti ti-square-rounded-plus me-2" />
+                                                        Add New Mobile
+                                                    </Link>
+                                                </div>
+                                            }
+
+                                            {(index === 1 || index === 2) &&
+                                                <div className="col-md-6">
+                                                    <Link
+                                                        onClick={() => {
+                                                            setNewContents((prev) => {
+                                                                return [...prev.slice(0, index), ...prev.slice(index + 1)]
+                                                            }),
+                                                                setFormData((prev) => ({
+                                                                    ...prev,
+                                                                    [mobileArr[index]]: ''
+                                                                }))
+                                                        }}
+                                                        to="#"
+                                                        className="add-new add-new-phone mb-3 d-block"
+                                                    >
+                                                        <i className="ti ti-square-rounded-minus me-2" />
+                                                        Remove Mobile
+                                                    </Link>
+                                                </div>
+                                            }
                                         </div>
                                     ))}
 
-                                    {!leadTypePerson &&
-                                        <div className="col-md-12">
-                                            <div className="form-wrap">
-                                                <div className="d-flex justify-content-between align-items-center">
-                                                    <label className="col-form-label">
-                                                        Company <span className="text-danger">*</span>
-                                                    </label>
-                                                    <Link
-                                                        to="#"
-                                                        className="add-new add-new-company add-popups"
-                                                        onClick={addCompanyPopup}
-                                                    >
-                                                        <i className="ti ti-square-rounded-plus me-2" />
-                                                        Add New
-                                                    </Link>
-                                                </div>
-                                                <Select
-                                                    classNamePrefix="react-select"
-                                                    className="select"
-                                                    value={companyOptions.find(option => option.value === formData.companyId)}
-                                                    onChange={(event) => {
-                                                        let { value } = event
-                                                        handleInputChange({ target: { name: 'companyId', value } })
-                                                    }}
-                                                    options={companyOptions}
-                                                />
-                                            </div>
-                                        </div>
-                                    }
-                                    <div className="col-md-6">
+
+
+                                    <div className="col-md-4">
                                         <div className="form-wrap">
                                             <label className="col-form-label">
                                                 Country <span className="text-danger">*</span>
@@ -348,11 +400,98 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
                                         </div>
                                     </div>
 
+                                    <div className="col-md-4">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                State <span className="text-danger"></span>
+                                            </label>
+                                            <Select
+                                                classNamePrefix="react-select"
+                                                className="select"
+                                                value={stateOptions.find(option => option.value === formData.stateId)}
+                                                onChange={(event) => {
+                                                    let { value } = event
+                                                    handleInputChange({ target: { name: 'stateId', value } })
+
+                                                }}
+                                                options={stateOptions}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                City <span className="text-danger"></span>
+                                            </label>
+                                            <Select
+                                                classNamePrefix="react-select"
+                                                className="select"
+                                                value={cityOptions.find(option => option.value === formData.cityId)}
+                                                onChange={(event) => {
+                                                    let { value } = event
+                                                    handleInputChange({ target: { name: 'cityId', value } })
+                                                }}
+                                                options={cityOptions}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className='dotted-line'>
+
+                                    </div>
+
+                                    <div className="col-md-12">
+                                        <div className="radio-wrap form-wrap">
+                                            <div className="d-flex flex-wrap">
+                                                <div className="radio-btn">
+                                                    <input
+                                                        type="checkbox"
+                                                        className="status-radio"
+                                                        id="lead_have_company"
+                                                        name="lead_have_company"
+                                                        onChange={() => { setHaveCompany((prev) => !prev) }}
+                                                    />
+                                                    <label htmlFor="lead_have_company">Have a company?</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {haveCompany &&
+                                        <div className="col-md-12">
+                                            <div className="form-wrap">
+                                                <div className="d-flex justify-content-between align-items-center">
+                                                    <label className="col-form-label">
+                                                        Select Company Name<span className="text-danger"></span>
+                                                    </label>
+                                                    <Link
+                                                        to="#"
+                                                        className="add-new add-new-company add-popups"
+                                                        onClick={addCompanyPopup}
+                                                    >
+                                                        <i className="ti ti-square-rounded-plus me-2" />
+                                                        or Add New Compay
+                                                    </Link>
+                                                </div>
+                                                <Select
+                                                    classNamePrefix="react-select"
+                                                    className="select"
+                                                    value={companyOptions.find(option => option.value === formData.companyId)}
+                                                    onChange={(event) => {
+                                                        let { value } = event
+                                                        handleInputChange({ target: { name: 'companyId', value } })
+                                                    }}
+                                                    options={companyOptions}
+                                                />
+                                            </div>
+                                        </div>
+                                    }
+
 
                                     <div className="col-md-6">
                                         <div className="form-wrap">
                                             <label className="col-form-label">
-                                                Tags <span className="text-danger">*</span>
+                                                Tags <span className="text-danger"></span>
                                             </label>
 
                                             <TagsInput
@@ -362,66 +501,39 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
                                             />
                                         </div>
                                     </div>
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <div className="radio-wrap form-wrap">
-                                                <label className="col-form-label">Visibility</label>
-                                                <div className="d-flex flex-wrap">
-                                                    <div className="radio-btn">
-                                                        <input
-                                                            type="radio"
-                                                            className="status-radio"
-                                                            id="public1"
-                                                            name="visibility"
-                                                            value="public"
-                                                            onChange={handleInputChange}
-                                                        />
-                                                        <label htmlFor="public1">Public</label>
-                                                    </div>
-                                                    <div className="radio-btn">
-                                                        <input
-                                                            type="radio"
-                                                            className="status-radio"
-                                                            id="private1"
-                                                            name="visibility"
-                                                            value="private"
-                                                            onChange={handleInputChange}
-                                                        />
-                                                        <label htmlFor="private1">Private</label>
-                                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="radio-wrap form-wrap">
+                                            <label className="col-form-label">Visibility</label>
+                                            <div className="d-flex flex-wrap">
+                                                <div className="radio-btn">
+                                                    <input
+                                                        type="radio"
+                                                        className="status-radio"
+                                                        id="public1"
+                                                        name="visibility"
+                                                        value="public"
+                                                        onChange={handleInputChange}
+                                                    />
+                                                    <label htmlFor="public1">Public</label>
+                                                </div>
+                                                <div className="radio-btn">
+                                                    <input
+                                                        type="radio"
+                                                        className="status-radio"
+                                                        id="private1"
+                                                        name="visibility"
+                                                        value="private"
+                                                        onChange={handleInputChange}
+                                                    />
+                                                    <label htmlFor="private1">Private</label>
                                                 </div>
                                             </div>
                                         </div>
-                                        {/* <div className="col-md-6">
-                                            <div className="radio-wrap form-wrap">
-                                                <label className="col-form-label">Status</label>
-                                                <div className="d-flex flex-wrap">
-                                                    <div className="radio-btn">
-                                                        <input
-                                                            type="radio"
-                                                            className="status-radio"
-                                                            id="active1"
-                                                            name="status"
-                                                            value="active"
-                                                            onChange={handleInputChange}
-                                                        />
-                                                        <label htmlFor="active1">Active</label>
-                                                    </div>
-                                                    <div className="radio-btn">
-                                                        <input
-                                                            type="radio"
-                                                            className="status-radio"
-                                                            id="inactive1"
-                                                            name="status"
-                                                            value="inactive"
-                                                            onChange={handleInputChange}
-                                                        />
-                                                        <label htmlFor="inactive1">Inactive</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> */}
                                     </div>
+
+
+
+
                                 </div>
                                 <div className="submit-button text-end">
                                     <Link to="#" className="btn btn-light sidebar-close" onClick={togglePopup}>

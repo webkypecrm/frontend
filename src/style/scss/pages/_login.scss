@@ -11,22 +11,22 @@
     display: -ms-flexbox;
     display: flex;
     &.account-bg {
-        background-image: url(assets/img/authentication/auth-page.jpg);
+        background-image: url(assets/img/authentication/login_img3.jpg);
         background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
+        // background-size: cover;
+        background-position: 800px;
         .login-content {
             background: #FFFFFFF2;
             backdrop-filter: blur(10px);
         }
         &.register-bg {
-            background-image: url(../../../../public/assets/img/authentication/auth-page.jpg);
+            background-image: url(assets/img/authentication/login_img3.jpg);
         }
         &.forgot-bg {
-            background-image: url(../../../../public/assets/img/authentication/auth-page.jpg);
+            background-image: url(assets/img/authentication/login_img3.jpg);
         }
         &.reset-bg {
-            background-image: url(../../../../public/assets/img/authentication/auth-page.jpg);
+            background-image: url(assets/img/authentication/login_img3.jpg);
         }
         // &.email-veri-wrap {
         //     background-image: url(../img/authentication/email-verification-img.jpg);

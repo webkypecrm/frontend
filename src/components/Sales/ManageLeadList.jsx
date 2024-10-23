@@ -122,7 +122,7 @@ const ManageLeadList = ({
                     className="table-avatar d-flex align-items-center"
                     style={{ cursor: 'pointer' }}
                 >
-                    <span className="company-img menu-list-icon bg-violet ">
+                    <span className="company-img menu-list-icon ">
                         <i className="ti ti-user-up" />
                     </span>
                     <ul>
@@ -140,7 +140,7 @@ const ManageLeadList = ({
             render: (text, record) => {
                 return <Link to={`/sales/leads-details/${record.leadId}`}
                  className="table-avatar d-flex align-items-center">
-                    <span className="company-img menu-list-icon bg-warning ">
+                    <span className="company-img menu-list-icon " style={{color:'#e9e9f'}}>
                         <i className="ti ti-mail" />
                     </span>
                     <ul>
@@ -213,6 +213,40 @@ const ManageLeadList = ({
                     </span>
                     <ul>
                         <li>{record.country}</li>
+                    </ul>
+                </div>
+            }
+        },
+        {
+            title: "State",
+            dataIndex: "state",
+            key: "stateId",
+            // sorter: (a, b) =>
+            //     a.lead_name.length - b.lead_name.length,
+            render: (text, record) => {
+                return <div className="table-avatar d-flex align-items-center">
+                    <span className="company-img menu-list-icon ">
+                        <i className="ti ti-flag" />
+                    </span>
+                    <ul>
+                        <li>{record?.state?.name}</li>
+                    </ul>
+                </div>
+            }
+        },
+        {
+            title: "City",
+            dataIndex: "city",
+            key: "cityId",
+            // sorter: (a, b) =>
+            //     a.lead_name.length - b.lead_name.length,
+            render: (text, record) => {
+                return <div className="table-avatar d-flex align-items-center">
+                    <span className="company-img menu-list-icon ">
+                        <i className="ti ti-flag" />
+                    </span>
+                    <ul>
+                        <li>{record?.city?.name}</li>
                     </ul>
                 </div>
             }

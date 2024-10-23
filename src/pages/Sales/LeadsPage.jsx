@@ -30,6 +30,7 @@ const LeadsPage = () => {
     const [editCompany, setEditCompany] = useState(false);
     const [companyDetails, setCompanyDetails] = useState(null);
     const [filterSlider, setFilterSlider] = useState(false);
+    const [stageOptions, setStageOptions] = useState([]);
     const [manageColumns, setManageColumns] = useState({
         "Lead Name": true,
         "Lead Email": true,
@@ -40,6 +41,8 @@ const LeadsPage = () => {
         "Company Email": false,
         "Company Location": false,
         "Country": true,
+        "State": true,
+        "City": true,
         "Source": true,
         "Tags": true,
         "Value": false,
@@ -51,7 +54,7 @@ const LeadsPage = () => {
     });
     const [totalPages, setTotalPages] = useState(0);
     // const [pageSize, setPageSize] = useState(2);
-    const pageSize = 2
+    const pageSize = 500
 
     const initialFilter = {
         from: "",
@@ -75,6 +78,19 @@ const LeadsPage = () => {
     }
 
     console.log('filterByObj =>', filterByObj, num++)
+
+    const fetchStageData = async () => {
+        try {
+            const response = await axios.get(`${apiUrl}/master/stage-list`);
+            const formattedData = response.data.data.map((item) => ({
+                label: item.name,
+                value: item.id
+            }));
+            setStageOptions(() => [...formattedData]);
+        } catch (error) {
+            toast.error(error.message)
+        }
+    };
 
     const fetchLeadData = async (page) => {
         try {
@@ -159,13 +175,33 @@ const LeadsPage = () => {
         }
     };
 
+    // const fetchStageData = async () => {
+    //     try {
+    //         const response = await axios.get(`${apiUrl}/lead/lead-status-history?leadId=${data.leadId}`,
+    //             {
+    //                 headers: {
+    //                     Authorization: `Bearer ${Token}`
+    //                 }
+    //             }
+    //         );
+    //         const formattedData = response.data.data
+    //         setStageOptions(() => [...formattedData]);
+    //     } catch (error) {
+    //         console.log(error)
+    //         toast.error(error.message)
+    //     }
+    // };
+
     useEffect(() => {
         fetchLeadData()
         fetchSourceData()
         fetchIndustryData()
         fetchCountryData()
+        fetchStageData()
 
     }, [])
+
+    console.log('stageOptions =>', stageOptions)
 
     return <>
         {/* Page Wrapper */}
@@ -174,12 +210,31 @@ const LeadsPage = () => {
                 <div className="row">
                     <div className="col-md-12">
                         {/* Page Header */}
-                        <PageHeader title="Leads" count={data.totalCount} />
+                        <PageHeader title="Total Sales Lead" count={totalPages} />
                         {/* /Page Header */}
 
                         {/* Campaign Status */}
-                        <CampaignStatus />
+                        {/* <CampaignStatus /> */}
                         {/* /Campaign Status */}
+
+                        <div className="col-md-12">
+                            <div className="contact-wrap">
+                                <div className="pipeline-list">
+                                    <ul>
+                                        {stageOptions.map((stage, index) => <li key={stage.value}
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#stage_update"
+                                            style={{ cursor: 'pointer' }}
+                                        >
+                                            <Link to="#" className={(stageOptions.length - 1) == index ? `bg-pending` : ``}>
+                                                {stage?.label ? stage?.label : 'New Lead'}
+                                            </Link>
+                                        </li>)}
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
 
                         <div className="card main-card">
                             <div className="card-body">
@@ -188,7 +243,7 @@ const LeadsPage = () => {
                                     togglePopup={togglePopup}
                                     onManageColumns={setManageColumns}
                                     manageColumns={manageColumns}
-                                    fetchLeadData={fetchLeadData}  
+                                    fetchLeadData={fetchLeadData}
                                     filterByObj={filterByObj}
                                     setFilterByObj={setFilterByObj}
                                     setFilterSlider={setFilterSlider}
@@ -278,7 +333,7 @@ const LeadsPage = () => {
 
             />
         </div>
-       
+
     </>
 }
 

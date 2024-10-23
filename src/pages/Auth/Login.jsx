@@ -10,6 +10,10 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isPasswordVisible, setPasswordVisible] = useState(false);
+  const [isSelected, setIsSelected] = useState({
+    admin: false,
+    user: false
+  });
   const navigate = useNavigate();
 
   console.log(email, password)
@@ -29,12 +33,19 @@ const Login = () => {
     // console.log(apiUrl);
 
     try {
+
+      let staffType = 2
+
+      if (isSelected?.admin === true) {
+        staffType = 1
+      }
+
       const response = await fetch(`${apiUrl}/staff/staffLogin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, staffType }),
       });
 
       const responseData = await response.json();
@@ -74,12 +85,35 @@ const Login = () => {
                 <p>Access the CRMS panel using your email and passcode.</p>
               </div>
               {error && <div className="text-danger">{error}</div>}
+
+              <div className="login_admin " >
+                <div className="login_admin_img " onClick={() => {
+                  setIsSelected({
+                    admin: true,
+                    user: false
+                  })
+                }}>
+                  <img src="assets/img/authentication/admin.png" className={`  ${isSelected.admin === true ? "select_type" : "btn btn-help"}`} />
+                  <p style={{ textAlign: 'center' }}>Admin</p>
+                </div>
+                <div className="login_admin_img " onClick={() => {
+                  setIsSelected({
+                    admin: false,
+                    user: true
+                  })
+                }} >
+                  <img src="assets/img/authentication/user.png" className={`  ${isSelected.user === true ? "select_type" : "btn btn-help"}`} />
+                  <p style={{ textAlign: 'center' }}>User</p>
+                </div>
+              </div>
+
               <div className="form-wrap">
-                <label className="col-form-label">Email Address</label>
+                {/* <label className="col-form-label">Email Address</label> */}
                 <div className="form-wrap-icon">
                   <input
                     type="email"
                     className="form-control"
+                    placeholder="Email Address"
                     required
                     onChange={(event) => {
                       setEmail(event.target.value);
@@ -87,13 +121,14 @@ const Login = () => {
                   />
                   <i className="ti ti-mail" />
                 </div>
-              </div>           
+              </div>
               <div className="form-wrap">
-                <label className="col-form-label">Password</label>
+                {/* <label className="col-form-label">Password</label> */}
                 <div className="pass-group">
                   <input
                     type={isPasswordVisible ? "text" : "password"}
                     className="pass-input form-control"
+                    placeholder="Password"
                     required
                     onChange={(event) => {
                       setPassword(event.target.value);
@@ -115,11 +150,11 @@ const Login = () => {
                 </div>
                 <div className="text-end">
                   <Link to={route.forgotPassword} className="forgot-link">
-                    Forgot Password?
+                    Reset Password?
                   </Link>
                 </div>
               </div>
-              
+
               <div className="form-wrap">
                 <button type="submit" className="btn btn-primary" >
                   Sign In

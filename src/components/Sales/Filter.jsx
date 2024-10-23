@@ -26,7 +26,17 @@ const Filter = ({
     const [filterByLeadOwner, setFilterByLeadOwner] = useState([]);
     const [filterByStage, setFilterByStage] = useState([]);
     const [clickFilter, setClickFilter] = useState(false);
-   
+    // const [countryOptions, setCountryOptions] = useState([]);
+    const [stateOptions, setStateOptions] = useState([])
+    const [cityOptions, setCityOptions] = useState([])
+
+    const initialForm = {
+        cityId: null,
+        stateId: null,
+        countryId: null,
+    }
+    const [formData, setFormData] = useState(initialForm);
+
 
 
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -133,11 +143,51 @@ const Filter = ({
 
     }, [clickFilter])
 
+    useEffect(() => {
+        const fetchStateData = async () => {
+            try {
+                const response = await axios.get(`${apiUrl}/employee/state-list/${formData.countryId}`, {
+                    headers: {
+                        Authorization: `Bearer ${Token}`
+                    }
+                });
+                const formattedData = response.data.data.map((item) => ({
+                    label: item.name,
+                    value: item.id
+                }));
+                setStateOptions(formattedData);
+            } catch (error) {
+                toast.error(error)
+            }
+        };
+        const fetchCityData = async () => {
+            try {
+                const response = await axios.get(`${apiUrl}/employee/city-list/${formData.stateId}`, {
+                    headers: {
+                        Authorization: `Bearer ${Token}`
+                    }
+                });
+                const formattedData = response.data.data.map((item) => ({
+                    label: item.name,
+                    value: item.id
+                }));
+                setCityOptions(formattedData);
+            } catch (error) {
+                toast.error(error)
+            }
+        };
+        if (formData.countryId) {
+            fetchStateData()
+        }
+        if (formData.stateId)
+            fetchCityData()
+    }, [formData.countryId, formData.stateId])
+
 
     return (
         <>
-            <div className={`toggle-popup ${filterSlider ? "sidebar-popup" : ""}`}>
-                <div className="sidebar-layout">
+            <div className={`toggle-popup ${filterSlider ? "sidebar-popup" : ""}`} >
+                <div className="sidebar-layout" >
                     <div className="sidebar-header">
                         <h4>
                             <i className="ti ti-filter-share" />
@@ -156,6 +206,27 @@ const Filter = ({
                     <div className="toggle-body">
                         <div className="col-xl-12">
                             <div className="row">
+                                <div className="col-md-6">
+                                    <div className="form-wrap">
+                                        <label className="col-form-label">
+                                            Company <span className="text-danger">*</span>
+                                        </label>
+                                        <Select
+                                            isMulti
+                                            classNamePrefix="react-select"
+                                            className="basic-multi-select"
+                                            value={companyOptions.filter(option => filterByCompany.includes(option.value))}
+                                            onChange={(selectedOptions) => {
+                                                const values = selectedOptions ? selectedOptions.map(option => option.value) : [];
+                                                setFilterByCompany(values)
+                                            }}
+                                            options={companyOptions}
+                                            components={{ Option: CheckboxOption }} // Use custom checkbox component
+                                            closeMenuOnSelect={false} // Keep menu open after selecting
+                                            hideSelectedOptions={false} // Show selected options in dropdown
+                                        />
+                                    </div>
+                                </div>
                                 <div className="col-md-6">
                                     <div className="form-wrap">
                                         <label className="col-form-label">
@@ -225,24 +296,57 @@ const Filter = ({
                                 <div className="col-md-6">
                                     <div className="form-wrap">
                                         <label className="col-form-label">
-                                            Lead Owner <span className="text-danger">*</span>
+                                            Country <span className="text-danger">*</span>
                                         </label>
                                         <Select
-                                            isMulti
                                             classNamePrefix="react-select"
-                                            className="basic-multi-select"
-                                            value={staffOptions.filter(option => filterByLeadOwner.includes(option.value))}
-                                            onChange={(selectedOptions) => {
-                                                const values = selectedOptions ? selectedOptions.map(option => option.value) : [];
-                                                setFilterByLeadOwner(values)
+                                            className="select"
+                                            value={countryOptions.find(option => option.value === formData.countryId)}
+                                            onChange={(event) => {
+                                                let { value } = event
+                                                handleInputChange({ target: { name: 'countryId', value } })
                                             }}
-                                            options={staffOptions}
-                                            components={{ Option: CheckboxOption }} // Use custom checkbox component
-                                            closeMenuOnSelect={false} // Keep menu open after selecting
-                                            hideSelectedOptions={false} // Show selected options in dropdown
+                                            options={countryOptions}
                                         />
                                     </div>
                                 </div>
+
+                                <div className="col-md-6">
+                                    <div className="form-wrap">
+                                        <label className="col-form-label">
+                                            State <span className="text-danger"></span>
+                                        </label>
+                                        <Select
+                                            classNamePrefix="react-select"
+                                            className="select"
+                                            value={stateOptions.find(option => option.value === formData.stateId)}
+                                            onChange={(event) => {
+                                                let { value } = event
+                                                handleInputChange({ target: { name: 'stateId', value } })
+
+                                            }}
+                                            options={stateOptions}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col-md-6">
+                                    <div className="form-wrap">
+                                        <label className="col-form-label">
+                                            City <span className="text-danger"></span>
+                                        </label>
+                                        <Select
+                                            classNamePrefix="react-select"
+                                            className="select"
+                                            value={cityOptions.find(option => option.value === formData.cityId)}
+                                            onChange={(event) => {
+                                                let { value } = event
+                                                handleInputChange({ target: { name: 'cityId', value } })
+                                            }}
+                                            options={cityOptions}
+                                        />
+                                    </div>
+                                </div>
+
 
                                 <div className="col-md-6">
                                     <div className="form-wrap">
@@ -269,18 +373,18 @@ const Filter = ({
                                 <div className="col-md-6">
                                     <div className="form-wrap">
                                         <label className="col-form-label">
-                                            Company <span className="text-danger">*</span>
+                                            Lead Owner <span className="text-danger">*</span>
                                         </label>
                                         <Select
                                             isMulti
                                             classNamePrefix="react-select"
                                             className="basic-multi-select"
-                                            value={companyOptions.filter(option => filterByCompany.includes(option.value))}
+                                            value={staffOptions.filter(option => filterByLeadOwner.includes(option.value))}
                                             onChange={(selectedOptions) => {
                                                 const values = selectedOptions ? selectedOptions.map(option => option.value) : [];
-                                                setFilterByCompany(values)
+                                                setFilterByLeadOwner(values)
                                             }}
-                                            options={companyOptions}
+                                            options={staffOptions}
                                             components={{ Option: CheckboxOption }} // Use custom checkbox component
                                             closeMenuOnSelect={false} // Keep menu open after selecting
                                             hideSelectedOptions={false} // Show selected options in dropdown
@@ -288,7 +392,37 @@ const Filter = ({
                                     </div>
                                 </div>
 
+                                <div className="col-md-6">
+                                    <div className="form-wrap">
+                                        <label className="col-form-label">
+                                            Assign To <span className="text-danger">*</span>
+                                        </label>
+                                        <Select
+                                            isMulti
+                                            classNamePrefix="react-select"
+                                            className="basic-multi-select"
+                                            value={staffOptions.filter(option => filterByLeadOwner.includes(option.value))}
+                                            onChange={(selectedOptions) => {
+                                                const values = selectedOptions ? selectedOptions.map(option => option.value) : [];
+                                                setFilterByLeadOwner(values)
+                                            }}
+                                            options={staffOptions}
+                                            components={{ Option: CheckboxOption }} // Use custom checkbox component
+                                            closeMenuOnSelect={false} // Keep menu open after selecting
+                                            hideSelectedOptions={false} // Show selected options in dropdown
+                                        />
+                                    </div>
+                                </div>
+
+
+
+
+
+
                             </div>
+
+
+
                             {/* <div
                                 className="accordion"
                                 id="accordionExample"
