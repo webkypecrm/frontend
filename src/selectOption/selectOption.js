@@ -322,5 +322,13 @@ export const currencyselect = [
   { value: 'Euro', label: 'Euro' },
 ]
 
+export const fileTypeSelect = [
+  { value: 'Choose', label: 'Choose' },
+  { value: 'image', label: 'Image' },
+  { value: 'pdf', label: 'Pdf' },
+  { value: 'csv', label: 'Csv' },
+  { value: 'zip', label: 'Zip' },
+  { value: 'video', label: 'Video' },
+]
 
 

@@ -28,6 +28,9 @@ const TaskSubCategory = () => {
     const [formData, setFormData] = useState(initialForm);
     const [tastCategoryOptions, setTastCategoryOptions] = useState([]);
     const [taskSubCategory, setTaskSubCategory] = useState({});
+    const [totalPages, setTotalPages] = useState(0);
+    // const [pageSize, setPageSize] = useState(2);
+    const pageSize = 500
 
     // console.log('formData =>', formData, num++)
     // console.log('taskSubCategory =>', taskSubCategory, num1++)
@@ -48,6 +51,7 @@ const TaskSubCategory = () => {
                 status: 'active'
             }));
             setData(formattedData);
+            setTotalPages(response.data.totalCount)
             setIsLoading(false)
         } catch (error) {
             setError(error)
@@ -255,7 +259,7 @@ const TaskSubCategory = () => {
                     <div className="row">
                         <div className="col-md-12">
                             {/* Page Header */}
-                            <PageHeader title="Task Sub Category" />
+                            <PageHeader title="Task Sub Category"  count={totalPages}/>
                             {/* /Page Header */}
                             <div className="card main-card">
                                 <div className="card-body">
@@ -306,7 +310,9 @@ const TaskSubCategory = () => {
                                         data.length > 0 &&
                                         <>
                                             <div className="table-responsive custom-table">
-                                                <DataTable dataSource={data} columns={columns} />
+                                                <DataTable dataSource={data} columns={columns} 
+                                                 totalPages={totalPages}
+                                                 pageSize={pageSize}/>
                                             </div>
                                             <div className="row align-items-center">
                                                 <div className="col-md-6">

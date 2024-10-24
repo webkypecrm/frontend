@@ -50,6 +50,7 @@ const Industry = () => {
         status: 'active'
       }));
       setData(formattedData);
+      setTotalPages(response.data.totalCount)
       setIsLoading(false)
     } catch (error) {
       setError(error)
@@ -231,7 +232,7 @@ const Industry = () => {
           <div className="row">
             <div className="col-md-12">
               {/* Page Header */}
-              <PageHeader title="Industry" />
+              <PageHeader title="Industry" count={totalPages} />
               {/* /Page Header */}
               <div className="card main-card">
                 <div className="card-body">
@@ -282,7 +283,10 @@ const Industry = () => {
                     data.length > 0 &&
                     <>
                       <div className="table-responsive custom-table">
-                        <DataTable dataSource={data} columns={columns} />
+                        <DataTable dataSource={data} columns={columns}
+                          totalPages={totalPages}
+                          pageSize={pageSize}
+                        />
                       </div>
                       {/* <div className="row align-items-center">
                         <div className="col-md-6">
@@ -377,7 +381,7 @@ const Industry = () => {
               <form onSubmit={handleEdit}>
                 <div className="form-wrap">
                   <label className="col-form-label">
-                  Industry Name <span className="text-danger">*</span>
+                    Industry Name <span className="text-danger">*</span>
                   </label>
                   <input
                     type="text"

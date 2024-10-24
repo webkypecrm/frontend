@@ -51,6 +51,7 @@ const Department = () => {
                 status: 'active'
             }));
             setData(formattedData);
+            setTotalPages(response.data.totalCount)
             setIsLoading(false)
         } catch (error) {
             setError(error)
@@ -82,13 +83,13 @@ const Department = () => {
             if (!response.ok) {
                 throw new Error(resData.message || 'Failed to add department');
             }
-
+            console.log('response =>', response.data)
             setFormData(initialForm)
-            setTotalPages(response.data.totalCount)
             fetchData()
             toast.success('Department added successfully!');
 
         } catch (error) {
+            console.log(error)
             toast.error(error.message || 'Something went wrong');
         }
     }
@@ -234,7 +235,7 @@ const Department = () => {
                     <div className="row">
                         <div className="col-md-12">
                             {/* Page Header */}
-                            <PageHeader title="Department" />
+                            <PageHeader title="Department" count={totalPages}/>
                             {/* /Page Header */}
                             <div className="card main-card">
                                 <div className="card-body">

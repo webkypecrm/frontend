@@ -27,6 +27,9 @@ const Stage = () => {
   }
   const [formData, setFormData] = useState(initialForm);
   const [departmentDetails, setDepartmentDetails] = useState({})
+  const [totalPages, setTotalPages] = useState(0);
+  // const [pageSize, setPageSize] = useState(2);
+  const pageSize = 500
 
   // console.log('formData =>', formData, num++)
   // console.log('departmentDetails =>', departmentDetails, num1++)
@@ -47,6 +50,7 @@ const Stage = () => {
         status: 'active'
       }));
       setData(formattedData);
+      setTotalPages(response.data.totalCount)
       setIsLoading(false)
     } catch (error) {
       setError(error)
@@ -228,7 +232,7 @@ const Stage = () => {
           <div className="row">
             <div className="col-md-12">
               {/* Page Header */}
-              <PageHeader title="Stage" />
+              <PageHeader title="Stage" count={totalPages}/>
               {/* /Page Header */}
               <div className="card main-card">
                 <div className="card-body">
@@ -282,8 +286,8 @@ const Stage = () => {
                         <DataTable 
                         dataSource={data}
                          columns={columns}
-                        //  pageSize ={500}
-                        //  totalPages = {500}
+                         totalPages={totalPages}
+                         pageSize={pageSize}
                          />
                       </div>
                       {/* <div className="row align-items-center">

@@ -260,7 +260,7 @@ const Role = () => {
                     <div className="row">
                         <div className="col-md-12">
                             {/* Page Header */}
-                            <PageHeader title="Role" />
+                            <PageHeader title="Role" count={totalPages} />
                             {/* /Page Header */}
                             <div className="card main-card">
                                 <div className="card-body">

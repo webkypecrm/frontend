@@ -34,7 +34,7 @@ const Login = () => {
 
     try {
 
-      let staffType = 2
+      let staffType = 0
 
       if (isSelected?.admin === true) {
         staffType = 1
