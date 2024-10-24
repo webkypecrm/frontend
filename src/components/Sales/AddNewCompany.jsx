@@ -274,7 +274,8 @@ const AddNewCompany = ({
                                                                         <input
                                                                             type="number"
                                                                             className="form-control"
-                                                                            maxLength="10"
+                                                                            maxLength="12"
+                                                                            minLength="10"
                                                                             required
                                                                             value={formData[mobileArr[index]]}
                                                                             onChange={(event) => {

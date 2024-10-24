@@ -31,7 +31,7 @@ import CreateMeeting from "../../components/Sales/LeadDetails/CreateMeeting";
 import CreateComment from "../../components/Sales/LeadDetails/CreateComment";
 import ChangeStage from "../../components/Sales/ChangeStage";
 import AddDocuments from "../../components/Sales/LeadDetails/AddDocuments";
-import callDoneImg from "../../../public/assets/img/call-done.jpg"
+// import callDoneImg from "../../../public/assets/img/call-done.jpg"
 import meetingDoneImg from "../../../public/assets/img/meeting-done.jpg"
 import AddProposal from "../../components/Sales/LeadDetails/AddProposal";
 
@@ -303,23 +303,23 @@ const LeadDetailsPage = () => {
 
                                     <div className="name-user">
                                         <h5>{data?.leadName.toUpperCase()} {"("}leadId: {data?.leadId}{")"}</h5>
-                                        <p>
-                                            <i className="ti ti-map-pin-pin me-1" />
+                                        <p style={{ marginBottom: "0px" }}>
+                                            <i className="ti ti ti-mail-check me-1" />
                                             {data?.leadEmail}
                                         </p>
-                                        <p>
-                                            <i className="ti ti-map-pin-pin me-1" />
+                                        <p style={{ marginBottom: "0px" }}>
+                                            <i className="ti ti-phone me-1" />
                                             {data?.leadMobile1}
                                         </p>
-                                        <p>
+                                        <p style={{ marginBottom: "0px" }}>
                                             <i className="ti ti-map-pin-pin me-1" />
-                                            {data?.companyCountry}
+                                            {data?.country}, {data?.state?.name}, {data?.city?.name}
                                         </p>
-                                        <div className="badge-rate">
+                                        {/* <div className="badge-rate">
                                             <p>
                                                 <i className="fa-solid fa-star" /> 5.0
                                             </p>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                                 <div className="contacts-action">
@@ -409,8 +409,11 @@ const LeadDetailsPage = () => {
                                     <h6>Lead Information</h6>
                                     <ul className="other-info">
                                         <li>
-                                            <span className="other-title">Date Created</span>
-                                            <span>{getDate(data?.createdAt)}, {getTime(data?.createdAt)}</span>
+                                            <span className="other-title">Created Date</span>
+                                            <span style={{ display: 'flex', flexDirection: 'column' }}>
+                                                <span>{getDate(data?.createdAt)},</span>
+                                                <span>{getTime(data?.createdAt)}</span>
+                                            </span>
                                         </li>
                                         <li>
                                             <span className="other-title">Value</span>
@@ -470,25 +473,65 @@ const LeadDetailsPage = () => {
                                             </div>
                                             <ul className="company-info com-info">
                                                 <li style={{ gap: '10px', alignItems: 'start' }}>
-                                                    {data?.companyImg ?
-                                                        <img src={data.companyImg}
-                                                            style={{ width: '50px', height: '50px', objectFit: 'contain', marginRight: '10px' }} /> :
-                                                        <span className="menu-list-icon ">
-                                                            <i className="ti ti-building-community" />
-                                                        </span>
-                                                    }
                                                     <div>
-                                                        <h6>{data?.companyName.toUpperCase()}</h6>
-                                                        <p> {data?.company?.companyEmail}</p>
-                                                        <p> {data?.company?.companyMobile1}</p>
-                                                        <p>GST: {data?.company?.gstNo}</p>
-                                                        <p>PAN: {data?.company?.panNo}</p>
-                                                        <p> {data?.company?.website}</p>
-                                                        <p> {data?.company?.industry?.name}</p>
-                                                        {/* <p>
-                                                            <i className="fa-solid fa-star" />
-                                                            5
-                                                        </p> */}
+
+
+                                                        <ul className="basic-info">
+                                                            <li style={{ display: 'flex', alignItems: 'center' }}>
+                                                                {data?.companyImg ?
+                                                                    <img src={data.companyImg}
+                                                                        style={{ width: '50px', height: '50px', objectFit: 'contain', marginRight: '10px' }} /> :
+                                                                    <span className="menu-list-icon ">
+                                                                        <i className="ti ti-building-community" />
+                                                                    </span>
+                                                                }
+                                                                <h6 >{data?.companyName.toUpperCase()}</h6>
+                                                            </li>
+                                                            <li>
+                                                                <span>
+                                                                    <i className="ti ti-mail" />
+                                                                </span>
+                                                                <p>{data?.company?.companyEmail}</p>
+                                                            </li>
+                                                            <li>
+                                                                <span>
+                                                                    <i className="ti ti-phone" />
+                                                                </span>
+                                                                <p>{data?.company?.companyMobile1}</p>
+                                                            </li>
+                                                            <li>
+                                                                <span>
+                                                                    <i className="ti ti-file" />
+                                                                </span>
+                                                                <p>{data?.company?.gstNo}</p>
+                                                            </li>
+                                                            <li>
+                                                                <span>
+                                                                    <i className="ti ti-credit-card" />
+                                                                </span>
+                                                                <p>{data?.company?.panNo}</p>
+                                                            </li>
+                                                            <li>
+                                                                <span>
+                                                                    <i className="ti ti-link" />
+                                                                </span>
+                                                                <a href={data?.company?.website} target="_blank" rel="noopener noreferrer">
+                                                                    Website
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <span>
+                                                                    <i className="ti ti-arrow-right" />
+                                                                </span>
+                                                                <p> {data?.company?.industry?.name}</p>
+                                                            </li>
+
+                                                        </ul>
+
+
+
+
+
                                                     </div>
                                                 </li>
                                             </ul>
@@ -649,7 +692,7 @@ const LeadDetailsPage = () => {
                                                         {date}
                                                     </div>
                                                     <ul>
-                                                        {groupActivityByDate[`${date}`].map((lead) => <li className="activity-wrap" key={lead.id} style={{ marginBottom: '1rem' }}>
+                                                        {groupActivityByDate[`${date}`].map((lead) => <li className={lead.type == 'fileUpdate' ? "" : "activity-wrap"} key={lead.id} style={{ marginBottom: '1rem' }}>
                                                             {lead.type == 'callUpdate' && <>
                                                                 <span className="activity-icon bg-secondary-success">
                                                                     <i className="ti ti-phone" />
@@ -752,137 +795,106 @@ const LeadDetailsPage = () => {
                                                             {
                                                                 lead.type == 'fileUpdate' &&
                                                                 <>
-                                                                    <div className="files-wrap" key={lead.leadId} style={{width:'46rem'}}>
-                                                                        <div className="row align-items-center">
-                                                                            <div className="col-md-8">
-                                                                                <div className="file-info">
+                                                                    <div className="files-activity" style={{ width: "100%" }}>
+                                                                        <div className="files-wrap"  >
+                                                                            <div className="row align-items-center">
+                                                                                <div className="col-md-8">
+                                                                                    <div className="file-info">
+                                                                                        <div className="file-user" >
+                                                                                            <div style={{ display: 'flex' }}>
+                                                                                                <img
+                                                                                                    src={lead?.staff?.profilePicUrl}
+                                                                                                    alt="img"
+                                                                                                />
+                                                                                            </div>
+                                                                                            <div style={{ display: 'grid' }}>
+                                                                                                <p>{lead?.staff?.name} uploaded file</p>
+                                                                                                <p style={{ fontSize: 'x-small', margin: '0', maxWidth: '8rem' }}>
+                                                                                                    {getDate(lead?.leadDocument?.createdAt)},{getTime(lead?.leadDocument?.createdAt)}
+                                                                                                </p>
+                                                                                            </div>
 
-                                                                                    <div className="file-user" >
-                                                                                        <div style={{ display: 'flex' }}>
-                                                                                            <img
-                                                                                                src={lead?.staff?.profilePicUrl}
-                                                                                                alt="img"
-                                                                                            />
                                                                                         </div>
-                                                                                        <div style={{ display: 'grid' }}>
-                                                                                            <p>{lead?.staff?.name}</p>
-                                                                                            <p style={{ fontSize: 'x-small', margin: '0', maxWidth: '8rem' }}>{getDate(lead?.leadDocument?.createdAt)},{getTime(lead?.leadDocument?.createdAt)}</p>
-                                                                                        </div>
-
+                                                                                        <h4>{lead?.leadDocument?.fileName}</h4>
+                                                                                        <p>
+                                                                                            {lead?.leadDocument?.comment}
+                                                                                        </p>
+                                                                                        <p>
+                                                                                            {/* {file?.leadDocument?.createdAt} */}
+                                                                                        </p>
                                                                                     </div>
-                                                                                    <h4>{lead?.leadDocument?.fileName}</h4>
-                                                                                    <p>
-                                                                                        {lead?.leadDocument?.comment}
-                                                                                    </p>
-                                                                                    <p>
-                                                                                        {/* {file?.leadDocument?.createdAt} */}
-                                                                                    </p>
                                                                                 </div>
-                                                                            </div>
-                                                                            <div className="col-md-4 text-md-end">
-                                                                                <ul className="file-action">
+                                                                                <div className="col-md-4 text-md-end">
+                                                                                    <ul className="file-action">
 
-                                                                                    <li>
-                                                                                        <Link className="badge badge-tag badge-danger-light" to={lead?.leadDocument?.attachmentUrl}>
-                                                                                            <span>{lead?.leadDocument?.fileType}</span>
-                                                                                            <i className="ti ti-arrow-down" />
-                                                                                        </Link>
-
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <span className="badge badge-tag bg-pending priority-badge">
-                                                                                            Draft
-                                                                                        </span>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <div className="dropdown action-drop">
-                                                                                            <Link
-                                                                                                to="#"
-                                                                                                className="dropdown-toggle"
-                                                                                                data-bs-toggle="dropdown"
-                                                                                                aria-expanded="false"
-                                                                                            >
-                                                                                                <i className="ti ti-dots-vertical" />
+                                                                                        <li>
+                                                                                            <Link className="badge badge-tag badge-danger-light" to={lead?.leadDocument?.attachmentUrl}>
+                                                                                                <span>{lead?.leadDocument?.fileType}</span>
+                                                                                                <i className="ti ti-arrow-down" />
                                                                                             </Link>
-                                                                                            {/* <div className="dropdown-menu dropdown-menu-right">
-                                                                        <Link className="dropdown-item" to="#">
-                                                                            <i className="ti ti-edit text-blue" />
-                                                                            Edit
-                                                                        </Link>
-                                                                        <Link className="dropdown-item" to="#">
-                                                                            <i className="ti ti-trash text-danger" />
-                                                                            Delete
-                                                                        </Link>
-                                                                        <Link className="dropdown-item" to="#">
-                                                                            <i className="ti ti-download text-info" />
-                                                                            Download
-                                                                        </Link>
-                                                                    </div> */}
-                                                                                        </div>
-                                                                                    </li>
-                                                                                </ul>
+                                                                                        </li>
+                                                                                        <li>
+                                                                                            <div className="dropdown action-drop">
+                                                                                                <Link
+                                                                                                    to="#"
+                                                                                                    className="dropdown-toggle"
+                                                                                                    data-bs-toggle="dropdown"
+                                                                                                    aria-expanded="false"
+                                                                                                >
+                                                                                                    <i className="ti ti-dots-vertical" />
+                                                                                                </Link>
+
+                                                                                            </div>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    {/* <span className="activity-icon bg-tertiary">
-                                                                        <i className="ti ti-timeline-event-exclamation" />
-                                                                    </span>
-                                                                    <div className="activity-info">
-                                                                        <h6>
-                                                                            <span className="avatar-xs">
-                                                                                <img
-                                                                                    src={lead?.staff?.profilePicUrl}
-                                                                                    alt="img"
-                                                                                />
-                                                                            </span>
-                                                                            has been uploaded file
-
-                                                                        </h6>
-                                                                        <p>{getTime(lead?.leadDocument?.createdAt)}</p>
-                                                                    </div> */}
                                                                 </>
                                                             }
                                                             {
                                                                 lead.type == 'proposalUpdate' &&
                                                                 <>
-                                                                    <div className="activity-info">
-                                                                        <div className="notes-activity">
-                                                                            <div className="calls-box" style={{ width: '46rem' }}>
-                                                                                <div className="caller-info">
-                                                                                    <div className="calls-user">
-                                                                                        <img
-                                                                                            src={lead?.staff?.profilePicUrl}
-                                                                                            alt="img"
-                                                                                        />
-                                                                                        <div>
-                                                                                            <h6>{lead?.staff?.name} uploaded proposal  </h6>
-                                                                                            <p>{getTime(lead?.createdAt)}</p>
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                </div>
-                                                                                <h5>{lead?.proposal?.title}</h5>
-                                                                                <p>
-                                                                                    {lead?.proposal?.comment}
-                                                                                </p>
-                                                                                <ul>
-                                                                                    <li>
-                                                                                        <div className="note-download">
-                                                                                            <div className="note-info">
-                                                                                                <span className="note-icon bg-secondary-success">
-                                                                                                    <i className="ti ti-file-spreadsheet" />
-                                                                                                </span>
-                                                                                                <div>
-                                                                                                    <h6>{lead?.proposal?.type}</h6>
-                                                                                                </div>
+                                                                    <div className="files-activity" style={{ width: "100%" }}>
+                                                                        <div className="activity-info">
+                                                                            <div className="notes-activity">
+                                                                                <div className="calls-box">
+                                                                                    <div className="caller-info">
+                                                                                        <div className="calls-user">
+                                                                                            <img
+                                                                                                src={lead?.staff?.profilePicUrl}
+                                                                                                alt="img"
+                                                                                            />
+                                                                                            <div>
+                                                                                                <h6>{lead?.staff?.name} uploaded a proposal update</h6>
+                                                                                                <p>{getDate(lead?.createdAt)}, {getTime(lead?.createdAt)}</p>
                                                                                             </div>
-                                                                                            <Link to={lead?.proposal?.attachment1Url}>
-                                                                                                <i className="ti ti-arrow-down" />
-                                                                                            </Link>
                                                                                         </div>
-                                                                                    </li>
-                                                                                </ul>
 
+                                                                                    </div>
+                                                                                    <h5>{lead?.proposal?.title}</h5>
+                                                                                    <p>
+                                                                                        {lead?.proposal?.comment}
+                                                                                    </p>
+                                                                                    <ul>
+                                                                                        <li>
+                                                                                            <div className="note-download">
+                                                                                                <div className="note-info">
+                                                                                                    <span className="note-icon bg-secondary-success">
+                                                                                                        <i className="ti ti-file-spreadsheet" />
+                                                                                                    </span>
+                                                                                                    <div>
+                                                                                                        <h6>{lead?.proposal?.type}</h6>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <Link to={lead?.proposal?.attachment1Url}>
+                                                                                                    <i className="ti ti-arrow-down" />
+                                                                                                </Link>
+                                                                                            </div>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -980,7 +992,7 @@ const LeadDetailsPage = () => {
                                                                     >
                                                                         {/* <i className="ti ti-square-check" /> */}
                                                                         <img
-                                                                            src={meetingDoneImg}
+                                                                            src="assets/img/meeting-done.jpg"
                                                                             alt="img"
                                                                             style={{ width: '38px', height: '40px' }}
                                                                         />
@@ -1142,7 +1154,7 @@ const LeadDetailsPage = () => {
                                                                     >
                                                                         {/* <i className="ti ti-square-check" /> */}
                                                                         <img
-                                                                            src={callDoneImg}
+                                                                            src="assets/img/call-done.jpg"
                                                                             alt="img"
                                                                             style={{ width: '50px', height: '50px' }}
                                                                         />
@@ -1316,7 +1328,8 @@ const LeadDetailsPage = () => {
                                             </ul>
                                         </div>
                                         <div className="notes-activity">
-                                            {proposalData.map((proposal) => <div className="calls-box">
+                                            {proposalData.length === 0 && <Empty description={false} />}
+                                            {proposalData.map((proposal) => <div className="calls-box" key={proposal?.id}>
                                                 <div className="caller-info">
                                                     <div className="calls-user">
                                                         <img
@@ -1324,8 +1337,8 @@ const LeadDetailsPage = () => {
                                                             alt="img"
                                                         />
                                                         <div>
-                                                            <h6>{proposal?.staff?.name}</h6>
-                                                            <p>{getDate(proposal?.createdAt)}{getTime(proposal?.createdAt)}</p>
+                                                            <h6>{proposal?.staff?.name} uploaded a proposal update</h6>
+                                                            <p>{getDate(proposal?.createdAt)}, {getTime(proposal?.createdAt)}</p>
                                                         </div>
                                                     </div>
                                                     <div className="calls-action">
@@ -1364,7 +1377,6 @@ const LeadDetailsPage = () => {
                                                                 </span>
                                                                 <div>
                                                                     <h6>{proposal?.proposal?.type}</h6>
-                                                                    {/* <p>365 KB</p> */}
                                                                 </div>
                                                             </div>
                                                             <Link to={proposal?.proposal?.attachment1Url}>
@@ -1372,25 +1384,7 @@ const LeadDetailsPage = () => {
                                                             </Link>
                                                         </div>
                                                     </li>
-                                                    {/* <li>
-                                                        <div className="note-download">
-                                                            <div className="note-info">
-                                                                <span className="note-icon">
-                                                                    <ImageWithBasePath
-                                                                        src="assets/img/media/media-35.jpg"
-                                                                        alt="img"
-                                                                    />
-                                                                </span>
-                                                                <div>
-                                                                    <h6>090224.jpg</h6>
-                                                                    <p>365 KB</p>
-                                                                </div>
-                                                            </div>
-                                                            <Link to="#">
-                                                                <i className="ti ti-arrow-down" />
-                                                            </Link>
-                                                        </div>
-                                                    </li> */}
+
                                                 </ul>
                                                 <div className="notes-editor">
                                                     <div className="note-edit-wrap">
@@ -1633,7 +1627,7 @@ const LeadDetailsPage = () => {
                                                                     />
                                                                 </div>
                                                                 <div style={{ display: 'grid' }}>
-                                                                    <p>{file?.staff?.name}</p>
+                                                                    <p>{file?.staff?.name} uploaded file</p>
                                                                     <p style={{ fontSize: 'x-small', margin: '0', maxWidth: '8rem' }}>{getDate(file?.leadDocument?.createdAt)},{getTime(file?.leadDocument?.createdAt)}</p>
                                                                 </div>
 
@@ -1655,12 +1649,6 @@ const LeadDetailsPage = () => {
                                                                     <span>{file?.leadDocument?.fileType}</span>
                                                                     <i className="ti ti-arrow-down" />
                                                                 </Link>
-
-                                                            </li>
-                                                            <li>
-                                                                <span className="badge badge-tag bg-pending priority-badge">
-                                                                    Draft
-                                                                </span>
                                                             </li>
                                                             <li>
                                                                 <div className="dropdown action-drop">
@@ -3680,7 +3668,7 @@ const LeadDetailsPage = () => {
                                                     <div className="col-md-6">
                                                         <div className="form-wrap">
                                                             <label className="col-form-label">
-                                                                Website <span className="text-danger">*</span>
+                                                                Company Website <span className="text-danger">*</span>
                                                             </label>
                                                             <input type="text" className="form-control" />
                                                         </div>

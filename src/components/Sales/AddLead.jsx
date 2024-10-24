@@ -327,7 +327,8 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
                                                                 type="number"
                                                                 className="form-control"
                                                                 value={formData[mobileArr[index]]}
-                                                                maxLength="10"
+                                                                maxLength="12"
+                                                                minLength="10"
                                                                 required
                                                                 onChange={(event) => {
                                                                     let { value } = event.target
@@ -470,7 +471,7 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
                                                         onClick={addCompanyPopup}
                                                     >
                                                         <i className="ti ti-square-rounded-plus me-2" />
-                                                        or Add New Compay
+                                                        or Add New Company
                                                     </Link>
                                                 </div>
                                                 <Select
