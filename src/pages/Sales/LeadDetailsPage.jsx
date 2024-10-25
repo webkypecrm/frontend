@@ -944,7 +944,7 @@ const LeadDetailsPage = () => {
                                                         />
                                                     </div>
                                                 </li>
-                                                {(meetingData[0]?.status == 'Done' || meetingData[0]?.status == '' || callData.length === 0) &&
+                                                {(meetingData[0]?.status == 'Done' || meetingData[0]?.status == '' || meetingData.length === 0) &&
                                                     <li>
                                                         <Link
                                                             to="#"
