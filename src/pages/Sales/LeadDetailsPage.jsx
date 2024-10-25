@@ -32,8 +32,10 @@ import CreateComment from "../../components/Sales/LeadDetails/CreateComment";
 import ChangeStage from "../../components/Sales/ChangeStage";
 import AddDocuments from "../../components/Sales/LeadDetails/AddDocuments";
 // import callDoneImg from "../../../public/assets/img/call-done.jpg"
-import meetingDoneImg from "../../../public/assets/img/meeting-done.jpg"
+// import meetingDoneImg from "../../../public/assets/img/meeting-done.jpg"
 import AddProposal from "../../components/Sales/LeadDetails/AddProposal";
+import AddProposalComment from "../../components/Sales/LeadDetails/AddProposalComment";
+import EditCompany from "../../components/Sales/EditCompany";
 
 
 const LeadDetailsPage = () => {
@@ -49,6 +51,11 @@ const LeadDetailsPage = () => {
     const [stageOptions, setStageOptions] = useState([]);
     const [data, setData] = useState(null);
     const [followUpId, setFollowUp] = useState('');
+
+    const [editCompany, setEditCompany] = useState(false);
+    const [companyDetails, setCompanyDetails] = useState(null);
+    
+
 
     function getDate(value) {
         const isoDateString = value;
@@ -74,6 +81,10 @@ const LeadDetailsPage = () => {
 
         const formattedTime = `${hours}:${minutes} ${ampm}`;
         return formattedTime;
+    }
+
+    function fetchLeadData() {
+
     }
 
     const [leadFollowupData, setLeadFollowupData] = useState([]);
@@ -430,10 +441,10 @@ const LeadDetailsPage = () => {
                                             to="#"
                                             className="com-add"
                                             data-bs-toggle="modal"
-                                            data-bs-target="#add_contact"
+                                            data-bs-target="#add_new_contact"
                                         >
                                             <i className="ti ti-circle-plus me-1" />
-                                            Add New
+                                            Add New Contact
                                         </Link>
                                     </div>
                                     <ul className="basic-info">
@@ -466,15 +477,20 @@ const LeadDetailsPage = () => {
                                         <>
                                             <div className="con-sidebar-title">
                                                 <h6>Company</h6>
-                                                <Link to="#" className="com-add add-popups">
+                                                <Link to="#" className="com-add add-popups"
+                                                    onClick={() => {
+                                                        setEditCompany(true),
+                                                        setCompanyDetails((prev)=>({...data?.company}))
+                                                    }}
+
+                                                >
                                                     <i className="ti ti-circle-plus me-1" />
-                                                    Add New
+                                                    Edit Company
                                                 </Link>
                                             </div>
                                             <ul className="company-info com-info">
                                                 <li style={{ gap: '10px', alignItems: 'start' }}>
                                                     <div>
-
 
                                                         <ul className="basic-info">
                                                             <li style={{ display: 'flex', alignItems: 'center' }}>
@@ -527,10 +543,6 @@ const LeadDetailsPage = () => {
                                                             </li>
 
                                                         </ul>
-
-
-
-
 
                                                     </div>
                                                 </li>
@@ -692,7 +704,7 @@ const LeadDetailsPage = () => {
                                                         {date}
                                                     </div>
                                                     <ul>
-                                                        {groupActivityByDate[`${date}`].map((lead) => <li className={lead.type == 'fileUpdate' ? "" : "activity-wrap"} key={lead.id} style={{ marginBottom: '1rem' }}>
+                                                        {groupActivityByDate[`${date}`].map((lead) => <li className={lead.type == 'fileUpdate' || lead.type == 'meetingUpdate' ? "" : "activity-wrap"} key={lead.id} style={{ marginBottom: '1rem' }}>
                                                             {lead.type == 'callUpdate' && <>
                                                                 <span className="activity-icon bg-secondary-success">
                                                                     <i className="ti ti-phone" />
@@ -738,7 +750,109 @@ const LeadDetailsPage = () => {
                                                             {
                                                                 lead.type == 'meetingUpdate' &&
                                                                 <>
-                                                                    <span className="activity-icon bg-info">
+                                                                    <div className="notes-activity" >
+                                                                        <div className="calls-box" >
+                                                                            <div className="caller-info">
+                                                                                <div className="calls-user">
+                                                                                    <img
+                                                                                        src={lead?.staff?.profilePicUrl}
+                                                                                        alt="img"
+                                                                                    />
+                                                                                    <div style={{ display: 'grid' }}>
+                                                                                        {/* {lead?.status !== 'Done' ?
+                                                                                            <del style={{ color: 'red' }}><p>
+                                                                                                <span>{lead?.staff?.name}</span> <strong>{lead?.status.toLowerCase()}</strong> a meeting on {getDate(lead.meetingDate)}, {getTime(lead.meetingTime)}
+                                                                                            </p>
+                                                                                            </del>
+                                                                                            : */}
+                                                                                            <p>
+                                                                                                <span>{lead?.staff?.name}</span> <strong>{lead?.status.toLowerCase()}</strong> a meeting on {getDate(lead.meetingDate)}, {getTime(lead.meetingTime)}
+                                                                                            </p>
+                                                                                            {/* } */}
+                                                                                        <span className="badge-day" style={{ fontSize: 'x-small', margin: '0', maxWidth: '8rem' }}>{getDate(lead?.createdAt)},{getTime(lead?.createdAt)}</span>
+                                                                                    </div>
+                                                                                </div>
+                                                                                {/* {index === 0 && */}
+                                                                                <div className="calls-action">
+                                                                                    <div className="dropdown call-drop">
+                                                                                        {lead?.status == 'Done' ?
+                                                                                            <Link
+                                                                                                to="#"
+                                                                                                aria-expanded="false"
+                                                                                            >
+                                                                                                {/* <i className="ti ti-square-check" /> */}
+                                                                                                <img
+                                                                                                    src="/assets/img/meeting-done.jpg"
+                                                                                                    alt="img"
+                                                                                                    style={{ width: '38px', height: '40px' }}
+                                                                                                />
+
+                                                                                            </Link>
+                                                                                            :
+                                                                                            ''
+                                                                                        }
+                                                                                    </div>
+
+                                                                                </div>
+
+
+                                                                            </div>
+                                                                            <p>
+                                                                                {lead?.lastCallSummary}
+                                                                            </p>
+                                                                            <div className="upcoming-info">
+                                                                                <div className="row">
+                                                                                    <div className="col-sm-4">
+                                                                                        <p>Meeting Type</p>
+                                                                                        <div className="dropdown">
+                                                                                            <Link
+                                                                                                to="#"
+                                                                                                className="dropdown-toggle"
+                                                                                                data-bs-toggle="dropdown"
+                                                                                                aria-expanded="false"
+                                                                                            >
+                                                                                                <i className="ti ti-clock-edit me-1" />
+                                                                                                {lead?.meetingType.toUpperCase()}
+                                                                                                <i className="ti ti-chevron-down ms-1" />
+                                                                                            </Link>
+                                                                                            <div className="dropdown-menu dropdown-menu-right">
+                                                                                                <Link className="dropdown-item" to="#">
+                                                                                                    offline
+                                                                                                </Link>
+                                                                                                <Link className="dropdown-item" to="#">
+                                                                                                    online
+                                                                                                </Link>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div className="col-sm-4">
+                                                                                        <p>{lead?.meetingType === 'offline' ? 'Address' : 'URL'}</p>
+
+                                                                                        <div className="dropdown">
+                                                                                            <Link
+                                                                                                to={lead?.meetingType === 'offline' ? '#' : lead?.meetingVenue}
+                                                                                                className="dropdown-toggle"
+                                                                                                aria-expanded="false"
+                                                                                            >
+                                                                                                <i className="ti ti-square-rounded-filled me-1 text-success circle" />
+                                                                                                {lead?.meetingVenue}
+                                                                                            </Link>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            {
+                                                                                lead?.comment &&
+                                                                                <div className="reply-box">
+                                                                                    <p>
+                                                                                        {lead?.comment}
+                                                                                    </p>
+                                                                                </div>
+                                                                            }
+
+                                                                        </div>
+                                                                    </div>
+                                                                    {/* <span className="activity-icon bg-info">
                                                                         <i className="ti ti-user-pin" />
                                                                     </span>
                                                                     <div className="activity-info">
@@ -754,7 +868,8 @@ const LeadDetailsPage = () => {
                                                                         </h6>
                                                                         <p>{lead?.comment}</p>
                                                                         <p>{lead?.createdAtTime}</p>
-                                                                    </div>
+                                                                    </div> */}
+
                                                                 </>
                                                             }
                                                             {
@@ -992,7 +1107,7 @@ const LeadDetailsPage = () => {
                                                                     >
                                                                         {/* <i className="ti ti-square-check" /> */}
                                                                         <img
-                                                                            src="assets/img/meeting-done.jpg"
+                                                                            src="/assets/img/meeting-done.jpg"
                                                                             alt="img"
                                                                             style={{ width: '38px', height: '40px' }}
                                                                         />
@@ -1154,7 +1269,7 @@ const LeadDetailsPage = () => {
                                                                     >
                                                                         {/* <i className="ti ti-square-check" /> */}
                                                                         <img
-                                                                            src="assets/img/call-done.jpg"
+                                                                            src="/assets/img/call-done.jpg"
                                                                             alt="img"
                                                                             style={{ width: '50px', height: '50px' }}
                                                                         />
@@ -1402,14 +1517,27 @@ const LeadDetailsPage = () => {
                                                         </div>
                                                     </div>
                                                     <div className="text-end">
-                                                        <Link to="#" className="add-comment"
-
+                                                        <Link to="#"
+                                                            className="add-comment"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#create_proposal_comment"
+                                                            onClick={() => {
+                                                                setFollowUp(proposal?.id)
+                                                            }}
                                                         >
                                                             <i className="ti ti-square-plus me-1" />
                                                             Add Comment
                                                         </Link>
                                                     </div>
                                                 </div>
+                                                {
+                                                    proposal?.comment &&
+                                                    <div className="reply-box">
+                                                        <p>
+                                                            {proposal?.comment}
+                                                        </p>
+                                                    </div>
+                                                }
                                             </div>)}
 
                                             {/* <div className="calls-box">
@@ -1618,7 +1746,6 @@ const LeadDetailsPage = () => {
                                                 <div className="row align-items-center">
                                                     <div className="col-md-8">
                                                         <div className="file-info">
-
                                                             <div className="file-user" >
                                                                 <div style={{ display: 'flex' }}>
                                                                     <img
@@ -1647,6 +1774,12 @@ const LeadDetailsPage = () => {
                                                             <li>
                                                                 <Link className="badge badge-tag badge-danger-light" to={file?.leadDocument?.attachmentUrl}>
                                                                     <span>{file?.leadDocument?.fileType}</span>
+                                                                    {file?.leadDocument?.fileType === "image" 
+                                                                    // && 
+                                                                    // <div>
+                                                                    //     <img src={file?.leadDocument?.attachmentUrl} alt="img"  />
+                                                                    // </div>
+                                                                    }
                                                                     <i className="ti ti-arrow-down" />
                                                                 </Link>
                                                             </li>
@@ -2663,6 +2796,8 @@ const LeadDetailsPage = () => {
             <RescheduleMeeting fetchLeadFollowupData={fetchLeadFollowupData} leadDetails={data} />
 
             <AddMeetingComment fetchLeadFollowupData={fetchLeadFollowupData} followUpId={followUpId} />
+
+            <AddProposalComment fetchLeadFollowupData={fetchLeadFollowupData} followUpId={followUpId} />
 
             {/* Connect Account */}
             <div className="modal custom-modal fade" id="create_email" role="dialog">
@@ -4624,6 +4759,20 @@ const LeadDetailsPage = () => {
             <CreateComment leadDetails={data} fetchLeadDetails={fetchLeadFollowupData} />
 
             <ChangeStage leadForAssign={data} fetchLeadData={handleRefresh} />
+
+
+
+            {companyDetails &&
+                <EditCompany
+                    editCompany={editCompany}
+                    setEditCompany={setEditCompany}
+                    industryOptions={[]}
+                    countryOptions={[]}
+                    companyDetails={companyDetails}
+                    setCompanyDetails={setCompanyDetails}
+                    fetchLeadData={fetchLeadData}
+                />
+            }
 
         </>
     );

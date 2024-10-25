@@ -23,6 +23,7 @@ const CreateMeeting = ({ fetchLeadDetails, leadDetails}) => {
         meetingVenue: '', //not use here
     }
     const [formData, setFormData] = useState(initialForm);
+    console.log('formData =>', formData)
     const handleDateChange1 = (date) => {
         setFormData((prevData) => ({
             ...prevData,
@@ -175,25 +176,25 @@ const CreateMeeting = ({ fetchLeadDetails, leadDetails}) => {
                                                     <input
                                                         type="radio"
                                                         className="status-radio"
-                                                        id="meetingOnline"
+                                                        id="create-meeting-online"
                                                         name="online"
                                                         value='online'
                                                         checked={formData.meetingType == 'online'}
                                                         onChange={handleChangeType}
                                                     />
-                                                    <label htmlFor="meetingOnline">Online</label>
+                                                    <label htmlFor="create-meeting-online">Online</label>
                                                 </div>
                                                 <div className="radio-btn">
                                                     <input
                                                         type="radio"
                                                         className="status-radio"
-                                                        id="meetingOffline"
+                                                        id="create-meeting-offline"
                                                         name="offline"
                                                         value='offline'
                                                         checked={formData.meetingType == 'offline'}
                                                         onChange={handleChangeType}
                                                     />
-                                                    <label htmlFor="meetingOffline">Offline</label>
+                                                    <label htmlFor="create-meeting-offline">Offline</label>
                                                 </div>
                                             </div>
                                         </div>
