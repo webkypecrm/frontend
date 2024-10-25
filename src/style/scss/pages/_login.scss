@@ -37,6 +37,7 @@
         height: 100vh;
         @include margin-padding(null, 24px);
         overflow: auto;
+        scrollbar-width: none;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
