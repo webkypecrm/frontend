@@ -408,6 +408,41 @@ const ManageLeadList = ({
 
         },
         {
+            title: "Owner",
+            dataIndex: "owner",
+            key: "ownerId",
+            // sorter: (a, b) =>
+            //     a.company_name.length - b.company_name.length,
+            render: (text, record) => {
+                return <div
+                    className="table-avatar d-flex align-items-center"                    
+                >
+                    <div className="grid-footer d-flex justify-content-between">
+                        <div className="users-group">
+                            <ul>
+                                <li>
+                                    <Link to="#">
+                                        {record?.ownerImg ?
+                                            <span className="menu-list-icon ">
+                                                <img src={record?.ownerImg} />
+                                            </span>
+                                            :
+                                            <span className="menu-list-icon ">
+                                                <i className="ion-person" />
+                                            </span>
+                                        }
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <Link to="#" style={{ marginLeft: '2px' }} >
+                        {record.owner}
+                    </Link>
+                </div>
+            }
+        },
+        {
             title: "Assign To",
             dataIndex: "assignedTo",
             key: "assignedTo",

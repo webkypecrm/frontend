@@ -331,4 +331,14 @@ export const fileTypeSelect = [
   { value: 'video', label: 'Video' },
 ]
 
+export const proposalStatus = [
+  { value: 'Choose', label: 'Choose' },
+  { value: 'change', label: 'Change' },
+  { value: 'inReview', label: 'In Review' },
+  { value: 'approved', label: 'Approved' },
+  { value: 'hold', label: 'Hold' }
+]
+
+
+
 

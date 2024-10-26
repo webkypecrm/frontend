@@ -34,7 +34,7 @@ const Login = () => {
 
     try {
 
-      let staffType = 2
+      let staffType = 0
 
       if (isSelected?.admin === true) {
         staffType = 1
@@ -55,6 +55,10 @@ const Login = () => {
 
         // toast.success("Login successful");
         localStorage.setItem("token", responseData.data.Token);
+        localStorage.setItem("profilePic", responseData.data.profilePic);
+        localStorage.setItem("name", responseData.data.name);
+        localStorage.setItem("type", responseData.data.type);
+        localStorage.setItem("staffId", responseData.data.staffId);
 
         // Navigate to the next page
         // setToken(responseData.data.Token);

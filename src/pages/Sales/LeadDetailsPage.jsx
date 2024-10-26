@@ -31,11 +31,13 @@ import CreateMeeting from "../../components/Sales/LeadDetails/CreateMeeting";
 import CreateComment from "../../components/Sales/LeadDetails/CreateComment";
 import ChangeStage from "../../components/Sales/ChangeStage";
 import AddDocuments from "../../components/Sales/LeadDetails/AddDocuments";
-// import callDoneImg from "../../../public/assets/img/call-done.jpg"
-// import meetingDoneImg from "../../../public/assets/img/meeting-done.jpg"
 import AddProposal from "../../components/Sales/LeadDetails/AddProposal";
 import AddProposalComment from "../../components/Sales/LeadDetails/AddProposalComment";
 import EditCompany from "../../components/Sales/EditCompany";
+import AssignTo from "../../components/Sales/AssignTo";
+// import AddNewContact from "../../components/Sales/LeadDetails/AddNewContact";
+
+
 
 
 const LeadDetailsPage = () => {
@@ -51,10 +53,13 @@ const LeadDetailsPage = () => {
     const [stageOptions, setStageOptions] = useState([]);
     const [data, setData] = useState(null);
     const [followUpId, setFollowUp] = useState('');
-
     const [editCompany, setEditCompany] = useState(false);
     const [companyDetails, setCompanyDetails] = useState(null);
-    
+
+    // const [fileUrl, setFileUrl] = useState([]);
+    // const [videoUrl, setVideoUrl] = useState([]);
+    // const [imageUrl, setImageUrl] = useState([]);
+
 
 
     function getDate(value) {
@@ -254,7 +259,7 @@ const LeadDetailsPage = () => {
         { value: "UAE", label: "UAE" },
     ];
 
-
+    let callNum = callData.length
 
 
     return (
@@ -306,7 +311,11 @@ const LeadDetailsPage = () => {
                             </div>
                             <div className="contact-wrap">
                                 <div className="contact-profile">
-                                    <div className="avatar company-avatar">
+                                    <div
+                                        className="avatar company-avatar"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#add-lead-image"
+                                    >
                                         <span className="text-icon">
                                             {data?.leadName[0]}{data?.leadName[data?.leadName?.length - 1]}
                                         </span>
@@ -337,6 +346,42 @@ const LeadDetailsPage = () => {
                                     <Link to="#" className="btn-icon rating">
                                         <i className="fa-solid fa-star" />
                                     </Link>
+
+                                    <Link
+                                        to="#"
+                                        className="btn btn add-popup"
+                                        style={{ border: '1px solid black' }}
+                                    >
+                                        <div
+                                            className="table-avatar d-flex align-items-center"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#assigned_to"
+                                            style={{ courser: 'pointer' }}
+
+                                        >
+                                            <div className="users-group">
+                                                <ul>
+                                                    <li>
+                                                        <Link to="#">
+                                                            {data?.staff?.profilePic ?
+                                                                <span className="menu-list-icon ">
+                                                                    <img src={data?.staff?.profilePic} />
+                                                                </span>
+                                                                :
+                                                                <span className="menu-list-icon ">
+                                                                    <i className="ion-person" />
+                                                                </span>
+                                                            }
+                                                        </Link>
+                                                    </li>
+                                                    <li>
+                                                        {data?.assignedTo.split(' '[0])}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </Link>
+
                                     <Link
                                         to="#"
                                         className="btn btn-danger add-popup"
@@ -410,9 +455,6 @@ const LeadDetailsPage = () => {
                                 </div>
                             </div>
                         </div>
-
-
-
                         {/* Deals Sidebar */}
                         <div className="col-xl-3 theiaStickySidebar">
                             <div className='stickybar'>
@@ -462,7 +504,19 @@ const LeadDetailsPage = () => {
                                         </li>
 
                                     </ul>
-                                    <h6>Tags</h6>
+                                    <div className="con-sidebar-title">
+                                        <h6>Tags</h6>
+                                        <Link
+                                            to="#"
+                                            className="com-add"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#add_new_tag"
+                                        >
+                                            <i className="ti ti-circle-plus me-1" />
+                                            Add New Tags
+                                        </Link>
+                                    </div>
+
                                     <ul className="tag-info">
                                         {data?.tags.map((tag, index) => <li key={index}>
                                             <Link
@@ -471,6 +525,7 @@ const LeadDetailsPage = () => {
                                             >
                                                 {tag}
                                             </Link>
+
                                         </li>)}
                                     </ul>
                                     {data?.company?.companyId &&
@@ -480,7 +535,7 @@ const LeadDetailsPage = () => {
                                                 <Link to="#" className="com-add add-popups"
                                                     onClick={() => {
                                                         setEditCompany(true),
-                                                        setCompanyDetails((prev)=>({...data?.company}))
+                                                            setCompanyDetails((prev) => ({ ...data?.company }))
                                                     }}
 
                                                 >
@@ -704,24 +759,68 @@ const LeadDetailsPage = () => {
                                                         {date}
                                                     </div>
                                                     <ul>
-                                                        {groupActivityByDate[`${date}`].map((lead) => <li className={lead.type == 'fileUpdate' || lead.type == 'meetingUpdate' ? "" : "activity-wrap"} key={lead.id} style={{ marginBottom: '1rem' }}>
+                                                        {groupActivityByDate[`${date}`].map((lead) => <li className={lead.type == 'fileUpdate' || lead.type == 'meetingUpdate' || lead.type == 'callUpdate' ? "" : "activity-wrap"} key={lead.id} style={{ marginBottom: '1rem' }}>
                                                             {lead.type == 'callUpdate' && <>
-                                                                <span className="activity-icon bg-secondary-success">
-                                                                    <i className="ti ti-phone" />
-                                                                </span>
-                                                                <div className="activity-info">
-                                                                    <h6>  Call {lead.status} on {getDate(lead.callBackDate)}, {getTime(lead.callBackTime)} by
-                                                                        <span className="avatar-xs">
-                                                                            <img
-                                                                                src={lead?.staff?.profilePicUrl}
-                                                                                alt="img"
-                                                                            />
-                                                                        </span>{" "}
-                                                                        {lead?.staff?.name.split(' ')[0]}
+                                                                <div className="calls-activity" >
+                                                                    <div className="calls-box" >
+                                                                        <div className="caller-info">
+                                                                            <div className="calls-user">
+                                                                                <img
+                                                                                    src={lead?.staff?.profilePicUrl}
+                                                                                    alt="img"
+                                                                                />
+                                                                                <div style={{ display: 'grid' }}>
+                                                                                    {callData[0]?.id !== lead?.id && lead?.status !== 'Done' ?
+                                                                                        <p>
+                                                                                            <del style={{ color: 'red' }}><span>{lead?.staff?.name}</span> <strong> {lead?.status.toLowerCase()} </strong>
+                                                                                                a call on {getDate(lead.callBackDate)}, {getTime(lead.callBackTime)} </del>
+                                                                                        </p>
+                                                                                        :
+                                                                                        <p style={{ color: 'green' }}>
+                                                                                            <span>{lead?.staff?.name}</span> <strong> {lead?.status.toLowerCase()} </strong>
+                                                                                            a call on {getDate(lead.callBackDate)}, {getTime(lead.callBackTime)}
+                                                                                        </p>
+                                                                                    }
+                                                                                    <span className="badge-day" style={{ fontSize: 'x-small', margin: '0', maxWidth: '8rem' }}>{getDate(lead?.createdAt)},{getTime(lead?.createdAt)}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="calls-action">
+                                                                                <div className="dropdown call-drop">
+                                                                                    {lead?.status == 'Done' ?
+                                                                                        <Link
+                                                                                            to="#"
+                                                                                            aria-expanded="false"
+                                                                                        >
+                                                                                            <img
+                                                                                                src="/assets/img/call-done.jpg"
+                                                                                                alt="img"
+                                                                                                style={{ width: '50px', height: '50px' }}
+                                                                                            />
 
-                                                                    </h6>
-                                                                    <p>{lead?.comment}</p>
-                                                                    <p>{lead.createdAtTime}</p>
+                                                                                        </Link>
+                                                                                        :
+                                                                                        ''
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <p>
+                                                                            {lead.lastCallSummary} <br />
+                                                                        </p>
+                                                                        {lead?.comment &&
+                                                                            <div className="reply-box"
+                                                                                style={{
+                                                                                    backgroundColor: '#F9F9FC',
+                                                                                    borderRadius: "5px",
+                                                                                    margin: "0 0 15px",
+                                                                                    padding: "15px"
+                                                                                }}>
+                                                                                <p>
+                                                                                    {lead?.comment}
+                                                                                </p>
+                                                                            </div>
+                                                                        }
+                                                                    </div>
                                                                 </div>
                                                             </>
                                                             }
@@ -745,7 +844,6 @@ const LeadDetailsPage = () => {
                                                                         <p>{lead?.createdAtTime}</p>
                                                                     </div>
                                                                 </>
-
                                                             }
                                                             {
                                                                 lead.type == 'meetingUpdate' &&
@@ -759,16 +857,16 @@ const LeadDetailsPage = () => {
                                                                                         alt="img"
                                                                                     />
                                                                                     <div style={{ display: 'grid' }}>
-                                                                                        {/* {lead?.status !== 'Done' ?
+                                                                                        {meetingData[0]?.id !== lead?.id && lead?.status !== 'Done' ?
                                                                                             <del style={{ color: 'red' }}><p>
                                                                                                 <span>{lead?.staff?.name}</span> <strong>{lead?.status.toLowerCase()}</strong> a meeting on {getDate(lead.meetingDate)}, {getTime(lead.meetingTime)}
                                                                                             </p>
                                                                                             </del>
-                                                                                            : */}
-                                                                                            <p>
+                                                                                            :
+                                                                                            <p style={{ color: 'green' }}>
                                                                                                 <span>{lead?.staff?.name}</span> <strong>{lead?.status.toLowerCase()}</strong> a meeting on {getDate(lead.meetingDate)}, {getTime(lead.meetingTime)}
                                                                                             </p>
-                                                                                            {/* } */}
+                                                                                        }
                                                                                         <span className="badge-day" style={{ fontSize: 'x-small', margin: '0', maxWidth: '8rem' }}>{getDate(lead?.createdAt)},{getTime(lead?.createdAt)}</span>
                                                                                     </div>
                                                                                 </div>
@@ -780,22 +878,17 @@ const LeadDetailsPage = () => {
                                                                                                 to="#"
                                                                                                 aria-expanded="false"
                                                                                             >
-                                                                                                {/* <i className="ti ti-square-check" /> */}
                                                                                                 <img
                                                                                                     src="/assets/img/meeting-done.jpg"
                                                                                                     alt="img"
                                                                                                     style={{ width: '38px', height: '40px' }}
                                                                                                 />
-
                                                                                             </Link>
                                                                                             :
                                                                                             ''
                                                                                         }
                                                                                     </div>
-
                                                                                 </div>
-
-
                                                                             </div>
                                                                             <p>
                                                                                 {lead?.lastCallSummary}
@@ -849,27 +942,8 @@ const LeadDetailsPage = () => {
                                                                                     </p>
                                                                                 </div>
                                                                             }
-
                                                                         </div>
                                                                     </div>
-                                                                    {/* <span className="activity-icon bg-info">
-                                                                        <i className="ti ti-user-pin" />
-                                                                    </span>
-                                                                    <div className="activity-info">
-                                                                        <h6>
-                                                                            Meeting With{" "}
-                                                                            <span className="avatar-xs">
-                                                                                <img
-                                                                                    src={lead?.staff?.profilePicUrl}
-                                                                                    alt="img"
-                                                                                />
-                                                                            </span>{" "}
-                                                                            {lead?.staff?.name.split(' ')[0]}, {lead?.status.toLowerCase()} on {getDate(lead?.meetingDate)}
-                                                                        </h6>
-                                                                        <p>{lead?.comment}</p>
-                                                                        <p>{lead?.createdAtTime}</p>
-                                                                    </div> */}
-
                                                                 </>
                                                             }
                                                             {
@@ -904,6 +978,14 @@ const LeadDetailsPage = () => {
                                                                             {lead?.contactType}
                                                                         </h6>
                                                                         <p>{lead?.createdAtTime}</p>
+                                                                        {
+                                                                            lead?.comment &&
+                                                                            <div className="reply-box">
+                                                                                <p>
+                                                                                    {lead?.comment}
+                                                                                </p>
+                                                                            </div>
+                                                                        }
                                                                     </div>
                                                                 </>
                                                             }
@@ -928,15 +1010,12 @@ const LeadDetailsPage = () => {
                                                                                                     {getDate(lead?.leadDocument?.createdAt)},{getTime(lead?.leadDocument?.createdAt)}
                                                                                                 </p>
                                                                                             </div>
-
                                                                                         </div>
                                                                                         <h4>{lead?.leadDocument?.fileName}</h4>
                                                                                         <p>
                                                                                             {lead?.leadDocument?.comment}
                                                                                         </p>
-                                                                                        <p>
-                                                                                            {/* {file?.leadDocument?.createdAt} */}
-                                                                                        </p>
+
                                                                                     </div>
                                                                                 </div>
                                                                                 <div className="col-md-4 text-md-end">
@@ -945,22 +1024,88 @@ const LeadDetailsPage = () => {
                                                                                         <li>
                                                                                             <Link className="badge badge-tag badge-danger-light" to={lead?.leadDocument?.attachmentUrl}>
                                                                                                 <span>{lead?.leadDocument?.fileType}</span>
+                                                                                                <Link className="badge badge-tag badge-danger-light" to={lead?.leadDocument?.attachmentUrl}>
+                                                                                                    {/* <span>{lead?.leadDocument?.fileType}</span> */}
+
+                                                                                                    {lead?.leadDocument?.fileType == 'image' &&
+                                                                                                        <div className="note-download">
+                                                                                                            <div className="note-info">
+                                                                                                                <span className="note-icon">
+                                                                                                                    <img src={lead?.leadDocument?.attachmentUrl} alt="Preview" style={{ width: '300px', height: 'auto' }} />
+                                                                                                                </span>
+                                                                                                            </div>
+
+                                                                                                        </div>
+                                                                                                    }
+                                                                                                    {lead?.leadDocument?.fileType == 'jpg' &&
+                                                                                                        <div className="note-download">
+                                                                                                            <div className="note-info">
+                                                                                                                <span className="note-icon">
+                                                                                                                    <img src={lead?.leadDocument?.attachmentUrl} alt="Preview" style={{ width: '300px', height: 'auto' }} />
+                                                                                                                </span>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    }
+                                                                                                    {lead?.leadDocument?.fileType == 'png' &&
+                                                                                                        <div className="note-download">
+                                                                                                            <div className="note-info">
+                                                                                                                <span className="note-icon">
+                                                                                                                    <img src={lead?.leadDocument?.attachmentUrl} alt="Preview" style={{ width: '300px', height: 'auto' }} />
+                                                                                                                </span>
+                                                                                                            </div>
+
+                                                                                                        </div>
+                                                                                                    }
+
+                                                                                                    {lead?.leadDocument?.fileType == 'pdf' &&
+                                                                                                        <div className="note-download">
+                                                                                                            <div className="note-info">
+                                                                                                                <span className="note-icon">
+                                                                                                                    <img src="/assets/img/pdf-icon.png" alt="Preview" style={{ width: '80px', height: '80px' }} />
+                                                                                                                </span>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    }
+
+
+                                                                                                    {lead?.leadDocument?.fileType === 'video' && lead?.leadDocument?.language && (
+                                                                                                        <div className="note-download">
+                                                                                                            <div className="note-info">
+                                                                                                                <span className="note-icon">
+                                                                                                                    <video width="100%" height="100px" controls>
+                                                                                                                        <source src={lead?.leadDocument?.language} type="video/mp4" />
+                                                                                                                        Your browser does not support the video tag.
+                                                                                                                    </video>
+                                                                                                                </span>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    )}
+
+                                                                                                    {lead?.leadDocument?.fileType === 'zip' && (
+                                                                                                        <div className="note-download">
+                                                                                                            <div className="note-info">
+                                                                                                                <span className="note-icon">
+                                                                                                                    <img src="/assets/img/zip-icon.png" alt="Preview" style={{ width: '80px', height: '80px' }} />
+                                                                                                                </span>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    )}
+
+                                                                                                    {lead?.leadDocument?.fileType === 'csv' && (
+                                                                                                        <div className="note-download">
+                                                                                                            <div className="note-info">
+                                                                                                            <span className="note-icon">
+                                                                                                                    <img src="/assets/img/excel-icon.png" alt="Preview" style={{ width: '80px', height: '80px' }} />
+                                                                                                                </span>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    )}
+
+                                                                                                </Link>
                                                                                                 <i className="ti ti-arrow-down" />
                                                                                             </Link>
                                                                                         </li>
-                                                                                        <li>
-                                                                                            <div className="dropdown action-drop">
-                                                                                                <Link
-                                                                                                    to="#"
-                                                                                                    className="dropdown-toggle"
-                                                                                                    data-bs-toggle="dropdown"
-                                                                                                    aria-expanded="false"
-                                                                                                >
-                                                                                                    <i className="ti ti-dots-vertical" />
-                                                                                                </Link>
 
-                                                                                            </div>
-                                                                                        </li>
                                                                                     </ul>
                                                                                 </div>
                                                                             </div>
@@ -1000,7 +1145,7 @@ const LeadDetailsPage = () => {
                                                                                                         <i className="ti ti-file-spreadsheet" />
                                                                                                     </span>
                                                                                                     <div>
-                                                                                                        <h6>{lead?.proposal?.type}</h6>
+                                                                                                        <h6>{lead?.proposal?.other}</h6>
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <Link to={lead?.proposal?.attachment1Url}>
@@ -1009,6 +1154,13 @@ const LeadDetailsPage = () => {
                                                                                             </div>
                                                                                         </li>
                                                                                     </ul>
+                                                                                    {lead?.proposal?.proposalComment.map((comment) =>
+                                                                                        <div className="reply-box" style={{ display: 'grid' }}>
+                                                                                            <p> STATUS : {comment?.status.toUpperCase()}</p>
+                                                                                            <p >
+                                                                                                {comment?.comment}
+                                                                                            </p>
+                                                                                        </div>)}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1090,7 +1242,7 @@ const LeadDetailsPage = () => {
                                                                 </p>
                                                                 </del>
                                                                 :
-                                                                <p>
+                                                                <p style={{ color: 'green' }}>
                                                                     <span>{data?.staff?.name}</span> <strong>{data?.status.toLowerCase()}</strong> a meeting on {getDate(data.meetingDate)}, {getTime(data.meetingTime)}
                                                                 </p>}
                                                             <span className="badge-day" style={{ fontSize: 'x-small', margin: '0', maxWidth: '8rem' }}>{getDate(data?.createdAt)},{getTime(data?.createdAt)}</span>
@@ -1114,37 +1266,50 @@ const LeadDetailsPage = () => {
 
                                                                     </Link>
                                                                     :
-                                                                    <Link
-                                                                        to="#"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#create_meeting_comment"
-                                                                        className="dropdown-toggle bg-pending"
-                                                                        aria-expanded="false"
-                                                                        onClick={() => {
-                                                                            setFollowUp(data?.id)
-                                                                        }}
+                                                                    <OverlayTrigger
+                                                                        placement="bottom"
+                                                                        overlay={<Tooltip id="mark-meeting-tooltip">Mark Done</Tooltip>}
                                                                     >
-                                                                        <i className="ti ti-square-check" />
-                                                                        {/* Mark Done */}
-                                                                    </Link>
-                                                                }
-                                                            </div>
-                                                            {data?.status !== 'Done' &&
-                                                                <div className="dropdown call-drop">
-                                                                    {
                                                                         <Link
                                                                             to="#"
                                                                             data-bs-toggle="modal"
-                                                                            data-bs-target="#create_meeting_rescheduled"
-                                                                            className="dropdown-toggle"
+                                                                            data-bs-target="#create_meeting_comment"
+                                                                            className="dropdown-toggle bg-pending"
                                                                             aria-expanded="false"
                                                                             onClick={() => {
                                                                                 setFollowUp(data?.id)
                                                                             }}
                                                                         >
-                                                                            <i className="ti ti-calendar-month" />
-                                                                            {/* Re-scheduled */}
+                                                                            <i className="ti ti-square-check" />
+                                                                            {/* Mark Done */}
                                                                         </Link>
+                                                                    </OverlayTrigger>
+
+                                                                }
+                                                            </div>
+                                                            {data?.status !== 'Done' &&
+                                                                <div className="dropdown call-drop">
+                                                                    {
+
+                                                                        <OverlayTrigger
+                                                                            placement="bottom"
+                                                                            overlay={<Tooltip id="rescheduled-meeting-tooltip">Re-scheduled Meeting</Tooltip>}
+                                                                        >
+                                                                            <Link
+                                                                                to="#"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#create_meeting_rescheduled"
+                                                                                className="dropdown-toggle"
+                                                                                aria-expanded="false"
+                                                                                onClick={() => {
+                                                                                    setFollowUp(data?.id)
+                                                                                }}
+                                                                            >
+                                                                                <i className="ti ti-calendar-month" />
+                                                                                {/* Re-scheduled */}
+                                                                            </Link>
+                                                                        </OverlayTrigger>
+
                                                                     }
                                                                 </div>
                                                             }
@@ -1249,7 +1414,7 @@ const LeadDetailsPage = () => {
                                                                         a call on {getDate(data.callBackDate)}, {getTime(data.callBackTime)} </del>
                                                                 </p>
                                                                 :
-                                                                <p>
+                                                                <p style={{ color: 'green' }}>
                                                                     <span>{data?.staff?.name}</span> <strong> {data?.status.toLowerCase()} </strong>
                                                                     a call on {getDate(data.callBackDate)}, {getTime(data.callBackTime)}
                                                                 </p>
@@ -1276,37 +1441,51 @@ const LeadDetailsPage = () => {
 
                                                                     </Link>
                                                                     :
-                                                                    <Link
-                                                                        to="#"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#create_call_comment"
-                                                                        className="dropdown-toggle bg-pending"
-                                                                        aria-expanded="false"
-                                                                        onClick={() => {
-                                                                            setFollowUp(data?.id)
-                                                                        }}
+                                                                    <OverlayTrigger
+                                                                        placement="bottom"
+                                                                        overlay={<Tooltip id="mark-done-tooltip ">
+                                                                            Mark Done
+                                                                        </Tooltip>}
                                                                     >
-                                                                        <i className="ti ti-square-check" />
-                                                                        {/* Mark Done */}
-                                                                    </Link>
-                                                                }
-                                                            </div>
-                                                            {data.status !== 'Done' &&
-                                                                <div className="dropdown call-drop">
-                                                                    {
                                                                         <Link
                                                                             to="#"
                                                                             data-bs-toggle="modal"
-                                                                            data-bs-target="#create_call_rescheduled"
-                                                                            className="dropdown-toggle"
+                                                                            data-bs-target="#create_call_comment"
+                                                                            className="dropdown-toggle bg-pending"
                                                                             aria-expanded="false"
                                                                             onClick={() => {
                                                                                 setFollowUp(data?.id)
                                                                             }}
                                                                         >
-                                                                            <i className="ti ti-calendar-month" />
-                                                                            {/* Re-scheduled */}
+                                                                            <i className="ti ti-square-check" />
+                                                                            {/* Mark Done */}
                                                                         </Link>
+                                                                    </OverlayTrigger>
+
+                                                                }
+                                                            </div>
+                                                            {data.status !== 'Done' &&
+                                                                <div className="dropdown call-drop">
+                                                                    {
+                                                                        <OverlayTrigger
+                                                                            placement="bottom"
+                                                                            overlay={<Tooltip id="rescheduled-call-tooltip">Re-scheduled call</Tooltip>}
+                                                                        >
+                                                                            <Link
+                                                                                to="#"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#create_call_rescheduled"
+                                                                                className="dropdown-toggle"
+                                                                                aria-expanded="false"
+                                                                                onClick={() => {
+                                                                                    setFollowUp(data?.id)
+                                                                                }}
+                                                                            >
+                                                                                <i className="ti ti-calendar-month" />
+                                                                                {/* Re-scheduled */}
+                                                                            </Link>
+                                                                        </OverlayTrigger>
+
                                                                     }
                                                                 </div>
                                                             }
@@ -1491,7 +1670,7 @@ const LeadDetailsPage = () => {
                                                                     <i className="ti ti-file-spreadsheet" />
                                                                 </span>
                                                                 <div>
-                                                                    <h6>{proposal?.proposal?.type}</h6>
+                                                                    <h6>{proposal?.proposal?.other}</h6>
                                                                 </div>
                                                             </div>
                                                             <Link to={proposal?.proposal?.attachment1Url}>
@@ -1526,18 +1705,20 @@ const LeadDetailsPage = () => {
                                                             }}
                                                         >
                                                             <i className="ti ti-square-plus me-1" />
-                                                            Add Comment
+                                                            Add Comment & Changes on this proposal
                                                         </Link>
                                                     </div>
                                                 </div>
-                                                {
-                                                    proposal?.comment &&
-                                                    <div className="reply-box">
-                                                        <p>
-                                                            {proposal?.comment}
+
+                                                {proposal?.proposal?.proposalComment.map((comment) =>
+                                                    <div className="reply-box" style={{ display: 'grid' }}>
+                                                        <p> STATUS : {comment?.status.toUpperCase()}</p>
+                                                        <p >
+                                                            {comment?.comment}
                                                         </p>
-                                                    </div>
-                                                }
+                                                    </div>)}
+
+
                                             </div>)}
 
                                             {/* <div className="calls-box">
@@ -1770,17 +1951,86 @@ const LeadDetailsPage = () => {
                                                     </div>
                                                     <div className="col-md-4 text-md-end">
                                                         <ul className="file-action">
-
                                                             <li>
-                                                                <Link className="badge badge-tag badge-danger-light" to={file?.leadDocument?.attachmentUrl}>
+                                                                <Link className="badge badge-tag badge-danger-light" to={file?.leadDocument?.fileType === 'video' ? file?.leadDocument?.language : file?.leadDocument?.attachment1Url}>
+
                                                                     <span>{file?.leadDocument?.fileType}</span>
-                                                                    {file?.leadDocument?.fileType === "image" 
-                                                                    // && 
-                                                                    // <div>
-                                                                    //     <img src={file?.leadDocument?.attachmentUrl} alt="img"  />
-                                                                    // </div>
+                                                                    {file?.leadDocument?.fileType == 'image' &&
+                                                                        <div className="note-download">
+                                                                            <div className="note-info">
+                                                                                <span className="note-icon">
+                                                                                    <img src={file?.leadDocument?.attachmentUrl} alt="Preview" style={{ width: '300px', height: 'auto' }} />
+                                                                                </span>
+                                                                            </div>
+
+                                                                        </div>
                                                                     }
-                                                                    <i className="ti ti-arrow-down" />
+                                                                    {file?.leadDocument?.fileType == 'jpg' &&
+                                                                        <div className="note-download">
+                                                                            <div className="note-info">
+                                                                                <span className="note-icon">
+                                                                                    <img src={file?.leadDocument?.attachmentUrl} alt="Preview" style={{ width: '300px', height: 'auto' }} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                    {file?.leadDocument?.fileType == 'png' &&
+                                                                        <div className="note-download">
+                                                                            <div className="note-info">
+                                                                                <span className="note-icon">
+                                                                                    <img src={file?.leadDocument?.attachmentUrl} alt="Preview" style={{ width: '300px', height: 'auto' }} />
+                                                                                </span>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    }
+
+                                                                    {file?.leadDocument?.fileType == 'pdf' &&
+                                                                        <div className="note-download">
+                                                                            <div className="note-info">
+                                                                                <span className="note-icon">
+                                                                                    <img src="/assets/img/pdf-icon.png" alt="Preview" style={{ width: '100px', height: '100px' }} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+
+
+                                                                    {file?.leadDocument?.fileType === 'video' && file?.leadDocument?.language && (
+                                                                        <div className="note-download">
+                                                                            <div className="note-info">
+                                                                                <span className="note-icon">
+                                                                                    <video width="100%" height="100px" controls>
+                                                                                        <source src={file?.leadDocument?.language} type="video/mp4" />
+                                                                                        Your browser does not support the video tag.
+                                                                                    </video>
+
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    )}
+
+
+                                                                    {file?.leadDocument?.fileType === 'zip' && (
+                                                                        <div className="note-download">
+                                                                            <div className="note-info">
+                                                                                <span className="note-icon">
+                                                                                    <img src="/assets/img/zip-icon.png" alt="Preview" style={{ width: '100px', height: '100px' }} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    )}
+
+                                                                    {file?.leadDocument?.fileType === 'csv' && (
+                                                                        <div className="note-download">
+                                                                            <div className="note-info">
+                                                                            <span className="note-icon">
+                                                                                    <img src="/assets/img/excel-icon.png" alt="Preview" style={{ width: '100px', height: '100px' }} />
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    )}
+
                                                                 </Link>
                                                             </li>
                                                             <li>
@@ -2798,6 +3048,8 @@ const LeadDetailsPage = () => {
             <AddMeetingComment fetchLeadFollowupData={fetchLeadFollowupData} followUpId={followUpId} />
 
             <AddProposalComment fetchLeadFollowupData={fetchLeadFollowupData} followUpId={followUpId} />
+
+
 
             {/* Connect Account */}
             <div className="modal custom-modal fade" id="create_email" role="dialog">
@@ -4760,7 +5012,10 @@ const LeadDetailsPage = () => {
 
             <ChangeStage leadForAssign={data} fetchLeadData={handleRefresh} />
 
-
+            <AssignTo
+                leadForAssign={data}
+                fetchLeadData={handleRefresh}
+            />
 
             {companyDetails &&
                 <EditCompany

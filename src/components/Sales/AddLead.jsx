@@ -19,7 +19,7 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
         leadMobile1: '',
         leadMobile2: '',
         leadMobile3: '',
-        value: '',
+        value: 0,
         tags: '',
         companyId: null,
         cityId: null,
@@ -41,7 +41,7 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
 
     const mobileArr = ['leadMobile1', 'leadMobile2', 'leadMobile3']
 
-    console.log("haveCompany =>", haveCompany);
+    // console.log("formData =>", formData);
 
     const addNewContent = () => {
         setNewContents([...newContents, newContents.length]);
@@ -64,6 +64,7 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
 
         try {
             formData.tags = JSON.stringify(tagValue)
+            formData.value = formData.value ? formData.value : 0
 
             const formDataToSend = new FormData();
             for (const key in formData) {
@@ -306,7 +307,7 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
                                                 type="number"
                                                 className="form-control"
                                                 name='value'
-                                                placeholder='100'
+                                                // placeholder='100'
                                                 value={formData.value}
                                                 onChange={handleInputChange}
                                             />

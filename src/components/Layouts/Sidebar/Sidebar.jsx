@@ -9,6 +9,10 @@ const Sidebar = ({ setExpandMenu }) => {
     const Location = useLocation();
     const [openMenus, setOpenMenus] = useState({})
     const route = all_routes;
+    const profileName = localStorage.getItem('name') || '';
+    const type = localStorage.getItem('type') || '';
+    const profilePic = localStorage.getItem('profilePic') || '';
+
     const toggle = () => {
         setExpandMenu(true);
     };
@@ -45,10 +49,10 @@ const Sidebar = ({ setExpandMenu }) => {
                     <ul>
                         <li className="clinicdropdown">
                             <Link to="profile.html">
-                                <ImageWithBasePath src="assets/img/profiles/gajenn.png" className="img-fluid" alt="Profile" />
+                                <img src={profilePic ? profilePic : "assets/img/profiles/gajenn.png"} className="img-fluid" alt="Profile" />
                                 <div className="user-names">
-                                    <h5>Adrian Davies</h5>
-                                    <h6>Tech Lead</h6>
+                                    <h5>{profileName}</h5>
+                                    <h6>{type == "1" ? "Admin" : "Employee"}</h6>
                                 </div>
                             </Link>
                         </li>

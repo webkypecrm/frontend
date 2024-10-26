@@ -6,16 +6,12 @@ import {
 } from "../../../selectOption/selectOption";
 import Select from "react-select";
 
-const AddDocuments = ({ fetchLeadFollowupData, leadDetails }) => {
+const AddLeadImage = ({ fetchLeadFollowupData, leadDetails }) => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const Token = localStorage.getItem('token') || '';
     const [attachmentFile, setAttachementFile] = useState(null);
     const initialForm = {
         leadId: leadDetails?.leadId,
-        name: '',
-        type: '',
-        link: '',
-        comment: '',
         attachment: null
     }
     const [formData, setFormData] = useState(initialForm);
@@ -30,7 +26,7 @@ const AddDocuments = ({ fetchLeadFollowupData, leadDetails }) => {
 
         if (files.length > 0) {
             const attachmentFile = files[0];
-            if (attachmentFile.type.startsWith("application/") || attachmentFile.type.startsWith("text/csv") || attachmentFile.type.startsWith("image") || attachmentFile.type.startsWith("application/x-zip-compressed")) {
+            if (attachmentFile.type.startsWith("image")) {
                 if (attachmentFile.size <= 1024 * 1024) {
 
                     console.log('files =>', files)
@@ -67,7 +63,7 @@ const AddDocuments = ({ fetchLeadFollowupData, leadDetails }) => {
                 }
             }
 
-            const response = await fetch(`${apiUrl}/lead/file-update`, {
+            const response = await fetch(`${apiUrl}/lead/upload-lead-image`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${Token}`
@@ -80,7 +76,6 @@ const AddDocuments = ({ fetchLeadFollowupData, leadDetails }) => {
             }
             fetchLeadFollowupData()
             setFormData(initialForm)
-            setAttachementFile(null)
             toast.success('File added successfully!');
         } catch (error) {
             toast.error(error.message || 'Something went wrong');
@@ -114,7 +109,7 @@ const AddDocuments = ({ fetchLeadFollowupData, leadDetails }) => {
 
                                 <div className="col-md-12">
                                     <div className="form-wrap">
-                                        <label className="col-form-label">File Type <span className="text-danger"> *</span></label>
+                                        <label className="col-form-label">File Type</label>
                                         <div className="select-priority">
                                             {/* <span className="select-icon">
                                                 <i className="ti ti-square-rounded-filled" />
@@ -122,7 +117,6 @@ const AddDocuments = ({ fetchLeadFollowupData, leadDetails }) => {
                                             <Select
                                                 classNamePrefix="react-select"
                                                 className="select"
-                                                required
                                                 value={fileTypeSelect.find(option => option.value === formData.type)}
                                                 onChange={(event) => {
                                                     let { value } = event
@@ -150,7 +144,50 @@ const AddDocuments = ({ fetchLeadFollowupData, leadDetails }) => {
                                         />
                                     </div>
 
-
+                                    {/* <div className="col-md-6">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">
+                                                Document Type{" "}
+                                                <span className="text-danger">*</span>
+                                            </label>
+                                            <select className="select">
+                                                <option>Select</option>
+                                                <option>Contract</option>
+                                                <option>Proposal</option>
+                                                <option>Quote</option>
+                                            </select>
+                                        </div>
+                                    </div> */}
+                                    {/* <div className='row'>
+                                        <div className="col-md-6">
+                                            <div className="form-wrap">
+                                                <label className="col-form-label">
+                                                    Document Type <span className="text-danger"> *</span>
+                                                </label>
+                                                <input
+                                                    name="type"
+                                                    className="form-control"
+                                                    placeholder="pdf, xls, doc, figma, zip"
+                                                    value={formData.type}
+                                                    onChange={handleInputChange}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <div className="form-wrap">
+                                                <label className="col-form-label">
+                                                    Language <span className="text-danger"> *</span>
+                                                </label>
+                                                <input
+                                                    name="language"
+                                                    className="form-control"
+                                                    placeholder="Add text"
+                                                    value={formData.language}
+                                                    onChange={handleInputChange}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div> */}
 
                                     <div className="form-wrap">
                                         <label className="col-form-label">
@@ -217,7 +254,6 @@ const AddDocuments = ({ fetchLeadFollowupData, leadDetails }) => {
                                             type="submit"
                                             className="btn btn-primary"
                                             data-bs-dismiss="modal"
-
                                         >
                                             Done
                                         </button>
@@ -232,4 +268,4 @@ const AddDocuments = ({ fetchLeadFollowupData, leadDetails }) => {
     )
 }
 
-export default AddDocuments
+export default AddLeadImage

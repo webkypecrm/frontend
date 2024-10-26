@@ -46,6 +46,7 @@ const LeadsPage = () => {
         "Source": true,
         "Tags": true,
         "Value": false,
+        "Owner": true,
         "Assign To": true,
         "Updates": true,
         "Created Date": true,
@@ -55,6 +56,9 @@ const LeadsPage = () => {
     const [totalPages, setTotalPages] = useState(0);
     // const [pageSize, setPageSize] = useState(2);
     const pageSize = 500
+
+    // const employeeId = localStorage.getItem('staffId') || '';
+    const staffType = localStorage.getItem('type') || '';
 
     const initialFilter = {
         from: "",
@@ -95,19 +99,39 @@ const LeadsPage = () => {
     const fetchLeadData = async (page) => {
         try {
             const { from, to, industry, source, country, stage, company, leadOwner, search } = filterByObj;
+
+            let url = `${apiUrl}/lead/lead-list?page=${page ? page : 1}&pageSize=${pageSize}&to=${to}&from=${from}
+                &industry=${industry}&source=${source}&country=${country}&stage=${stage}&company=${company}&leadOwner=${leadOwner}&search=${search}`
+
+            if (staffType == '0') {
+                url = `${apiUrl}/lead/lead-list?staffType=${0}&page=${page ? page : 1}&pageSize=${pageSize}&to=${to}&from=${from}
+                &industry=${industry}&source=${source}&country=${country}&stage=${stage}&company=${company}&leadOwner=${leadOwner}&search=${search}`
+            }
+
             console.log('search =>', search)
-            const response = await axios.get(`${apiUrl}/lead/lead-list?page=${page ? page : 1}&pageSize=${pageSize}&to=${to}&from=${from}
-                &industry=${industry}&source=${source}&country=${country}&stage=${stage}&company=${company}&leadOwner=${leadOwner}&search=${search}`,
+            const response = await axios.get(url,
                 {
                     headers: {
                         Authorization: `Bearer ${Token}`
                     }
                 });
+
+            // let filterLeadData 
+
+            // if (staffType === 1) {
+            //     filterLeadData = response.data.data
+            // } else {
+            //     filterLeadData = response.data.data.filter((item) => !(parseInt(item?.staffId === employeeId)))
+            // }
+
             const formattedData = response.data.data.map((item) => ({
                 ...item,
                 key: item.leadId,
                 tags: JSON.parse(item.tags)
             }));
+
+
+
 
             setData(formattedData);
             setTotalPages(response.data.totalCount)

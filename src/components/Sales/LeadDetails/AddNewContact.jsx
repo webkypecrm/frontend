@@ -5,7 +5,7 @@ import Select from 'react-select';
 import axios from 'axios';
 
 
-const AssignTo = ({ leadForAssign, fetchLeadData }) => {
+const AddNewContact = ({ leadForAssign, fetchLeadData }) => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const Token = localStorage.getItem('token') || '';
     const [staffOptions, setStaffOptions] = useState([]);
@@ -13,22 +13,14 @@ const AssignTo = ({ leadForAssign, fetchLeadData }) => {
     const initialForm = {
         leadId: '',
         staffId: '',
-        comment:''
     }
     const [formData, setFormData] = useState(initialForm);
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target
-        setFormData((prevForm) => ({
-            ...prevForm,
-            [name]: value
-        }))
-    }
 
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
-            formData.leadId = leadForAssign?.leadId
+            formData.leadId = leadForAssign.leadId
             const formDataToSend = new FormData();
             for (const key in formData) {
                 if (formData[key] !== null) {
@@ -73,7 +65,7 @@ const AssignTo = ({ leadForAssign, fetchLeadData }) => {
             }
         };
 
-        if (leadForAssign?.leadId) {
+        if (leadForAssign.leadId) {
             fetchStaffData()
         }
 
@@ -83,7 +75,7 @@ const AssignTo = ({ leadForAssign, fetchLeadData }) => {
         {/* Assign To */}
         <div
             className="modal custom-modal fade modal-padding"
-            id="assigned_to"
+            id="add_new_contact"
             role="dialog"
         >
             <div className="modal-dialog modal-dialog-centered">
@@ -102,7 +94,7 @@ const AssignTo = ({ leadForAssign, fetchLeadData }) => {
                     <div className="modal-body p-0">
                         <form onSubmit={handleSubmit}>
                             <div className="row">
-                                <div className="col-md-12">
+                                <div className="col-md-6">
                                     <div className="form-wrap">
                                         <label className="col-form-label">
                                             Staff <span className="text-danger">*</span>
@@ -119,21 +111,6 @@ const AssignTo = ({ leadForAssign, fetchLeadData }) => {
                                             }}
                                             options={staffOptions}
                                         />
-                                    </div>
-                                </div>
-                                <div className="col-md-12">
-                                    <div className="form-wrap">
-                                        <label className="col-form-label">
-                                            Comment <span className="text-danger"></span>
-                                        </label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            name='comment'
-                                            value={formData.comment}
-                                            onChange={handleInputChange}
-                                        />
-
                                     </div>
                                 </div>
                                 <div className="text-end modal-btn">
@@ -163,4 +140,4 @@ const AssignTo = ({ leadForAssign, fetchLeadData }) => {
     )
 }
 
-export default AssignTo
+export default AddNewContact

@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import {
+    proposalStatus
+} from "../../../selectOption/selectOption";
+import Select from "react-select";
+
+
 
 const AddProposalComment = ({ fetchLeadFollowupData, followUpId }) => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const Token = localStorage.getItem('token') || '';
     const [comment, setComment] = useState('');
+    const [status, setStatus] = useState('');
+
+
 
     console.log('followUpId in Add Proposal Comment =>', followUpId)
 
@@ -14,7 +23,8 @@ const AddProposalComment = ({ fetchLeadFollowupData, followUpId }) => {
         try {
             const data = {
                 comment,
-                id: followUpId
+                id: followUpId,
+                status: status
             }
             const response = await fetch(`${apiUrl}/lead/update-proposal-comment`, {
                 method: 'PUT',
@@ -74,7 +84,27 @@ const AddProposalComment = ({ fetchLeadFollowupData, followUpId }) => {
                                             }}
                                         />
                                     </div>
-
+                                    <div className="col-md-12">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">File Type</label>
+                                            <div className="select-priority">
+                                                {/* <span className="select-icon">
+                                                <i className="ti ti-square-rounded-filled" />
+                                            </span> */}
+                                                <Select
+                                                    classNamePrefix="react-select"
+                                                    className="select"
+                                                    value={proposalStatus.find(option => option.value === status)}
+                                                    onChange={(event) => {
+                                                        let { value } = event
+                                                        setStatus(value)
+                                                        // handleInputChange({ target: { name: 'status', value } })
+                                                    }}
+                                                    options={proposalStatus}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div className="text-end modal-btn">
                                         <Link
                                             to="#"
@@ -92,6 +122,7 @@ const AddProposalComment = ({ fetchLeadFollowupData, followUpId }) => {
                                         </button>
                                     </div>
                                 </div>
+
                             </div>
                         </form>
                     </div>

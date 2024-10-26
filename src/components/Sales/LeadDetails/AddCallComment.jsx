@@ -44,7 +44,7 @@ const AddCallComment = ({ fetchLeadFollowupData, followUpId }) => {
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title">Create Comment</h5>
+                        <h5 className="modal-title">Are you sure, this call is done?</h5>
                         <button
                             type="button"
                             className="btn-close position-static"
@@ -60,7 +60,7 @@ const AddCallComment = ({ fetchLeadFollowupData, followUpId }) => {
                                 <div className="col-md-12">
                                     <div className="form-wrap">
                                         <label className="col-form-label">
-                                            Comment <span className="text-danger"> *</span>
+                                            Write call outcome <span className="text-danger"> *</span>
                                         </label>
                                         <textarea
                                             className="form-control"

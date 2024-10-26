@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 const ManageStaff = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
   const Token = localStorage.getItem('token') || '';
+  const staffType = localStorage.getItem('type') || '';
 
   const [data, setData] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -76,7 +77,10 @@ const ManageStaff = () => {
             Authorization: `Bearer ${Token}`
           }
         });
-      const formattedData = response.data.data.map((item) => ({
+
+      const filterStaffData =  response.data.data.filter((item) => !(parseInt(staffType) === 0 && item?.staffType === 1))
+
+      const formattedData = filterStaffData.map((item) => ({
         ...item,
         key: item.staffId,
       }));

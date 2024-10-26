@@ -9,6 +9,10 @@ const Header = ({ setMiniSidebar, setExpandMenu }) => {
     const [layoutBs, setLayoutBs] = useState(localStorage.getItem("dataTheme"));
     const [isUserInfo, setIsUserInfo] = useState(false)
     const route = all_routes;
+    const name = localStorage.getItem('name') || '';
+    const type = localStorage.getItem('type') || '';
+    const profilePic = localStorage.getItem('profilePic') || '';
+
 
     function toggleMiniSidebar() {
         setMiniSidebar(prev => !prev)
@@ -47,8 +51,8 @@ const Header = ({ setMiniSidebar, setExpandMenu }) => {
                     ) : (
                         <ImageWithBasePath src="assets/img/logo.svg" alt="Logo" />
                     )} */}
-                <img  src="/assets/img/webkype_img.png" alt="Logo" style={{ width: "200px", height: 'auto' }} />
-                <img  src="/assets/img/webkype_img.png" className="white-logo" alt="Logo" />
+                <img src="/assets/img/webkype_img.png" alt="Logo" style={{ width: "200px", height: 'auto' }} />
+                <img src="/assets/img/webkype_img.png" className="white-logo" alt="Logo" />
             </Link>
             <Link to={route.salesDashboard} className="logo-small">
                 <img src="/favicon.png" alt="Logo" />
@@ -495,7 +499,7 @@ const Header = ({ setMiniSidebar, setExpandMenu }) => {
                         onClick={() => { setIsUserInfo(!isUserInfo) }}>
                         <span className="user-info">
                             <span className="user-letter">
-                                <img src="/assets/img/profiles/gajenn.png" alt="Profile" />
+                                <img src={profilePic ? profilePic : "/assets/img/profiles/gajenn.png"} alt="Profile" />
                             </span>
                             <span className="badge badge-success rounded-pill"></span>
                         </span>
@@ -508,12 +512,16 @@ const Header = ({ setMiniSidebar, setExpandMenu }) => {
                             <Link className="dropdown-item" to={route.profile}>
                                 <i className="ti ti-user-pin"></i> My Profile
                             </Link>
-                            <Link 
-                            className="dropdown-item" 
-                            to={route.login} 
-                            onClick={()=>{
-                                localStorage.removeItem('token');
-                            }}>
+                            <Link
+                                className="dropdown-item"
+                                to={route.login}
+                                onClick={() => {
+                                    localStorage.removeItem('token');
+                                    localStorage.removeItem('profilePic');
+                                    localStorage.removeItem('name');
+                                    localStorage.removeItem('type');
+                                    localStorage.removeItem('staffId');
+                                }}>
                                 <i className="ti ti-lock"></i> Logout
                             </Link>
                         </div>
