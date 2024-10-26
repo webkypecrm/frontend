@@ -488,8 +488,6 @@ const AddLead = ({ togglePopup, addLead, sourceOptions, industryOptions, country
                                             </div>
                                         </div>
                                     }
-
-
                                     <div className="col-md-6">
                                         <div className="form-wrap">
                                             <label className="col-form-label">

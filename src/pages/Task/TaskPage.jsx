@@ -57,10 +57,12 @@ const TaskPage = () => {
     }
     const [filterByObj, setFilterByObj] = useState(initialFilter);
     const [totalPages, setTotalPages] = useState(0);
-    const [pageSize, setPageSize] = useState(2);
+    // const [pageSize, setPageSize] = useState(2);
+    const pageSize = 500
 
     const apiUrl = import.meta.env.VITE_API_URL;
     const Token = localStorage.getItem('token') || '';
+    const staffType = localStorage.getItem('type') || '';
 
     function taskDetailsHandler(data) {
         setTaskDetails(data)
@@ -70,8 +72,17 @@ const TaskPage = () => {
         try {
             const { from, to, industry, source, country, stage, company, leadOwner, search } = filterByObj;
             console.log({ from, to, industry, source, country, stage, company, leadOwner, search })
-            const response = await axios.get(`${apiUrl}/task/task-list?page=${page ? page : 1}&pageSize=${pageSize}&to=${to}&from=${from}
-                &industry=${industry}&source=${source}&country=${country}&stage=${stage}&company=${company}&leadOwner=${leadOwner}&search=${search}`,
+
+
+            let url = `${apiUrl}/task/task-list?page=${page ? page : 1}&pageSize=${pageSize}&to=${to}&from=${from}
+                &industry=${industry}&source=${source}&country=${country}&stage=${stage}&company=${company}&leadOwner=${leadOwner}&search=${search}`
+
+            if (staffType == "0") {
+                url = `${apiUrl}/task/task-list?staffType=0&page=${page ? page : 1}&pageSize=${pageSize}&to=${to}&from=${from}
+                &industry=${industry}&source=${source}&country=${country}&stage=${stage}&company=${company}&leadOwner=${leadOwner}&search=${search}`
+            }
+
+            const response = await axios.get(url,
                 {
                     headers: {
                         Authorization: `Bearer ${Token}`

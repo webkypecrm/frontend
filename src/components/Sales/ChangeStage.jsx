@@ -5,10 +5,12 @@ import Select from 'react-select';
 import axios from 'axios';
 
 
-const ChangeStage = ({ leadForAssign, fetchLeadData }) => {
+const ChangeStage = ({ leadForAssign, fetchLeadData, followUpStage }) => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const Token = localStorage.getItem('token') || '';
     const [stageOptions, setStageOptions] = useState([]);
+    const [selectedStage, setSelectedStage] = useState(null);
+
 
     const initialForm = {
         leadId: '',
@@ -21,6 +23,19 @@ const ChangeStage = ({ leadForAssign, fetchLeadData }) => {
         event.preventDefault()
         try {
             formData.leadId = leadForAssign?.leadId
+
+            if (selectedStage) {
+                const isPresent = selectedStage.filter(ele => ele.stage.id === formData.stageId)
+                // console.log('present =>', isPresent)
+                if (isPresent.length > 0) {
+                    setFormData(initialForm)
+
+                    toast.error('This stage has already been selected.');
+                    return
+                }
+            }
+
+
             const formDataToSend = new FormData();
             for (const key in formData) {
                 if (formData[key] !== null) {
@@ -54,17 +69,41 @@ const ChangeStage = ({ leadForAssign, fetchLeadData }) => {
                     label: item.name,
                     value: item.id
                 }));
+
                 setStageOptions(() => [...formattedData]);
+
+
             } catch (error) {
+                toast.error(error.message)
+            }
+        };
+
+        const fetchStageHistory = async () => {
+            try {
+                const response = await axios.get(`${apiUrl}/lead/lead-status-history?leadId=${leadForAssign.leadId}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${Token}`
+                        }
+                    }
+                );
+                const formattedData = response.data.data
+                setSelectedStage(() => [...formattedData]);
+
+            } catch (error) {
+                console.log(error)
                 toast.error(error.message)
             }
         };
 
         if (leadForAssign?.leadId) {
             fetchStageData()
+            fetchStageHistory()
         }
 
+
     }, [leadForAssign?.leadId])
+
 
     return (<>
         {/* Assign To */}

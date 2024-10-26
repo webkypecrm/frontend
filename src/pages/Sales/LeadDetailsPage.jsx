@@ -35,6 +35,8 @@ import AddProposal from "../../components/Sales/LeadDetails/AddProposal";
 import AddProposalComment from "../../components/Sales/LeadDetails/AddProposalComment";
 import EditCompany from "../../components/Sales/EditCompany";
 import AssignTo from "../../components/Sales/AssignTo";
+import AddLeadPic from "../../components/Sales/LeadDetails/AddLeadPic";
+import AddLeadOtherDetails from "../../components/Sales/LeadDetails/AddLeadOtherDetails";
 // import AddNewContact from "../../components/Sales/LeadDetails/AddNewContact";
 
 
@@ -60,6 +62,7 @@ const LeadDetailsPage = () => {
     // const [videoUrl, setVideoUrl] = useState([]);
     // const [imageUrl, setImageUrl] = useState([]);
 
+    console.log('stageOptions ', stageOptions)
 
 
     function getDate(value) {
@@ -259,7 +262,6 @@ const LeadDetailsPage = () => {
         { value: "UAE", label: "UAE" },
     ];
 
-    let callNum = callData.length
 
 
     return (
@@ -315,10 +317,16 @@ const LeadDetailsPage = () => {
                                         className="avatar company-avatar"
                                         data-bs-toggle="modal"
                                         data-bs-target="#add-lead-image"
+                                        style={{ cursor: 'pointer' }}
                                     >
-                                        <span className="text-icon">
-                                            {data?.leadName[0]}{data?.leadName[data?.leadName?.length - 1]}
-                                        </span>
+                                        {data?.leadPicUrl ?
+                                            <img src={data?.leadPicUrl} alt="lead image" />
+                                            :
+                                            <span className="text-icon">
+                                                {data?.leadName[0]}{data?.leadName[data?.leadName?.length - 1]}
+                                            </span>
+                                        }
+
                                     </div>
 
                                     <div className="name-user">
@@ -483,7 +491,7 @@ const LeadDetailsPage = () => {
                                             to="#"
                                             className="com-add"
                                             data-bs-toggle="modal"
-                                            data-bs-target="#add_new_contact"
+                                            data-bs-target="#update_lead_new_details"
                                         >
                                             <i className="ti ti-circle-plus me-1" />
                                             Add New Contact
@@ -502,6 +510,21 @@ const LeadDetailsPage = () => {
                                             </span>
                                             <p>{data?.leadMobile1}</p>
                                         </li>
+                                        {data?.leadMobile2 &&
+                                            <li>
+                                                <span>
+                                                    <i className="ti ti-phone" />
+                                                </span>
+                                                <p>{data?.leadMobile2}</p>
+                                            </li>
+                                        }
+                                        {data?.leadMobile3 && <li>
+                                            <span>
+                                                <i className="ti ti-phone" />
+                                            </span>
+                                            <p>{data?.leadMobile3}</p>
+                                        </li>}
+
 
                                     </ul>
                                     <div className="con-sidebar-title">
@@ -510,7 +533,7 @@ const LeadDetailsPage = () => {
                                             to="#"
                                             className="com-add"
                                             data-bs-toggle="modal"
-                                            data-bs-target="#add_new_tag"
+                                            data-bs-target="#update_lead_new_details"
                                         >
                                             <i className="ti ti-circle-plus me-1" />
                                             Add New Tags
@@ -1094,7 +1117,7 @@ const LeadDetailsPage = () => {
                                                                                                     {lead?.leadDocument?.fileType === 'csv' && (
                                                                                                         <div className="note-download">
                                                                                                             <div className="note-info">
-                                                                                                            <span className="note-icon">
+                                                                                                                <span className="note-icon">
                                                                                                                     <img src="/assets/img/excel-icon.png" alt="Preview" style={{ width: '80px', height: '80px' }} />
                                                                                                                 </span>
                                                                                                             </div>
@@ -2024,7 +2047,7 @@ const LeadDetailsPage = () => {
                                                                     {file?.leadDocument?.fileType === 'csv' && (
                                                                         <div className="note-download">
                                                                             <div className="note-info">
-                                                                            <span className="note-icon">
+                                                                                <span className="note-icon">
                                                                                     <img src="/assets/img/excel-icon.png" alt="Preview" style={{ width: '100px', height: '100px' }} />
                                                                                 </span>
                                                                             </div>
@@ -2711,6 +2734,11 @@ const LeadDetailsPage = () => {
             <AddProposal fetchLeadFollowupData={fetchLeadFollowupData} leadDetails={data} />
 
             <AddDocuments fetchLeadFollowupData={fetchLeadFollowupData} leadDetails={data} />
+
+            <AddLeadPic fetchLeadFollowupData={handleRefresh} leadDetails={data} />
+
+            <AddLeadOtherDetails fetchLeadFollowupData={handleRefresh} leadDetails={data} />
+
 
             {/* <div
                 className="modal custom-modal fade custom-modal-two modal-padding"
@@ -5010,12 +5038,14 @@ const LeadDetailsPage = () => {
 
             <CreateComment leadDetails={data} fetchLeadDetails={fetchLeadFollowupData} />
 
-            <ChangeStage leadForAssign={data} fetchLeadData={handleRefresh} />
+            <ChangeStage leadForAssign={data} fetchLeadData={handleRefresh} followUpStage={stageOptions} />
 
             <AssignTo
                 leadForAssign={data}
                 fetchLeadData={handleRefresh}
             />
+
+
 
             {companyDetails &&
                 <EditCompany

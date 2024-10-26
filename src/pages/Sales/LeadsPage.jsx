@@ -246,8 +246,7 @@ const LeadsPage = () => {
                                 <div className="pipeline-list">
                                     <ul>
                                         {stageOptions.map((stage, index) => <li key={stage.value}
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#stage_update"
+                                            
                                             style={{ cursor: 'pointer' }}
                                         >
                                             <Link to="#" className={(stageOptions.length - 1) == index ? `bg-pending` : ``}>

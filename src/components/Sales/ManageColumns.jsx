@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const ManageColumns = ({ handleManageColumns, manageColumns, manageColumnsSlider, setManageColumnsSlider }) => {
   return (
     <div className={`toggle-popup ${manageColumnsSlider ? "sidebar-popup" : ""}`}>
-      <div className="sidebar-layout" style={{maxWidth:'320px'}}>
+      <div className="sidebar-layout" style={{ maxWidth: '320px' }}>
         <div className="manage-dropdwon">
           <div className="sidebar-header">
             <h4>Manage Columns?</h4>
@@ -18,7 +18,7 @@ const ManageColumns = ({ handleManageColumns, manageColumns, manageColumnsSlider
               <i className="ti ti-x" />
             </Link>
           </div>
-          <div className="dropdown-menu dropdown-menu-md-end show" style={{width:'100%'}} >
+          <div className="dropdown-menu dropdown-menu-md-end show" style={{ width: '100%' }} >
             <ul >
               <li>
                 <p>
@@ -282,6 +282,25 @@ const ManageColumns = ({ handleManageColumns, manageColumns, manageColumnsSlider
                   />
                   <label
                     htmlFor="col-value"
+                    className="checktoggle"
+                  />
+                </div>
+              </li>
+              <li>
+                <p>
+                  <i className="ti ti-grip-vertical" />
+                  Owner
+                </p>
+                <div className="status-toggle">
+                  <input
+                    type="checkbox"
+                    id="col-owner"
+                    className="check"
+                    checked={manageColumns['Owner']}
+                    onChange={() => handleManageColumns('Owner')}
+                  />
+                  <label
+                    htmlFor="col-owner"
                     className="checktoggle"
                   />
                 </div>

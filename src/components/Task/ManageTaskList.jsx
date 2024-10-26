@@ -187,11 +187,11 @@ const ManageTaskList = ({
                     style={{ cursor: 'pointer' }}
                     onClick={() => setActivityToggleTwo(!activityToggle)}
                 >
-                    {record?.assignedByImg ?
+                    {record?.createdByImgUrl ?
                         <Link to="#" className="avatar">
                             <img
                                 className="avatar-img"
-                                src={record?.assignedByImg}
+                                src={record?.createdByImgUrl}
                                 alt="User Image"
                             />
                         </Link> :

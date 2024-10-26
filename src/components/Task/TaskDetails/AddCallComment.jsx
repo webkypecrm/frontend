@@ -40,7 +40,7 @@ const AddCallComment = ({ fetchTaskLogData, taskLogId }) => {
     return (
         <div
             className="modal custom-modal fade modal-padding"
-            id="create_call_comment"
+            id="create_task_call_comment"
             role="dialog"
         >
             <div className="modal-dialog modal-dialog-centered">
