@@ -330,7 +330,7 @@ const LeadDetailsPage = () => {
                                     </div>
 
                                     <div className="name-user">
-                                        <h5>{data?.leadName.toUpperCase()} {"("}leadId: {data?.leadId}{")"}</h5>
+                                        <h5>{data?.leadName.toUpperCase()} {"("}Id: {data?.leadId}{")"}</h5>
                                         <p style={{ marginBottom: "0px" }}>
                                             <i className="ti ti ti-mail-check me-1" />
                                             {data?.leadEmail}
@@ -388,8 +388,7 @@ const LeadDetailsPage = () => {
                                                 </ul>
                                             </div>
                                         </div>
-                                    </Link>
-
+                                    </Link>                                    
                                     <Link
                                         to="#"
                                         className="btn btn-danger add-popup"
@@ -441,7 +440,9 @@ const LeadDetailsPage = () => {
                                             </Link>
                                         </div>
                                     </div>
+                                    
                                 </div>
+                                
                             </div>
                             {/* /Contact User */}
                         </div>
@@ -470,10 +471,35 @@ const LeadDetailsPage = () => {
                                     <h6>Lead Information</h6>
                                     <ul className="other-info">
                                         <li>
-                                            <span className="other-title">Created Date</span>
+                                            <span className="other-title">Created on</span>
                                             <span style={{ display: 'flex', flexDirection: 'column' }}>
-                                                <span>{getDate(data?.createdAt)},</span>
-                                                <span>{getTime(data?.createdAt)}</span>
+                                                <span>{getDate(data?.createdAt)},{getTime(data?.createdAt)}</span>                                                
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span className="other-title">Created By</span>
+                                            <span>
+                                                <img
+                                                    src={data?.ownerImgUrl}
+                                                    className="avatar-xs"
+                                                    alt="img"
+                                                />{" "}
+                                                {data?.owner}
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span className="other-title">Last Modified</span>
+                                            <span>{getDate(leadFollowupData[0]?.createdAt)}, {getTime(leadFollowupData[0]?.createdAt)}</span>
+                                        </li>
+                                        <li>
+                                            <span className="other-title">Modified By</span>
+                                            <span>
+                                                <img
+                                                    src={leadFollowupData[0]?.staff?.profilePicUrl}
+                                                    className="avatar-xs"
+                                                    alt="img"
+                                                />{" "}
+                                                {leadFollowupData[0]?.staff?.name}
                                             </span>
                                         </li>
                                         <li>
@@ -494,7 +520,7 @@ const LeadDetailsPage = () => {
                                             data-bs-target="#update_lead_new_details"
                                         >
                                             <i className="ti ti-circle-plus me-1" />
-                                            Add New Contact
+                                             New Contact
                                         </Link>
                                     </div>
                                     <ul className="basic-info">
@@ -536,7 +562,7 @@ const LeadDetailsPage = () => {
                                             data-bs-target="#update_lead_new_details"
                                         >
                                             <i className="ti ti-circle-plus me-1" />
-                                            Add New Tags
+                                             New Tags
                                         </Link>
                                     </div>
 
@@ -580,7 +606,9 @@ const LeadDetailsPage = () => {
                                                                     </span>
                                                                 }
                                                                 <h6 >{data?.companyName.toUpperCase()}</h6>
+                                                               
                                                             </li>
+                                                           
                                                             <li>
                                                                 <span>
                                                                     <i className="ti ti-mail" />
