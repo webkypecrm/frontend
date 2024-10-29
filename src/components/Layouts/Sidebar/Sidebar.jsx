@@ -144,6 +144,21 @@ const Sidebar = ({ setExpandMenu }) => {
                                     }
 
                                 </li>
+                                <li className="submenu">
+                                    <Link to="#"
+                                        className={openMenus['Menu6'] ? "subdrop active" : "subdrop"}
+                                        onClick={() => {
+                                            handleMenu('Menu6')
+                                        }}>
+                                        <i className="ti ti-user-up">
+                                        </i><span>CUSTOMERS</span>
+                                        <span className="menu-arrow"></span></Link>
+                                    <ul>
+                                        <li><Link to={route.customerList}>Manage Customer</Link></li>
+                                        <li><Link to={route.customerList}>Add Contacts</Link></li>
+                                        <li><Link to={route.customerList}>Add Customer</Link></li>
+                                    </ul>
+                                </li>
                                 {/* <li className="submenu">
                                     <Link to="#"
                                         className={openMenus['incentives'] ? "subdrop active" : "subdrop"}
@@ -202,7 +217,7 @@ const Sidebar = ({ setExpandMenu }) => {
 
                                 </li>
 
-                                <li className="submenu">
+                                {/* <li className="submenu">
                                     <Link to="#"
                                         className={openMenus['sales'] ? "subdrop active" : "subdrop"}
                                         onClick={() => {
@@ -220,8 +235,8 @@ const Sidebar = ({ setExpandMenu }) => {
                                         </ul>
                                     }
 
-                                </li>
-                                <li className="submenu">
+                                </li> */}
+                                {/* <li className="submenu">
                                     <Link to="#"
                                         className={openMenus['task'] ? "subdrop active" : "subdrop"}
                                         onClick={() => {
@@ -241,22 +256,8 @@ const Sidebar = ({ setExpandMenu }) => {
                                         </ul>
                                     }
 
-                                </li>
-                                <li className="submenu">
-                                    <Link to="#"
-                                        className={openMenus['Menu6'] ? "subdrop active" : "subdrop"}
-                                        onClick={() => {
-                                            handleMenu('Menu6')
-                                        }}>
-                                        <i className="ti ti-user-up">
-                                        </i><span>CUSTOMERS</span>
-                                        <span className="menu-arrow"></span></Link>
-                                    <ul>
-                                        <li><Link to={route.customerList}>Manage Customer</Link></li>
-                                        <li><Link to={route.customerList}>Add Contacts</Link></li>
-                                        <li><Link to={route.customerList}>Add Customer</Link></li>
-                                    </ul>
-                                </li>
+                                </li> */}
+
                                 <li className="submenu">
                                     <Link to="#"
                                         className={openMenus['Menu7'] ? "subdrop active" : "subdrop"}

@@ -24,7 +24,7 @@ const ChangeStage = ({ leadForAssign, fetchLeadData, followUpStage }) => {
         try {
             formData.leadId = leadForAssign?.leadId
 
-            if (selectedStage) {
+            if (selectedStage ||  selectedStage !== 'null') {
                 const isPresent = selectedStage.filter(ele => ele.stage.id === formData.stageId)
                 // console.log('present =>', isPresent)
                 if (isPresent.length > 0) {
@@ -57,6 +57,7 @@ const ChangeStage = ({ leadForAssign, fetchLeadData, followUpStage }) => {
             fetchLeadData()
             toast.success('Stage updated successfully!');
         } catch (error) {
+            console.error(error)
             toast.error(error.message || 'Something went wrong');
         }
     }
@@ -88,7 +89,10 @@ const ChangeStage = ({ leadForAssign, fetchLeadData, followUpStage }) => {
                     }
                 );
                 const formattedData = response.data.data
-                setSelectedStage(() => [...formattedData]);
+                if (formattedData.length  > 0) { 
+                    setSelectedStage(() => [...formattedData]);
+                }
+
 
             } catch (error) {
                 console.log(error)

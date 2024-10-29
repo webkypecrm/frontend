@@ -28,6 +28,8 @@ import CollapseHeader from "../../components/CollapseHeader/CollapseHeader";
 // import { SelectWithImage } from "../../../core/common/selectWithImage";
 // import { SelectWithImage2 } from "../../../core/common/selectWithImage2";
 import 'react-datepicker/dist/react-datepicker.css';
+import { useEffect } from "react";
+import axios from 'axios';
 
 const CustomerList = () => {
   const [activityToggle, setActivityToggle] = useState(false)
@@ -36,6 +38,14 @@ const CustomerList = () => {
   const [addTogglePopupTwo, setAddTogglePopupTwo] = useState(false)
   const route = all_routes;
   const [owner, setOwner] = useState(["Collab"]);
+  const [data, setData] = useState();
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const Token = localStorage.getItem('token') || '';
+
 
   const [selectedDate, setSelectedDate] = useState(new Date());
   const handleDateChange = (date) => {
@@ -100,17 +110,19 @@ const CustomerList = () => {
   React.useEffect(() => {
     initializeStarsState();
   }, []);
-  const data = contactData;
+  // const data = contactData;
   const handleStarToggle = (index) => {
     setStars((prevStars) => ({
       ...prevStars,
       [index]: !prevStars[index],
     }));
   };
+
   const columns = [
     {
       title: "",
       dataIndex: "",
+      key:"customerId",
       render: (text, record, index) => (
         <div
           className={`set-star rating-select ${stars[index] ? "filled" : ""}`}
@@ -122,22 +134,28 @@ const CustomerList = () => {
       ),
     },
     {
-      title: "Name",
-      dataIndex: "Phone",
+      title: "Customer Name",
+      dataIndex: "customerName",
+      key:"customerId",
       render: (text, record, index) => (
         <div className="table-avatar d-flex align-items-center" key={index}>
-          <Link to={route.customerDetails} className="avatar">
-            <ImageWithBasePath
-              className="avatar-img"
-              src={record.customer_image}
-              alt={text}
-            />
-          </Link>
+          {/* {route.customerPic ?
+            <Link to={route.customerDetails} className="avatar">
+              <img
+                className="avatar-img"
+                src={record?.customerPic}
+              // alt={text}
+              />
+            </Link>
+            :
+            <i className="ti ti-user" />
+          } */}
+
           <Link
             to={route.customerDetails}
             className="profile-split d-flex flex-column"
           >
-            {record.customer_name} <span>{record.customer_no}</span>
+            {record.customerName} <span>Id: {record.customerId}</span>
           </Link>
         </div>
       ),
@@ -145,72 +163,76 @@ const CustomerList = () => {
     },
 
     {
-      title: "Phone",
-      dataIndex: "phone",
+      title: "Customer Mobile",
+      dataIndex: "customerMobile1",
+      key:"customerId",
       sorter: (a, b) => a.phone.length - b.phone.length,
     },
 
     {
-      title: "Email",
-      dataIndex: "email",
+      title: "Customer Email",
+      dataIndex: "customerEmail",
+      key:"customerId",
       sorter: (a, b) => a.email.length - b.email.length,
     },
 
-    {
-      title: "Tag",
-      dataIndex: "tag",
-      render: (text, index) => (
-        <div key={index}>
-          {text === "Collab" && (
-            <span className="badge badge-tag badge-success-light">{text}</span>
-          )}
-          {text === "Promotion" && (
-            <span className="badge badge-tag badge-purple-light">{text}</span>
-          )}
-          {text === "Rated" && (
-            <span className="badge badge-tag badge-warning-light">{text}</span>
-          )}
-          {text === "Paused" && (
-            <span className="badge badge-pill badge-status bg-info">
-              {text}
-            </span>
-          )}
-          {text === "Running" && (
-            <span className="badge badge-pill badge-status bg-green">
-              {text}
-            </span>
-          )}
-        </div>
-      ),
-      sorter: true,
-    },
-    {
-      title: "Location",
-      dataIndex: "location",
-      sorter: (a, b) =>
-        a.location.length - b.location.length,
-    },
+    // {
+    //   title: "Tags",
+    //   dataIndex: "tags",
+    //   render: (text, index) => (
+    //     <div key={index}>
+    //       {text === "Collab" && (
+    //         <span className="badge badge-tag badge-success-light">{text}</span>
+    //       )}
+    //       {text === "Promotion" && (
+    //         <span className="badge badge-tag badge-purple-light">{text}</span>
+    //       )}
+    //       {text === "Rated" && (
+    //         <span className="badge badge-tag badge-warning-light">{text}</span>
+    //       )}
+    //       {text === "Paused" && (
+    //         <span className="badge badge-pill badge-status bg-info">
+    //           {text}
+    //         </span>
+    //       )}
+    //       {text === "Running" && (
+    //         <span className="badge badge-pill badge-status bg-green">
+    //           {text}
+    //         </span>
+    //       )}
+    //     </div>
+    //   ),
+    //   sorter: true,
+    // },
+    // {
+    //   title: "Country",
+    //   dataIndex: "country",
+    //   sorter: (a, b) =>
+    //     a.location.length - b.location.length,
+    // },
 
-    {
-      title: "Rating",
-      dataIndex: "rating",
-      render: (text, record, index) => (
-        <div className="set-star" key={index}>
-          <i className="fa fa-star filled me-2" />
-          {text}
-        </div>
-      ),
-      sorter: (a, b) => a.rating.length - b.rating.length,
-    },
+    // {
+    //   title: "Rating",
+    //   dataIndex: "rating",
+    //   render: (text, record, index) => (
+    //     <div className="set-star" key={index}>
+    //       <i className="fa fa-star filled me-2" />
+    //       {text}
+    //     </div>
+    //   ),
+    //   sorter: (a, b) => a.rating.length - b.rating.length,
+    // },
 
     {
       title: "Owner",
       dataIndex: "owner",
+      key:"customerId",
       sorter: (a, b) => a.owner.length - b.owner.length,
     },
     {
       title: "Contact",
       dataIndex: "",
+      key:"customerId",
       render: (index) => (
         <div className="social-links d-flex align-items-center" key={index}>
           <li>
@@ -245,12 +267,13 @@ const CustomerList = () => {
     {
       title: "Status",
       dataIndex: "status",
+      key:"customerId",
       render: (text, index) => (
         <div key={index}>
-          {text === "Active" && (
+          {text === "active" && (
             <span className="badge badge-pill badge-status bg-success">{text}</span>
           )}
-          {text === "Inactive" && (
+          {text === "inactive" && (
             <span className="badge badge-pill badge-status bg-danger">{text}</span>
           )}
         </div>),
@@ -260,6 +283,7 @@ const CustomerList = () => {
     {
       title: "Actions",
       dataIndex: "actions",
+      key:"customerId",
       render: (index) => (
         <div className="dropdown table-action" key={index}>
           <Link
@@ -283,9 +307,9 @@ const CustomerList = () => {
             <Link
               className="dropdown-item edit-popup"
               to="#"
-            onClick={() =>
-              setActivityToggleTwo(prev => !prev)
-            }
+              onClick={() =>
+                setActivityToggleTwo(prev => !prev)
+              }
             >
               <i className="ti ti-edit text-blue"></i> Edit
             </Link>
@@ -302,6 +326,55 @@ const CustomerList = () => {
       ),
     },
   ];
+
+
+  const fetchCustomerData = async (page) => {
+    try {
+      // const { from, to, industry, source, country, stage, company, leadOwner, search } = filterByObj;
+      // console.log({ from, to, industry, source, country, stage, company, leadOwner, search })
+
+      let url = `${apiUrl}/customer/customer-list`;
+
+      // let url = `${apiUrl}/task/task-list?page=${page ? page : 1}&pageSize=${pageSize}&to=${to}&from=${from}
+      //     &industry=${industry}&source=${source}&country=${country}&stage=${stage}&company=${company}&leadOwner=${leadOwner}&search=${search}`
+
+      // if (staffType == "0") {
+      //   url = `${apiUrl}/task/task-list?staffType=0&page=${page ? page : 1}&pageSize=${pageSize}&to=${to}&from=${from}
+      //       &industry=${industry}&source=${source}&country=${country}&stage=${stage}&company=${company}&leadOwner=${leadOwner}&search=${search}`
+      // }
+
+      const response = await axios.get(url,
+        {
+          headers: {
+            Authorization: `Bearer ${Token}`
+          }
+        });
+
+      const formattedData = response.data.data.map((item) => ({
+        ...item,
+        key: item.taskId,
+        tags: JSON.parse(item.tags)
+      }));
+
+      setData(formattedData);
+      setIsLoading(false)
+      a
+
+    } catch (error) {
+      setError(error)
+      setIsLoading(false)
+
+    }
+  };
+
+
+  useEffect(() => {
+
+    fetchCustomerData()
+  }, [])
+
+
+
   return (
     <div>
       {/* Page Wrapper */}
@@ -314,7 +387,7 @@ const CustomerList = () => {
                 <div className="row align-items-center">
                   <div className="col-8">
                     <h4 className="page-title">
-                      Customer<span className="count-title">123</span>
+                      Customer<span className="count-title">{data?.length}</span>
                     </h4>
                   </div>
                   <div className="col-4 text-end">
@@ -1779,9 +1852,9 @@ const CustomerList = () => {
             <Link
               to="#"
               className="sidebar-close1 toggle-btn"
-            onClick={() =>
-              setActivityToggleTwo(!activityToggleTwo)
-            }
+              onClick={() =>
+                setActivityToggleTwo(!activityToggleTwo)
+              }
             >
               <i className="ti ti-x" />
             </Link>

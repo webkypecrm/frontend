@@ -16,7 +16,7 @@ import { Empty } from "antd";
 
 import PieChartComponent from "../../components/Task/PieChartComponent";
 
-const TaskPage = () => {
+const CustomerPage = () => {
 
     const [activityToggle, setActivityToggle] = useState(false);
     const [activityToggleTwo, setActivityToggleTwo] = useState(false);
@@ -74,7 +74,7 @@ const TaskPage = () => {
         setTaskDetails(data)
     }
 
-    const fetchTaskData = async (page) => {
+    const fetchCustomerData = async (page) => {
         try {
             const { from, to, industry, source, country, stage, company, leadOwner, search } = filterByObj;
             console.log({ from, to, industry, source, country, stage, company, leadOwner, search })
@@ -182,7 +182,7 @@ const TaskPage = () => {
     };
 
     useEffect(() => {
-        fetchTaskData();
+        fetchCustomerData();
         fetchTaskCategoryData();
         fetchTaskSubCategoryData();
         fetchLeadData();
@@ -199,11 +199,6 @@ const TaskPage = () => {
                             {/* Page Header */}
                             <PageHeader title="Task" count={data.length} />
                             {/* /Page Header */}
-                            {/* Campaign Status */}
-                            {/* <CampaignStatus /> */}
-                            {/* /Campaign Status */}
-
-                            <PieChartComponent data={data} taskCategoryOptions={taskCategoryOptions} />
 
                             <div className="card main-card">
                                 <div className="card-body">
@@ -291,4 +286,4 @@ const TaskPage = () => {
     );
 };
 
-export default TaskPage;
+export default CustomerPage;

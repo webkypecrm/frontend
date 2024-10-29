@@ -9,6 +9,7 @@ import ContentLoader from "../../../components/Layouts/ContentLoader/Index";
 import ErrorLoader from "../../../components/Layouts/ErrorLoader/Index";
 import { toast } from "react-toastify";
 import { Empty } from "antd";
+import { render } from "@testing-library/react";
 
 const route = all_routes;
 
@@ -24,6 +25,7 @@ const Stage = () => {
   const Token = localStorage.getItem('token') || '';
   const initialForm = {
     name: '',
+    order: ''
   }
   const [formData, setFormData] = useState(initialForm);
   const [departmentDetails, setDepartmentDetails] = useState({})
@@ -149,6 +151,15 @@ const Stage = () => {
   }
   const columns = [
     {
+      title: "Stage Order",
+      dataIndex: "order",
+      sorter: (a, b) =>
+        a.order - b.order,
+      key: "order",
+      width: "50px",
+
+    },
+    {
       title: "Stage Name",
       dataIndex: "name",
       // sorter: (a, b) =>
@@ -232,7 +243,7 @@ const Stage = () => {
           <div className="row">
             <div className="col-md-12">
               {/* Page Header */}
-              <PageHeader title="Stage" count={totalPages}/>
+              <PageHeader title="Stage" count={totalPages} />
               {/* /Page Header */}
               <div className="card main-card">
                 <div className="card-body">
@@ -283,12 +294,12 @@ const Stage = () => {
                     data.length > 0 &&
                     <>
                       <div className="table-responsive custom-table">
-                        <DataTable 
-                        dataSource={data}
-                         columns={columns}
-                         totalPages={totalPages}
-                         pageSize={pageSize}
-                         />
+                        <DataTable
+                          dataSource={data}
+                          columns={columns}
+                          totalPages={totalPages}
+                          pageSize={pageSize}
+                        />
                       </div>
                       {/* <div className="row align-items-center">
                         <div className="col-md-6">
@@ -335,13 +346,29 @@ const Stage = () => {
                     type="text"
                     className="form-control"
                     name='name'
-                    placeholder="Eg: Stage1,Stage2"
+                    placeholder="Stage1"
                     value={formData.name}
                     required
                     onChange={handleInputChange}
                   />
                 </div>
-                <p style={{ fontSize: 'small', color: '#7695FF' }}>Note: You can add multiple Stage at once by separating them with commas (,)</p>
+
+                <div className="form-wrap">
+                  <label className="col-form-label">
+                    Order<span className="text-danger">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    name='order'
+                    placeholder="11"
+                    value={formData.order}
+                    required
+                    onChange={handleInputChange}
+                  />
+                </div>
+
+                {/* <p style={{ fontSize: 'small', color: '#7695FF' }}>Note: You can add multiple Stage at once by separating them with commas (,)</p> */}
                 <div className="modal-btn text-end">
                   <Link
                     to="#"
@@ -383,7 +410,7 @@ const Stage = () => {
               <form onSubmit={handleEdit}>
                 <div className="form-wrap">
                   <label className="col-form-label">
-                  Stage Name <span className="text-danger">*</span>
+                    Stage Name <span className="text-danger">*</span>
                   </label>
                   <input
                     type="text"
