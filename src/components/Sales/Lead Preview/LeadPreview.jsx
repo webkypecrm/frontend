@@ -66,7 +66,7 @@ const LeadPreview = ({ leadPreview, setLeadPreview, leadDetails }) => {
                             className="sidebar-close toggle-btn"
                             onClick={() => {
                                 setLeadPreview(prev => !prev)
-                                    
+
                             }}
                         >
                             <i className="ti ti-x" />
@@ -80,7 +80,7 @@ const LeadPreview = ({ leadPreview, setLeadPreview, leadDetails }) => {
                                         to="#"
                                         data-bs-toggle="tab"
                                         data-bs-target="#activities"
-                                        className="active"                                       
+                                        className="active"
                                     >
                                         <i className="ti ti-eye" />
                                         Activities
@@ -161,8 +161,22 @@ const LeadPreview = ({ leadPreview, setLeadPreview, leadDetails }) => {
                                 />
                                 {/* /Comments */}
                                 {/* Proposal */}
-                                <Proposal />
+                                <Proposal
+                                    leadFollowupData={leadFollowupData}
+                                    fetchLeadFollowupData={fetchLeadFollowupData}
+                                    leadDetails={leadDetails}
+                                />
                                 {/* Proposal */}
+
+                                {/* File */}
+
+                                {/* <File
+                                    leadFollowupData={leadFollowupData}
+                                    fetchLeadFollowupData={fetchLeadFollowupData}
+                                    leadDetails={leadDetails}
+                                /> */}
+
+                                {/* File */}
                                 <Task
                                     leadFollowupData={leadFollowupData}
                                     fetchLeadFollowupData={fetchLeadFollowupData}

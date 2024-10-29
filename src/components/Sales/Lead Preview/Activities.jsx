@@ -15,16 +15,17 @@ const Activities = ({ leadFollowupData }) => {
                 {/* Ribbon */}
                 {leadFollowupData.length === 0 ? <Empty description={false} /> :
                     <div className="col-md-12">
-                        <div className="card">
-                            <div className="card-body">
-                                <ul className="timeline">
-                                    {leadFollowupData.map((item) => <ActivityList
+                        {/* <div className="card"> */}
+                            {/* <div className="card-body"> */}
+                                {/* <ul className="timeline"> */}
+                                    {leadFollowupData.map((item, index) => <ActivityList
                                         key={item.id}
                                         data={item}
+                                        index={index}
                                     />)}
-                                </ul>
-                            </div>
-                        </div>
+                                {/* </ul> */}
+                            {/* </div> */}
+                        {/* </div> */}
                     </div>
                 }
 

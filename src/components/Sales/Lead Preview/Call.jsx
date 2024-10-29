@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 import { toast } from 'react-toastify';
 import { event } from 'jquery';
 import CallList from './CallList';
+
 import { Empty } from 'antd';
 
 const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
@@ -82,7 +83,7 @@ const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
             <div className="view-header">
                 <h4>Calls</h4>
                 <ul>
-                    {(data[0]?.status == 'Done' || data[0]?.status == '') &&
+                    {(data[0]?.status == 'Done' || data[0]?.status == '' || data[0]?.length === 0) &&
                         <ul>
                             <li>
                                 <Link
@@ -97,6 +98,7 @@ const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
                             </li>
                         </ul>
                     }
+                    
                     {/* <li>
                         <Link
                             to="#"
@@ -113,10 +115,11 @@ const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
             {data.length === 0 ? <Empty description={false} /> :
                 <div className="calls-activity">
                     <div className="contact-activity">
-                        {data.map((item) => (
+                        {data.map((item, index) => (
                             <CallList
                                 key={item.id}
                                 data={item}
+                                index={index}
                             />
                         ))}
                     </div>

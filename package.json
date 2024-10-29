@@ -31,6 +31,7 @@
     "axios": "^1.7.5",
     "bootstrap": "^5.3.3",
     "clipboard-copy": "^4.0.1",
+    "dayjs": "^1.11.13",
     "dragula": "^3.7.3",
     "feather-icons-react": "^0.7.0",
     "jquery": "^3.7.1",

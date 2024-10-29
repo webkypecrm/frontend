@@ -104,6 +104,46 @@ const Sidebar = ({ setExpandMenu }) => {
                                     }
 
                                 </li>
+                                <li className="submenu">
+                                    <Link to="#"
+                                        className={openMenus['sales'] ? "subdrop active" : "subdrop"}
+                                        onClick={() => {
+                                            handleMenu('sales')
+                                        }}
+                                    >
+                                        <i className="ti ti-chart-arcs">
+                                        </i><span>SALES</span>
+                                        <span className="menu-arrow"></span></Link>
+                                    {openMenus['sales'] &&
+                                        <ul>
+                                            <li><Link to={route.leads}>Manage Leads</Link></li>
+                                            <li><Link to={route.leads}>Add Lead</Link></li>
+                                            <li><Link to={route.leads}>Proposal Template</Link></li>
+                                        </ul>
+                                    }
+
+                                </li>
+                                <li className="submenu">
+                                    <Link to="#"
+                                        className={openMenus['task'] ? "subdrop active" : "subdrop"}
+                                        onClick={() => {
+                                            handleMenu('task')
+                                        }}>
+                                        <i className="ti ti-list-check">
+                                        </i><span>TASKS</span>
+                                        <span className="menu-arrow"></span></Link>
+                                    {openMenus['task'] &&
+                                        <ul>
+                                            <li><Link to={route.tasks}>Task Category</Link></li>
+                                            <li><Link to={route.tasks}>New Tasks</Link></li>
+                                            <li><Link to={route.tasks}>Assigned Tasks </Link></li>
+                                            <li><Link to={route.tasks}>Open Tasks</Link></li>
+                                            <li><Link to={route.tasks}>In Process Tasks</Link></li>
+                                            <li><Link to={route.tasks}>Closed Tasks</Link></li>
+                                        </ul>
+                                    }
+
+                                </li>
                                 {/* <li className="submenu">
                                     <Link to="#"
                                         className={openMenus['incentives'] ? "subdrop active" : "subdrop"}

@@ -97,9 +97,9 @@ const ManageTaskList = ({
                     className="table-avatar d-flex align-items-center"
                 // onClick={() => setActivityToggleTwo(!activityToggle)}
                 >
-                    <span className="company-img menu-list-icon ">
+                    {/* <span className="company-img menu-list-icon ">
                         <i className="ti ti-id" />
-                    </span>
+                    </span> */}
                     {text}
                 </Link>
             </div>

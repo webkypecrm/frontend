@@ -355,40 +355,57 @@ const LeadDetailsPage = () => {
                                         <i className="fa-solid fa-star" />
                                     </Link>
 
-                                    <Link
-                                        to="#"
-                                        className="btn btn add-popup"
-                                        style={{ border: '1px solid black' }}
+                                    <OverlayTrigger
+                                        placement="bottom"
+                                        overlay={<Tooltip id="assign-to-tooltip">Assign To</Tooltip>}
                                     >
-                                        <div
-                                            className="table-avatar d-flex align-items-center"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#assigned_to"
-                                            style={{ courser: 'pointer' }}
-
+                                        <Link
+                                            to="#"
+                                            className="btn btn add-popup"
+                                            style={{ border: '1px solid black' }}
                                         >
-                                            <div className="users-group">
-                                                <ul>
-                                                    <li>
-                                                        <Link to="#">
-                                                            {data?.staff?.profilePic ?
-                                                                <span className="menu-list-icon ">
-                                                                    <img src={data?.staff?.profilePic} />
-                                                                </span>
-                                                                :
-                                                                <span className="menu-list-icon ">
-                                                                    <i className="ion-person" />
-                                                                </span>
-                                                            }
-                                                        </Link>
-                                                    </li>
-                                                    <li>
-                                                        {data?.assignedTo.split(' '[0])}
-                                                    </li>
-                                                </ul>
+                                            <div
+                                                className="table-avatar d-flex align-items-center"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#assigned_to"
+                                                style={{ courser: 'pointer' }}
+
+                                            >
+                                                <div className="users-group">
+                                                    <ul>
+                                                        <li>
+                                                            <Link to="#">
+                                                                {data?.staff?.profilePic ?
+                                                                    <span className="menu-list-icon ">
+                                                                        <img src={data?.staff?.profilePic} />
+                                                                    </span>
+                                                                    :
+                                                                    <span className="menu-list-icon ">
+                                                                        <i className="ion-person" />
+                                                                    </span>
+                                                                }
+                                                            </Link>
+                                                        </li>
+                                                        <li>
+                                                            {data?.assignedTo.split(' '[0])}
+                                                        </li>
+                                                    </ul>
+
+                                                </div>
+
                                             </div>
-                                        </div>
-                                    </Link>                                    
+                                        </Link>
+
+                                    </OverlayTrigger>
+
+
+
+
+
+                                    {/* <div className="badge badge-tag badge-success-light">
+                                            assign to
+                                        </div> */}
+
                                     <Link
                                         to="#"
                                         className="btn btn-danger add-popup"
@@ -440,9 +457,9 @@ const LeadDetailsPage = () => {
                                             </Link>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
-                                
+
                             </div>
                             {/* /Contact User */}
                         </div>
@@ -473,7 +490,7 @@ const LeadDetailsPage = () => {
                                         <li>
                                             <span className="other-title">Created on</span>
                                             <span style={{ display: 'flex', flexDirection: 'column' }}>
-                                                <span>{getDate(data?.createdAt)},{getTime(data?.createdAt)}</span>                                                
+                                                <span>{getDate(data?.createdAt)},{getTime(data?.createdAt)}</span>
                                             </span>
                                         </li>
                                         <li>
@@ -520,7 +537,7 @@ const LeadDetailsPage = () => {
                                             data-bs-target="#update_lead_new_details"
                                         >
                                             <i className="ti ti-circle-plus me-1" />
-                                             New Contact
+                                            New Contact
                                         </Link>
                                     </div>
                                     <ul className="basic-info">
@@ -562,7 +579,7 @@ const LeadDetailsPage = () => {
                                             data-bs-target="#update_lead_new_details"
                                         >
                                             <i className="ti ti-circle-plus me-1" />
-                                             New Tags
+                                            New Tags
                                         </Link>
                                     </div>
 
@@ -606,9 +623,9 @@ const LeadDetailsPage = () => {
                                                                     </span>
                                                                 }
                                                                 <h6 >{data?.companyName.toUpperCase()}</h6>
-                                                               
+
                                                             </li>
-                                                           
+
                                                             <li>
                                                                 <span>
                                                                     <i className="ti ti-mail" />

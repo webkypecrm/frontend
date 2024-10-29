@@ -15,6 +15,7 @@ import {
     status,
     statusList,
 } from "../../selectOption/selectOption";
+import CountUp from "react-countup";
 import DatePicker from "react-datepicker";
 import Chart from "react-apexcharts";
 import { TagsInput } from "react-tag-input-component";
@@ -34,6 +35,7 @@ import RescheduleCall from '../../components/Task/TaskDetails/RescheduleCall';
 import RescheduleMeeting from '../../components/Task/TaskDetails/RescheduleMeeting';
 import TaskStatus from "../../components/Task/TaskStatus";
 import AddTaskDocuments from "../../components/Task/TaskDetails/AddTaskDocuments";
+import TaskTimer from "../../components/Task/TaskDetails/TaskTimer";
 
 
 
@@ -54,21 +56,6 @@ const TaskDetailsPage = () => {
     const [commentData, setCommentData] = useState([]);
     const [fileData, setFileData] = useState([]);
     const [taskLogId, setTaskLogId] = useState('');
-
-    // const [chartOptions1] = useState({
-    //     series: [44, 55, 41, 17],
-    //     chart: {
-    //         type: "donut",
-    //     },
-    //     colors: ["#4A00E5", "#0092E4", "#E41F07", "#FFA201"],
-    //     dataLabels: {
-    //         enabled: false,
-    //     },
-    //     title: {
-    //         text: "",
-    //         align: "left",
-    //     },
-    // });
 
 
     console.log('callData =>', callData)
@@ -218,7 +205,6 @@ const TaskDetailsPage = () => {
         }
     }
 
-
     useEffect(() => {
         if (data?.taskId) {
             fetchTaskLogData()
@@ -231,7 +217,6 @@ const TaskDetailsPage = () => {
         if (taskId) {
             fetchTaskDetails()
         }
-
     }, [taskId])
 
 
@@ -293,88 +278,265 @@ const TaskDetailsPage = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="contact-wrap">
-                                <div className="contact-profile">
-                                    <div className="avatar company-avatar">
-                                        <span className="text-icon">
-                                            {data?.taskTitle[0]}{data?.taskTitle[data?.taskTitle?.length - 1]}
-                                        </span>
+
+                            <div className="contact-wrap" style={{ paddingTop: '0px',paddingBottom:'0px' }}>
+                                <div className="contact-profile" style={{ width: "820px" }}>
+
+                                    {/* Counter */}
+                                    <div className="col-md-3" style={{marginRight:'-25px'}}>
+                                        <div className="card" style={{ boxShadow: "none" }}>
+                                            <div className="card-header" style={{
+                                                borderBottom: "none",
+                                                padding: "10px 10px",
+                                                paddingBottom: "0px"
+                                            }}>
+                                                <div className="">
+                                                    <span className="text-icon">
+                                                        <img src="https://media.lordicon.com/icons/wired/gradient/45-clock-time.gif" style={{ maxWidth: "64%", margin: '1rem' }} />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="name-user">
-                                        <h5>{data?.taskTitle}</h5>
-                                        <p>
-                                            <i className="ti ti-map-pin-pin me-1" />
-                                            {data?.taskType.toUpperCase()}
-                                        </p>
-                                        <div className="badge-rate">
+
+                                    <div className="col-md-3">
+                                        <div className="card" style={{ boxShadow: "none" }}>
+                                            <div className="card-body" style={{
+                                                fontSize: "0.9rem",
+                                                padding: "5px",
+                                                color: "#d84b4b",
+                                                textAlign: "center",
+                                                marginLeft:"-41px"
+                                            }}>
+                                                {/* {data?.endDate &&
+
+                                                    <TaskTimer
+                                                        startDate={data?.startDate}
+                                                        endDate={data?.endDate}
+                                                    />
+                                                } */}
+                                                <CountUp
+                                                    start={60}
+                                                    end={0}
+                                                    duration={60}
+                                                    prefix="02 Days 23 Hour 59 Min"
+
+                                                />
+
+                                                <p style={{ margin: '0px', color: 'green' }}>IN PROCESS</p>
+                                                <p className="badge badge-tag badge-danger-light"> Priority: {data?.priority.slice(0, -1)}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    {/* Counter */}
+                                    <div className="name-user" style={{ paddingLeft: '25px', marginBottom: "22px", borderLeft:"0.3px solid #d8d4d4", borderRight: "0.3px solid #d8d4d4", paddingRight:"22px" }}>
+                                        <h5 style={{ display: 'flex', alignItems: 'start', gap: '2rem', margin: "0px", padding: "0px", height: "26px" }}>{data?.taskTitle}
+                                            <div style={{ display: 'flex' }}>
+
+                                                <Link to={route.chat} className="btn-icon">
+                                                    <i className="ti ti-brand-hipchat" />
+                                                </Link>
+                                                <Link
+                                                    to="#"
+                                                    className="btn-icon edit-popup"
+                                                    onClick={() =>
+                                                        setActivityToggle(!activityToggle)
+                                                    }
+                                                >
+                                                    <i className="ti ti-edit-circle" />
+                                                </Link>
+                                                <Link to="#" className="btn-icon rating">
+                                                    <i className="fa-solid fa-star" />
+                                                </Link>
+                                                <div className="act-dropdown">
+                                                    <Link
+                                                        to="#"
+                                                        data-bs-toggle="dropdown"
+                                                        aria-expanded="false"
+                                                    >
+                                                        <i className="ti ti-dots-vertical" />
+                                                    </Link>
+                                                    <div className="dropdown-menu dropdown-menu-right">
+                                                        <Link
+                                                            className="dropdown-item"
+                                                            to="#"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#delete_contact"
+                                                        >
+                                                            <i className="ti ti-trash text-danger" />
+                                                            Delete
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            </div> </h5>
+                                        <p style={{ marginBottom: "0px" }}>{data?.taskCategoryName} <i className="ti ti-arrow-narrow-right" /> {data?.taskSubCategoryName}</p>
+                                        <div style={{ display: 'flex', gap: '30px' }}>
+                                            <p style={{ display: 'flex', alignItems: 'center', }}> <i className="ti ti-calendar-month" />  {data?.startDate}</p>
+                                            <p style={{ display: 'flex', alignItems: 'center', }}> <i className="ti ti-calendar-month" /> {data?.endDate}</p>
+                                        </div>
+
+                                        {/* <p style={{ display: 'flex' }}>
+                                            <span>
+                                                <img src={data?.createdByImgUrl} style={{
+                                                    objectFit: "cover",
+                                                    height: "32px",
+                                                    width: "32px",
+                                                    borderRadius: "50%",
+                                                    marginLeft: '5px',
+                                                    marginRight: '5px'
+                                                }} />
+                                            </span>
+                                            {data?.createdBy}, created on {getDate(data?.createdAt)},{getTime(data?.createdAt)} </p>
+                                        <p style={{ display: 'flex' }}>
+                                            <span>
+                                                <img src={data?.assignedToImg} style={{
+                                                    objectFit: "cover",
+                                                    height: "32px",
+                                                    width: "32px",
+                                                    borderRadius: "50%",
+                                                    marginLeft: '5px',
+                                                    marginRight: '5px'
+                                                }} />
+                                            </span>
+                                            {data?.assignedTo}, assigned on {getDate(data?.createdAt)},{getTime(data?.createdAt)} </p> */}
+                                        {/* <p>
+                                            Connected to: {data?.lead?.leadName} || {data?.lead?.leadEmail} || {data?.lead?.leadMobile1}
+                                        </p> */}
+
+                                        {/* <div className="badge-rate">
                                             <p>
                                                 <i className="fa-solid fa-star" /> 5.0
                                             </p>
-                                        </div>
+                                        </div> */}
                                     </div>
+
+
+
+
                                 </div>
-                                <div className="contacts-action">
-                                    <Link to="#" className="btn-icon rating">
-                                        <i className="fa-solid fa-star" />
-                                    </Link>
-                                    <Link
-                                        to="#"
-                                        className={`btn btn-success add-popup
-                                            ${data?.status == 'open' && "bg-info"}
-                                            ${data?.status == 'pending' && "bg-pending"}
-                                            ${data?.status == 'resolved' && "bg-success"}
-                                            ${data?.status == 'closed' && "bg-danger"}
-                                            `}
-                                        // onClick={() =>
-                                        //     setActivityToggle(!activityToggle)
-                                        // }
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#task_stage_update"
-                                    >
-                                        <i className="ti ti-circle-plus" />
-                                        {data?.status.toUpperCase()}
-                                    </Link>
-                                    <Link
+                                <div className="contacts-action" style={{ display: 'grid', marginRight: '4rem', marginBottom: '22px' }}>
+                                    <div className="contact-profile">
+
+                                        <div
+                                            className="avatar company-avatar"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#add-lead-image"
+                                            style={{ cursor: 'pointer' }}
+                                        >
+                                            {/* {data?.leadPicUrl ? */}
+                                            <img src="https://png.pngtree.com/png-vector/20240402/ourmid/pngtree-young-man-wearing-glasses-icon-png-image_12258730.png" alt="lead image" />
+                                            :
+                                            {/* <span className="text-icon">
+                                                {data?.leadName[0]}{data?.lead?.leadName[data?.leadName?.length - 1]}
+                                            </span>
+                                        } */}
+
+                                        </div>
+
+                                        <div className="name-user">
+                                            <h5>{data?.lead?.leadName.toUpperCase()} {"("}Id: {data?.lead?.leadId}{")"}</h5>
+                                            <p style={{ marginBottom: "0px" }}>
+                                                <i className="ti ti ti-mail-check me-1" />
+                                                {data?.lead?.leadEmail}
+                                            </p>
+                                            <p style={{ marginBottom: "0px" }}>
+                                                <i className="ti ti-phone me-1" />
+                                                {data?.lead?.leadMobile1}
+                                            </p>
+                                            <p style={{ marginBottom: "0px" }}>
+                                                <i className="ti ti-map-pin-pin me-1" />
+                                                {data?.lead?.country?.name}, {data?.lead?.state?.name}, {data?.lead?.city?.name}
+                                            </p>
+                                            {/* <div className="badge-rate">
+                                            <p>
+                                                <i className="fa-solid fa-star" /> 5.0
+                                            </p>
+                                        </div> */}
+                                        </div>
+
+                                    </div>
+
+                                    {/* <div className="col-xl-12 theiaStickySidebar" style={{ boxShadow: "none" }}>
+                                        <div className="stickybar">
+                                            <div className="contact-sidebar">
+                                                <div className="con-sidebar-title">
+                                                    <h6>Lead Information</h6>
+                                                </div>
+                                                <ul className=" other-info">
+                                                    <li>
+                                                        <span>
+                                                            <img
+                                                                src={data?.createdByImgUrl}
+                                                                alt="img"
+                                                                style={{ objectFit: 'cover', height: '32px', width: '32px', borderRadius: '50%' }}
+                                                            />
+                                                        </span>
+                                                        <div style={{
+                                                            position: "relative",
+                                                            top: " 0.5rem",
+                                                            paddingLeft: "0.3rem"
+                                                        }}>
+                                                            <h6>{data?.lead?.leadName}</h6>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <span className="other-title">Created Date</span>
+                                                        <span>{getDate(data?.createdAt)}, {getTime(data?.createdAt)}</span>
+                                                    </li>
+                                                    <li>
+                                                        <span className="other-title">{data?.lead?.leadEmail}</span>                                            
+                                                    </li>
+                                                    <li>
+                                                        <span className="other-title">{data?.lead?.leadMobile1}</span>                                                       
+                                                    </li>
+                                                </ul>
+                                               
+                                            
+                                            </div>
+
+
+                                        </div>
+                                    </div> */}
+                                    {/* <Link
                                         to="#"
                                         className="btn btn-primary"
                                         data-bs-toggle="modal"
                                         data-bs-target="#add_compose"
                                     >
-                                        <i className="ti ti-mail" />
-                                        Send Email
-                                    </Link>
-                                    <Link to={route.chat} className="btn-icon">
-                                        <i className="ti ti-brand-hipchat" />
-                                    </Link>
-                                    <Link
-                                        to="#"
-                                        className="btn-icon edit-popup"
-                                        onClick={() =>
-                                            setActivityToggle(!activityToggle)
-                                        }
+                                        <i className="ti ti-user" />
+                                        Assign To
+                                    </Link> */}
+
+
+                                    {/* <OverlayTrigger
+                                        placement="bottom"
+                                        overlay={<Tooltip id="mark-meeting-tooltip">Task Status</Tooltip>}
                                     >
-                                        <i className="ti ti-edit-circle" />
-                                    </Link>
-                                    <div className="act-dropdown">
                                         <Link
                                             to="#"
-                                            data-bs-toggle="dropdown"
-                                            aria-expanded="false"
+                                            className={`btn btn-success add-popup
+                                            ${data?.status == 'open' && "bg-info"}
+                                            ${data?.status == 'pending' && "bg-pending"}
+                                            ${data?.status == 'resolved' && "bg-success"}
+                                            ${data?.status == 'closed' && "bg-danger"}
+                                            `}
+                                            // onClick={() =>
+                                            //     setActivityToggle(!activityToggle)
+                                            // }
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#task_stage_update"
                                         >
-                                            <i className="ti ti-dots-vertical" />
+                                            <i className="ti ti-circle-plus" />
+                                            {data?.status.charAt(0).toUpperCase() + data?.status.slice(1)}
                                         </Link>
-                                        <div className="dropdown-menu dropdown-menu-right">
-                                            <Link
-                                                className="dropdown-item"
-                                                to="#"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#delete_contact"
-                                            >
-                                                <i className="ti ti-trash text-danger" />
-                                                Delete
-                                            </Link>
-                                        </div>
-                                    </div>
+
+                                    </OverlayTrigger> */}
+
+
+
 
                                     {/* <div id="task-type">
                                         <Chart
@@ -390,206 +552,7 @@ const TaskDetailsPage = () => {
                             </div>
                             {/* /Contact User */}
                         </div>
-                        {/* Contact Sidebar */}
-                        <div className="col-xl-3 theiaStickySidebar">
-                            <div className="stickybar">
-                                <div className="contact-sidebar">
-                                    {/* <h6>Basic Information</h6>
-                                    <ul className="basic-info">
-                                        <li>
-                                            <span>
-                                                <i className="ti ti-mail" />
-                                            </span>
-                                            <p>NovaW@example.com</p>
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <i className="ti ti-phone" />
-                                            </span>
-                                            <p>+1 12445-47878</p>
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <i className="ti ti-calendar-exclamation" />
-                                            </span>
-                                            <p>Created on 5 Jan 2024, 10:30 am</p>
-                                        </li>
-                                    </ul> */}
-                                    <h6>Lead Information</h6>
-                                    <ul className="other-info">
-                                        <li>
-                                            <span className="other-title">Start Date</span>
-                                            <span>{getDate(data?.startDate)}, {getTime(data?.startDate)}</span>
-                                        </li>
-                                        <li>
-                                            <span className="other-title">End Date</span>
-                                            <span>{getDate(data?.endDate)}, {getTime(data?.endDate)}</span>
-                                        </li>
-                                        <li>
-                                            <span className="other-title">Priority</span>
-                                            {data?.priority === "medium" && (
-                                                <span className="badge badge-tag badge-warning-light">
-                                                    <span>{data?.priority}</span>
-                                                </span>
-                                            )}
-                                            {data?.priority === "low" && (
-                                                <span className="badge badge-tag badge-purple-light">
-                                                    <span>{data?.priority}</span>
-                                                </span>
-                                            )}
-                                            {data?.priority === "highy" && (
-                                                <span className="badge badge-tag badge-danger-light">
-                                                    <span>{data?.priority}</span>
-                                                </span>
-                                            )}
 
-                                        </li>
-                                        <li>
-                                            <span className="other-title">Created Date</span>
-                                            <span>{getDate(data?.createdAt)}, {getTime(data?.createdAt)}</span>
-                                        </li>
-                                    </ul>
-                                    <h6>Tags</h6>
-                                    <ul className="tag-info">
-                                        {data?.tags.map((tag, index) => <li key={index}>
-                                            <Link
-                                                to="#"
-                                                className="badge badge-tag badge-success-light"
-                                            >
-                                                {tag}
-                                            </Link>
-                                        </li>)}
-                                    </ul>
-                                    {/* <div className="con-sidebar-title">
-                                        <h6>Company</h6>
-                                        <Link to="#" className="com-add add-popups">
-                                            <i className="ti ti-circle-plus me-1" />
-                                            Add New
-                                        </Link>
-                                    </div> */}
-                                    <div className="con-sidebar-title">
-                                        <h6>Lead Details</h6>
-                                    </div>
-                                    <ul className="other-info">
-                                        <li>
-                                            <span className="other-title">Lead Name</span>
-                                            <span>{data?.leadName}</span>
-                                        </li>
-                                        <li>
-                                            <span className="other-title">Lead Email</span>
-                                            <span>{data?.lead?.leadEmail}</span>
-                                        </li>
-                                        <li>
-                                            <span className="other-title">Lead Mobile</span>
-                                            <span>{data?.lead?.leadMobile1}</span>
-                                        </li>
-                                        <li>
-                                            <span className="other-title">Created Date</span>
-                                            <span>{getDate(data?.lead?.createdAt)}, {getTime(data?.lead?.createdAt)}</span>
-                                        </li>
-                                    </ul>
-
-
-                                    <div className="con-sidebar-title">
-                                        <h6>Assign To</h6>
-                                    </div>
-                                    <ul className="company-info com-info">
-                                        <li>
-                                            <span>
-                                                <img
-                                                    src={data?.assignedToImg}
-                                                    alt="img"
-                                                    style={{ objectFit: 'cover', height: '32px', width: '32px', borderRadius: '50%' }}
-                                                />
-                                            </span>
-                                            <div>
-                                                <h6>{data?.assignedTo}</h6>
-                                            </div>
-                                        </li>
-                                    </ul>
-
-                                    {/* <h6>Social Profile</h6>
-                                    <ul className="social-info">
-                                        <li>
-                                            <Link to="#">
-                                                <i className="fa-brands fa-youtube" />
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link to="#">
-                                                <i className="fa-brands fa-facebook-f" />
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link to="#">
-                                                <i className="fa-brands fa-instagram" />
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link to="#">
-                                                <i className="fa-brands fa-whatsapp" />
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link to="#">
-                                                <i className="fa-brands fa-pinterest" />
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link to="#">
-                                                <i className="fa-brands fa-linkedin" />
-                                            </Link>
-                                        </li>
-                                    </ul> */}
-                                    <h6>Attachment</h6>
-                                    <ul className="set-info">
-                                        <li>
-                                            <Link to={data?.attachmentUrl}>
-                                                <i className="ti ti-share-2" />
-                                                {data?.attachment ? data?.attachment : 'No Attachment'}
-                                            </Link>
-                                        </li>
-                                        {/* <li>
-                                            <Link to="#">
-                                                <i className="ti ti-star" />
-                                                Add to Favourite
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link
-                                                to="#"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#delete_contact"
-                                            >
-                                                <i className="ti ti-trash-x" />
-                                                Delete Company
-                                            </Link>
-                                        </li> */}
-                                    </ul>
-                                </div>
-
-                                {taskLogData.length > 0 &&
-                                    <ul className="other-info">
-                                        <li>
-                                            <span className="other-title">Last Modified</span>
-                                            <span>{taskLogData[0]?.createdAtDate}, {taskLogData[0]?.createdAtTime}</span>
-                                        </li>
-                                        <li>
-                                            <span className="other-title">Modified By</span>
-                                            <span>
-                                                <img
-                                                    src={taskLogData[0]?.staff?.profilePicUrl}
-                                                    className="avatar-xs"
-                                                    alt="img"
-                                                />{" "}
-                                                {taskLogData[0]?.staff?.name}
-                                            </span>
-                                        </li>
-                                    </ul>
-                                }
-                            </div>
-                        </div>
-                        {/* /Contact Sidebar */}
                         {/* Contact Details */}
                         <div className="col-xl-9">
                             <div className="contact-tab-wrap">
@@ -869,14 +832,14 @@ const TaskDetailsPage = () => {
                                                                 </>
                                                             }
                                                             {
-                                                                lead.type == 'stageUpdate' &&
+                                                                lead.type == 'statusUpdate' &&
                                                                 <>
                                                                     <span className="activity-icon bg-pink">
                                                                         <i className="ti ti-analyze" />
                                                                     </span>
                                                                     <div className="activity-info">
                                                                         <h6>
-                                                                            Lead stage updated to {lead?.contactType.toLowerCase()}
+                                                                            Task status updated to {lead?.status.toLowerCase()}
                                                                         </h6>
                                                                         <p>{lead?.createdAtTime}</p>
                                                                     </div>
@@ -1653,6 +1616,185 @@ const TaskDetailsPage = () => {
                             {/* /Tab Content */}
                         </div>
                         {/* /Contact Details */}
+                        {/* Contact Sidebar */}
+                        <div className="col-xl-3 theiaStickySidebar">
+                            <div className="stickybar">
+                                <div className="contact-sidebar">
+                                    <div className="con-sidebar-title">
+                                        <h6>Created By</h6>
+                                    </div>
+                                    <ul className=" other-info">
+                                        <li>
+                                            <span>
+                                                <img
+                                                    src={data?.createdByImgUrl}
+                                                    alt="img"
+                                                    style={{ objectFit: 'cover', height: '32px', width: '32px', borderRadius: '50%' }}
+                                                />
+                                            </span>
+                                            <div style={{
+                                                position: "relative",
+                                                top: " 0.5rem",
+                                                paddingLeft: "0.3rem"
+                                            }}>
+                                                <h6>{data?.createdBy}</h6>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <span className="other-title">Created Date</span>
+                                            <span>{getDate(data?.createdAt)}, {getTime(data?.createdAt)}</span>
+                                        </li>
+
+
+                                    </ul>
+                                    <h6>Assign To</h6>
+                                    <ul className=" other-info">
+                                        <li>
+                                            <span>
+                                                <img
+                                                    src={data?.assignedToImg}
+                                                    alt="img"
+                                                    style={{ objectFit: 'cover', height: '32px', width: '32px', borderRadius: '50%' }}
+                                                />
+                                            </span>
+                                            <div style={{
+                                                position: "relative",
+                                                top: " 0.5rem",
+                                                paddingLeft: "0.3rem"
+                                            }}>
+                                                <h6>{data?.assignedTo}</h6>
+                                            </div>
+
+                                        </li>
+                                        {/* <li>
+                                            <span className="other-title">Created Date</span>
+                                            <span>{getDate(data?.createdAt)}, {getTime(data?.createdAt)}</span>
+                                        </li> */}
+
+                                    </ul>
+                                    {/* <h6>Tags</h6>
+                                    <ul className="tag-info">
+                                        {data?.tags.map((tag, index) => <li key={index}>
+                                            <Link
+                                                to="#"
+                                                className="badge badge-tag badge-success-light"
+                                            >
+                                                {tag}
+                                            </Link>
+                                        </li>)}
+                                    </ul> */}
+                                    {/* <div className="con-sidebar-title">
+                                        <h6>Company</h6>
+                                        <Link to="#" className="com-add add-popups">
+                                            <i className="ti ti-circle-plus me-1" />
+                                            Add New
+                                        </Link>
+                                    </div> */}
+                                    {/* <div className="con-sidebar-title">
+                                        <h6>Lead Details</h6>
+                                    </div>
+                                    <ul className="other-info">
+                                        <li>
+                                            <span className="other-title">Lead Name</span>
+                                            <span>{data?.leadName}</span>
+                                        </li>
+                                        <li>
+                                            <span className="other-title">Lead Email</span>
+                                            <span>{data?.lead?.leadEmail}</span>
+                                        </li>
+                                        <li>
+                                            <span className="other-title">Lead Mobile</span>
+                                            <span>{data?.lead?.leadMobile1}</span>
+                                        </li>
+                                        <li>
+                                            <span className="other-title">Created Date</span>
+                                            <span>{getDate(data?.lead?.createdAt)}, {getTime(data?.lead?.createdAt)}</span>
+                                        </li>
+                                    </ul> */}
+
+
+                                    {/* <div className="con-sidebar-title">
+                                        <h6>Assign To</h6>
+                                    </div>
+                                    <ul className="company-info com-info">
+                                        <li>
+                                            <span>
+                                                <img
+                                                    src={data?.assignedToImg}
+                                                    alt="img"
+                                                    style={{ objectFit: 'cover', height: '32px', width: '32px', borderRadius: '50%' }}
+                                                />
+                                            </span>
+                                            <div>
+                                                <h6>{data?.assignedTo}</h6>
+                                            </div>
+                                        </li>
+                                    </ul> */}
+
+                                    {/* <h6>Social Profile</h6>
+                                    <ul className="social-info">
+                                        <li>
+                                            <Link to="#">
+                                                <i className="fa-brands fa-youtube" />
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="#">
+                                                <i className="fa-brands fa-facebook-f" />
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="#">
+                                                <i className="fa-brands fa-instagram" />
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="#">
+                                                <i className="fa-brands fa-whatsapp" />
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="#">
+                                                <i className="fa-brands fa-pinterest" />
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="#">
+                                                <i className="fa-brands fa-linkedin" />
+                                            </Link>
+                                        </li>
+                                    </ul> */}
+                                    {/* <h6>Attachment</h6>
+                                    <ul className="set-info">
+                                        <li>
+                                            <Link to={data?.attachmentUrl}>
+                                                <i className="ti ti-share-2" />
+                                                {data?.attachment ? data?.attachment : 'No Attachment'}
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="#">
+                                                <i className="ti ti-star" />
+                                                Add to Favourite
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link
+                                                to="#"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#delete_contact"
+                                            >
+                                                <i className="ti ti-trash-x" />
+                                                Delete Company
+                                            </Link>
+                                        </li>
+                                    </ul> */}
+                                </div>
+
+
+                            </div>
+                        </div>
+                        {/* /Contact Sidebar */}
                     </div>
                 </div>
             </div>

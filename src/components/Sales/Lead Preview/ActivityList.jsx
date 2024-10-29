@@ -5,11 +5,12 @@ import CommentList from './CommentList'
 import StageList from './StageList'
 import AssignList from './AssignList'
 
-const ActivityList = ({ data }) => {
+const ActivityList = ({ data, index }) => {
     console.log('data =>', data)
     return (
-        <li className="timeline-inverted">
-            {data.type === 'callUpdate' &&
+        // className="timeline-inverted"
+        <li style={{listStyle:'none'}}>
+            {/* {data.type === 'callUpdate' &&
                 <div className="timeline-badge bg-secondary-success">
                     <i className="ti ti-phone" />
                 </div>
@@ -33,13 +34,14 @@ const ActivityList = ({ data }) => {
                 <div className="timeline-badge bg-green">
                     <i className="ti ti-timeline-event-exclamation" />
                 </div>
-            }
+            } */}
 
             <div className="timeline-panel">
                 {data.type === 'callUpdate' &&
                     <CallList
                         key={data.id}
                         data={data}
+                        index={index}
                     />
                 }
                 {data.type === 'meetingUpdate' &&

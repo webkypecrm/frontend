@@ -89,7 +89,7 @@ const AssignTo = ({ leadForAssign, fetchLeadData }) => {
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title">Assign To</h5>
+                        <h5 className="modal-title">Re-assign To</h5>
                         <button
                             type="button"
                             className="btn-close position-static"

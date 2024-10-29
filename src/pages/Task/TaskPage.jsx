@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import 'react-datepicker/dist/react-datepicker.css';
 import PageHeader from "../../components/Layouts/PageHeader";
 import CampaignStatus from "../../components/Layouts/CampaignStatus/Index";
@@ -12,6 +13,7 @@ import ErrorLoader from "../../components/Layouts/ErrorLoader/Index";
 import SearchSelection from "../../components/Task/SearchSelection";
 import Filter from "../../components/Task/Filter";
 import { Empty } from "antd";
+import Chart from "react-apexcharts";
 
 const TaskPage = () => {
 
@@ -63,6 +65,89 @@ const TaskPage = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const Token = localStorage.getItem('token') || '';
     const staffType = localStorage.getItem('type') || '';
+
+
+    const [chartOptions1] = useState({
+        series: [44, 55, 13, 43],
+        options: {
+            chart: {
+                width: 400,
+                height: 300,
+                type: "pie",
+            },
+            legend: {
+                position: "bottom",
+            },
+            labels: ["Lead", "Company", "Order", "Project"],
+            responsive: [
+                {
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 275,
+                        },
+                        legend: {
+                            position: "bottom",
+                        },
+                    },
+                },
+            ],
+        },
+    });
+    const [chartOptions2] = useState({
+        series: [44, 55, 13, 43],
+        options: {
+            chart: {
+                width: 400,
+                height: 300,
+                type: "pie",
+            },
+            legend: {
+                position: "bottom",
+            },
+            labels: ["Open", "Pending", "Resolved", "Closed"],
+            responsive: [
+                {
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 275,
+                        },
+                        legend: {
+                            position: "bottom",
+                        },
+                    },
+                },
+            ],
+        },
+    });
+    const [chartOptions3] = useState({
+        series: [44, 55, 13, 43],
+        options: {
+            chart: {
+                width: 400,
+                height: 300,
+                type: "pie",
+            },
+            legend: {
+                position: "bottom",
+            },
+            labels:['Sales', 'Support', 'A', 'B', 'C'],
+            responsive: [
+                {
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 275,
+                        },
+                        legend: {
+                            position: "bottom",
+                        },
+                    },
+                },
+            ],
+        },
+    });
 
     function taskDetailsHandler(data) {
         setTaskDetails(data)
@@ -194,8 +279,183 @@ const TaskPage = () => {
                             <PageHeader title="Task" count={data.length} />
                             {/* /Page Header */}
                             {/* Campaign Status */}
-                            <CampaignStatus />
+                            {/* <CampaignStatus /> */}
                             {/* /Campaign Status */}
+
+                            <div style={{ display: 'flex' }}>
+
+                                <div className="col-md-4 d-flex">
+                                    <div className="card w-100">
+                                        <div className="card-body">
+                                            <div className="statistic-header">
+                                                <h4>
+                                                    <i className="ti ti-grip-vertical me-1" />
+                                                    Task Type
+                                                </h4>
+                                                <div className="dropdown statistic-dropdown">
+                                                    <div className="card-select">
+                                                        <ul>
+                                                            <li>
+                                                                <Link
+                                                                    className="dropdown-toggle"
+                                                                    data-bs-toggle="dropdown"
+                                                                    to="#"
+                                                                >
+                                                                    Last 30 Days
+                                                                </Link>
+                                                                <div className="dropdown-menu dropdown-menu-end">
+                                                                    <Link
+                                                                        to="#"
+                                                                        className="dropdown-item"
+                                                                    >
+                                                                        Last 30 Days
+                                                                    </Link>
+                                                                    <Link
+                                                                        to="#"
+                                                                        className="dropdown-item"
+                                                                    >
+                                                                        Last 15 Days
+                                                                    </Link>
+                                                                    <Link
+                                                                        to="#"
+                                                                        className="dropdown-item"
+                                                                    >
+                                                                        Last 7 Days
+                                                                    </Link>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="leadpiechart">
+                                                <Chart
+                                                    options={chartOptions1.options}
+                                                    series={chartOptions1.series}
+                                                    type="pie"
+                                                    width={chartOptions1.options.chart.width}
+                                                    height={chartOptions1.options.chart.height}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="col-md-4 d-flex">
+                                    <div className="card w-100">
+                                        <div className="card-body">
+                                            <div className="statistic-header">
+                                                <h4>
+                                                    <i className="ti ti-grip-vertical me-1" />
+                                                   Task Status
+                                                </h4>
+                                                <div className="dropdown statistic-dropdown">
+                                                    <div className="card-select">
+                                                        <ul>
+                                                            <li>
+                                                                <Link
+                                                                    className="dropdown-toggle"
+                                                                    data-bs-toggle="dropdown"
+                                                                    to="#"
+                                                                >
+                                                                    Last 30 Days
+                                                                </Link>
+                                                                <div className="dropdown-menu dropdown-menu-end">
+                                                                    <Link
+                                                                        to="#"
+                                                                        className="dropdown-item"
+                                                                    >
+                                                                        Last 30 Days
+                                                                    </Link>
+                                                                    <Link
+                                                                        to="#"
+                                                                        className="dropdown-item"
+                                                                    >
+                                                                        Last 15 Days
+                                                                    </Link>
+                                                                    <Link
+                                                                        to="#"
+                                                                        className="dropdown-item"
+                                                                    >
+                                                                        Last 7 Days
+                                                                    </Link>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="leadpiechart">
+                                                <Chart
+                                                    options={chartOptions2.options}
+                                                    series={chartOptions2.series}
+                                                    type="pie"
+                                                    width={chartOptions2.options.chart.width}
+                                                    height={chartOptions2.options.chart.height}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="col-md-4 d-flex">
+                                    <div className="card w-100">
+                                        <div className="card-body">
+                                            <div className="statistic-header">
+                                                <h4>
+                                                    <i className="ti ti-grip-vertical me-1" />
+                                                    Task Category
+                                                </h4>
+                                                <div className="dropdown statistic-dropdown">
+                                                    <div className="card-select">
+                                                        <ul>
+                                                            <li>
+                                                                <Link
+                                                                    className="dropdown-toggle"
+                                                                    data-bs-toggle="dropdown"
+                                                                    to="#"
+                                                                >
+                                                                    Last 30 Days
+                                                                </Link>
+                                                                <div className="dropdown-menu dropdown-menu-end">
+                                                                    <Link
+                                                                        to="#"
+                                                                        className="dropdown-item"
+                                                                    >
+                                                                        Last 30 Days
+                                                                    </Link>
+                                                                    <Link
+                                                                        to="#"
+                                                                        className="dropdown-item"
+                                                                    >
+                                                                        Last 15 Days
+                                                                    </Link>
+                                                                    <Link
+                                                                        to="#"
+                                                                        className="dropdown-item"
+                                                                    >
+                                                                        Last 7 Days
+                                                                    </Link>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="leadpiechart" >
+                                                <Chart
+                                                    options={chartOptions3.options}
+                                                    series={chartOptions3.series}
+                                                    type="pie"
+                                                    width={chartOptions3.options.chart.width}
+                                                    height={chartOptions3.options.chart.height}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className="card main-card">
                                 <div className="card-body">
                                     {/* Search */}
