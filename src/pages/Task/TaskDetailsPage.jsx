@@ -333,7 +333,7 @@ const TaskDetailsPage = () => {
 
                                     {/* Counter */}
                                     <div className="name-user" style={{ paddingLeft: '25px', marginBottom: "22px", borderLeft:"0.3px solid #d8d4d4", borderRight: "0.3px solid #d8d4d4", paddingRight:"22px" }}>
-                                        <h5 style={{ display: 'flex', alignItems: 'start', gap: '2rem', margin: "0px", padding: "0px", height: "26px" }}>{data?.taskTitle}
+                                        <h5 style={{ display: 'flex', alignItems: 'start', gap: '2rem', margin: "0px", padding: "0px", height: "26px", marginBottom:"20px"}}>{data?.taskTitle}
                                             <div style={{ display: 'flex' }}>
 
                                                 <Link to={route.chat} className="btn-icon">
