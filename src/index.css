@@ -67,3 +67,8 @@ input::-webkit-inner-spin-button {
   border: 1px dotted #e6e6eb;
   margin-bottom: 1.5rem;
 }
+
+.bg-highlight {
+  background-color: #f0ad4e; /* or any color you prefer */
+  font-weight: bold;
+}

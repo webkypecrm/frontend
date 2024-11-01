@@ -52,6 +52,7 @@ const LeadDetailsPage = () => {
     const [activityToggleTwo, setActivityToggleTwo] = useState(false)
     const [owner, setOwner] = useState(["Collab"]);
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [stageHistoryOptions, setStageHistoryOptions] = useState([]);
     const [stageOptions, setStageOptions] = useState([]);
     const [data, setData] = useState(null);
     const [followUpId, setFollowUp] = useState('');
@@ -62,8 +63,8 @@ const LeadDetailsPage = () => {
     // const [videoUrl, setVideoUrl] = useState([]);
     // const [imageUrl, setImageUrl] = useState([]);
 
+    console.log('stageHistoryOptions ', stageHistoryOptions)
     console.log('stageOptions ', stageOptions)
-
 
     function getDate(value) {
         const isoDateString = value;
@@ -106,7 +107,7 @@ const LeadDetailsPage = () => {
     console.log('callData =>', callData)
     console.log('meetingData =>', meetingData)
     console.log('leadFollowData =>', leadFollowupData)
-    console.log('stageOptions =>', stageOptions)
+    console.log('stageHistoryOptions =>', stageHistoryOptions)
     console.log('commentData =>', commentData)
     console.log('fileData =>', fileData)
     console.log('proposalData =>', proposalData)
@@ -114,7 +115,7 @@ const LeadDetailsPage = () => {
     function handleRefresh() {
         fetchLeadFollowupData();
         fetchLeadDetails();
-        fetchStageData();
+        fetchStageHistoryData();
     }
 
     const fetchLeadFollowupData = async () => {
@@ -178,7 +179,7 @@ const LeadDetailsPage = () => {
         }
     }
 
-    const fetchStageData = async () => {
+    const fetchStageHistoryData = async () => {
         try {
             const response = await axios.get(`${apiUrl}/lead/lead-status-history?leadId=${data.leadId}`,
                 {
@@ -188,18 +189,36 @@ const LeadDetailsPage = () => {
                 }
             );
             const formattedData = response.data.data
-            setStageOptions(() => [...formattedData]);
+            setStageHistoryOptions(() => [...formattedData]);
         } catch (error) {
             console.log(error)
             toast.error(error.message)
         }
     };
 
+    const fetchStageData = async () => {
+        try {
+            const response = await axios.get(`${apiUrl}/master/stage-list`);
+            const formattedData = response.data.data.map((item) => ({
+                label: item.name,
+                value: item.id
+            }));
+            setStageOptions(() => [...formattedData]);
+        } catch (error) {
+            toast.error(error.message)
+        }
+    };
+
+
+    const latestStage = stageHistoryOptions.length > 0 ? stageHistoryOptions[stageHistoryOptions.length - 1] : null;
+
+    console.log("latestStage =>", latestStage)
 
     useEffect(() => {
 
         if (data?.leadId) {
             fetchLeadFollowupData()
+            fetchStageHistoryData()
             fetchStageData()
         }
 
@@ -467,12 +486,34 @@ const LeadDetailsPage = () => {
                             <div className="contact-wrap">
                                 <div className="pipeline-list">
                                     <ul>
-                                        {stageOptions.map((stage, index) => <li key={stage.id}
+                                        {stageOptions.map((stage) => (
+                                            <li key={stage?.value} data-bs-toggle="modal" data-bs-target="#stage_update" style={{ cursor: 'pointer' }}>
+                                                <Link
+                                                    to="#"
+                                                    className={
+                                                        latestStage && latestStage?.stageId === stage?.value
+                                                            ? `bg-pending` 
+                                                            : ''
+                                                    }
+                                                >
+                                                    {stage?.label}
+                                                </Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        {/* <div className="col-md-12">
+                            <div className="contact-wrap">
+                                <div className="pipeline-list">
+                                    <ul>
+                                        {stageHistoryOptions.map((stage, index) => <li key={stage.id}
                                             data-bs-toggle="modal"
                                             data-bs-target="#stage_update"
                                             style={{ cursor: 'pointer' }}
                                         >
-                                            <Link to="#" className={(stageOptions.length - 1) == index ? `bg-pending` : ``}>
+                                            <Link to="#" className={(stageHistoryOptions.length - 1) == index ? `bg-pending` : ``}>
                                                 {stage?.stage?.name ? stage?.stage.name : 'New Lead'}
                                             </Link>
                                         </li>)}
@@ -480,7 +521,7 @@ const LeadDetailsPage = () => {
                                     </ul>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         {/* Deals Sidebar */}
                         <div className="col-xl-3 theiaStickySidebar">
                             <div className='stickybar'>
@@ -5083,7 +5124,7 @@ const LeadDetailsPage = () => {
 
             <CreateComment leadDetails={data} fetchLeadDetails={fetchLeadFollowupData} />
 
-            <ChangeStage leadForAssign={data} fetchLeadData={handleRefresh} followUpStage={stageOptions} />
+            <ChangeStage leadForAssign={data} fetchLeadData={handleRefresh} followUpStage={stageHistoryOptions} />
 
             <AssignTo
                 leadForAssign={data}
