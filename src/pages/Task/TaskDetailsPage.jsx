@@ -279,11 +279,11 @@ const TaskDetailsPage = () => {
                                 </div>
                             </div>
 
-                            <div className="contact-wrap" style={{ paddingTop: '0px',paddingBottom:'0px' }}>
+                            <div className="contact-wrap" style={{ paddingTop: '0px', paddingBottom: '0px' }}>
                                 <div className="contact-profile" style={{ width: "820px" }}>
 
                                     {/* Counter */}
-                                    <div className="col-md-3" style={{marginRight:'-25px'}}>
+                                    <div className="col-md-3" style={{ marginRight: '-25px' }}>
                                         <div className="card" style={{ boxShadow: "none" }}>
                                             <div className="card-header" style={{
                                                 borderBottom: "none",
@@ -306,22 +306,21 @@ const TaskDetailsPage = () => {
                                                 padding: "5px",
                                                 color: "#d84b4b",
                                                 textAlign: "center",
-                                                marginLeft:"-41px"
+                                                marginLeft: "-41px"
                                             }}>
-                                                {/* {data?.endDate &&
-
+                                                {data?.endDate &&
                                                     <TaskTimer
-                                                        startDate={data?.startDate}
-                                                        endDate={data?.endDate}
+                                                    startDate={String(data?.startDate)}
+                                                    endDate={String(data?.endDate)}
                                                     />
-                                                } */}
-                                                <CountUp
+                                                }
+                                                {/* <CountUp
                                                     start={60}
                                                     end={0}
                                                     duration={60}
                                                     prefix="02 Days 23 Hour 59 Min"
 
-                                                />
+                                                /> */}
 
                                                 <p style={{ margin: '0px', color: 'green' }}>IN PROCESS</p>
                                                 <p className="badge badge-tag badge-danger-light"> Priority: {data?.priority.slice(0, -1)}</p>
@@ -332,8 +331,8 @@ const TaskDetailsPage = () => {
 
 
                                     {/* Counter */}
-                                    <div className="name-user" style={{ paddingLeft: '25px', marginBottom: "22px", borderLeft:"0.3px solid #d8d4d4", borderRight: "0.3px solid #d8d4d4", paddingRight:"22px" }}>
-                                        <h5 style={{ display: 'flex', alignItems: 'start', gap: '2rem', margin: "0px", padding: "0px", height: "26px", marginBottom:"20px"}}>{data?.taskTitle}
+                                    <div className="name-user" style={{ paddingLeft: '25px', marginBottom: "22px", borderLeft: "0.3px solid #d8d4d4", borderRight: "0.3px solid #d8d4d4", paddingRight: "22px" }}>
+                                        <h5 style={{ display: 'flex', alignItems: 'start', gap: '2rem', margin: "0px", padding: "0px", height: "26px", marginBottom: "20px" }}>{data?.taskTitle}
                                             <div style={{ display: 'flex' }}>
 
                                                 <Link to={route.chat} className="btn-icon">

@@ -42,7 +42,6 @@ const AddLeadPic = ({ fetchLeadFollowupData, leadDetails }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-
         try {
             formData.leadId = leadDetails.leadId
             const formDataToSend = new FormData();
