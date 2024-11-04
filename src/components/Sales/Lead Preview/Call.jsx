@@ -11,7 +11,7 @@ import CallList from './CallList';
 
 import { Empty } from 'antd';
 
-const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
+const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails, }) => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const Token = localStorage.getItem('token') || '';
     const data = leadFollowupData.filter((item) => item.type == 'callUpdate')
@@ -44,8 +44,6 @@ const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
             callBackTime: time
         }))
     };
-
-
     // console.log('formData in Call  =>', formData)
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -83,7 +81,7 @@ const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
             <div className="view-header">
                 <h4>Calls</h4>
                 <ul>
-                    {(data[0]?.status == 'Done' || data[0]?.status == '' || data[0]?.length === 0) &&
+                    {(leadFollowupData[0]?.status == 'Done' || leadFollowupData[0]?.status == '' || leadFollowupData[0]?.length === 0) &&
                         <ul>
                             <li>
                                 <Link
@@ -98,7 +96,7 @@ const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
                             </li>
                         </ul>
                     }
-                    
+
                     {/* <li>
                         <Link
                             to="#"
@@ -120,6 +118,7 @@ const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
                                 key={item.id}
                                 data={item}
                                 index={index}
+                                fetchLeadFollowupData={fetchLeadFollowupData}
                             />
                         ))}
                     </div>

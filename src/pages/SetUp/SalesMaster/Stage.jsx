@@ -408,6 +408,21 @@ const Stage = () => {
             </div>
             <div className="modal-body">
               <form onSubmit={handleEdit}>
+
+                <div className="form-wrap">
+                  <label className="col-form-label">
+                    Order<span className="text-danger">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    name='order'                   
+                    value={formData.order}
+                    required
+                    onChange={handleInputChange}
+                  />
+                </div>
+
                 <div className="form-wrap">
                   <label className="col-form-label">
                     Stage Name <span className="text-danger">*</span>

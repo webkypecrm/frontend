@@ -551,7 +551,6 @@ const TaskDetailsPage = () => {
                             </div>
                             {/* /Contact User */}
                         </div>
-
                         {/* Contact Details */}
                         <div className="col-xl-9">
                             <div className="contact-tab-wrap">

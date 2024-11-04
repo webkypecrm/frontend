@@ -708,7 +708,7 @@ const ManageLeadList = ({
             <LeadPreview
                 leadPreview={leadPreview}
                 setLeadPreview={setLeadPreview}
-                leadDetails={leadDetails}
+                leadDetails={leadDetails} 
                 setLeadDetails={setLeadDetails}
             />
 

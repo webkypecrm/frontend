@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Tag } from 'antd';
 import { Link } from 'react-router-dom';
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import CreateCall from '../LeadDetails/CreateCall';
+import RescheduleCall from '../LeadDetails/RescheduleCall';
+import AddCallComment from '../LeadDetails/AddCallComment';
 
-const CallList = ({ data, index }) => {
+
+const CallList = ({ data, index, fetchLeadFollowupData }) => {
+    const [followUpId, setFollowUp] = useState('');
 
     function getDate(value) {
         const isoDateString = value;
@@ -29,10 +34,9 @@ const CallList = ({ data, index }) => {
         return formattedTime;
     }
 
-    console.log('data =>', data)
+    console.log('data In CallList=>', data)
 
     return (<>
-
         <div className="calls-box" key={data.id}>
             <div className="caller-info">
                 <div className="calls-user">
@@ -74,50 +78,50 @@ const CallList = ({ data, index }) => {
 
                                 </Link>
                                 :
-                                <OverlayTrigger
-                                    placement="bottom"
-                                    overlay={<Tooltip id="mark-done-tooltip ">
-                                        Mark Done
-                                    </Tooltip>}
+                                // <OverlayTrigger
+                                //     placement="bottom"
+                                //     overlay={<Tooltip id="mark-done-tooltip ">
+                                //         Mark Done
+                                //     </Tooltip>}
+                                // >
+                                <Link
+                                    to="#"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#create_call_comment"
+                                    className="dropdown-toggle bg-pending"
+                                    aria-expanded="false"
+                                    onClick={() => {
+                                        setFollowUp(data?.id)
+                                    }}
                                 >
-                                    <Link
-                                        to="#"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#create_call_comment"
-                                        className="dropdown-toggle bg-pending"
-                                        aria-expanded="false"
-                                        onClick={() => {
-                                            setFollowUp(data?.id)
-                                        }}
-                                    >
-                                        <i className="ti ti-square-check" />
-                                        {/* Mark Done */}
-                                    </Link>
-                                </OverlayTrigger>
+                                    <i className="ti ti-square-check" />
+                                    {/* Mark Done */}
+                                </Link>
+                                // </OverlayTrigger>
 
                             }
                         </div>
                         {data.status !== 'Done' &&
                             <div className="dropdown call-drop">
                                 {
-                                    <OverlayTrigger
-                                        placement="bottom"
-                                        overlay={<Tooltip id="rescheduled-call-tooltip">Re-scheduled call</Tooltip>}
+                                    // <OverlayTrigger
+                                    //     placement="bottom"
+                                    //     overlay={<Tooltip id="rescheduled-call-tooltip">Re-scheduled call</Tooltip>}
+                                    // >
+                                    <Link
+                                        to="#"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#create_call_rescheduled"
+                                        className="dropdown-toggle"
+                                        aria-expanded="false"
+                                        onClick={() => {
+                                            setFollowUp(data?.id)
+                                        }}
                                     >
-                                        <Link
-                                            to="#"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#create_call_rescheduled"
-                                            className="dropdown-toggle"
-                                            aria-expanded="false"
-                                            onClick={() => {
-                                                setFollowUp(data?.id)
-                                            }}
-                                        >
-                                            <i className="ti ti-calendar-month" />
-                                            {/* Re-scheduled */}
-                                        </Link>
-                                    </OverlayTrigger>
+                                        <i className="ti ti-calendar-month" />
+                                        {/* Re-scheduled */}
+                                    </Link>
+                                    // </OverlayTrigger>
 
                                 }
                             </div>
@@ -144,105 +148,10 @@ const CallList = ({ data, index }) => {
                 </div>
             }
         </div>
-        {/* <ul>
-            <li className="activity-wrap" style={{ justifyContent: 'space-between' }}>
-                <div>
-                    <div>
-                        <div className="badge-day" style={{
-                            fontSize: "x-small",
-                            margin: "",
-                            maxWidth: "9rem"
-                        }}>
-                            <i className="ti ti-calendar-check" />
-                            {getDate(data.createdAt)} {getTime(data.createdAt)}
-                        </div>
-                        <Tag className='badge-day' color="blue" style={{
-                            marginLeft: '10px',
-                            fontSize: "0.6rem",
-                            maxWidth: "9rem",
-                            display: 'inline'
-                        }}>
 
-                            CALL
-                        </Tag>
-                    </div>
-                    <div style={{ display: 'flex' }}>
-                        <span className="activity-icon bg-secondary-success">
-                            <i className="ti ti-phone" />
-                        </span>
-                        <div className="activity-info" >
-                            <h6>
-                                {data?.staff?.name}, Posted an Update
-                            </h6>
-                            <p style={{
-                                fontSize: "0.7rem",
-                                color: "rgb(149 144 144)",
-                                marginTop: "0.2rem",
-                                fontWeight: "600"
-                            }}>
-                                <span>Call Back Date & Time: {getDate(data.callBackDate)}, {getTime(data.callBackTime)}, </span>
-                                <span>Status: <strong> {data.status} </strong></span><br />
-                                <span>Remark: {data.lastCallSummary}</span><br />
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div className="calls-box">
-                    <div className="caller-info">
-                        <div className="calls-action" style={{ display: 'flex', }}>
-                            <div className="dropdown call-drop">
-                                {data?.status == 'Done' ?
-                                    <Link
-                                        to="#"
-                                        className="dropdown-toggle bg-success"
-                                        aria-expanded="false"
-                                    >
-                                        <i className="ti ti-square-check" />
-
-                                    </Link>
-                                    :
-                                    <Link
-                                        to="#"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#create_call_comment"
-                                        className="dropdown-toggle bg-pending"
-                                        aria-expanded="false"
-                                        onClick={() => {
-                                            setFollowUp(data?.id)
-                                        }}
-                                    >
-                                        <i className="ti ti-square-check" />
-                                      
-                                    </Link>
-                                }
-                            </div>
-                            {data?.status !== 'Done' &&
-                                <div className="dropdown call-drop">
-                                    {
-                                        <Link
-                                            to="#"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#create_call_rescheduled"
-                                            className="dropdown-toggle"
-                                            aria-expanded="false"
-                                            onClick={() => {
-                                                setFollowUp(data?.id)
-                                            }}
-                                        >
-                                            <i className="ti ti-calendar-month" />
-                                           
-                                        </Link>
-                                    }
-                                </div>
-                            }
-
-
-                        </div>
-                    </div>
-                </div>
-
-            </li>
-        </ul > */}
+        <AddCallComment fetchLeadFollowupData={fetchLeadFollowupData} followUpId={followUpId} />
+        <RescheduleCall fetchLeadFollowupData={fetchLeadFollowupData} leadDetails={data} />
+        
     </>)
 }
 
