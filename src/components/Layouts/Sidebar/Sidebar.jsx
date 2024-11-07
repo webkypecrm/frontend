@@ -154,7 +154,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                         </i><span>CUSTOMERS</span>
                                         <span className="menu-arrow"></span></Link>
                                     <ul>
-                                        <li><Link to={route.customerList}>Manage Customer</Link></li>
+                                        <li><Link to={route.customers}>Manage Customer</Link></li>
                                         <li><Link to={route.customerList}>Add Contacts</Link></li>
                                         <li><Link to={route.customerList}>Add Customer</Link></li>
                                     </ul>

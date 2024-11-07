@@ -78,7 +78,7 @@ const ManageStaff = () => {
           }
         });
 
-      const filterStaffData =  response.data.data.filter((item) => !(parseInt(staffType) === 0 && item?.staffType === 1))
+      const filterStaffData = response.data.data.filter((item) => !(parseInt(staffType) === 0 && item?.staffType === 1))
 
       const formattedData = filterStaffData.map((item) => ({
         ...item,
@@ -167,6 +167,10 @@ const ManageStaff = () => {
     fetchData(page)
   }
 
+  function handleRefreshPage (){
+    setFilterByObj(initialFilter)
+}
+
   useEffect(() => {
 
     fetchData();
@@ -187,7 +191,7 @@ const ManageStaff = () => {
           <div className="row">
             <div className="col-md-12">
               {/* Page Header */}
-              <PageHeader title="Internal Staff (Employees)" count={totalPages} />
+              <PageHeader title="Internal Staff (Employees)" count={totalPages} pageRefresh={handleRefreshPage} />
               {/* /Page Header */}
               {/* Campaign Status */}
               {/* <CampaignStatus /> */}
@@ -199,11 +203,11 @@ const ManageStaff = () => {
                     togglePopup={togglePopup}
                     onManageColumns={setManageColumns}
                     manageColumns={manageColumns}
-                    fetchData={handleRefreshData} 
+                    fetchData={handleRefreshData}
                     setFilterSlider={setFilterSlider}
                     filterByObj={filterByObj}
                     setFilterByObj={setFilterByObj}
-                    
+
                   />
                   {/* /Search */}
 

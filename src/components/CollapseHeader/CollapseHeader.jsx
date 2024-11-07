@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { HeaderCollapseContext } from "../../context/HeaderCollapseContext";
 
-const   CollapseHeader = () => {
+const CollapseHeader = ({ pageRefresh }) => {
     const { setHeaderCollapse } = useContext(HeaderCollapseContext);
 
     const toggleHeaderCollapse = () => {
@@ -17,7 +17,7 @@ const   CollapseHeader = () => {
                 placement="bottom"
                 overlay={<Tooltip id="refresh-tooltip">Refresh</Tooltip>}
             >
-                <Link to="#">
+                <Link to="#" onClick={() => { pageRefresh() }}>
                     <i className="ti ti-refresh-dot" />
                 </Link>
             </OverlayTrigger>

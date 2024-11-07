@@ -1,12 +1,20 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 import CallList from './CallList'
 import MeetingList from './MeetingList'
 import CommentList from './CommentList'
 import StageList from './StageList'
 import AssignList from './AssignList'
+import FileList from './FileList'
 
 const ActivityList = ({ data, index }) => {
-    console.log('data in Activity List =>', data)
+
+    let callIndex;
+    if (data.type === 'callUpdate' && index === 0) {
+        callIndex = 0
+    }
+
 
     function getDate(value) {
         const isoDateString = value;
@@ -30,39 +38,13 @@ const ActivityList = ({ data, index }) => {
     return (
         // className="timeline-inverted"
         <li style={{ listStyle: 'none' }}>
-            {/* {data.type === 'callUpdate' &&
-                <div className="timeline-badge bg-secondary-success">
-                    <i className="ti ti-phone" />
-                </div>
-            }
-            {data.type === 'meetingUpdate' &&
-                <div className="timeline-badge bg-info">
-                    <i className="ti ti-user-pin" />
-                </div>
-            }
-            {data.type === 'leadComment' &&
-                <div className="timeline-badge bg-pending">
-                    <i className="ti ti-mail-code" />
-                </div>
-            }
-            {data.type === 'stageUpdate' &&
-                <div className="timeline-badge bg-pink">
-                    <i className=" ti ti-analyze" />
-                </div>
-            }
-            {data.type === 'assignUpdate' &&
-                <div className="timeline-badge bg-green">
-                    <i className="ti ti-timeline-event-exclamation" />
-                </div>
-            } */}
 
             <div className="timeline-panel">
-                
+
                 {data.type === 'callUpdate' &&
                     <CallList
                         key={data.id}
                         data={data}
-                        index={index}
                     />
                 }
                 {data.type === 'meetingUpdate' &&
@@ -87,6 +69,12 @@ const ActivityList = ({ data, index }) => {
                     <AssignList
                         key={data.id}
                         data={data}
+                    />
+                }
+                {data.type === 'fileUpdate' &&
+                    <FileList
+                        key={data.id}
+                        file={data}
                     />
                 }
                 {
@@ -117,6 +105,60 @@ const ActivityList = ({ data, index }) => {
                             </div>
                         </li>
                     </ul>
+                }
+                {
+                    data.type == 'proposalUpdate' &&
+                    <>
+                        <div className="files-activity" style={{ width: "100%" }}>
+                            <div className="activity-info">
+                                <div className="notes-activity">
+                                    <div className="calls-box">
+                                        <div className="caller-info">
+                                            <div className="calls-user">
+                                                <img
+                                                    src={data?.staff?.profilePicUrl}
+                                                    alt="img"
+                                                />
+                                                <div>
+                                                    <h6>{data?.staff?.name} uploaded a proposal update</h6>
+                                                    <p>{getDate(data?.createdAt)}, {getTime(data?.createdAt)}</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <h5>{data?.proposal?.title}</h5>
+                                        <p>
+                                            {data?.proposal?.comment}
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                <div className="note-download">
+                                                    <div className="note-info">
+                                                        <span className="note-icon bg-secondary-success">
+                                                            <i className="ti ti-file-spreadsheet" />
+                                                        </span>
+                                                        <div>
+                                                            <h6>{data?.proposal?.other}</h6>
+                                                        </div>
+                                                    </div>
+                                                    <Link to={data?.proposal?.attachment1Url}>
+                                                        <i className="ti ti-arrow-down" />
+                                                    </Link>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        {data?.proposal?.proposalComment.map((comment) =>
+                                            <div className="reply-box" style={{ display: 'grid' }}>
+                                                <p> STATUS : {comment?.status.toUpperCase()}</p>
+                                                <p >
+                                                    {comment?.comment}
+                                                </p>
+                                            </div>)}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </>
                 }
             </div>
         </li>

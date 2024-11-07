@@ -46,21 +46,20 @@ const CommentList = ({ data }) => {
                     </Tag>
                 </div>
                 <div style={{ display: 'flex' }}>
-                    <span className="activity-icon bg-pending">
-                        <i className="ti ti-mail-code" />
+                    <span className="activity-icon">
+                        <img
+                            src={data?.staff?.profilePicUrl}
+                            alt="img"
+                            style={{ width: "40px", height: '40px', borderRadius: '4px', }}
+                        />
                     </span>
                     <div className="activity-info">
                         <h6>
-                            {data?.staff?.name}, Posted an Update
+                            {data?.staff?.name}, posted an comment
                         </h6>
-                        <p style={{
-                            fontSize: "0.7rem",
-                            color: "rgb(149 144 144)",
-                            marginTop: "0.2rem",
-                            fontWeight: "600"
-                        }}>
-                            <p>{data?.comment}</p>
-                        </p>
+
+                        <p>{data?.comment}</p>
+
                     </div>
                 </div>
             </div>

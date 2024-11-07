@@ -92,7 +92,7 @@ const ManageStaffList = ({
             </Link>
             :
             <Link to="#" className="avatar bg-pending">
-             <i className="ti ti-user" />
+              <i className="ti ti-user" />
             </Link>
           }
 
@@ -105,61 +105,61 @@ const ManageStaffList = ({
           </Link>
         </Link>
       ),
-      sorter: true,
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: "Mobile",
       dataIndex: "mobile",
       key: "staffId",
-      sorter: true,
+      sorter: (a, b) => a.mobile.localeCompare(b.mobile),
     },
     {
       title: "Email",
       dataIndex: "email",
       key: "staffId",
-      sorter: true,
+      sorter: (a, b) => a.email.localeCompare(b.email),
     },
     {
       title: "Gender",
       dataIndex: "gender",
       key: "staffId",
-      sorter: true,
+      // sorter: true,
     },
     {
       title: "Created By",
       dataIndex: "createdBy",
       key: "staffId",
-      sorter: true,
+      // sorter: (a, b) => a.createdBy.localeCompare(b.createdBy),
     },
     {
       title: "Department",
       dataIndex: "department",
       key: "staffId",
-      sorter: true,
+      // sorter: true,
     },
     {
       title: "Role",
       dataIndex: "role",
       key: "staffId",
-      sorter: true,
+      // sorter: true,
     },
     {
       title: "Group",
       dataIndex: "group",
       key: "staffId",
-      sorter: true,
+      // sorter: true,
     },
     {
       title: "Job Type",
       dataIndex: "jobType",
       key: "staffId",
-      sorter: true,
+      // sorter: true,
     },
     {
       title: "Work Shift",
       dataIndex: "workShift",
       key: "staffId",
-      sorter: true,
+      // sorter: true,
     },
     {
       title: "Status",
@@ -180,7 +180,7 @@ const ManageStaffList = ({
           )}
         </div>
       ),
-      sorter: true,
+      // sorter: true,
     },
     {
       title: "Action",

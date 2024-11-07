@@ -40,7 +40,7 @@ import AddLeadOtherDetails from "../../components/Sales/LeadDetails/AddLeadOther
 // import AddNewContact from "../../components/Sales/LeadDetails/AddNewContact";
 
 
-const LeadDetailsPage = () => {
+const CustomerDetailsPage = () => {
     const params = useParams();
     const { leadId } = params;
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -229,7 +229,7 @@ const LeadDetailsPage = () => {
         }
     }, [leadId])
 
-    // console.log('data =>', data)
+    console.log('data =>', data)
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
@@ -246,7 +246,7 @@ const LeadDetailsPage = () => {
     const handleDateChange4 = (date) => {
         setSelectedDate4(date);
     };
-
+    const stageColor = ['bg-pending'];
     const dealsopen = [
         { value: "choose", label: "Choose" },
         { value: "collins", label: "Collins" },
@@ -286,7 +286,6 @@ const LeadDetailsPage = () => {
     };
 
 
-
     return (
         <>
             {/* Page Wrapper */}
@@ -295,7 +294,7 @@ const LeadDetailsPage = () => {
                     <div className="row">
                         <div className="col-md-12">
                             {/* Page Header */}
-                            <PageHeader title="Lead Overview" pageRefresh={handleRefresh} />
+                            <PageHeader title="Lead Overview" />
                             {/* /Page Header */}
                         </div>
                     </div>
@@ -377,6 +376,7 @@ const LeadDetailsPage = () => {
                                     <Link to="#" className="btn-icon rating">
                                         <i className="fa-solid fa-star" />
                                     </Link>
+
                                     <OverlayTrigger
                                         placement="bottom"
                                         overlay={<Tooltip id="assign-to-tooltip">Assign To</Tooltip>}
@@ -412,13 +412,22 @@ const LeadDetailsPage = () => {
                                                             {data?.assignedTo.split(' '[0])}
                                                         </li>
                                                     </ul>
+
                                                 </div>
+
                                             </div>
                                         </Link>
+
                                     </OverlayTrigger>
+
+
+
+
+
                                     {/* <div className="badge badge-tag badge-success-light">
                                             assign to
                                         </div> */}
+
                                     <Link
                                         to="#"
                                         className="btn btn-danger add-popup"
@@ -1842,7 +1851,7 @@ const LeadDetailsPage = () => {
 
                                                 {proposal?.proposal?.proposalComment.map((comment) =>
                                                     <div className="reply-box" style={{ display: 'grid' }}>
-                                                        <p> Status : {comment.status.charAt(0).toUpperCase() + comment.status.slice(1)}</p>
+                                                        <p> STATUS : {comment?.status.toUpperCase()}</p>
                                                         <p >
                                                             {comment?.comment}
                                                         </p>
@@ -5197,4 +5206,4 @@ const LeadDetailsPage = () => {
     );
 };
 
-export default LeadDetailsPage;
+export default CustomerDetailsPage;

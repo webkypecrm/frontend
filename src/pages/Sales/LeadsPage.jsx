@@ -13,8 +13,8 @@ import ErrorLoader from "../../components/Layouts/ErrorLoader/Index";
 import EditLead from "../../components/Sales/EditLead";
 import EditCompany from "../../components/Sales/EditCompany";
 import Filter from '../../components/Sales/Filter'
+import LeadPipeline from "../../components/Sales/LeadPipeline";
 
-let num = 0;
 
 const LeadsPage = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -56,6 +56,8 @@ const LeadsPage = () => {
     const [totalPages, setTotalPages] = useState(0);
     // const [pageSize, setPageSize] = useState(2);
     const pageSize = 500
+    const [linkActive, setLinkActive] = useState({});
+    const [totalStageDataCount, setTotalStageDataCount] = useState({});
 
     // const employeeId = localStorage.getItem('staffId') || '';
     const staffType = localStorage.getItem('type') || '';
@@ -81,21 +83,25 @@ const LeadsPage = () => {
         setLeadDetails(data)
     }
 
-    console.log('filterByObj =>', filterByObj, num++)
+    // console.log('filterByObj =>', filterByObj, num++)
+
+    const handleStatusChange = (index) => {
+        console.log("index =>", index)
+    }
 
     const fetchStageData = async () => {
         try {
             const response = await axios.get(`${apiUrl}/master/stage-list`);
             const formattedData = response.data.data.map((item) => ({
                 label: item.name,
-                value: item.id
+                value: item.id,
+                order: item.order
             }));
             setStageOptions(() => [...formattedData]);
         } catch (error) {
             toast.error(error.message)
         }
     };
-
     const fetchLeadData = async (page) => {
         try {
             const { from, to, industry, source, country, stage, company, leadOwner, search } = filterByObj;
@@ -130,9 +136,7 @@ const LeadsPage = () => {
                 tags: JSON.parse(item.tags)
             }));
 
-
-
-
+            setTotalStageDataCount(response.data.totalStageDataCount);
             setData(formattedData);
             setTotalPages(response.data.totalCount)
             setIsLoading(false)
@@ -143,7 +147,6 @@ const LeadsPage = () => {
 
         }
     };
-
     const fetchSourceData = async () => {
         try {
             const response = await axios.get(`${apiUrl}/master/source-list`, {
@@ -216,13 +219,16 @@ const LeadsPage = () => {
     //     }
     // };
 
+    function handleRefreshPage (){
+        setFilterByObj(initialFilter)
+    }
+
     useEffect(() => {
         fetchLeadData()
         fetchSourceData()
         fetchIndustryData()
         fetchCountryData()
         fetchStageData()
-
     }, [])
 
     console.log('stageOptions =>', stageOptions)
@@ -234,30 +240,19 @@ const LeadsPage = () => {
                 <div className="row">
                     <div className="col-md-12">
                         {/* Page Header */}
-                        <PageHeader title="Total Sales Lead" count={totalPages} />
+                        <PageHeader title="Total Sales Lead" count={totalPages} pageRefresh={handleRefreshPage} />
                         {/* /Page Header */}
 
                         {/* Campaign Status */}
                         {/* <CampaignStatus /> */}
                         {/* /Campaign Status */}
 
-                        <div className="col-md-12">
-                            <div className="contact-wrap">
-                                <div className="pipeline-list">
-                                    <ul>
-                                        {stageOptions.map((stage, index) => <li key={stage.value}
-                                            
-                                            style={{ cursor: 'pointer' }}
-                                        >
-                                            <Link to="#" className={(stageOptions.length - 1) == index ? `bg-pending` : ``}>
-                                                {stage?.label ? stage?.label : 'New Lead'}
-                                            </Link>
-                                        </li>)}
-
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        <LeadPipeline
+                            stageOptions={stageOptions}
+                            handleStatusChange={handleStatusChange}
+                            linkActive={linkActive}
+                            totalStageDataCount={totalStageDataCount}
+                        />
 
                         <div className="card main-card">
                             <div className="card-body">

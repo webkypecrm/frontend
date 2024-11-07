@@ -327,7 +327,6 @@ const CustomerList = () => {
     },
   ];
 
-
   const fetchCustomerData = async (page) => {
     try {
       // const { from, to, industry, source, country, stage, company, leadOwner, search } = filterByObj;

@@ -41,7 +41,7 @@ const AddCallComment = ({ fetchLeadFollowupData, followUpId }) => {
             id="create_call_comment"
             role="dialog"
         >
-            <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-dialog modal-dialog-centered" >
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title">Are you sure, this call is done?</h5>
@@ -72,7 +72,6 @@ const AddCallComment = ({ fetchLeadFollowupData, followUpId }) => {
                                             }}
                                         />
                                     </div>
-
                                     <div className="text-end modal-btn">
                                         <Link
                                             to="#"

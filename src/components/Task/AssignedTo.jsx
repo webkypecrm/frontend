@@ -5,15 +5,25 @@ import Select from 'react-select';
 import axios from 'axios';
 
 
-const AssignedTo = ({ taskRecord, fetchTaskData, staffOptions }) => {
+const AssignedTo = ({ taskRecord, fetchTaskData }) => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const Token = localStorage.getItem('token') || '';
+    const [staffOptions, setStaffOptions] = useState([]);
 
     const initialForm = {
         taskId: '',
         staffId: '',
+        comment: ''
     }
     const [formData, setFormData] = useState(initialForm);
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target
+        setFormData((prevForm) => ({
+            ...prevForm,
+            [name]: value
+        }))
+    }
 
     console.log('formData =>', formData)
 
@@ -46,6 +56,33 @@ const AssignedTo = ({ taskRecord, fetchTaskData, staffOptions }) => {
         }
     }
 
+    useEffect(() => {
+
+        const fetchStaffData = async () => {
+            try {
+                const response = await axios.get(`${apiUrl}/staff/staff-list`, {
+                    headers: {
+                        Authorization: `Bearer ${Token}`
+                    }
+                });
+                const formattedData = response.data.data.map((item) => ({
+                    label: item.name,
+                    value: item.staffId
+                }));
+                setStaffOptions(() => [...formattedData]);
+
+            } catch (error) {
+                toast.error(error);
+            }
+        };
+
+        if (taskRecord?.taskId) {
+            fetchStaffData()
+        }
+
+
+    }, [taskRecord])
+
     return (<>
         {/* Assign To */}
         <div
@@ -69,7 +106,9 @@ const AssignedTo = ({ taskRecord, fetchTaskData, staffOptions }) => {
                     <div className="modal-body p-0">
                         <form onSubmit={handleSubmit}>
                             <div className="row">
-                                <div className="col-md-6">
+
+
+                                <div className="col-md-12">
                                     <div className="form-wrap">
                                         <label className="col-form-label">
                                             Staff <span className="text-danger">*</span>
@@ -87,6 +126,23 @@ const AssignedTo = ({ taskRecord, fetchTaskData, staffOptions }) => {
                                         />
                                     </div>
                                 </div>
+
+                                <div className="col-md-12">
+                                    <div className="form-wrap">
+                                        <label className="col-form-label">
+                                            Comment <span className="text-danger"></span>
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            name='comment'
+                                            value={formData.comment}
+                                            onChange={handleInputChange}
+                                        />
+
+                                    </div>
+                                </div>
+
                                 <div className="text-end modal-btn">
                                     <Link
                                         to="#"

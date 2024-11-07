@@ -34,6 +34,7 @@ export const all_routes = {
     leadsDetails: "/sales/leads-details/:leadId",
 
     //customer
+    customers:"/customer/customers",
     customerList: "/customer/customer-list",
     customerGrid: "/customer/customer-grid",
     customerDetails: "/customer/customer-details",

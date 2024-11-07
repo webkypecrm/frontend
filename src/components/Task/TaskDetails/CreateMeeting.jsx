@@ -175,25 +175,25 @@ const CreateMeeting = ({ fetchTaskDetails, taskDetails}) => {
                                                     <input
                                                         type="radio"
                                                         className="status-radio"
-                                                        id="meetingOnline"
+                                                        id="taskMeetingOnline"
                                                         name="online"
                                                         value='online'
                                                         checked={formData.meetingType == 'online'}
                                                         onChange={handleChangeType}
                                                     />
-                                                    <label htmlFor="meetingOnline">Online</label>
+                                                    <label htmlFor="taskMeetingOnline">Online</label>
                                                 </div>
                                                 <div className="radio-btn">
                                                     <input
                                                         type="radio"
                                                         className="status-radio"
-                                                        id="meetingOffline"
+                                                        id="taskMeetingOffline"
                                                         name="offline"
                                                         value='offline'
                                                         checked={formData.meetingType == 'offline'}
                                                         onChange={handleChangeType}
                                                     />
-                                                    <label htmlFor="meetingOffline">Offline</label>
+                                                    <label htmlFor="taskMeetingOffline">Offline</label>
                                                 </div>
                                             </div>
                                         </div>

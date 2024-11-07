@@ -3042,7 +3042,7 @@ $green-hover: darken($green, 10%);
 
     li {
         display: inline-block;
-        @include margin-padding(0 20px 0 0, null);
+        @include margin-padding(0 15px 0 0, null);
 
         a {
             color: $gray-400;

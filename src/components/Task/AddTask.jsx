@@ -49,8 +49,8 @@ const AddTask = ({
 
     console.log('attachmentFile =>', attachmentFile)
 
-    
-  
+
+
 
     const handleDateChange = (date) => {
         const newDate = new Date(date);
@@ -236,6 +236,26 @@ const AddTask = ({
                                         </div>
                                     </div>
                                 </div>
+                                {formData?.taskType === 'lead' &&
+
+                                    <div className="col-md-12">
+                                        <div className="form-wrap">
+                                            <label className="col-form-label">Select Lead</label>
+                                            <Select
+                                                classNamePrefix="react-select"
+                                                className="select"
+                                                value={leadOptions.find(option => option.value === formData.leadId)}
+                                                onChange={(event) => {
+                                                    let { value } = event
+                                                    handleInputChange({ target: { name: 'leadId', value } })
+                                                }}
+                                                options={leadOptions}
+                                            />
+                                        </div>
+                                    </div>
+                                }
+
+
                                 <div className="col-md-12">
                                     <div className="form-wrap">
                                         <label className="col-form-label">
@@ -260,11 +280,12 @@ const AddTask = ({
                                         <span className="form-icon">
                                             <i className="ti ti-calendar-check" />
                                         </span>
-                                        <DatePicker                                            
+                                        <DatePicker
                                             className="form-control datetimepicker deals-details"
                                             selected={formData.startDate}
                                             onChange={handleDateChange}
                                             dateFormat="dd-MM-yyyy"
+                                            minDate={new Date()}
                                         />
                                     </div>
                                 </div>
@@ -282,6 +303,7 @@ const AddTask = ({
                                             selected={formData.endDate}
                                             onChange={handleDateChange1}
                                             dateFormat="dd-MM-yyyy"
+                                            minDate={new Date()}
                                         />
                                     </div>
                                 </div>
@@ -306,21 +328,7 @@ const AddTask = ({
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-md-12">
-                                    <div className="form-wrap">
-                                        <label className="col-form-label">Select Lead</label>
-                                        <Select
-                                            classNamePrefix="react-select"
-                                            className="select"
-                                            value={leadOptions.find(option => option.value === formData.leadId)}
-                                            onChange={(event) => {
-                                                let { value } = event
-                                                handleInputChange({ target: { name: 'leadId', value } })
-                                            }}
-                                            options={leadOptions}
-                                        />
-                                    </div>
-                                </div>
+
                                 <div className="col-md-4">
                                     <label className="col-form-label">
                                         Task Category <span className="text-danger">*</span>

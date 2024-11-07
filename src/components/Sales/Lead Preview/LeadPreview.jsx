@@ -9,6 +9,7 @@ import Call from './Call';
 import Proposal from './Proposal';
 import axios from 'axios';
 import Task from './Task';
+import File from './File';
 
 
 const LeadPreview = ({ leadPreview, setLeadPreview, leadDetails }) => {
@@ -123,6 +124,15 @@ const LeadPreview = ({ leadPreview, setLeadPreview, leadDetails }) => {
                                     </Link>
                                 </li>
                                 <li>
+                                    <Link to="#" data-bs-toggle="tab" data-bs-target="#files"
+                                        onClick={() => {
+                                            setTaskTab(false)
+                                        }}>
+                                        <i className="ti ti-mail-check" />
+                                        File
+                                    </Link>
+                                </li>
+                                <li>
                                     <Link to="#" data-bs-toggle="tab" data-bs-target="#task"
                                         onClick={() => {
                                             setTaskTab(true)
@@ -167,15 +177,12 @@ const LeadPreview = ({ leadPreview, setLeadPreview, leadDetails }) => {
                                     leadDetails={leadDetails}
                                 />
                                 {/* Proposal */}
-
                                 {/* File */}
-
-                                {/* <File
+                                <File
                                     leadFollowupData={leadFollowupData}
                                     fetchLeadFollowupData={fetchLeadFollowupData}
                                     leadDetails={leadDetails}
-                                /> */}
-
+                                />
                                 {/* File */}
                                 <Task
                                     leadFollowupData={leadFollowupData}

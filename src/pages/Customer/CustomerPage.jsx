@@ -1,52 +1,71 @@
-import React, { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import 'react-datepicker/dist/react-datepicker.css';
-import PageHeader from "../../components/Layouts/PageHeader";
-import CampaignStatus from "../../components/Layouts/CampaignStatus/Index";
-import AddTask from "../../components/Task/AddTask";
-import { toast } from "react-toastify";
+import "bootstrap-daterangepicker/daterangepicker.css";
+import PageHeader from "../../components/Layouts/PageHeader"
+import { Empty } from "antd";
 import axios from "axios";
-import ManageTaskList from "../../components/Task/ManageTaskList";
-import EditTask from "../../components/Task/EditTask";
+import CampaignStatus from "../../components/Layouts/CampaignStatus/Index"
+import ManageLeadList from "../../components/Sales/ManageLeadList";
+import AddLead from "../../components/Sales/AddLead";
 import ContentLoader from "../../components/Layouts/ContentLoader/Index";
 import ErrorLoader from "../../components/Layouts/ErrorLoader/Index";
-import SearchSelection from "../../components/Task/SearchSelection";
-import Filter from "../../components/Task/Filter";
-import { Empty } from "antd";
+import EditLead from "../../components/Sales/EditLead";
+import EditCompany from "../../components/Sales/EditCompany";
+import Filter from '../../components/Sales/Filter'
+import ManageCustomerList from "../../components/Customer/ManageCustomerList";
+import SearchSection from "../../components/Customer/SearchSection";
 
-import PieChartComponent from "../../components/Task/PieChartComponent";
+
+
+let num = 0;
 
 const CustomerPage = () => {
-
-    const [activityToggle, setActivityToggle] = useState(false);
-    const [activityToggleTwo, setActivityToggleTwo] = useState(false);
+    const apiUrl = import.meta.env.VITE_API_URL;
+    const Token = localStorage.getItem('token') || '';
+    const [addLead, setAddCustomer] = useState(false);
     const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true)
-    const [error, setError] = useState(null)
-    const [taskCategoryOptions, setTaskCategoryOptions] = useState([]);
-    const [taskSubCategoryOptions, setTaskSubCategoryOptions] = useState([]);
-    const [leadOptions, setLeadOptions] = useState([]);
-    const [staffOptions, setStaffOptions] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [sourceOptions, setSourceOptions] = useState([]);
+    const [industryOptions, setIndustryOptions] = useState([]);
+    const [countryOptions, setCountryOptions] = useState([]);
+    const [customerDetails, setCustomerDetails] = useState(null);
+    const [editCompany, setEditCompany] = useState(false);
+    const [companyDetails, setCompanyDetails] = useState(null);
     const [filterSlider, setFilterSlider] = useState(false);
-    const [taskDetails, setTaskDetails] = useState(null);
+    const [stageOptions, setStageOptions] = useState([]);
     const [manageColumns, setManageColumns] = useState({
-        "Task ID": true,
-        "Title": true,
-        "Type": true,
-        "Description": false,
-        "Category": true,
-        "Sub Category": true,
-        "Assigned By": true,
-        "Start Date": true,
-        "End Date": true,
-        "Assigned To": true,
-        "Priority": true,
-        "Tags": false,
-        "Created Date": false,
-        "Status": true,
-        "Attachment": true,
+        "Customer Name": true,
+        "Customer Email": true,
+        "Customer Mobile1": true,
+        "Customer Mobile2": false,
+        "Customer Mobile3": false,
+        "Company Name": true,
+        "Company Email": false,
+        // "Company Location": false,
+        "Country": true,
+        "State": true,
+        "City": true,
+        "Source": true,
+        "Tags": true,
+        "Value": false,
+        "Owner": true,
+        // "Assign To": true,
+        // "Updates": true,
+        "Created Date": true,
+        "Stage": true,
+        "Contact": true,
         "Action": true,
     });
+    const [totalPages, setTotalPages] = useState(0);
+    // const [pageSize, setPageSize] = useState(2);
+    const pageSize = 500
+
+    // const employeeId = localStorage.getItem('staffId') || '';
+    const staffType = localStorage.getItem('type') || '';
+
+
+
     const initialFilter = {
         from: "",
         to: "",
@@ -55,52 +74,70 @@ const CustomerPage = () => {
         country: [],
         stage: [],
         company: [],
-        leadOwner: [],
+        customerOwner: [],
         search: "",
     }
     const [filterByObj, setFilterByObj] = useState(initialFilter);
-    const [totalPages, setTotalPages] = useState(0);
-    // const [pageSize, setPageSize] = useState(2);
-    const pageSize = 500
 
-    const apiUrl = import.meta.env.VITE_API_URL;
-    const Token = localStorage.getItem('token') || '';
-    const staffType = localStorage.getItem('type') || '';
+    const togglePopup = () => {
+        setAddCustomer(prev => !prev);
+    };
 
-
-
-
-    function taskDetailsHandler(data) {
-        setTaskDetails(data)
+    function customerDetailsHandler(data) {
+        setCustomerDetails(data)
     }
+
+    console.log('filterByObj =>', filterByObj, num++)
+
+    const fetchStageData = async () => {
+        try {
+            const response = await axios.get(`${apiUrl}/master/stage-list`);
+            const formattedData = response.data.data.map((item) => ({
+                label: item.name,
+                value: item.id
+            }));
+            setStageOptions(() => [...formattedData]);
+        } catch (error) {
+            toast.error(error.message)
+        }
+    };
 
     const fetchCustomerData = async (page) => {
         try {
-            const { from, to, industry, source, country, stage, company, leadOwner, search } = filterByObj;
-            console.log({ from, to, industry, source, country, stage, company, leadOwner, search })
+            const { from, to, industry, source, country, stage, company, customerOwner, search } = filterByObj;
 
+            let url = `${apiUrl}/customer/customer-list?page=${page ? page : 1}&pageSize=${pageSize}&to=${to}&from=${from}
+                &industry=${industry}&source=${source}&country=${country}&stage=${stage}&company=${company}&customerOwner=${customerOwner}&search=${search}`
 
-            let url = `${apiUrl}/task/task-list?page=${page ? page : 1}&pageSize=${pageSize}&to=${to}&from=${from}
-                &industry=${industry}&source=${source}&country=${country}&stage=${stage}&company=${company}&leadOwner=${leadOwner}&search=${search}`
-
-            if (staffType == "0") {
-                url = `${apiUrl}/task/task-list?staffType=0&page=${page ? page : 1}&pageSize=${pageSize}&to=${to}&from=${from}
-                &industry=${industry}&source=${source}&country=${country}&stage=${stage}&company=${company}&leadOwner=${leadOwner}&search=${search}`
+            if (staffType == '0') {
+                url = `${apiUrl}/customer/customer-list?staffType=${0}&page=${page ? page : 1}&pageSize=${pageSize}&to=${to}&from=${from}
+                &industry=${industry}&source=${source}&country=${country}&stage=${stage}&company=${company}&customerOwner=${customerOwner}&search=${search}`
             }
 
+            console.log('search =>', search)
             const response = await axios.get(url,
                 {
                     headers: {
                         Authorization: `Bearer ${Token}`
                     }
                 });
+
+            // let filterCustomerData 
+
+            // if (staffType === 1) {
+            //     filterCustomerData = response.data.data
+            // } else {
+            //     filterCustomerData = response.data.data.filter((item) => !(parseInt(item?.staffId === employeeId)))
+            // }
+
             const formattedData = response.data.data.map((item) => ({
                 ...item,
-                key: item.taskId,
+                key: item.customerId,
                 tags: JSON.parse(item.tags)
             }));
 
             setData(formattedData);
+            setTotalPages(response.data.totalCount)
             setIsLoading(false)
 
         } catch (error) {
@@ -109,181 +146,204 @@ const CustomerPage = () => {
 
         }
     };
-
-    const fetchTaskCategoryData = async () => {
+    const fetchSourceData = async () => {
         try {
-            const response = await axios.get(`${apiUrl}/master/task-category-list`);
-            const formattedData = response.data.data.map((item) => ({
-                label: item.name,
-                value: item.id
-            }));
-            setTaskCategoryOptions(formattedData);
-            setIsLoading(false)
-        } catch (error) {
-            toast.error(error)
-            setIsLoading(false)
-        }
-    };
-
-    const fetchTaskSubCategoryData = async () => {
-        try {
-            const response = await axios.get(`${apiUrl}/master/task-sub-category-list`);
-            const formattedData = response.data.data.map((item) => ({
-                label: item.name,
-                value: item.id
-            }));
-            setTaskSubCategoryOptions(formattedData);
-            setIsLoading(false)
-        } catch (error) {
-            toast.error(error)
-            setIsLoading(false)
-        }
-    };
-
-    const fetchLeadData = async () => {
-        try {
-            const response = await axios.get(`${apiUrl}/lead/lead-list`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${Token}`
-                    }
-                });
-            const formattedData = response.data.data.map((item) => ({
-                label: `leadId:${item.leadId} | ${item.leadName} | ${item.leadMobile1} |
-                 ${item?.company?.companyName ? item.company.companyName : ''}`,
-                value: item.leadId
-            }));
-
-            setLeadOptions(formattedData);
-            setIsLoading(false)
-
-        } catch (error) {
-            setError(error)
-            setIsLoading(false)
-        }
-    };
-
-    const fetchStaffData = async () => {
-        try {
-            const response = await axios.get(`${apiUrl}/staff/staff-list`, {
+            const response = await axios.get(`${apiUrl}/master/source-list`, {
                 headers: {
                     Authorization: `Bearer ${Token}`
                 }
             });
             const formattedData = response.data.data.map((item) => ({
                 label: item.name,
-                value: item.staffId
+                value: item.id
             }));
-            setStaffOptions(() => [...formattedData]);
+            setSourceOptions(formattedData);
 
         } catch (error) {
-            toast.error(error);
+            setError(error)
+
+        }
+    };
+    const fetchIndustryData = async () => {
+        try {
+            const response = await axios.get(`${apiUrl}/master/industry-list`, {
+                headers: {
+                    Authorization: `Bearer ${Token}`
+                }
+            });
+            const formattedData = response.data.data.map((item) => ({
+                label: item.name,
+                value: item.id
+            }));
+            setIndustryOptions(formattedData);
+
+        } catch (error) {
+            setError(error)
+
+        }
+    };
+    const fetchCountryData = async () => {
+        try {
+            const response = await axios.get(`${apiUrl}/employee/country-list`, {
+                headers: {
+                    Authorization: `Bearer ${Token}`
+                }
+            });
+            const formattedData = response.data.data.map((item) => ({
+                label: item.name,
+                value: item.id
+            }));
+            setCountryOptions(formattedData);
+
+        } catch (error) {
+            setError(error)
+
         }
     };
 
+    // const fetchStageData = async () => {
+    //     try {
+    //         const response = await axios.get(`${apiUrl}/customer/customer-status-history?customerId=${data.customerId}`,
+    //             {
+    //                 headers: {
+    //                     Authorization: `Bearer ${Token}`
+    //                 }
+    //             }
+    //         );
+    //         const formattedData = response.data.data
+    //         setStageOptions(() => [...formattedData]);
+    //     } catch (error) {
+    //         console.log(error)
+    //         toast.error(error.message)
+    //     }
+    // };
+
     useEffect(() => {
-        fetchCustomerData();
-        fetchTaskCategoryData();
-        fetchTaskSubCategoryData();
-        fetchLeadData();
-        fetchStaffData();
+        fetchCustomerData()
+        fetchSourceData()
+        fetchIndustryData()
+        fetchCountryData()
+        fetchStageData()
     }, [])
 
-    return (
-        <>
-            {/* Page Wrapper */}
-            <div className="page-wrapper">
-                <div className="content">
-                    <div className="row">
-                        <div className="col-md-12">
-                            {/* Page Header */}
-                            <PageHeader title="Task" count={data.length} />
-                            {/* /Page Header */}
+    console.log('stageOptions =>', stageOptions)
 
-                            <div className="card main-card">
-                                <div className="card-body">
-                                    {/* Search */}
-                                    <SearchSelection
-                                        setActivityToggle={setActivityToggle}
-                                        onManageColumns={setManageColumns}
+    return <>
+        {/* Page Wrapper */}
+        <div className="page-wrapper">
+            <div className="content">
+                <div className="row">
+                    <div className="col-md-12">
+                        {/* Page Header */}
+                        <PageHeader title="Total Sales Customer" count={totalPages} />
+                        {/* /Page Header */}
+
+                        {/* Campaign Status */}
+                        {/* <CampaignStatus /> */}
+                        {/* /Campaign Status */}
+
+
+
+                        <div className="card main-card">
+                            <div className="card-body">
+                                {/* Search */}
+                                <SearchSection
+                                    togglePopup={togglePopup}
+                                    onManageColumns={setManageColumns}
+                                    manageColumns={manageColumns}
+                                    fetchCustomerData={fetchCustomerData}
+                                    filterByObj={filterByObj}
+                                    setFilterByObj={setFilterByObj}
+                                    setFilterSlider={setFilterSlider}
+                                />
+                                {/* /Search */}
+
+                                {/* Manage Users List */}
+                                {isLoading &&
+                                    <ContentLoader />
+                                }
+                                {error &&
+                                    <ErrorLoader title={error.name} message={error.message} />
+                                }
+                                {data.length > 0 && !error &&
+                                    <ManageCustomerList
+                                        data={data}
+                                        onCustomerDetails={customerDetailsHandler}
+                                        togglePopup={togglePopup}
+                                        fetchCustomerData={fetchCustomerData}
+                                        setEditCompany={setEditCompany}
+                                        setCompanyDetails={setCompanyDetails}
                                         manageColumns={manageColumns}
-                                        filterByObj={filterByObj}
-                                        setFilterSlider={setFilterSlider}
-                                        setFilterByObj={setFilterByObj}
-                                        fetchTaskData={fetchTaskData}
+                                        pageSize={pageSize}
+                                        totalPages={totalPages}
                                     />
-                                    {/* /Search */}
-                                    {isLoading &&
-                                        <ContentLoader />
-                                    }
-                                    {error &&
-                                        <ErrorLoader title={error.name} message={error.message} />
-                                    }
-                                    {data.length > 0 && !error &&
-                                        <ManageTaskList
-                                            data={data}
-                                            setData={setData}
-                                            setActivityToggleTwo={setActivityToggleTwo}
-                                            fetchTaskData={fetchTaskData}
-                                            staffOptions={staffOptions}
-                                            manageColumns={manageColumns}
-                                            pageSize={pageSize}
-                                            totalPages={totalPages}
-                                            onTaskDetails={taskDetailsHandler}
-                                        />
-                                    }
-                                    {
-                                        data.length === 0 && !isLoading && !error && <Empty />
-                                    }
-                                </div>
+                                }
+                                {
+                                    data.length === 0 && !isLoading && !error && <Empty />
+                                }
+                                {/* /Manage Users List */}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            {/* /Page Wrapper */}
-            {/* Add New Task */}
-            {!taskDetails &&
-                <AddTask
-                    activityToggle={activityToggle}
-                    setActivityToggle={setActivityToggle}
-                    activityToggleTwo={activityToggleTwo}
-                    taskCategoryOptions={taskCategoryOptions}
-                    taskSubCategoryOptions={taskSubCategoryOptions}
-                    leadOptions={leadOptions}
-                    staffOptions={staffOptions}
-                    setStaffOptions={setStaffOptions}
-                    fetchTaskData={fetchTaskData}
-                />
-            }
-            {/* /Add New Task */}
-            {taskDetails &&
-                <EditTask
-                    activityToggle={activityToggle}
-                    setActivityToggle={setActivityToggle}
-                    activityToggleTwo={activityToggleTwo}
-                    taskCategoryOptions={taskCategoryOptions}
-                    taskSubCategoryOptions={taskSubCategoryOptions}
-                    leadOptions={leadOptions}
-                    staffOptions={staffOptions}
-                    setStaffOptions={setStaffOptions}
-                    taskDetails={taskDetails}
-                />
-            }
-            <div className="form-sorts dropdown">
-                <Filter
-                    filterSlider={filterSlider}
-                    setFilterSlider={setFilterSlider}
-                    sourceOptions={[]}
-                    industryOptions={[]}
-                    countryOptions={[]}
-                    setFilterByObj={setFilterByObj}
-                    fetchTaskData={fetchTaskData}
-                />
-            </div>
+        </div>
+        {/* /Page Wrapper */}
+        {/* Add Customer */}
+        {/* {!customerDetails &&
+            <AddCustomer
+                addCustomer={addCustomer}
+                togglePopup={togglePopup}
+                sourceOptions={sourceOptions}
+                industryOptions={industryOptions}
+                countryOptions={countryOptions}
+                fetchCustomerData={fetchCustomerData}
+            />
+        } */}
+        {/* /Add Customer */}
+        {/* /Edit Customer */}
+        {/* {customerDetails &&
+            <EditCustomer
+                addCustomer={addCustomer}
+                togglePopup={togglePopup}
+                sourceOptions={sourceOptions}
+                industryOptions={industryOptions}
+                countryOptions={countryOptions}
+                customerDetails={customerDetails}
+                onCustomerDetails={customerDetailsHandler}
+                fetchCustomerData={fetchCustomerData}
+                setCustomerDetails={setCustomerDetails}
+            />
+        } */}
+        {/* /Edit Customer */}
+        {/* {  Edit Company} */}
+        {/* {companyDetails &&
+            <EditCompany
+                editCompany={editCompany}
+                setEditCompany={setEditCompany}
+                industryOptions={industryOptions}
+                countryOptions={countryOptions}
+                companyDetails={companyDetails}
+                setCompanyDetails={setCompanyDetails}
+                fetchCustomerData={fetchCustomerData}
+            />
+        } */}
+        {/* {  Edit Company} */}
+        {/* <div className="form-sorts dropdown">
+            <Filter
+                filterSlider={filterSlider}
+                setFilterSlider={setFilterSlider}
+                sourceOptions={sourceOptions}
+                industryOptions={industryOptions}
+                countryOptions={countryOptions}
+                setFilterByObj={setFilterByObj}
+                fetchCustomerData={fetchCustomerData}
 
-        </>
-    );
-};
+            />
+        </div> */}
 
-export default CustomerPage;
+    </>
+}
+
+
+export default CustomerPage

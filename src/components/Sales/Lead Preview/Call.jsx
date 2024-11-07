@@ -10,8 +10,10 @@ import { event } from 'jquery';
 import CallList from './CallList';
 
 import { Empty } from 'antd';
+import AddCallComment from '../LeadDetails/AddCallComment';
+import RescheduleCall from '../LeadDetails/RescheduleCall';
 
-const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails, }) => {
+const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const Token = localStorage.getItem('token') || '';
     const data = leadFollowupData.filter((item) => item.type == 'callUpdate')
@@ -25,6 +27,9 @@ const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails, }) => {
         callBack: '', //not use here
     }
     const [formData, setFormData] = useState(initialForm);
+    const [followUpId, setFollowUp] = useState('');
+
+    const leadDetail = data[0]
 
 
     // const [selectedDate1, setSelectedDate1] = useState(new Date());
@@ -79,8 +84,7 @@ const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails, }) => {
     return (<>
         <div className="tab-pane fade" id="calls">
             <div className="view-header">
-                <h4>Calls</h4>
-                <ul>
+                <h4>Calls</h4>              
                     {(leadFollowupData[0]?.status == 'Done' || leadFollowupData[0]?.status == '' || leadFollowupData[0]?.length === 0) &&
                         <ul>
                             <li>
@@ -96,19 +100,6 @@ const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails, }) => {
                             </li>
                         </ul>
                     }
-
-                    {/* <li>
-                        <Link
-                            to="#"
-                            data-bs-toggle="modal"
-                            data-bs-target="#create_call"
-                            className="com-add"
-                        >
-                            <i className="ti ti-circle-plus me-1" />
-                            Add New
-                        </Link>
-                    </li> */}
-                </ul>
             </div>
             {data.length === 0 ? <Empty description={false} /> :
                 <div className="calls-activity">
@@ -119,6 +110,7 @@ const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails, }) => {
                                 data={item}
                                 index={index}
                                 fetchLeadFollowupData={fetchLeadFollowupData}
+                                setFollowUp={setFollowUp}
                             />
                         ))}
                     </div>
@@ -161,6 +153,7 @@ const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails, }) => {
                                                 selected={formData.callBackDate}
                                                 onChange={handleDateChange1}
                                                 dateFormat="dd-MM-yyyy"
+                                                minDate={new Date()}
                                             />
                                         </div>
                                     </div>
@@ -182,7 +175,8 @@ const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails, }) => {
                                                 showTimeSelectOnly
                                                 timeIntervals={15} // Time intervals (15 minutes)
                                                 timeCaption="Time"
-                                                dateFormat="h:mm aa" // AM/PM format                                                
+                                                dateFormat="h:mm aa" // AM/PM format   
+                                                minDate={new Date()}
                                             />
                                         </div>
                                     </div>
@@ -243,6 +237,10 @@ const Call = ({ leadFollowupData, fetchLeadFollowupData, leadDetails, }) => {
             </div>
         </div>
         {/* Create Call Log */}
+
+        <AddCallComment fetchLeadFollowupData={fetchLeadFollowupData} followUpId={followUpId} />
+        <RescheduleCall fetchLeadFollowupData={fetchLeadFollowupData} leadDetails={leadDetail} />
+
     </>
     )
 }

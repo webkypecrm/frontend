@@ -133,6 +133,136 @@ const PieChartComponent = ({ data, taskCategoryOptions }) => {
 
     return (
         <>
+
+            {/* <div className="row g-3">
+                <div className="col-lg-4 col-md-6 col-12 d-flex">
+                    <div className="card w-100">
+                        <div className="card-body">
+                            <div className="statistic-header">
+                                <h4>
+                                    <i className="ti ti-grip-vertical me-1" />
+                                    Task Type
+                                </h4>
+                                <div className="dropdown statistic-dropdown">
+                                    <div className="card-select">
+                                        <ul>
+                                            <li>
+                                                <Link
+                                                    className="dropdown-toggle"
+                                                    data-bs-toggle="dropdown"
+                                                    to="#"
+                                                >
+                                                    Last 30 Days
+                                                </Link>
+                                                <div className="dropdown-menu dropdown-menu-end">
+                                                    <Link to="#" className="dropdown-item">Last 30 Days</Link>
+                                                    <Link to="#" className="dropdown-item">Last 15 Days</Link>
+                                                    <Link to="#" className="dropdown-item">Last 7 Days</Link>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="leadpiechart">
+                                <Chart
+                                    options={chartOptions1.options}
+                                    series={chartOptions1.series}
+                                    type="pie"
+                                    width="100%"
+                                    height="250px"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="col-lg-4 col-md-6 col-12 d-flex">
+                    <div className="card w-100">
+                        <div className="card-body">
+                            <div className="statistic-header">
+                                <h4>
+                                    <i className="ti ti-grip-vertical me-1" />
+                                    Task Status
+                                </h4>
+                                <div className="dropdown statistic-dropdown">
+                                    <div className="card-select">
+                                        <ul>
+                                            <li>
+                                                <Link
+                                                    className="dropdown-toggle"
+                                                    data-bs-toggle="dropdown"
+                                                    to="#"
+                                                >
+                                                    Last 30 Days
+                                                </Link>
+                                                <div className="dropdown-menu dropdown-menu-end">
+                                                    <Link to="#" className="dropdown-item">Last 30 Days</Link>
+                                                    <Link to="#" className="dropdown-item">Last 15 Days</Link>
+                                                    <Link to="#" className="dropdown-item">Last 7 Days</Link>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="leadpiechart">
+                                <Chart
+                                    options={chartOptions2.options}
+                                    series={chartOptions2.series}
+                                    type="pie"
+                                    width="100%"
+                                    height="250px"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="col-lg-4 col-md-6 col-12 d-flex">
+                    <div className="card w-100">
+                        <div className="card-body">
+                            <div className="statistic-header">
+                                <h4>
+                                    <i className="ti ti-grip-vertical me-1" />
+                                    Task Category
+                                </h4>
+                                <div className="dropdown statistic-dropdown">
+                                    <div className="card-select">
+                                        <ul>
+                                            <li>
+                                                <Link
+                                                    className="dropdown-toggle"
+                                                    data-bs-toggle="dropdown"
+                                                    to="#"
+                                                >
+                                                    Last 30 Days
+                                                </Link>
+                                                <div className="dropdown-menu dropdown-menu-end">
+                                                    <Link to="#" className="dropdown-item">Last 30 Days</Link>
+                                                    <Link to="#" className="dropdown-item">Last 15 Days</Link>
+                                                    <Link to="#" className="dropdown-item">Last 7 Days</Link>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="leadpiechart">
+                                <Chart
+                                    options={chartOptions3.options}
+                                    series={chartOptions3.series}
+                                    type="pie"
+                                    width="100%"
+                                    height="250px"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> */}
+
+
             <div style={{ display: 'flex' }}>
                 <div className="col-md-4 d-flex">
                     <div className="card w-100">
@@ -190,8 +320,6 @@ const PieChartComponent = ({ data, taskCategoryOptions }) => {
                         </div>
                     </div>
                 </div>
-
-
                 <div className="col-md-4 d-flex">
                     <div className="card w-100">
                         <div className="card-body">
@@ -248,8 +376,6 @@ const PieChartComponent = ({ data, taskCategoryOptions }) => {
                         </div>
                     </div>
                 </div>
-
-
                 <div className="col-md-4 d-flex">
                     <div className="card w-100">
                         <div className="card-body">
@@ -306,9 +432,6 @@ const PieChartComponent = ({ data, taskCategoryOptions }) => {
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
         </>
     )

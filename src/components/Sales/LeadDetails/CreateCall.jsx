@@ -109,6 +109,7 @@ const CreateCall = ({ fetchLeadDetails, leadDetails }) => {
                                                 selected={formData.callBackDate}
                                                 onChange={handleDateChange1}
                                                 dateFormat="dd-MM-yyyy"
+                                                minDate={new Date()}
                                             />
                                         </div>
                                     </div>
@@ -130,7 +131,8 @@ const CreateCall = ({ fetchLeadDetails, leadDetails }) => {
                                                 showTimeSelectOnly
                                                 timeIntervals={15} // Time intervals (15 minutes)
                                                 timeCaption="Time"
-                                                dateFormat="h:mm aa" // AM/PM format                                                
+                                                dateFormat="h:mm aa" // AM/PM format    
+                                                minDate={new Date()}                                            
                                             />
                                         </div>
                                     </div>

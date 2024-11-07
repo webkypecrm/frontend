@@ -57,8 +57,7 @@ const LeadsKanban = () => {
                 key: item.leadId,
                 tags: JSON.parse(item.tags)
             }));
-
-
+            
             const groupedLeads = formattedData.reduce((acc, lead) => {
                 const { stage } = lead;
                 if (!acc[stage]) {

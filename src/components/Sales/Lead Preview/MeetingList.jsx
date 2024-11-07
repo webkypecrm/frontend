@@ -1,9 +1,9 @@
 import React from 'react'
-import { Tag } from 'antd';
+import { Link } from 'react-router-dom';
 
-const MeetingList = ({ data }) => {
+const MeetingList = ({ data, index, setFollowUp }) => {
 
-    console.log('data =>', data)
+    // console.log('data in meetingList =>', data)
 
     function getDate(value) {
         const isoDateString = value;
@@ -30,56 +30,155 @@ const MeetingList = ({ data }) => {
     }
 
     return (<>
-
-        <ul>
-            <li className="activity-wrap">
-                <div>
-                    <div>
-                        <div className="badge-day" style={{
-                            fontSize: "x-small",
-                            margin: "",
-                            maxWidth: "9rem"
-                        }}>
-                            <i className="ti ti-calendar-check" />
-                            {getDate(data.createdAt)}, {getTime(data.createdAt)}
+        <div className="notes-activity" >
+            {data.length == 0 && <Empty description={false} />}
+            <div className="calls-box" key={data?.id}>
+                <div className="caller-info">
+                    <div className="calls-user">
+                        <img
+                            src={data?.staff?.profilePicUrl}
+                            alt="img"
+                        />
+                        <div style={{ display: 'grid' }}>
+                            {index > 0 ?
+                                <del style={{ color: 'red' }}><p>
+                                    <span>{data?.staff?.name}</span> <strong>{data?.status.toLowerCase()}</strong> a meeting on {getDate(data.meetingDate)}, {getTime(data.meetingTime)}
+                                </p>
+                                </del>
+                                :
+                                <p style={{ color: 'green' }}>
+                                    <span>{data?.staff?.name}</span> <strong>{data?.status.toLowerCase()}</strong> a meeting on {getDate(data.meetingDate)}, {getTime(data.meetingTime)}
+                                </p>}
+                            <span className="badge-day" style={{ fontSize: 'x-small', margin: '0', maxWidth: '8rem' }}>{getDate(data?.createdAt)},{getTime(data?.createdAt)}</span>
                         </div>
-                        <Tag className='badge-day' color="orange" style={{
-                            marginLeft: '10px',
-                            fontSize: "0.6rem",
-                            maxWidth: "9rem",
-                            display: 'inline'
-                        }}>
-                            MEETING
-                        </Tag>
-
-
                     </div>
-                    <div style={{ display: 'flex' }}>
-                        <span className="activity-icon bg-info">
-                            <i className="ti ti-user-pin" />
-                        </span>
-                        <div className="activity-info">
-                            <h6>
-                                {data?.staff?.name}, Posted an Update
-                            </h6>
-                            <p style={{
-                                    fontSize: "0.7rem",
-                                    color: "rgb(149 144 144)",
-                                    marginTop: "0.2rem",
-                                    fontWeight: "600"
-                            }}>
-                                <span>{data.meetingType.toUpperCase()} meeting on {getDate(data.meetingDate)}, {getTime(data.meetingTime)}, </span>
-                                <span>Status: <strong> {data.status} </strong></span><br />
-                                <span>Venue:{data.meetingVenue}</span><br />
-                                <span>Remark: {data.lastCallSummary}</span><br />
-                            </p>
-                        </div>
+                    {index === 0 &&
+                        <div className="calls-action">
+                            <div className="dropdown call-drop">
+                                {data?.status == 'Done' ?
+                                    <Link
+                                        to="#"
+                                        // className="dropdown-toggle bg-success"
+                                        aria-expanded="false"
+                                    >
+                                        {/* <i className="ti ti-square-check" /> */}
+                                        <img
+                                            src="/assets/img/meeting-done.jpg"
+                                            alt="img"
+                                            style={{ width: '38px', height: '40px' }}
+                                        />
 
+                                    </Link>
+                                    :
+                                    // <OverlayTrigger
+                                    //     placement="bottom"
+                                    //     overlay={<Tooltip id="mark-meeting-tooltip">Mark Done</Tooltip>}
+                                    // >
+                                    <Link
+                                        to="#"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#create_meeting_comment"
+                                        className="dropdown-toggle bg-pending"
+                                        aria-expanded="false"
+                                        onClick={() => {
+                                            setFollowUp(data?.id)
+                                        }}
+                                    >
+                                        <i className="ti ti-square-check" />
+                                        {/* Mark Done */}
+                                    </Link>
+                                    // </OverlayTrigger>
+
+                                }
+                            </div>
+                            {data?.status !== 'Done' &&
+                                <div className="dropdown call-drop">
+                                    {
+
+                                        // <OverlayTrigger
+                                        //     placement="bottom"
+                                        //     overlay={<Tooltip id="rescheduled-meeting-tooltip">Re-scheduled Meeting</Tooltip>}
+                                        // >
+                                        <Link
+                                            to="#"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#create_meeting_rescheduled"
+                                            className="dropdown-toggle"
+                                            aria-expanded="false"
+                                            onClick={() => {
+                                                setFollowUp(data?.id)
+                                            }}
+                                        >
+                                            <i className="ti ti-calendar-month" />
+                                            {/* Re-scheduled */}
+                                        </Link>
+                                        // </OverlayTrigger>
+
+                                    }
+                                </div>
+                            }
+
+                        </div>
+                    }
+                </div>
+                <p>
+                    {data?.lastCallSummary}
+                </p>
+                <div className="upcoming-info">
+                    <div className="row">
+                        <div className="col-sm-4">
+                            <p>Meeting Type</p>
+                            <div className="dropdown">
+                                <Link
+                                    to="#"
+                                    className="dropdown-toggle"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                >
+                                    <i className="ti ti-clock-edit me-1" />
+                                    {data?.meetingType.toUpperCase()}
+                                    <i className="ti ti-chevron-down ms-1" />
+                                </Link>
+                                <div className="dropdown-menu dropdown-menu-right">
+                                    <Link className="dropdown-item" to="#">
+                                        offline
+                                    </Link>
+                                    <Link className="dropdown-item" to="#">
+                                        online
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-sm-4">
+                            <p>{data?.meetingType === 'offline' ? 'Address' : 'URL'}</p>
+
+                            <div className="dropdown">
+                                <Link
+                                    to={data?.meetingType === 'offline' ? '#' : data?.meetingVenue}
+                                    className="dropdown-toggle"
+                                    aria-expanded="false"
+                                >
+                                    <i className="ti ti-square-rounded-filled me-1 text-success circle" />
+                                    {data?.meetingVenue}
+                                </Link>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                {
+                    data?.comment &&
+                    <div className="reply-box">
+                        <p>
+                            {data?.comment}
+                        </p>
+                    </div>
+                }
 
-            </li>
-        </ul>
+            </div>
+
+        </div>
+
+
     </>)
 }
 

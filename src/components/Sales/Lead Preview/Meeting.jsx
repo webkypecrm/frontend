@@ -8,6 +8,8 @@ import DatePicker from "react-datepicker";
 import { toast } from 'react-toastify';
 import MeetingList from './MeetingList';
 import { Empty } from 'antd';
+import RescheduleMeeting from '../LeadDetails/RescheduleMeeting';
+import AddMeetingComment from '../LeadDetails/AddMeetingComment';
 
 
 
@@ -25,6 +27,11 @@ const Meeting = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
         meetingVenue: '', //not use here
     }
     const [formData, setFormData] = useState(initialForm);
+    const [followUpId, setFollowUp] = useState('');
+
+
+    const leadDetail = data[0]
+
     const handleDateChange1 = (date) => {
         setFormData((prevData) => ({
             ...prevData,
@@ -78,26 +85,30 @@ const Meeting = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
         <div className="tab-pane fade" id="notes">
             <div className="view-header">
                 <h4>Meeting</h4>
-                <ul>
-                    <li>
-                        <Link
-                            to="#"
-                            data-bs-toggle="modal"
-                            data-bs-target="#add_notes"
-                            className="com-add"
-                        >
-                            <i className="ti ti-circle-plus me-1" />
-                            Add New
-                        </Link>
-                    </li>
-                </ul>
+                {(leadFollowupData[0]?.status == 'Done' || leadFollowupData[0]?.status == '' || leadFollowupData[0]?.length === 0) &&
+                    <ul>
+                        <li>
+                            <Link
+                                to="#"
+                                data-bs-toggle="modal"
+                                data-bs-target="#add_notes"
+                                className="com-add"
+                            >
+                                <i className="ti ti-circle-plus me-1" />
+                                Add New
+                            </Link>
+                        </li>
+                    </ul>
+                }
             </div>
             {data.length === 0 ? <Empty description={false} /> :
                 <div className="contact-activity">
-                    {data.map((item) =>
+                    {data.map((item, index) =>
                         <MeetingList
                             key={item.id}
                             data={item}
+                            index={index}
+                            setFollowUp={setFollowUp}
                         />
                     )}
                 </div>
@@ -287,6 +298,12 @@ const Meeting = ({ leadFollowupData, fetchLeadFollowupData, leadDetails }) => {
             </div>
         </div>
         {/* Add Meeting */}
+
+
+        <RescheduleMeeting fetchLeadFollowupData={fetchLeadFollowupData} leadDetails={leadDetail} />
+
+        <AddMeetingComment fetchLeadFollowupData={fetchLeadFollowupData} followUpId={followUpId} />
+
     </>
     )
 }

@@ -187,7 +187,7 @@ export const socialMedia = [
 ];
 export const priorityList = [
   { value: 'Select', label: 'Select' },
-  { value: 'highy', label: 'Highy' },
+  { value: 'high', label: 'High' },
   { value: 'low', label: 'Low' },
   { value: 'medium', label: 'Medium' },
 ];

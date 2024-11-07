@@ -6,17 +6,12 @@ import {
 } from "../../../selectOption/selectOption";
 import Select from "react-select";
 
-
-
 const AddProposalComment = ({ fetchLeadFollowupData, followUpId }) => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const Token = localStorage.getItem('token') || '';
     const [comment, setComment] = useState('');
     const [status, setStatus] = useState('');
 
-
-
-    console.log('followUpId in Add Proposal Comment =>', followUpId)
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -86,7 +81,7 @@ const AddProposalComment = ({ fetchLeadFollowupData, followUpId }) => {
                                     </div>
                                     <div className="col-md-12">
                                         <div className="form-wrap">
-                                            <label className="col-form-label">File Type</label>
+                                            <label className="col-form-label">Status</label>
                                             <div className="select-priority">
                                                 {/* <span className="select-icon">
                                                 <i className="ti ti-square-rounded-filled" />

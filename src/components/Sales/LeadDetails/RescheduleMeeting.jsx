@@ -7,6 +7,8 @@ import { toast } from 'react-toastify';
 
 const RescheduleMeeting = ({ fetchLeadFollowupData, leadDetails}) => {
 
+    console.log("leadDetails =>", leadDetails)
+
     const apiUrl = import.meta.env.VITE_API_URL;
     const Token = localStorage.getItem('token') || '';
     const initialForm = {

@@ -303,7 +303,7 @@ const ManageTaskList = ({
                             {text}
                         </span>
                     )}
-                    {text === "highy" && (
+                    {text === "high" && (
                         <span className="badge badge-tag badge-danger-light">
                             {text}
                         </span>

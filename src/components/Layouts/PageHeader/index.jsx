@@ -1,6 +1,6 @@
 import CollapseHeader from "../../CollapseHeader/CollapseHeader"
 
-const PageHeader = ({ title, count }) => {
+const PageHeader = ({ title, count, pageRefresh }) => {
 
     return <div className="page-header">
         <div className="row align-items-center">
@@ -11,7 +11,7 @@ const PageHeader = ({ title, count }) => {
             </div>
             <div className="col-8 text-end">
                 <div className="head-icons">
-                    <CollapseHeader />
+                    <CollapseHeader pageRefresh={pageRefresh} />
                 </div>
             </div>
         </div>

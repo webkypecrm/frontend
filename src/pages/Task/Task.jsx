@@ -1454,7 +1454,6 @@ const Task = () => {
                                     <div className="col-md-6">
                                         <div className="form-wrap">
                                             <label className="col-form-label">Assign To (Responsible Persons)</label>
-
                                             <Select
                                                 options={[{ value: 'Choose', label: 'Choose' }]}
                                                 className="select2"
@@ -1760,7 +1759,6 @@ const Task = () => {
                                                     <div className="col-md-6">
                                                         <div className="form-wrap">
                                                             <label className="col-form-label">Assign To (Responsible Persons)</label>
-
                                                             <Select
                                                                 options={[{ value: 'Choose', label: 'Choose' }]}
                                                                 className="select2"

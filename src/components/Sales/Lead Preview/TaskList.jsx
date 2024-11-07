@@ -85,7 +85,7 @@ const TaskList = ({ data, onTaskToggle }) => {
                     <div className="task-actions">
                         <ul>
                             <li className="task-time">
-                                {data?.tags.map((tag) => <span className="badge badge-tag badge-success-light" style={{marginRight:'5px'}}>
+                                {data?.tags.map((tag) => <span key={tag} className="badge badge-tag badge-success-light" style={{marginRight:'5px'}}>
                                     {tag}
                                 </span>)}
                             </li>

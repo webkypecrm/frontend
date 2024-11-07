@@ -36,6 +36,7 @@ import RescheduleMeeting from '../../components/Task/TaskDetails/RescheduleMeeti
 import TaskStatus from "../../components/Task/TaskStatus";
 import AddTaskDocuments from "../../components/Task/TaskDetails/AddTaskDocuments";
 import TaskTimer from "../../components/Task/TaskDetails/TaskTimer";
+import AssignedTo from "../../components/Task/AssignedTo";
 
 
 
@@ -145,8 +146,14 @@ const TaskDetailsPage = () => {
     function handleRefresh() {
         fetchTaskLogData();
         fetchTaskDetails();
-        fetchStageData();
+        // fetchStageData();
     }
+
+    const getYouTubeVideoId = (url) => {
+        const regExp = /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
+        const match = url.match(regExp);
+        return match ? match[1] : null;
+    };
 
     const fetchTaskLogData = async () => {
         try {
@@ -205,10 +212,12 @@ const TaskDetailsPage = () => {
         }
     }
 
+
     useEffect(() => {
         if (data?.taskId) {
             fetchTaskLogData()
             // fetchStageData()
+
         }
 
     }, [data?.leadId])
@@ -310,20 +319,13 @@ const TaskDetailsPage = () => {
                                             }}>
                                                 {data?.endDate &&
                                                     <TaskTimer
-                                                    startDate={String(data?.startDate)}
-                                                    endDate={String(data?.endDate)}
+                                                        startDate={String(data?.startDate)}
+                                                        endDate={String(data?.endDate)}
                                                     />
                                                 }
-                                                {/* <CountUp
-                                                    start={60}
-                                                    end={0}
-                                                    duration={60}
-                                                    prefix="02 Days 23 Hour 59 Min"
-
-                                                /> */}
-
                                                 <p style={{ margin: '0px', color: 'green' }}>IN PROCESS</p>
-                                                <p className="badge badge-tag badge-danger-light"> Priority: {data?.priority.slice(0, -1)}</p>
+                                                <p className="badge badge-tag badge-danger-light" > Priority: {data?.priority}</p>
+                                                {/* <p className="badge badge-tag badge-success-light" style={{ marginLeft: "2px" }}>Status: {data?.status}</p> */}
                                             </div>
                                         </div>
                                     </div>
@@ -331,7 +333,7 @@ const TaskDetailsPage = () => {
 
 
                                     {/* Counter */}
-                                    <div className="name-user" style={{ paddingLeft: '25px', marginBottom: "22px", borderLeft: "0.3px solid #d8d4d4", borderRight: "0.3px solid #d8d4d4", paddingRight: "22px" }}>
+                                    <div className="name-user" style={{ paddingLeft: '25px', marginBottom: "22px", borderLeft: "0.3px solid #d8d4d4", borderRight: "0.3px solid #d8d4d4", paddingRight: "22px", fontSize: 'smaller', marginTop: '20px' }}>
                                         <h5 style={{ display: 'flex', alignItems: 'start', gap: '2rem', margin: "0px", padding: "0px", height: "26px", marginBottom: "20px" }}>{data?.taskTitle}
                                             <div style={{ display: 'flex' }}>
 
@@ -416,9 +418,8 @@ const TaskDetailsPage = () => {
 
 
                                 </div>
-                                <div className="contacts-action" style={{ display: 'grid', marginRight: '4rem', marginBottom: '22px' }}>
+                                <div className="contacts-action" style={{ display: 'grid', marginRight: '4rem', marginBottom: '22px', fontSize: 'smaller' }}>
                                     <div className="contact-profile">
-
                                         <div
                                             className="avatar company-avatar"
                                             data-bs-toggle="modal"
@@ -436,7 +437,7 @@ const TaskDetailsPage = () => {
                                         </div>
 
                                         <div className="name-user">
-                                            <h5>{data?.lead?.leadName.toUpperCase()} {"("}Id: {data?.lead?.leadId}{")"}</h5>
+                                            <h5>{data?.lead?.leadName} {"("}Id: {data?.lead?.leadId}{")"}</h5>
                                             <p style={{ marginBottom: "0px" }}>
                                                 <i className="ti ti ti-mail-check me-1" />
                                                 {data?.lead?.leadEmail}
@@ -851,14 +852,14 @@ const TaskDetailsPage = () => {
                                                                     </span>
                                                                     <div className="activity-info">
                                                                         <h6>
-                                                                            Lead has been successfully assigned to
+                                                                            Task has been successfully assigned to
                                                                             <span className="avatar-xs">
                                                                                 <img
-                                                                                    src={lead?.attachment}
+                                                                                    src={lead?.assignedToImgUrl}
                                                                                     alt="img"
                                                                                 />
                                                                             </span>
-                                                                            {lead?.contactType}
+                                                                            {lead?.assignedToName}
                                                                         </h6>
                                                                         <p>{lead?.createdAtTime}</p>
                                                                         {
@@ -951,7 +952,7 @@ const TaskDetailsPage = () => {
                                                                                                     }
 
 
-                                                                                                    {lead?.taskDocument?.fileType === 'video' && lead?.taskDocument?.link && (
+                                                                                                    {/* {lead?.taskDocument?.fileType === 'video' && lead?.taskDocument?.link && (
                                                                                                         <div className="note-download">
                                                                                                             <div className="note-info">
                                                                                                                 <span className="note-icon">
@@ -959,6 +960,33 @@ const TaskDetailsPage = () => {
                                                                                                                         <source src={lead?.taskDocument?.link} type="video/mp4" />
                                                                                                                         Your browser does not support the video tag.
                                                                                                                     </video>
+                                                                                                                </span>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    )} */}
+
+                                                                                                    {lead?.taskDocument?.fileType === 'video' && lead?.taskDocument?.link && (
+                                                                                                        <div className="note-download">
+                                                                                                            <div className="note-info">
+                                                                                                                <span className="note-icon">
+                                                                                                                    {lead?.taskDocument?.link.includes("youtube.com") || lead?.taskDocument?.link.includes("youtu.be") ? (
+                                                                                                                        // YouTube video
+                                                                                                                        <iframe
+                                                                                                                            width="100%"
+                                                                                                                            height="100px"
+                                                                                                                            src={`https://www.youtube.com/embed/${getYouTubeVideoId(lead.taskDocument.link)}`}
+                                                                                                                            title="YouTube video player"
+                                                                                                                            frameBorder="0"
+                                                                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                                                                                            allowFullScreen
+                                                                                                                        ></iframe>
+                                                                                                                    ) : (
+                                                                                                                        // Non-YouTube video
+                                                                                                                        <video width="100%" height="100px" controls>
+                                                                                                                            <source src={lead.taskDocument.link} type="video/mp4" />
+                                                                                                                            Your browser does not support the video tag.
+                                                                                                                        </video>
+                                                                                                                    )}
                                                                                                                 </span>
                                                                                                             </div>
                                                                                                         </div>
@@ -996,7 +1024,6 @@ const TaskDetailsPage = () => {
                                                                     </div>
                                                                 </>
                                                             }
-
                                                             {
                                                                 lead.type == 'newTask' &&
                                                                 <>
@@ -1537,7 +1564,7 @@ const TaskDetailsPage = () => {
                                                                     }
 
 
-                                                                    {file?.taskDocument?.fileType === 'video' && file?.taskDocument?.link && (
+                                                                    {/* {file?.taskDocument?.fileType === 'video' && file?.taskDocument?.link && (
                                                                         <div className="note-download">
                                                                             <div className="note-info">
                                                                                 <span className="note-icon">
@@ -1546,6 +1573,34 @@ const TaskDetailsPage = () => {
                                                                                         Your browser does not support the video tag.
                                                                                     </video>
 
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    )} */}
+
+
+                                                                    {file?.taskDocument?.fileType === 'video' && file?.taskDocument?.link && (
+                                                                        <div className="note-download">
+                                                                            <div className="note-info">
+                                                                                <span className="note-icon">
+                                                                                    {file.taskDocument.link.includes("youtube.com") || file.taskDocument.link.includes("youtu.be") ? (
+                                                                                        // YouTube video
+                                                                                        <iframe
+                                                                                            width="100%"
+                                                                                            height="100px"
+                                                                                            src={`https://www.youtube.com/embed/${getYouTubeVideoId(file.taskDocument.link)}`}
+                                                                                            title="YouTube video player"
+                                                                                            frameBorder="0"
+                                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                                                            allowFullScreen
+                                                                                        ></iframe>
+                                                                                    ) : (
+                                                                                        // Non-YouTube video
+                                                                                        <video width="100%" height="100px" controls>
+                                                                                            <source src={file.taskDocument.link} type="video/mp4" />
+                                                                                            Your browser does not support the video tag.
+                                                                                        </video>
+                                                                                    )}
                                                                                 </span>
                                                                             </div>
                                                                         </div>
@@ -1646,7 +1701,11 @@ const TaskDetailsPage = () => {
 
                                     </ul>
                                     <h6>Assign To</h6>
-                                    <ul className=" other-info">
+                                    <ul className=" other-info"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#task_assigned_to"
+                                        style={{ cursor: 'pointer' }}
+                                    >
                                         <li>
                                             <span>
                                                 <img
@@ -1995,6 +2054,7 @@ const TaskDetailsPage = () => {
                                                         selected={selectedDate1}
                                                         onChange={handleDateChange1}
                                                         dateFormat="dd-MM-yyyy"
+                                                        minDate={new Date()}
                                                     />
                                                 </div>
                                             </div>
@@ -4046,6 +4106,12 @@ const TaskDetailsPage = () => {
             <TaskStatus
                 taskRecord={data}
                 fetchTaskData={fetchTaskDetails}
+            />
+
+            <AssignedTo
+                taskRecord={data}
+                fetchTaskData={handleRefresh}
+                staffOptions={[]}
             />
         </>
     );

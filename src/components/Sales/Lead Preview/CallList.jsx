@@ -7,8 +7,9 @@ import RescheduleCall from '../LeadDetails/RescheduleCall';
 import AddCallComment from '../LeadDetails/AddCallComment';
 
 
-const CallList = ({ data, index, fetchLeadFollowupData }) => {
-    const [followUpId, setFollowUp] = useState('');
+const CallList = ({ data, index, fetchLeadFollowupData, setFollowUp }) => {
+    console.log('index =>', index)
+  
 
     function getDate(value) {
         const isoDateString = value;
@@ -56,7 +57,6 @@ const CallList = ({ data, index, fetchLeadFollowupData }) => {
                                 a call on {getDate(data.callBackDate)}, {getTime(data.callBackTime)}
                             </p>
                         }
-
                         <span className="badge-day" style={{ fontSize: 'x-small', margin: '0', maxWidth: '8rem' }}>{getDate(data?.createdAt)},{getTime(data?.createdAt)}</span>
                     </div>
                 </div>
@@ -149,8 +149,7 @@ const CallList = ({ data, index, fetchLeadFollowupData }) => {
             }
         </div>
 
-        <AddCallComment fetchLeadFollowupData={fetchLeadFollowupData} followUpId={followUpId} />
-        <RescheduleCall fetchLeadFollowupData={fetchLeadFollowupData} leadDetails={data} />
+       
         
     </>)
 }

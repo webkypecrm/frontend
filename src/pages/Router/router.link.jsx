@@ -14,9 +14,10 @@ import LeadsPage from "../Sales/LeadsPage";
 import LeadsKanban from "../Sales/LeadsKanban";
 import LeadDetailsPage from "../Sales/LeadDetailsPage";
 
+import CustomerPage from "../Customer/CustomerPage";
 import CustomerList from "../Customer/CustomerList";
 import CustomerGrid from "../Customer/CustomerGrid";
-import CustomerDetails from "../Customer/CustomerDetails"
+import CustomerDetails from "../Customer/CustomerDetailsPage"
 
 import Companies from "../Subscription/Companies";
 import CompaniesGrid from "../Subscription/CompaniesGrid";
@@ -301,6 +302,10 @@ export const publicRoutes = [
     {
         path: route.leadsDetails,
         element: <LeadDetailsPage />
+    },
+    {
+        path: route.customers,
+        element: <CustomerPage />,
     },
     {
         path: route.customerList,
