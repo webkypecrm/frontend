@@ -242,8 +242,6 @@ const CustomerPage = () => {
                         {/* <CampaignStatus /> */}
                         {/* /Campaign Status */}
 
-
-
                         <div className="card main-card">
                             <div className="card-body">
                                 {/* Search */}

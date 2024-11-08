@@ -194,7 +194,7 @@ const SearchSection = ({
                                     </Link>
                                 </div>
                             </li>
-                            <li>
+                            {/* <li>
                                 <Link
                                     to="#"
                                     className="btn btn-primary add-popup"
@@ -203,7 +203,7 @@ const SearchSection = ({
                                     <i className="ti ti-square-rounded-plus" />
                                     Add Customer
                                 </Link>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
                 </div>

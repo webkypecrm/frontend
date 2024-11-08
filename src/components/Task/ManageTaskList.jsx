@@ -119,7 +119,7 @@ const ManageTaskList = ({
 
                     <Link to={`/task/task-details/${record.taskId}`}
                         className="profile-split d-flex flex-column">
-                        {text}
+                        {text.slice(0, 40)}
                     </Link>
                 </Link>
 
@@ -423,7 +423,7 @@ const ManageTaskList = ({
                     data-bs-target="#recent"
                 >
                     <h4>
-                        Recent<span>24</span>
+                        Recent<span>{data.length}</span>
                     </h4>
                 </Link>
 

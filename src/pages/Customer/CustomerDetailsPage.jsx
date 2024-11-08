@@ -294,7 +294,7 @@ const CustomerDetailsPage = () => {
                     <div className="row">
                         <div className="col-md-12">
                             {/* Page Header */}
-                            <PageHeader title="Lead Overview" />
+                            <PageHeader title="Customer Overview" />
                             {/* /Page Header */}
                         </div>
                     </div>
@@ -308,7 +308,7 @@ const CustomerDetailsPage = () => {
                                             <li>
                                                 <Link to={route.leads}>
                                                     <i className="ti ti-arrow-narrow-left" />
-                                                    Lead
+                                                    Customer
                                                 </Link>
                                             </li>
                                             <li>{data?.leadName}</li>

@@ -114,8 +114,9 @@ const ManageCustomerList = ({
             key: "customerId",
             render: (text, record, index) => (
                 <div className="table-avatar d-flex align-items-center" key={index}>
+                    {console.log("record =>", record)}
                     {record.customerPic ?
-                        <Link to={route.customerDetails} className="avatar">
+                        <Link to={`/sales/leads-details/${record?.convertedLeadId}`} className="avatar">
                             <img
                                 className="avatar-img"
                                 src={record?.customerPicUrl}
@@ -130,7 +131,7 @@ const ManageCustomerList = ({
                         </Link>
                     }
                     <Link
-                        to={route.customerDetails}
+                       to={`/sales/leads-details/${record?.convertedLeadId}`}
                         className="profile-split d-flex flex-column"
                     >
                         {record.customerName} <span>Id: {record.customerId}</span>
@@ -491,7 +492,7 @@ const ManageCustomerList = ({
         }
     })
 
-    console.log('data in LeadList =>', data)
+    // console.log('data in LeadList =>', data)
 
     return (
         <>

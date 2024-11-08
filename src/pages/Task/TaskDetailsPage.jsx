@@ -265,7 +265,7 @@ const TaskDetailsPage = () => {
                                                     Task
                                                 </Link>
                                             </li>
-                                            <li>{data?.taskTitle}</li>
+                                            <li>{data?.taskTitle.slice(0, 40)}</li>
                                         </ul>
                                     </div>
                                     <div className="col-sm-6 text-sm-end">
@@ -333,7 +333,95 @@ const TaskDetailsPage = () => {
 
 
                                     {/* Counter */}
-                                    <div className="name-user" style={{ paddingLeft: '25px', marginBottom: "22px", borderLeft: "0.3px solid #d8d4d4", borderRight: "0.3px solid #d8d4d4", paddingRight: "22px", fontSize: 'smaller', marginTop: '20px' }}>
+                                    <div
+                                        className="name-user"
+                                        style={{
+                                            paddingLeft: '25px',
+                                            paddingRight: '22px',
+                                            marginBottom: '22px',
+                                            marginTop: '20px',
+                                            borderLeft: '0.3px solid #d8d4d4',
+                                            borderRight: '0.3px solid #d8d4d4',
+                                            fontSize: 'smaller',
+                                        }}
+                                    >
+                                        <h5
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'start',
+                                                justifyContent: 'space-between',
+                                                gap: '2rem',
+                                                margin: '0px',
+                                                padding: '0px',
+                                                height: '26px',
+                                                marginBottom: '20px',
+                                            }}
+                                        >
+                                            <div
+                                                style={{
+                                                    overflow: 'hidden',
+                                                    textOverflow: 'ellipsis',
+                                                    flexGrow: 1, // Allows title to take available space but not overflow
+                                                    maxWidth: 'calc(100% - 100px)', // Reserve space for the icons
+                                                }}
+
+                                            >
+                                                {data?.taskTitle.slice(0, 40)}
+                                            </div>
+                                            <div style={{ display: 'flex', gap: '10px' }}>
+                                                <Link to={route.chat} className="btn-icon" aria-label="Chat">
+                                                    <i className="ti ti-brand-hipchat" />
+                                                </Link>
+                                                <Link
+                                                    to="#"
+                                                    className="btn-icon edit-popup"
+                                                    aria-label="Edit"
+                                                    onClick={() => setActivityToggle(!activityToggle)}
+                                                >
+                                                    <i className="ti ti-edit-circle" />
+                                                </Link>
+                                                <Link to="#" className="btn-icon rating" aria-label="Rating">
+                                                    <i className="fa-solid fa-star" />
+                                                </Link>
+                                                <div className="act-dropdown">
+                                                    <Link to="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i className="ti ti-dots-vertical" />
+                                                    </Link>
+                                                    <div className="dropdown-menu dropdown-menu-right">
+                                                        <Link
+                                                            className="dropdown-item"
+                                                            to="#"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#delete_contact"
+                                                        >
+                                                            <i className="ti ti-trash text-danger" />
+                                                            Delete
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </h5>
+
+                                        <p style={{ marginBottom: '0px' }}>
+                                            {data?.taskCategoryName} <i className="ti ti-arrow-narrow-right" /> {data?.taskSubCategoryName}
+                                        </p>
+
+                                        <div style={{ display: 'flex', gap: '30px' }}>
+                                            <p style={{ display: 'flex', alignItems: 'center' }}>
+                                                <i className="ti ti-calendar-month" /> {data?.startDate}
+                                            </p>
+                                            <p style={{ display: 'flex', alignItems: 'center' }}>
+                                                <i className="ti ti-calendar-month" /> {data?.endDate}
+                                            </p>
+                                        </div>
+
+
+                                    </div>
+
+
+
+
+                                    {/* <div className="name-user" style={{ paddingLeft: '25px', marginBottom: "22px", borderLeft: "0.3px solid #d8d4d4", borderRight: "0.3px solid #d8d4d4", paddingRight: "22px", fontSize: 'smaller', marginTop: '20px' }}>
                                         <h5 style={{ display: 'flex', alignItems: 'start', gap: '2rem', margin: "0px", padding: "0px", height: "26px", marginBottom: "20px" }}>{data?.taskTitle}
                                             <div style={{ display: 'flex' }}>
 
@@ -378,41 +466,7 @@ const TaskDetailsPage = () => {
                                             <p style={{ display: 'flex', alignItems: 'center', }}> <i className="ti ti-calendar-month" />  {data?.startDate}</p>
                                             <p style={{ display: 'flex', alignItems: 'center', }}> <i className="ti ti-calendar-month" /> {data?.endDate}</p>
                                         </div>
-
-                                        {/* <p style={{ display: 'flex' }}>
-                                            <span>
-                                                <img src={data?.createdByImgUrl} style={{
-                                                    objectFit: "cover",
-                                                    height: "32px",
-                                                    width: "32px",
-                                                    borderRadius: "50%",
-                                                    marginLeft: '5px',
-                                                    marginRight: '5px'
-                                                }} />
-                                            </span>
-                                            {data?.createdBy}, created on {getDate(data?.createdAt)},{getTime(data?.createdAt)} </p>
-                                        <p style={{ display: 'flex' }}>
-                                            <span>
-                                                <img src={data?.assignedToImg} style={{
-                                                    objectFit: "cover",
-                                                    height: "32px",
-                                                    width: "32px",
-                                                    borderRadius: "50%",
-                                                    marginLeft: '5px',
-                                                    marginRight: '5px'
-                                                }} />
-                                            </span>
-                                            {data?.assignedTo}, assigned on {getDate(data?.createdAt)},{getTime(data?.createdAt)} </p> */}
-                                        {/* <p>
-                                            Connected to: {data?.lead?.leadName} || {data?.lead?.leadEmail} || {data?.lead?.leadMobile1}
-                                        </p> */}
-
-                                        {/* <div className="badge-rate">
-                                            <p>
-                                                <i className="fa-solid fa-star" /> 5.0
-                                            </p>
-                                        </div> */}
-                                    </div>
+                                    </div> */}
 
 
 
@@ -1673,6 +1727,21 @@ const TaskDetailsPage = () => {
                         <div className="col-xl-3 theiaStickySidebar">
                             <div className="stickybar">
                                 <div className="contact-sidebar">
+
+                                    <div className="con-sidebar-title">
+                                        <h6>Task Details</h6>
+                                    </div>
+                                    <ul className="other-info">
+                                        <li>
+                                            <span className="other-title">Task Title</span>
+                                            <span>{data?.taskTitle}</span>
+                                        </li>
+                                        <li>
+                                            <span className="other-title">Description</span>
+                                            <span>{data?.description}</span>
+                                        </li>                                       
+                                    </ul>
+
                                     <div className="con-sidebar-title">
                                         <h6>Created By</h6>
                                     </div>
@@ -1729,17 +1798,7 @@ const TaskDetailsPage = () => {
                                         </li> */}
 
                                     </ul>
-                                    {/* <h6>Tags</h6>
-                                    <ul className="tag-info">
-                                        {data?.tags.map((tag, index) => <li key={index}>
-                                            <Link
-                                                to="#"
-                                                className="badge badge-tag badge-success-light"
-                                            >
-                                                {tag}
-                                            </Link>
-                                        </li>)}
-                                    </ul> */}
+
                                     {/* <div className="con-sidebar-title">
                                         <h6>Company</h6>
                                         <Link to="#" className="com-add add-popups">

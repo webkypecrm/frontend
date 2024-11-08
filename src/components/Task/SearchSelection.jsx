@@ -21,6 +21,7 @@ const SearchSelection = ({
     const [debouncedTerm, setDebouncedTerm] = useState(searchTerm);
     const [manageColumnsSlider, setManageColumnsSlider] = useState(false);
     const route = all_routes;
+    const staffType = localStorage.getItem('type') || '';
 
     const handleManageColumns = (name) => {
         onManageColumns((prev) => ({
@@ -165,18 +166,21 @@ const SearchSelection = ({
                                     </Link>
                                 </div>
                             </li>
-                            <li>
-                                <Link
-                                    to="#"
-                                    className="btn btn-primary add-popup"
-                                    onClick={() =>
-                                        setActivityToggle(prev => !prev)
-                                    }
-                                >
-                                    <i className="ti ti-square-rounded-plus" />
-                                    Add New Task
-                                </Link>
-                            </li>
+                            {staffType === 1 &&
+                                <li>
+                                    <Link
+                                        to="#"
+                                        className="btn btn-primary add-popup"
+                                        onClick={() =>
+                                            setActivityToggle(prev => !prev)
+                                        }
+                                    >
+                                        <i className="ti ti-square-rounded-plus" />
+                                        Add New Task
+                                    </Link>
+                                </li>
+                            }
+
                         </ul>
                     </div>
                 </div>

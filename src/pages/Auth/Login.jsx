@@ -12,7 +12,7 @@ const Login = () => {
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const [isSelected, setIsSelected] = useState({
     admin: false,
-    user: false
+    user: true
   });
   const navigate = useNavigate();
 
@@ -98,7 +98,7 @@ const Login = () => {
                   })
                 }}>
                   <img src="assets/img/authentication/admin.png" className={`  ${isSelected.admin === true ? "select_type" : "btn btn-help"}`} />
-                  <p style={{ textAlign: 'center' }}>Admin</p>
+                  <p style={{ textAlign: 'center', color:`${isSelected.admin === true ? 'red' : ""}` }}>Admin</p>
                 </div>
                 <div className="login_admin_img " onClick={() => {
                   setIsSelected({
@@ -107,7 +107,7 @@ const Login = () => {
                   })
                 }} >
                   <img src="assets/img/authentication/user.png" className={`  ${isSelected.user === true ? "select_type" : "btn btn-help"}`} />
-                  <p style={{ textAlign: 'center' }}>User</p>
+                  <p style={{ textAlign: 'center', color:`${isSelected.user === true ? 'red' : ""}` }}>User</p>
                 </div>
               </div>
 
