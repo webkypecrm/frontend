@@ -166,7 +166,7 @@ const SearchSelection = ({
                                     </Link>
                                 </div>
                             </li>
-                            {staffType === 1 &&
+                            {staffType == "1" &&
                                 <li>
                                     <Link
                                         to="#"
