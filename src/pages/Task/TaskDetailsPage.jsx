@@ -437,7 +437,7 @@ const TaskDetailsPage = () => {
                                 </div>
 
 
-                                <div className="col-md-3" >
+                                <div className="col-md-3" style={{ width: "23rem" }} >
                                     <div className="contact-profile">
                                         <div
                                             className="avatar company-avatar"
