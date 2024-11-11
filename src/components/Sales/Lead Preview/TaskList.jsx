@@ -36,22 +36,15 @@ const TaskList = ({ data, onTaskToggle }) => {
         >
             <ul>
                 <li className="task-wrap  success">
-                    <Link to={`/task/task-details/${data.taskId}`}     className="task-info">
+                    <Link to={`/task/task-details/${data.taskId}`} className="task-info">
                         <span className="task-icon">
                             <i className="ti ti-grip-vertical" />
-                        </span>
-                        {/* <div className="task-checkbox">
-                            <label className="checkboxs">
-                                <input type="checkbox" />
-                                <span className="checkmarks" />
-                            </label>
-                        </div> */}
+                        </span>                      
                         <div className="set-star rating-select">
                             <i className="fa fa-star" />
                         </div>
-                        <p>
-                            {/* <del>Use border radius as 5px or 10 px</del> */}
-                            {data?.description}
+                        <p>                            
+                            {data?.taskTitle}
                         </p>
                         <span className="badge badge-pill badge-status bg-blue">
                             <i className="ti ti-subtask" />
@@ -85,9 +78,11 @@ const TaskList = ({ data, onTaskToggle }) => {
                     <div className="task-actions">
                         <ul>
                             <li className="task-time">
-                                {data?.tags.map((tag) => <span key={tag} className="badge badge-tag badge-success-light" style={{marginRight:'5px'}}>
-                                    {tag}
-                                </span>)}
+                                {data?.tags.map((tag) =>
+                                    <span key={tag} className="badge badge-tag badge-success-light"
+                                        style={{ marginRight: '5px' }}>
+                                        {tag}
+                                    </span>)}
                             </li>
                             <li className="task-date">
                                 <i className="ti ti-calendar-exclamation" />

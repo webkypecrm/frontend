@@ -50,6 +50,7 @@ const CustomerPage = () => {
         "Tags": true,
         "Value": false,
         "Owner": true,
+        "Assigned Staff": true,
         // "Assign To": true,
         // "Updates": true,
         "Created Date": true,

@@ -348,13 +348,12 @@ const CustomerDetailsPage = () => {
                                                 {data?.leadName[0]}{data?.leadName[data?.leadName?.length - 1]}
                                             </span>
                                         }
-
                                     </div>
 
                                     <div className="name-user">
                                         <h5>{data?.leadName.toUpperCase()} {"("}Id: {data?.leadId}{")"}</h5>
                                         <p style={{ marginBottom: "0px" }}>
-                                            <i className="ti ti ti-mail-check me-1" />
+                                            <i className="ti ti ti-mail-check me-1"/>
                                             {data?.leadEmail}
                                         </p>
                                         <p style={{ marginBottom: "0px" }}>
@@ -376,7 +375,6 @@ const CustomerDetailsPage = () => {
                                     <Link to="#" className="btn-icon rating">
                                         <i className="fa-solid fa-star" />
                                     </Link>
-
                                     <OverlayTrigger
                                         placement="bottom"
                                         overlay={<Tooltip id="assign-to-tooltip">Assign To</Tooltip>}

@@ -273,40 +273,47 @@ const AddTask = ({
                                 </div>
 
                                 <div className="col-md-4">
-                                    <label className="col-form-label">
-                                        Start Date <span className="text-danger">*</span>
-                                    </label>
-                                    <div className="form-wrap icon-form">
-                                        <span className="form-icon">
-                                            <i className="ti ti-calendar-check" />
-                                        </span>
-                                        <DatePicker
-                                            className="form-control datetimepicker deals-details"
-                                            selected={formData.startDate}
-                                            onChange={handleDateChange}
-                                            dateFormat="dd-MM-yyyy"
-                                            minDate={new Date()}
-                                        />
+                                    <div className="form-wrap">
+                                        <label className="col-form-label">
+                                            Start Date <span className="text-danger"> *</span>
+                                        </label>
+                                        <div className="icon-form">
+                                            <span className="form-icon">
+                                                <i className="ti ti-calendar-check" />
+                                            </span>
+                                            <DatePicker
+                                                className="form-control datetimepicker deals-details"
+                                                selected={formData.startDate}
+                                                onChange={(date) => handleDateChange(date)}
+                                                dateFormat="dd-MM-yyyy"
+                                                minDate={new Date()}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
 
+                               
+
                                 <div className="col-md-4">
-                                    <label className="col-form-label">
-                                        Due Date <span className="text-danger">*</span>
-                                    </label>
-                                    <div className="form-wrap icon-form">
-                                        <span className="form-icon">
-                                            <i className="ti ti-calendar-check" />
-                                        </span>
-                                        <DatePicker
-                                            className="form-control datetimepicker deals-details"
-                                            selected={formData.endDate}
-                                            onChange={handleDateChange1}
-                                            dateFormat="dd-MM-yyyy"
-                                            minDate={new Date()}
-                                        />
+                                    <div className="form-wrap">
+                                        <label className="col-form-label">
+                                            End Date <span className="text-danger"> *</span>
+                                        </label>
+                                        <div className="icon-form">
+                                            <span className="form-icon">
+                                                <i className="ti ti-calendar-check" />
+                                            </span>
+                                            <DatePicker
+                                                className="form-control datetimepicker deals-details"
+                                                selected={formData.endDate}
+                                                onChange={(date) => handleDateChange1(date)}
+                                                dateFormat="dd-MM-yyyy"
+                                                minDate={new Date()}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
+
 
                                 <div className="col-md-4">
                                     <div className="form-wrap">

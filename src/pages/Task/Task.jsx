@@ -1413,9 +1413,6 @@ const Task = () => {
 
                                         </div>
                                     </div>
-
-
-
                                     <div className="col-md-12">
                                         <div className="form-wrap">
                                             <label className="col-form-label">

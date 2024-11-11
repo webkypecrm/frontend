@@ -134,7 +134,7 @@ const Sidebar = ({ setExpandMenu }) => {
                                         <span className="menu-arrow"></span></Link>
                                     {openMenus['task'] &&
                                         <ul>
-                                            <li><Link to={route.tasks}>Task Category</Link></li>
+                                            <li><Link to={route.tasks}>Manage Task</Link></li>
                                             <li><Link to={route.tasks}>New Tasks</Link></li>
                                             <li><Link to={route.tasks}>Assigned Tasks </Link></li>
                                             <li><Link to={route.tasks}>Open Tasks</Link></li>

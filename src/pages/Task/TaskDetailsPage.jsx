@@ -288,10 +288,201 @@ const TaskDetailsPage = () => {
                                 </div>
                             </div>
 
-                            <div className="contact-wrap" style={{ paddingTop: '0px', paddingBottom: '0px' }}>
-                                <div className="contact-profile" style={{ width: "820px" }}>
+                            <div className="contact-wrap">
 
-                                    {/* Counter */}
+
+
+                                <div className="col-md-2" style={{ display: 'flex', alignItems: 'center' }} >
+                                    <div className="card" style={{ boxShadow: "none" }}>
+                                        <div className="card-header" style={{
+                                            borderBottom: "none",
+                                            padding: "10px 10px",
+                                            paddingBottom: "0px"
+                                        }}>
+                                            <span className="text-icon">
+                                                <img src="https://media.lordicon.com/icons/wired/gradient/45-clock-time.gif" style={{ maxWidth: "64%", margin: '1rem' }} />
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div className="col-md-1">
+                                    <div className="card" style={{
+                                        boxShadow: "none",
+                                        width: "8rem",
+                                        height: "auto"
+                                    }}>
+                                        <div className="card-body"
+                                            style={{
+                                                boxShadow: "none",
+                                                fontSize: "0.9rem",
+                                                padding: "5px",
+                                                color: "#d84b4b",
+                                                textAlign: "center",
+                                                marginLeft: "-41px"
+                                            }}
+                                        >
+                                            {data?.endDate &&
+                                                <TaskTimer
+                                                    startDate={String(data?.startDate)}
+                                                    endDate={String(data?.endDate)}
+                                                />
+                                            }
+                                            <p style={{ margin: '0px', color: 'green' }}>IN PROCESS</p>
+                                            <p className="badge badge-tag badge-danger-light" > Priority: {data?.priority}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style={{
+                                    width: "1px",
+                                    height: "200px",
+                                    backgroundColor: "#ddd",
+                                    margin: "0 20px",
+                                }}>
+
+                                </div>
+
+                                <div className="col-md-4"
+                                    style={{
+                                        position: 'relative',
+                                        top: '-18px',
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'flex-start',
+
+                                    }}
+                                >
+
+                                    <div>
+                                        <h5 >
+                                            {data?.taskTitle.slice(0, 40)}
+                                        </h5>
+
+                                        <ul style={{ marginTop: '5px' }}>
+                                            <li>{data?.taskCategoryName} <i className="ti ti-arrow-narrow-right" /> {data?.taskSubCategoryName}</li>
+                                            <li style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                                                <span style={{ display: 'flex', alignItems: 'center' }}>
+                                                    <i className="ti ti-calendar-month" /> {data?.startDate}
+                                                </span>
+                                                <i className="ti ti-arrow-narrow-right" />
+                                                <span style={{ display: 'flex', alignItems: 'center' }}>
+                                                    <i className="ti ti-calendar-month" /> {data?.endDate}
+                                                </span>
+                                            </li>
+                                            <li>
+
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div style={{
+                                        display: 'flex',
+                                        float: 'right',
+                                        position: "relative",
+                                        right: "-20px"
+                                    }}>
+                                        <Link to={route.chat} className="btn-icon" aria-label="Chat">
+                                            <i className="ti ti-brand-hipchat" />
+                                        </Link>
+                                        <Link
+                                            to="#"
+                                            className="btn-icon edit-popup"
+                                            aria-label="Edit"
+                                            onClick={() => setActivityToggle(!activityToggle)}
+                                        >
+                                            <i className="ti ti-edit-circle" />
+                                        </Link>
+                                        <Link to="#" className="btn-icon rating" aria-label="Rating">
+                                            <i className="fa-solid fa-star" />
+                                        </Link>
+                                        <div className="act-dropdown">
+                                            <Link to="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i className="ti ti-dots-vertical" />
+                                            </Link>
+                                            <div className="dropdown-menu dropdown-menu-right">
+                                                <Link
+                                                    className="dropdown-item"
+                                                    to="#"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#delete_contact"
+                                                >
+                                                    <i className="ti ti-trash text-danger" />
+                                                    Delete
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                                </div>
+
+                                <div style={{
+                                    width: "1px",
+                                    height: "200px",
+                                    backgroundColor: "#ddd",
+                                    margin: "0 20px",
+                                }}>
+                                </div>
+
+
+                                <div className="col-md-3" >
+                                    <div className="contact-profile">
+                                        <div
+                                            className="avatar company-avatar"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#add-lead-image"
+                                            style={{ cursor: 'pointer' }}
+                                        >
+                                            {/* {data?.leadPicUrl ? */}
+                                            <img src="https://png.pngtree.com/png-vector/20240402/ourmid/pngtree-young-man-wearing-glasses-icon-png-image_12258730.png" alt="lead image" />
+                                            :
+                                            {/* <span className="text-icon">
+                                                {data?.leadName[0]}{data?.lead?.leadName[data?.leadName?.length - 1]}
+                                            </span>
+                                        } */}
+
+                                        </div>
+
+                                        <div className="name-user">
+                                            <h5>{data?.lead?.leadName} {"("}Id: {data?.lead?.leadId}{")"}</h5>
+                                            <p style={{ marginBottom: "0px" }}>
+                                                <i className="ti ti ti-mail-check me-1" />
+                                                {data?.lead?.leadEmail}
+                                            </p>
+                                            <p style={{ marginBottom: "0px" }}>
+                                                <i className="ti ti-phone me-1" />
+                                                {data?.lead?.leadMobile1}
+                                            </p>
+                                            <p style={{ marginBottom: "0px" }}>
+                                                <i className="ti ti-map-pin-pin me-1" />
+                                                {data?.lead?.country?.name}, {data?.lead?.state?.name}
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            {/* <div className="contact-wrap" style={{ paddingTop: '0px', paddingBottom: '0px' }}>
+                                <div className="contact-profile" style={{ width: "820px" }}>
+                                   
                                     <div className="col-md-3" style={{ marginRight: '-25px' }}>
                                         <div className="card" style={{ boxShadow: "none" }}>
                                             <div className="card-header" style={{
@@ -325,14 +516,10 @@ const TaskDetailsPage = () => {
                                                 }
                                                 <p style={{ margin: '0px', color: 'green' }}>IN PROCESS</p>
                                                 <p className="badge badge-tag badge-danger-light" > Priority: {data?.priority}</p>
-                                                {/* <p className="badge badge-tag badge-success-light" style={{ marginLeft: "2px" }}>Status: {data?.status}</p> */}
                                             </div>
                                         </div>
                                     </div>
 
-
-
-                                    {/* Counter */}
                                     <div
                                         className="name-user"
                                         style={{
@@ -354,7 +541,7 @@ const TaskDetailsPage = () => {
                                                 margin: '0px',
                                                 padding: '0px',
                                                 height: '26px',
-                                                marginBottom: '20px',
+                                                marginBottom: '10px',
                                             }}
                                         >
                                             <div
@@ -401,11 +588,9 @@ const TaskDetailsPage = () => {
                                                 </div>
                                             </div>
                                         </h5>
-
-                                        <p style={{ marginBottom: '0px' }}>
+                                        <p style={{ marginBottom: '0px', maringTop: '5px' }}>
                                             {data?.taskCategoryName} <i className="ti ti-arrow-narrow-right" /> {data?.taskSubCategoryName}
                                         </p>
-
                                         <div style={{ display: 'flex', gap: '30px' }}>
                                             <p style={{ display: 'flex', alignItems: 'center' }}>
                                                 <i className="ti ti-calendar-month" /> {data?.startDate}
@@ -414,62 +599,7 @@ const TaskDetailsPage = () => {
                                                 <i className="ti ti-calendar-month" /> {data?.endDate}
                                             </p>
                                         </div>
-
-
                                     </div>
-
-
-
-
-                                    {/* <div className="name-user" style={{ paddingLeft: '25px', marginBottom: "22px", borderLeft: "0.3px solid #d8d4d4", borderRight: "0.3px solid #d8d4d4", paddingRight: "22px", fontSize: 'smaller', marginTop: '20px' }}>
-                                        <h5 style={{ display: 'flex', alignItems: 'start', gap: '2rem', margin: "0px", padding: "0px", height: "26px", marginBottom: "20px" }}>{data?.taskTitle}
-                                            <div style={{ display: 'flex' }}>
-
-                                                <Link to={route.chat} className="btn-icon">
-                                                    <i className="ti ti-brand-hipchat" />
-                                                </Link>
-                                                <Link
-                                                    to="#"
-                                                    className="btn-icon edit-popup"
-                                                    onClick={() =>
-                                                        setActivityToggle(!activityToggle)
-                                                    }
-                                                >
-                                                    <i className="ti ti-edit-circle" />
-                                                </Link>
-                                                <Link to="#" className="btn-icon rating">
-                                                    <i className="fa-solid fa-star" />
-                                                </Link>
-                                                <div className="act-dropdown">
-                                                    <Link
-                                                        to="#"
-                                                        data-bs-toggle="dropdown"
-                                                        aria-expanded="false"
-                                                    >
-                                                        <i className="ti ti-dots-vertical" />
-                                                    </Link>
-                                                    <div className="dropdown-menu dropdown-menu-right">
-                                                        <Link
-                                                            className="dropdown-item"
-                                                            to="#"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#delete_contact"
-                                                        >
-                                                            <i className="ti ti-trash text-danger" />
-                                                            Delete
-                                                        </Link>
-                                                    </div>
-                                                </div>
-                                            </div> </h5>
-                                        <p style={{ marginBottom: "0px" }}>{data?.taskCategoryName} <i className="ti ti-arrow-narrow-right" /> {data?.taskSubCategoryName}</p>
-                                        <div style={{ display: 'flex', gap: '30px' }}>
-                                            <p style={{ display: 'flex', alignItems: 'center', }}> <i className="ti ti-calendar-month" />  {data?.startDate}</p>
-                                            <p style={{ display: 'flex', alignItems: 'center', }}> <i className="ti ti-calendar-month" /> {data?.endDate}</p>
-                                        </div>
-                                    </div> */}
-
-
-
 
                                 </div>
                                 <div className="contacts-action" style={{ display: 'grid', marginRight: '4rem', marginBottom: '22px', fontSize: 'smaller' }}>
@@ -480,13 +610,10 @@ const TaskDetailsPage = () => {
                                             data-bs-target="#add-lead-image"
                                             style={{ cursor: 'pointer' }}
                                         >
-                                            {/* {data?.leadPicUrl ? */}
+                                            
                                             <img src="https://png.pngtree.com/png-vector/20240402/ourmid/pngtree-young-man-wearing-glasses-icon-png-image_12258730.png" alt="lead image" />
                                             :
-                                            {/* <span className="text-icon">
-                                                {data?.leadName[0]}{data?.lead?.leadName[data?.leadName?.length - 1]}
-                                            </span>
-                                        } */}
+                                           
 
                                         </div>
 
@@ -504,106 +631,17 @@ const TaskDetailsPage = () => {
                                                 <i className="ti ti-map-pin-pin me-1" />
                                                 {data?.lead?.country?.name}, {data?.lead?.state?.name}, {data?.lead?.city?.name}
                                             </p>
-                                            {/* <div className="badge-rate">
-                                            <p>
-                                                <i className="fa-solid fa-star" /> 5.0
-                                            </p>
-                                        </div> */}
                                         </div>
 
                                     </div>
 
-                                    {/* <div className="col-xl-12 theiaStickySidebar" style={{ boxShadow: "none" }}>
-                                        <div className="stickybar">
-                                            <div className="contact-sidebar">
-                                                <div className="con-sidebar-title">
-                                                    <h6>Lead Information</h6>
-                                                </div>
-                                                <ul className=" other-info">
-                                                    <li>
-                                                        <span>
-                                                            <img
-                                                                src={data?.createdByImgUrl}
-                                                                alt="img"
-                                                                style={{ objectFit: 'cover', height: '32px', width: '32px', borderRadius: '50%' }}
-                                                            />
-                                                        </span>
-                                                        <div style={{
-                                                            position: "relative",
-                                                            top: " 0.5rem",
-                                                            paddingLeft: "0.3rem"
-                                                        }}>
-                                                            <h6>{data?.lead?.leadName}</h6>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <span className="other-title">Created Date</span>
-                                                        <span>{getDate(data?.createdAt)}, {getTime(data?.createdAt)}</span>
-                                                    </li>
-                                                    <li>
-                                                        <span className="other-title">{data?.lead?.leadEmail}</span>                                            
-                                                    </li>
-                                                    <li>
-                                                        <span className="other-title">{data?.lead?.leadMobile1}</span>                                                       
-                                                    </li>
-                                                </ul>
-                                               
-                                            
-                                            </div>
 
-
-                                        </div>
-                                    </div> */}
-                                    {/* <Link
-                                        to="#"
-                                        className="btn btn-primary"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#add_compose"
-                                    >
-                                        <i className="ti ti-user" />
-                                        Assign To
-                                    </Link> */}
-
-
-                                    {/* <OverlayTrigger
-                                        placement="bottom"
-                                        overlay={<Tooltip id="mark-meeting-tooltip">Task Status</Tooltip>}
-                                    >
-                                        <Link
-                                            to="#"
-                                            className={`btn btn-success add-popup
-                                            ${data?.status == 'open' && "bg-info"}
-                                            ${data?.status == 'pending' && "bg-pending"}
-                                            ${data?.status == 'resolved' && "bg-success"}
-                                            ${data?.status == 'closed' && "bg-danger"}
-                                            `}
-                                            // onClick={() =>
-                                            //     setActivityToggle(!activityToggle)
-                                            // }
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#task_stage_update"
-                                        >
-                                            <i className="ti ti-circle-plus" />
-                                            {data?.status.charAt(0).toUpperCase() + data?.status.slice(1)}
-                                        </Link>
-
-                                    </OverlayTrigger> */}
-
-
-
-
-                                    {/* <div id="task-type">
-                                        <Chart
-                                            series={chartOptions1.series}
-                                            options={chartOptions1}
-                                            type="donut"
-                                        />
-                                    </div> */}
 
                                 </div>
 
 
-                            </div>
+                            </div> */}
+
                             {/* /Contact User */}
                         </div>
                         {/* Contact Details */}
@@ -1739,7 +1777,7 @@ const TaskDetailsPage = () => {
                                         <li>
                                             <span className="other-title">Description</span>
                                             <span>{data?.description}</span>
-                                        </li>                                       
+                                        </li>
                                     </ul>
 
                                     <div className="con-sidebar-title">
@@ -1913,7 +1951,7 @@ const TaskDetailsPage = () => {
                         {/* /Contact Sidebar */}
                     </div>
                 </div>
-            </div>
+            </div >
             {/* /Page Wrapper */}
 
             {/* Not Use */}

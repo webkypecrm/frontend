@@ -405,7 +405,6 @@ const ManageLeadList = ({
             render: (text) => {
                 return <span>₹ {text}</span>
             }
-
         },
         {
             title: "Owner",

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 const TaskTimer = ({ startDate, endDate }) => {
+
     const calculateRemainingTime = () => {
         const now = new Date();
-        const end = new Date(endDate);
+        const end = new Date(endDate+"T00:00:00");
         const totalSeconds = Math.max((end - now) / 1000, 0);
 
         const days = Math.floor(totalSeconds / (24 * 3600));

@@ -218,6 +218,33 @@ const ManageCustomerList = ({
             sorter: (a, b) => a.owner.length - b.owner.length,
         },
         {
+            title: "Assigned Staff",
+            dataIndex: "assignedStaff",
+            key: "customerId",
+            render: (text, record, index) => (
+                <div className="table-avatar d-flex align-items-center" key={index}>
+                    {record.assignedStaffImg ?
+                        <Link to={route.customerDetails} className="avatar">
+                            <img
+                                className="avatar-img"
+                                src={record?.assignedStaffImgUrl}
+                            // alt={text}
+                            />
+                        </Link>
+                        :
+                        <i className="ti ti-user" />
+                    }
+                    <Link
+                        to={route.customerDetails}
+                        className="profile-split d-flex flex-column"
+                    >
+                        {record.assignedStaff}
+                    </Link>
+                </div>
+            ),
+            sorter: (a, b) => a.owner.length - b.owner.length,
+        },
+        {
             title: "Company Name",
             dataIndex: "leadId",
             key: "leadId",
